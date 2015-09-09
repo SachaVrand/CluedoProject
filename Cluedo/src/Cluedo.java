@@ -18,7 +18,7 @@ public class Cluedo
 			switch(cmd)
 			{
 			case "solo" :
-				System.out.println("Lancement d'une partie solo");
+				System.out.println("clément noob");
 				break;
 			case "help" :
 				afficherAide();
