@@ -18,6 +18,7 @@ public class Cluedo
 			switch(cmd)
 			{
 			case "solo" :
+				System.out.println("Sacha est un noob");
 				break;
 			case "help" :
 				afficherAide();
