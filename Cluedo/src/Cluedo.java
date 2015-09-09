@@ -20,6 +20,7 @@ public class Cluedo
 			case "solo" :
 				System.out.println("yolo");
 				System.out.println("Sacha est un noob");
+				System.out.println("Sacha est un noob22222");
 				System.out.println("Hannnnnnnnnnnnnnnnnnn");
 				break;
 			case "help" :
