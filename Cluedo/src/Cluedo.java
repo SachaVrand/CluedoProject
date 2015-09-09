@@ -7,6 +7,8 @@ public class Cluedo
 		String cmd = "";
 		Scanner sc = new Scanner(System.in);
 		
+		
+		
 		System.out.println("Cluedo 0.1");
 		System.out.println("Taper 'help' pour plus d'informations");
 		
@@ -16,6 +18,7 @@ public class Cluedo
 			switch(cmd)
 			{
 			case "solo" :
+				System.out.println("Lancement d'une partie solo");
 				break;
 			case "help" :
 				afficherAide();
