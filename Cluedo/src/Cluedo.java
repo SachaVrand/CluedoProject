@@ -18,6 +18,7 @@ public class Cluedo
 			case "solo" :
 				break;
 			case "help" :
+				afficherAide();
 				break;
 			case "exit" :
 				break;
@@ -29,7 +30,7 @@ public class Cluedo
 		System.exit(0);
 	}
 	
-	private void afficherAide()
+	private static void afficherAide()
 	{
 		System.out.println("solo");
 		System.out.println("\t Commencer une partie solo (Humain + Ordinateur)\n");
