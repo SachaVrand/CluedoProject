@@ -1,3 +1,4 @@
+import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -74,12 +75,12 @@ public class Partie {
 		paquet.remove(y);
 		paquet.remove(z);
 		
-		for(int i = 0, j = joueursPartie.size(); i < paquet.size() ; i++)
+		for(int i = 0, j = joueursPartie.size() - 1; i < paquet.size(); i++)
 		{
 			joueursPartie.get(j).ajouterCarte(paquet.get(i));
 			j--;
 			if(j == -1)
-				j = joueursPartie.size();
+				j = joueursPartie.size() - 1;
 		}
 		
 	}
