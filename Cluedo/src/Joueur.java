@@ -9,12 +9,12 @@ public abstract class Joueur {
 	private List<Carte> cartesJoueur;
 	private List<String> suggestionsFaites;
 	
-	public Joueur(String nom, String adresse, List<Carte> cartesJoueur)
+	public Joueur(String nom, String adresse)
 	{
 		this.nom = nom;
 		this.adresse = adresse;
 		this.encoreEnJeu = true;
-		this.cartesJoueur = cartesJoueur;
+		this.cartesJoueur = new ArrayList<Carte>();
 		this.suggestionsFaites = new ArrayList<String>();
 	}
 	
@@ -33,9 +33,19 @@ public abstract class Joueur {
 		this.suggestionsFaites.add(uneSuggestionFaite);
 	}
 	
+	public void ajouterCarte(Carte c)
+	{
+		this.cartesJoueur.add(c);
+	}
+	
 	public boolean getEncoreEnJeu()
 	{
 		return this.encoreEnJeu;
+	}
+	
+	public String getNom()
+	{
+		return this.nom;
 	}
 
 }
