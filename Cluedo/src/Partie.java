@@ -74,7 +74,7 @@ public class Partie {
 		paquet.remove(y);
 		paquet.remove(z);
 		
-		for(int i = 0- 1, j = joueursPartie.size(); i < paquet.size() ; i++)
+		for(int i = 0, j = joueursPartie.size(); i < paquet.size() ; i++)
 		{
 			joueursPartie.get(j).ajouterCarte(paquet.get(i));
 			j--;
