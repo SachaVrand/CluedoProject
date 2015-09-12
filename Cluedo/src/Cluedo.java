@@ -6,23 +6,25 @@ import java.util.Scanner;
 
 public class Cluedo
 {
-	public static void main(String[] args) throws UnknownHostException
+	public static void main(String[] args)
 	{
 		String cmd = "";
 		Scanner sc = new Scanner(System.in);
 		
-		
-		
 		System.out.println("Cluedo 0.1");
 		System.out.println("Taper 'aide' pour plus d'informations");
 		
-		while(cmd.equalsIgnoreCase("quitter"))
+		while(!cmd.equalsIgnoreCase("quitter"))
 		{
 			cmd = sc.next();
 			switch(cmd)
 			{
 			case "solo" :
-				lancerPartieSolo();
+				List<Joueur> listJoueur = menuPartieSolo();
+				if(listJoueur.size() != 0)
+				{
+					lancerPartieSolo(listJoueur);
+				}
 				break;
 			case "hote" :
 				break;
@@ -30,8 +32,6 @@ public class Cluedo
 				break;
 			case "aide" :
 				afficherAide();
-				break;
-			case "quitter" :
 				break;
 			default :
 				System.out.println("Mauvaise commande");
@@ -59,20 +59,41 @@ public class Cluedo
 		System.out.println("\t Afficher ce message.\n");
 	}
 	
-	private static void lancerPartieSolo() throws UnknownHostException
+	private static List<Joueur> menuPartieSolo()
 	{
-		List<Joueur> joueursPartie = new ArrayList<Joueur>();
+		System.out.println("Mode solo\n");
+		System.out.println("Veuillez choisir le nombre de joueurs pour cette partie (3 à 6 joueurs).");
+		System.out.println("0 pour retourner au menu principal.");
 		
-		try
+		List<Joueur> joueursPartie = new ArrayList<Joueur>();
+		String cmd = "";
+		Scanner sc = new Scanner(System.in);
+		
+		while(cmd != "0")
 		{
-			InetAddress ip = InetAddress.getLocalHost();
-			Joueur hote = new Humain("Joueur", ip.getHostAddress()); // récupérer l'adresse IP de la machine
-			joueursPartie.add(hote);
+			cmd = sc.next();
+			if(cmd == "3" || cmd == "4" || cmd == "5" || cmd == "6")
+			{
+				Joueur joueur = new Humain("Joueur 0", "0");
+				joueursPartie.add(joueur);
+				
+				for(int i = 1; i < Integer.parseInt(cmd); i++)
+				{
+					joueursPartie.add(new Humain("Joueur"+Integer.toString(i), Integer.toString(i)));
+				}
+				break;
+			}
+			else
+			{
+				System.out.println("Mauvaise commande.");
+			}
 		}
-		catch(UnknownHostException e)
-		{
-			e.printStackTrace();
-		}
+		sc.close();
+		return joueursPartie;
 	}
 
+	private static void lancerPartieSolo(List<Joueur> listJoueur)
+	{
+		
+	}
 }
