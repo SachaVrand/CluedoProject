@@ -1,5 +1,3 @@
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -14,7 +12,7 @@ public class Cluedo
 		System.out.println("Cluedo 0.1");
 		System.out.println("Taper 'aide' pour plus d'informations");
 		
-		while(!cmd.equalsIgnoreCase("quitter"))
+		while(!cmd.equals("quitter"))
 		{
 			cmd = sc.next();
 			switch(cmd)

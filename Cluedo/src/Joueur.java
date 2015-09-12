@@ -3,11 +3,10 @@ import java.util.List;
 
 public abstract class Joueur {
 	
-	private String nom;
-	private String adresse;
-	private Boolean encoreEnJeu;
-	private List<Carte> cartesJoueur;
-	private List<String> suggestionsFaites;
+	protected String nom;
+	protected String adresse;
+	protected Boolean encoreEnJeu;
+	protected List<Carte> cartesJoueur;
 	
 	public Joueur(String nom, String adresse)
 	{
@@ -15,22 +14,11 @@ public abstract class Joueur {
 		this.adresse = adresse;
 		this.encoreEnJeu = true;
 		this.cartesJoueur = new ArrayList<Carte>();
-		this.suggestionsFaites = new ArrayList<String>();
 	}
 	
 	public List<Carte> getCartesJoueur()
 	{
 		return this.cartesJoueur;
-	}
-	
-	public List<String> getSuggestionsFaites()
-	{
-		return this.suggestionsFaites;
-	}
-	
-	public void ajouterSuggestion(String uneSuggestionFaite)
-	{
-		this.suggestionsFaites.add(uneSuggestionFaite);
 	}
 	
 	public void ajouterCarte(Carte c)
@@ -47,5 +35,12 @@ public abstract class Joueur {
 	{
 		return this.nom;
 	}
+	
+	public abstract String[] jouerCoup();
+	
+	public abstract boolean refuter(String[] cartes);
+	
+	
+	
 
 }

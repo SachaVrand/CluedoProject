@@ -5,4 +5,17 @@ public class Ordi extends Joueur
 	{
 		super(nom, adresse);
 	}
+
+	@Override
+	public String[] jouerCoup() 
+	{
+		return null;
+		
+	}
+
+	@Override
+	public boolean refuter(String[] cartes) 
+	{
+		return false;
+	}
 }

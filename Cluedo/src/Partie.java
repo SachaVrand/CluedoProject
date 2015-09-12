@@ -1,4 +1,3 @@
-import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -7,13 +6,15 @@ public class Partie {
 	
 	private List<Joueur> joueursPartie;
 	private Carte[] cartesADecouvrir;
-	private Joueur joueurActuel;
+	private int joueurActuel;
+	private boolean partieFinie;
 	
 	public Partie(List<Joueur> joueursPartie)
 	{
 		this.joueursPartie = joueursPartie;
-		this.joueurActuel = joueursPartie.get(0);
+		this.joueurActuel = 0;
 		this.cartesADecouvrir = new Carte[3];
+		this.partieFinie = false;
 		distribuerPaquet(creerPaquetDeCartes());
 	}
 	
@@ -85,34 +86,44 @@ public class Partie {
 		
 	}
 	
-	private void afficherAide()
+	public void boucleJeu()
 	{
-		System.out.println("Les commandes disponibles durant la partie :\n");
-		System.out.println("show");
-		System.out.println("\t Voir les informations vous concernant.\n");
-		System.out.println("move <type> <card1> <card2> <card3>");
-		System.out.println("\t <type> : Sois 'suggest' ou 'accuse'.");
-		System.out.println("\t <cardN> : une carte.\n");
-		System.out.println("exit");
-		System.out.println("\t Quitter la partie.\n");
-		System.out.println("help");
-		System.out.println("\t Afficher ce message.\n");
-	}
-	
-	private void afficherShow()
-	{
-		System.out.println("\n\t Indices : ");
-		for(Carte c : joueurActuel.getCartesJoueur())
+		String[] tmp;
+		while(!partieFinie)
 		{
-			System.out.println(c.getNom());
-		}
-		if(joueurActuel.getEncoreEnJeu())
-		{
-			System.out.println("\n Vous n'avez pas encore fait d'accusation.\n");
-		}
-		else
-		{
-			System.out.println("\n Vous avez fait une accusation fausse.\n");
+			//on vérifie que les joueur actuel peut jouer sinon on passe au joueur suivant et ainsi de suite.
+			while(!joueursPartie.get(joueurActuel).getEncoreEnJeu())
+			{
+				joueurActuel++;
+				if(joueurActuel == joueursPartie.size())
+				{
+					joueurActuel = 0;
+				}
+			}
+			
+			tmp = joueursPartie.get(joueurActuel).jouerCoup();
+			if(tmp == null)
+			{
+				return;
+			}
+			else
+			{
+				if(tmp[0].equals("suggerer"))
+				{
+					//boucle pour refuter
+				}
+				else
+				{
+					//verifier accusation
+				}
+			}
+			
+			//On passe au joueur suivant
+			joueurActuel++;
+			if(joueurActuel == joueursPartie.size())
+			{
+				joueurActuel = 0;
+			}
 		}
 	}
 }
