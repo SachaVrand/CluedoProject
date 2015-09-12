@@ -84,4 +84,35 @@ public class Partie {
 		}
 		
 	}
+	
+	private void afficherAide()
+	{
+		System.out.println("Les commandes disponibles durant la partie :\n");
+		System.out.println("show");
+		System.out.println("\t Voir les informations vous concernant.\n");
+		System.out.println("move <type> <card1> <card2> <card3>");
+		System.out.println("\t <type> : Sois 'suggest' ou 'accuse'.");
+		System.out.println("\t <cardN> : une carte.\n");
+		System.out.println("exit");
+		System.out.println("\t Quitter la partie.\n");
+		System.out.println("help");
+		System.out.println("\t Afficher ce message.\n");
+	}
+	
+	private void afficherShow()
+	{
+		System.out.println("\n\t Indices : ");
+		for(Carte c : joueurActuel.getCartesJoueur())
+		{
+			System.out.println(c.getNom());
+		}
+		if(joueurActuel.getEncoreEnJeu())
+		{
+			System.out.println("\n Vous n'avez pas encore fait d'accusation.\n");
+		}
+		else
+		{
+			System.out.println("\n Vous avez fait une accusation fausse.\n");
+		}
+	}
 }
