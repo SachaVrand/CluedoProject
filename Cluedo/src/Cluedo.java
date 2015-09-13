@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.swing.plaf.synth.SynthSpinnerUI;
+
 public class Cluedo
 {
 	public static void main(String[] args)
@@ -18,15 +20,21 @@ public class Cluedo
 			switch(cmd)
 			{
 			case "solo" :
-				List<Joueur> listJoueur = menuPartieSolo();
+				List<Joueur> listJoueur = menuPartieSolo(sc);
 				if(listJoueur.size() != 0)
 				{
-					lancerPartieSolo(listJoueur);
+					sc.close();
+					Partie p = new Partie(listJoueur);
+					p.boucleJeu();
+					sc = new Scanner(System.in);
 				}
 				break;
 			case "hote" :
 				break;
 			case "inscrire" :
+				break;
+			case "quitter" :
+				System.out.println("Au revoir.");
 				break;
 			case "aide" :
 				afficherAide();
@@ -57,7 +65,7 @@ public class Cluedo
 		System.out.println("\t Afficher ce message.\n");
 	}
 	
-	private static List<Joueur> menuPartieSolo()
+	private static List<Joueur> menuPartieSolo(Scanner sc)
 	{
 		System.out.println("Mode solo\n");
 		System.out.println("Veuillez choisir le nombre de joueurs pour cette partie (3 à 6 joueurs).");
@@ -65,12 +73,12 @@ public class Cluedo
 		
 		List<Joueur> joueursPartie = new ArrayList<Joueur>();
 		String cmd = "";
-		Scanner sc = new Scanner(System.in);
+		//Scanner sc = new Scanner(System.in);
 		
-		while(cmd != "0")
+		while(!cmd.equals("0"))
 		{
 			cmd = sc.next();
-			if(cmd == "3" || cmd == "4" || cmd == "5" || cmd == "6")
+			if(cmd.equals("3") || cmd.equals("4") || cmd.equals("5") || cmd.equals("6"))
 			{
 				Joueur joueur = new Humain("Joueur 0", "0");
 				joueursPartie.add(joueur);
@@ -81,17 +89,16 @@ public class Cluedo
 				}
 				break;
 			}
+			else if(cmd.equals("0"))
+			{
+				System.out.println("Retour au menu principal");
+			}
 			else
 			{
 				System.out.println("Mauvaise commande.");
 			}
 		}
-		sc.close();
+		//sc.close();
 		return joueursPartie;
-	}
-
-	private static void lancerPartieSolo(List<Joueur> listJoueur)
-	{
-		
 	}
 }

@@ -23,15 +23,15 @@ public class Partie {
 		List<Carte> paquet = new ArrayList<Carte>();
 		for(Armes a : Armes.values())
 		{
-			paquet.add(new Arme(a.getNom(),a.getImage()));
+			paquet.add(new Arme(a.toString(),a.getImage()));
 		}
 		for(Lieux l : Lieux.values())
 		{
-			paquet.add(new Lieu(l.getNom(),l.getImage()));
+			paquet.add(new Lieu(l.toString(),l.getImage()));
 		}
 		for(Suspects s : Suspects.values())
 		{
-			paquet.add(new Suspect(s.getNom(),s.getImage()));
+			paquet.add(new Suspect(s.toString(),s.getImage()));
 		}
 		return paquet;
 	}
@@ -115,6 +115,16 @@ public class Partie {
 				else
 				{
 					//verifier accusation
+					if(tmp[1].equals(cartesADecouvrir[0].getNom())  && tmp[2].equals(cartesADecouvrir[1].getNom()) && tmp[3].equals(cartesADecouvrir[2].getNom()))
+					{
+						System.out.println(joueursPartie.get(joueurActuel).getNom() + " a gagné la partie");
+						partieFinie = true;
+					}
+					else
+					{
+						joueursPartie.get(joueurActuel).setEncoreEnJeu(false);
+						System.out.println(joueursPartie.get(joueurActuel).getNom() + " a fait une accusation fausse");
+					}
 				}
 			}
 			

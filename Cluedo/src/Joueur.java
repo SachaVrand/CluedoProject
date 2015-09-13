@@ -31,6 +31,11 @@ public abstract class Joueur {
 		return this.encoreEnJeu;
 	}
 	
+	public void setEncoreEnJeu(boolean b)
+	{
+		this.encoreEnJeu = b;
+	}
+	
 	public String getNom()
 	{
 		return this.nom;

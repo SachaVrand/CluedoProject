@@ -3,25 +3,18 @@ import javax.swing.ImageIcon;
 
 public enum Armes {
 
-	Chandelier("Chandelier",new ImageIcon("pathManquant")),
-	Poignard("Poignard",new ImageIcon("pathManquant")),
-	Tuyau("Tuyau de plomb",new ImageIcon("pathManquant")),
-	Revolver("Revolver",new ImageIcon("pathManquant")),
-	Corde("Corde",new ImageIcon("pathManquant")),
-	CleAnglaise("Clé anglaise",new ImageIcon("pathManquant"));
+	Chandelier(new ImageIcon("pathManquant")),
+	Poignard(new ImageIcon("pathManquant")),
+	Tuyau(new ImageIcon("pathManquant")),
+	Revolver(new ImageIcon("pathManquant")),
+	Corde(new ImageIcon("pathManquant")),
+	CleAnglaise(new ImageIcon("pathManquant"));
 	
-	private String nom;
 	private Icon img;
 	
-	Armes(String nom,Icon img)
+	Armes(Icon img)
 	{
-		this.nom = nom;
 		this.img = img;
-	}
-	
-	public String getNom()
-	{
-		return this.nom;
 	}
 	
 	public Icon getImage()

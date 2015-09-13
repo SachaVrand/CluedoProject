@@ -14,7 +14,7 @@ public class Humain extends Joueur
 		String cmd = "";
 		Scanner sc = new Scanner(System.in);
 		
-		while(cmd.equals("quitter") && cmdComplete.length == 1)
+		do
 		{
 			System.out.print(nom + " > ");
 			cmd = sc.next();
@@ -32,16 +32,75 @@ public class Humain extends Joueur
 			else if(cmd.equals("move") && cmdComplete.length == 5)
 			{
 				//Tester si les cartes passées sont correctes
-				
-				String[] tmp = {cmdComplete[1],cmdComplete[2],cmdComplete[3],cmdComplete[4]};
-				sc.close();
-				return tmp;
+				Carte[] ordreTypeCarte = testerCartes(new String[]{cmdComplete[2],cmdComplete[3],cmdComplete[4]});
+				if(ordreTypeCarte == null)
+				{
+					System.out.println("Mauvaises cartes. Une carte lieu, une carte arme et une carte suspect sont requises en parametres.");
+				}
+				else
+				{
+					if(cmdComplete[1].equals("suggest") || cmdComplete[1].equals("accuse"))
+					{
+						String[] tmp = new String[4];
+						// tmp [0]option [1]arme [2]lieu [3]suspect
+						tmp[0] = cmdComplete[1];
+						if(ordreTypeCarte[0] instanceof Arme)
+						{
+							tmp[1] = cmdComplete[2];
+							if(ordreTypeCarte[1] instanceof Lieu)
+							{
+								tmp[2] = cmdComplete[3];
+								tmp[3] = cmdComplete[4];
+							}
+							else if(ordreTypeCarte[1] instanceof Suspect)
+							{
+								tmp[3] = cmdComplete[3];
+								tmp[2] = cmdComplete[4];
+							}
+						}
+						else if(ordreTypeCarte[0] instanceof Lieu)
+						{
+							tmp[2] = cmdComplete[2];
+							if(ordreTypeCarte[1] instanceof Suspect)
+							{
+								tmp[3] = cmdComplete[3];
+								tmp[1] = cmdComplete[4];
+							}
+							else if(ordreTypeCarte[1] instanceof Arme)
+							{
+								tmp[1] = cmdComplete[3];
+								tmp[3] = cmdComplete[4];
+							}
+							
+						}
+						else if(ordreTypeCarte[0] instanceof Suspect)
+						{
+							tmp[3] = cmdComplete[2];
+							if(ordreTypeCarte[1] instanceof Lieu)
+							{
+								tmp[2] = cmdComplete[3];
+								tmp[1] = cmdComplete[4];
+							}
+							else if(ordreTypeCarte[1] instanceof Arme)
+							{
+								tmp[1] = cmdComplete[3];
+								tmp[2] = cmdComplete[4];
+							}
+						}
+						sc.close();
+						return tmp;
+					}
+					else
+					{
+						System.out.println("Mauvaise option, 'suggest' ou 'accuse'");
+					}	
+				}	
 			}
 			else
 			{
 				System.out.println("Mauvaise commande");
 			}
-		}
+		}while(!cmd.equals("quitter") && cmdComplete.length == 1);
 		sc.close();
 		return null;
 		
@@ -98,18 +157,18 @@ public class Humain extends Joueur
 		//on test la première carte
 		for(Armes arme : Armes.values())
 		{
-			if(arme.getNom() == tabCarte[0])
+			if(arme.toString().equals(tabCarte[0]))
 			{
-				a = new Arme(arme.getNom(), arme.getImage());
+				a = new Arme(arme.toString(), arme.getImage());
 			}
 		}
 		if(a == null)
 		{
 			for(Lieux lieu : Lieux.values())
 			{
-				if(lieu.getNom() == tabCarte[0])
+				if(lieu.toString().equals(tabCarte[0]))
 				{
-					a = new Lieu(lieu.getNom(), lieu.getImage());
+					a = new Lieu(lieu.toString(), lieu.getImage());
 				}
 			}
 		}
@@ -117,9 +176,9 @@ public class Humain extends Joueur
 		{
 			for(Suspects suspect : Suspects.values())
 			{
-				if(suspect.getNom() == tabCarte[0])
+				if(suspect.toString().equals(tabCarte[0]))
 				{
-					a = new Suspect(suspect.getNom(), suspect.getImage());
+					a = new Suspect(suspect.toString(), suspect.getImage());
 				}
 			}
 		}
@@ -132,18 +191,18 @@ public class Humain extends Joueur
 			{
 				for(Lieux lieu : Lieux.values())
 				{
-					if(lieu.getNom() == tabCarte[1])
+					if(lieu.toString().equals(tabCarte[1]))
 					{
-						b = new Lieu(lieu.getNom(), lieu.getImage());
+						b = new Lieu(lieu.toString(), lieu.getImage());
 					}
 				}
 				if(b == null)
 				{
 					for(Suspects suspect : Suspects.values())
 					{
-						if(suspect.getNom() == tabCarte[1])
+						if(suspect.toString().equals(tabCarte[1]))
 						{
-							b = new Suspect(suspect.getNom(), suspect.getImage());
+							b = new Suspect(suspect.toString(), suspect.getImage());
 						}
 					}
 				}
@@ -153,18 +212,18 @@ public class Humain extends Joueur
 			{
 				for(Armes arme : Armes.values())
 				{
-					if(arme.getNom() == tabCarte[1])
+					if(arme.toString().equals(tabCarte[1]))
 					{
-						b = new Arme(arme.getNom(), arme.getImage());
+						b = new Arme(arme.toString(), arme.getImage());
 					}
 				}
 				if(b == null)
 				{
 					for(Suspects suspect : Suspects.values())
 					{
-						if(suspect.getNom() == tabCarte[1])
+						if(suspect.toString().equals(tabCarte[1]))
 						{
-							b = new Suspect(suspect.getNom(), suspect.getImage());
+							b = new Suspect(suspect.toString(), suspect.getImage());
 						}
 					}
 				}
@@ -174,18 +233,18 @@ public class Humain extends Joueur
 			{
 				for(Armes arme : Armes.values())
 				{
-					if(arme.getNom() == tabCarte[1])
+					if(arme.toString().equals(tabCarte[1]))
 					{
-						b = new Arme(arme.getNom(), arme.getImage());
+						b = new Arme(arme.toString(), arme.getImage());
 					}
 				}
 				if(b == null)
 				{
 					for(Lieux lieu : Lieux.values())
 					{
-						if(lieu.getNom() == tabCarte[1])
+						if(lieu.toString().equals(tabCarte[1]))
 						{
-							b = new Lieu(lieu.getNom(), lieu.getImage());
+							b = new Lieu(lieu.toString(), lieu.getImage());
 						}
 					}
 				}
@@ -202,9 +261,9 @@ public class Humain extends Joueur
 				{
 					for(Suspects suspect : Suspects.values())
 					{
-						if(suspect.getNom() == tabCarte[2])
+						if(suspect.toString().equals(tabCarte[2]))
 						{
-							c = new Suspect(suspect.getNom(), suspect.getImage());
+							c = new Suspect(suspect.toString(), suspect.getImage());
 						}
 					}
 				}
@@ -213,9 +272,9 @@ public class Humain extends Joueur
 				{
 					for(Lieux lieu : Lieux.values())
 					{
-						if(lieu.getNom() == tabCarte[2])
+						if(lieu.toString().equals(tabCarte[2]))
 						{
-							c = new Lieu(lieu.getNom(), lieu.getImage());
+							c = new Lieu(lieu.toString(), lieu.getImage());
 						}
 					}
 				}
@@ -228,9 +287,9 @@ public class Humain extends Joueur
 				{
 					for(Suspects suspect : Suspects.values())
 					{
-						if(suspect.getNom() == tabCarte[2])
+						if(suspect.toString().equals(tabCarte[2]))
 						{
-							c = new Suspect(suspect.getNom(), suspect.getImage());
+							c = new Suspect(suspect.toString(), suspect.getImage());
 						}
 					}
 				}
@@ -239,9 +298,9 @@ public class Humain extends Joueur
 				{
 					for(Armes arme : Armes.values())
 					{
-						if(arme.getNom() == tabCarte[2])
+						if(arme.toString().equals(tabCarte[2]))
 						{
-							c = new Arme(arme.getNom(), arme.getImage());
+							c = new Arme(arme.toString(), arme.getImage());
 						}
 					}
 				}
@@ -254,9 +313,9 @@ public class Humain extends Joueur
 				{
 					for(Lieux lieu : Lieux.values())
 					{
-						if(lieu.getNom() == tabCarte[2])
+						if(lieu.toString().equals(tabCarte[2]))
 						{
-							c = new Lieu(lieu.getNom(), lieu.getImage());
+							c = new Lieu(lieu.toString(), lieu.getImage());
 						}
 					}
 				}
@@ -265,9 +324,9 @@ public class Humain extends Joueur
 				{
 					for(Armes arme : Armes.values())
 					{
-						if(arme.getNom() == tabCarte[2])
+						if(arme.toString().equals(tabCarte[2]))
 						{
-							c = new Arme(arme.getNom(), arme.getImage());
+							c = new Arme(arme.toString(), arme.getImage());
 						}
 					}
 				}
