@@ -16,7 +16,7 @@ public class Humain extends Joueur
 		
 		while(true)
 		{
-			System.out.println(nom + " > ");
+			System.out.print(nom + " > ");
 			
 			try
 			{

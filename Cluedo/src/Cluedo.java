@@ -16,7 +16,7 @@ public class Cluedo
 		
 		while(!cmd.equals("quitter"))
 		{
-			cmd = sc.next();
+			cmd = sc.nextLine();
 			switch(cmd)
 			{
 			case "solo" :
@@ -77,7 +77,7 @@ public class Cluedo
 		
 		while(!cmd.equals("0"))
 		{
-			cmd = sc.next();
+			cmd = sc.nextLine();
 			if(cmd.equals("3") || cmd.equals("4") || cmd.equals("5") || cmd.equals("6"))
 			{
 				Joueur joueur = new Humain("Joueur 0", "0");
