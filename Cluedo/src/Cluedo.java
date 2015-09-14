@@ -2,14 +2,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import javax.swing.plaf.synth.SynthSpinnerUI;
-
 public class Cluedo
 {
+	public static Scanner sc = new Scanner(System.in);
+	
 	public static void main(String[] args)
 	{
 		String cmd = "";
-		Scanner sc = new Scanner(System.in);
+		//Scanner sc = new Scanner(System.in);
 		
 		System.out.println("Cluedo 0.1");
 		System.out.println("Taper 'aide' pour plus d'informations");
@@ -20,13 +20,13 @@ public class Cluedo
 			switch(cmd)
 			{
 			case "solo" :
-				List<Joueur> listJoueur = menuPartieSolo(sc);
+				List<Joueur> listJoueur = menuPartieSolo();
 				if(listJoueur.size() != 0)
 				{
-					sc.close();
+					//sc.close();
 					Partie p = new Partie(listJoueur);
 					p.boucleJeu();
-					sc = new Scanner(System.in);
+					//sc = new Scanner(System.in);
 				}
 				break;
 			case "hote" :
@@ -65,7 +65,7 @@ public class Cluedo
 		System.out.println("\t Afficher ce message.\n");
 	}
 	
-	private static List<Joueur> menuPartieSolo(Scanner sc)
+	private static List<Joueur> menuPartieSolo()
 	{
 		System.out.println("Mode solo\n");
 		System.out.println("Veuillez choisir le nombre de joueurs pour cette partie (3 à 6 joueurs).");

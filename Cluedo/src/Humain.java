@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.NoSuchElementException;
 
 public class Humain extends Joueur
 {
@@ -12,12 +12,25 @@ public class Humain extends Joueur
 	{
 		String[] cmdComplete = null;
 		String cmd = "";
-		Scanner sc = new Scanner(System.in);
+		//Scanner sc = new Scanner(System.in);
 		
-		do
+		while(true)
 		{
-			System.out.print(nom + " > ");
-			cmd = sc.next();
+			System.out.println(nom + " > ");
+			
+			try
+			{
+				cmd = Cluedo.sc.nextLine();
+			}
+			catch(NoSuchElementException e)
+			{
+				e.printStackTrace();
+			}
+			catch(IllegalStateException e)
+			{
+				e.printStackTrace();
+			}
+			
 			cmdComplete = cmd.split(" ");
 			cmd = cmdComplete[0];
 			
@@ -28,6 +41,10 @@ public class Humain extends Joueur
 			else if(cmd.equals("aide") && cmdComplete.length == 1)
 			{
 				afficherAide();
+			}
+			else if(cmd.equals("quitter") && cmdComplete.length == 1)
+			{
+				break;
 			}
 			else if(cmd.equals("move") && cmdComplete.length == 5)
 			{
@@ -87,7 +104,7 @@ public class Humain extends Joueur
 								tmp[2] = cmdComplete[4];
 							}
 						}
-						sc.close();
+						//sc.close();
 						return tmp;
 					}
 					else
@@ -100,8 +117,8 @@ public class Humain extends Joueur
 			{
 				System.out.println("Mauvaise commande");
 			}
-		}while(!cmd.equals("quitter") && cmdComplete.length == 1);
-		sc.close();
+		}
+		//sc.close();
 		return null;
 		
 	}
