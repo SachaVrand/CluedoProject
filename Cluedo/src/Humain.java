@@ -14,7 +14,7 @@ public class Humain extends Joueur
 		String cmd = "";
 		//Scanner sc = new Scanner(System.in);
 		
-		while(true)
+		do
 		{
 			System.out.print(nom + " > ");
 			
@@ -41,10 +41,6 @@ public class Humain extends Joueur
 			else if(cmd.equals("aide") && cmdComplete.length == 1)
 			{
 				afficherAide();
-			}
-			else if(cmd.equals("quitter") && cmdComplete.length == 1)
-			{
-				break;
 			}
 			else if(cmd.equals("move") && cmdComplete.length == 5)
 			{
@@ -117,7 +113,7 @@ public class Humain extends Joueur
 			{
 				System.out.println("Mauvaise commande");
 			}
-		}
+		}while(!cmd.equals("quitter") || cmdComplete.length != 1);
 		//sc.close();
 		return null;
 		
