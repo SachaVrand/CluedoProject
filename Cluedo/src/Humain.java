@@ -120,21 +120,20 @@ public class Humain extends Joueur
 	}
 
 	@Override
-	public boolean refuter(String[] cartes)
+	public boolean refuter(String[] cartes, String nomJoueur)
 	{
-		//carte[0-2] nom carte carte[3] nom du joueur suggerant
+
 		String cmd = "";
 		String[] cmdComplete;
 		Boolean carteCorrecte = false;
-		System.out.println(cartes[3] + " suggère : " + cartes[0] + " " + cartes[1] + " " + cartes[2]);
+		System.out.println(nomJoueur + " suggère : " + cartes[0] + " " + cartes[1] + " " + cartes[2]);
 		if(cartesJoueur.contains(cartes[0]) || cartesJoueur.contains(cartes[1]) || cartesJoueur.contains(cartes[2]))
 		{
 			for(Carte c : cartesJoueur)
 			{
 				System.out.println(c.getNom());
 			}
-			System.out.println();
-			System.out.println("Vous pouvez refuter la proposition, quelle carte choisissez vous de montrer ? (show <card>)");
+			System.out.println("\nVous pouvez refuter la proposition. Quelle carte choisissez vous de montrer ? (show <card>)");
 			do
 			{
 				cmd = Cluedo.sc.nextLine();

@@ -14,7 +14,7 @@ public class Ordi extends Joueur
 	}
 
 	@Override
-	public boolean refuter(String[] cartes) 
+	public boolean refuter(String[] cartes, String nomJoueur) 
 	{
 		return false;
 	}

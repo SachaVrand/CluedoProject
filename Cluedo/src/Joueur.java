@@ -43,7 +43,7 @@ public abstract class Joueur {
 	
 	public abstract String[] jouerCoup();
 	
-	public abstract boolean refuter(String[] cartes);
+	public abstract boolean refuter(String[] cartes, String nomJoueur);
 	
 	
 	
