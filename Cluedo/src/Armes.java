@@ -3,12 +3,12 @@ import javax.swing.ImageIcon;
 
 public enum Armes {
 
-	Chandelier(new ImageIcon("pathManquant")),
-	Poignard(new ImageIcon("pathManquant")),
-	Tuyau(new ImageIcon("pathManquant")),
+	Candlestick(new ImageIcon("pathManquant")),
+	Dagger(new ImageIcon("pathManquant")),
+	Lead_pipe(new ImageIcon("pathManquant")),
 	Revolver(new ImageIcon("pathManquant")),
-	Corde(new ImageIcon("pathManquant")),
-	CleAnglaise(new ImageIcon("pathManquant"));
+	Rope(new ImageIcon("pathManquant")),
+	Spanner(new ImageIcon("pathManquant"));
 	
 	private Icon img;
 	

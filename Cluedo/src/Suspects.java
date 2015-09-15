@@ -3,12 +3,12 @@ import javax.swing.ImageIcon;
 
 public enum Suspects {
 
-	Rouge(new ImageIcon("pathManquant")),
-	Jaune(new ImageIcon("pathManquant")),
-	Blanc(new ImageIcon("pathManquant")),
-	Violet(new ImageIcon("pathManquant")),
-	Bleu(new ImageIcon("pathManquant")),
-	Vert(new ImageIcon("pathManquant"));
+	Miss_Scarlett(new ImageIcon("pathManquant")),
+	Colonel_Mustard(new ImageIcon("pathManquant")),
+	Mrs_White(new ImageIcon("pathManquant")),
+	Professor_Plum(new ImageIcon("pathManquant")),
+	Mrs_Peacock(new ImageIcon("pathManquant")),
+	Reverend_Green(new ImageIcon("pathManquant"));
 	
 	private Icon img;
 	

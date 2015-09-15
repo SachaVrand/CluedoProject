@@ -38,7 +38,7 @@ public class Humain extends Joueur
 			{
 				afficherIndices();
 			}
-			else if(cmd.equals("aide") && cmdComplete.length == 1)
+			else if(cmd.equals("help") && cmdComplete.length == 1)
 			{
 				afficherAide();
 			}
@@ -48,7 +48,7 @@ public class Humain extends Joueur
 				Carte[] ordreTypeCarte = testerCartes(new String[]{cmdComplete[2],cmdComplete[3],cmdComplete[4]});
 				if(ordreTypeCarte == null)
 				{
-					System.out.println("Mauvaises cartes. Une carte lieu, une carte arme et une carte suspect sont requises en parametres.");
+					System.out.println("\nMauvaises cartes. Une carte lieu, une carte arme et une carte suspect sont requises en parametres.");
 				}
 				else
 				{
@@ -105,15 +105,15 @@ public class Humain extends Joueur
 					}
 					else
 					{
-						System.out.println("Mauvaise option, 'suggest' ou 'accuse'");
+						System.out.println("\nMauvaise option, 'suggest' ou 'accuse'");
 					}	
 				}	
 			}
 			else
 			{
-				System.out.println("Mauvaise commande");
+				System.out.println("\nMauvaise commande");
 			}
-		}while(!cmd.equals("quitter") || cmdComplete.length != 1);
+		}while(!cmd.equals("exit") || cmdComplete.length != 1);
 		//sc.close();
 		return null;
 		
@@ -122,21 +122,64 @@ public class Humain extends Joueur
 	@Override
 	public boolean refuter(String[] cartes)
 	{
-		return false;
+		//carte[0-2] nom carte carte[3] nom du joueur suggerant
+		String cmd = "";
+		String[] cmdComplete;
+		Boolean carteCorrecte = false;
+		System.out.println(cartes[3] + " suggère : " + cartes[0] + " " + cartes[1] + " " + cartes[2]);
+		if(cartesJoueur.contains(cartes[0]) || cartesJoueur.contains(cartes[1]) || cartesJoueur.contains(cartes[2]))
+		{
+			for(Carte c : cartesJoueur)
+			{
+				System.out.println(c.getNom());
+			}
+			System.out.println();
+			System.out.println("Vous pouvez refuter la proposition, quelle carte choisissez vous de montrer ? (show <card>)");
+			do
+			{
+				cmd = Cluedo.sc.nextLine();
+				cmdComplete = cmd.split(" ");
+				cmd = cmdComplete[0];
+				carteCorrecte = (cmdComplete[1].equals(cartes[0]) || cmdComplete[1].equals(cartes[1]) || cmdComplete[1].equals(cartes[2]));
+				
+			}while(!cmd.equals("show") || cmdComplete.length != 2 || !cartesJoueur.contains(cmdComplete[1]) || !carteCorrecte);
+			return true;
+		}
+		else
+		{
+			System.out.println("Vous n'avez aucune carte pour réfuter la proposition. (skip pour passer)");
+			System.out.print(nom + " > ");
+			while(!cmd.equals("skip"))
+			{
+				cmd = Cluedo.sc.nextLine();
+			}
+			return false;
+		}
 	}
 	
 	private void afficherAide()
 	{
-		System.out.println("Les commandes disponibles durant la partie :\n");
+		System.out.println("\nLes commandes disponibles durant la partie :\n");
 		System.out.println("show");
 		System.out.println("\t Voir les informations vous concernant (Indices et accusations faites).\n");
 		System.out.println("move <type> <card1> <card2> <card3>");
 		System.out.println("\t <type> : Sois 'suggest' ou 'accuse'.");
 		System.out.println("\t <cardN> : une carte.\n");
-		System.out.println("quitter");
+		System.out.println("exit");
 		System.out.println("\t Quitter la partie.\n");
-		System.out.println("aide");
+		System.out.println("help");
 		System.out.println("\t Afficher ce message.\n");
+	}
+	
+	private void afficherAideRefuter()
+	{
+		System.out.println("Les commandes disponibles :\n");
+		System.out.println("show <card>");
+		System.out.println("\t la carte que vous souhaiter montrer si vous les pouvez \n");
+		System.out.println("skip");
+		System.out.println("\t permet de passer si vous n'avez aucune carte pour réfuter \n");
+		System.out.println("help");
+		System.out.println("\t affiche ce message \n");
 	}
 	
 	private void afficherIndices()

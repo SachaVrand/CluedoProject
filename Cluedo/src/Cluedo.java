@@ -12,9 +12,9 @@ public class Cluedo
 		//Scanner sc = new Scanner(System.in);
 		
 		System.out.println("Cluedo 0.1");
-		System.out.println("Taper 'aide' pour plus d'informations");
+		System.out.println("Taper 'help' pour plus d'informations");
 		
-		while(!cmd.equals("quitter"))
+		while(!cmd.equals("exit"))
 		{
 			cmd = sc.nextLine();
 			switch(cmd)
@@ -29,14 +29,14 @@ public class Cluedo
 					//sc = new Scanner(System.in);
 				}
 				break;
-			case "hote" :
+			case "refere" :
 				break;
-			case "inscrire" :
+			case "register" :
 				break;
-			case "quitter" :
-				System.out.println("Au revoir.");
+			case "exit" :
+				System.out.println("\nAu revoir.");
 				break;
-			case "aide" :
+			case "help" :
 				afficherAide();
 				break;
 			default :
@@ -49,25 +49,25 @@ public class Cluedo
 	
 	private static void afficherAide()
 	{
-		System.out.println("solo");
+		System.out.println("\nsolo");
 		System.out.println("\t Commencer une partie solo (Humain + Ordinateur)\n");
-		System.out.println("hote");
+		System.out.println("refere");
 		System.out.println("\t Commencer une partie en tant qu'hôte\n");
-		System.out.println("inscrire");
+		System.out.println("register");
 		System.out.println("\t Rechercher une partie en multijoueur");
 		System.out.println("\t register <type> [<nom> [, <addr>]]");
 		System.out.println("\t <type> : 'ordi' ou 'joueur'.");
 		System.out.println("\t <name> : nom du joueur.");
 		System.out.println("\t <addr> : adresse IP de l'hôte.\n");
-		System.out.println("quitter");
+		System.out.println("exit");
 		System.out.println("\t Quitter le jeu.\n");
-		System.out.println("aide");
+		System.out.println("help");
 		System.out.println("\t Afficher ce message.\n");
 	}
 	
 	private static List<Joueur> menuPartieSolo()
 	{
-		System.out.println("Mode solo\n");
+		System.out.println("\nMode solo\n");
 		System.out.println("Veuillez choisir le nombre de joueurs pour cette partie (3 à 6 joueurs).");
 		System.out.println("0 pour retourner au menu principal.");
 		
@@ -91,11 +91,11 @@ public class Cluedo
 			}
 			else if(cmd.equals("0"))
 			{
-				System.out.println("Retour au menu principal");
+				System.out.println("\nRetour au menu principal");
 			}
 			else
 			{
-				System.out.println("Mauvaise commande.");
+				System.out.println("\nMauvaise commande.");
 			}
 		}
 		//sc.close();

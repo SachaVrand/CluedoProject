@@ -3,15 +3,15 @@ import javax.swing.ImageIcon;
 
 public enum Lieux {
 	
-	Cuisine(new ImageIcon("pathManquant")),
-	Conservatoire(new ImageIcon("pathManquant")),
-	SalleAManger(new ImageIcon("pathManquant")),
-	SalleDeBal(new ImageIcon("pathManquant")),
-	SalleDeBillard(new ImageIcon("pathManquant")),
-	Bibliotheque(new ImageIcon("pathManquant")),
-	Salin(new ImageIcon("pathManquant")),
+	Kitchen(new ImageIcon("pathManquant")),
+	Ballroom(new ImageIcon("pathManquant")),
+	Conservatory(new ImageIcon("pathManquant")),
+	Dining_room(new ImageIcon("pathManquant")),
+	Billard_room(new ImageIcon("pathManquant")),
+	Library(new ImageIcon("pathManquant")),
+	Lounge(new ImageIcon("pathManquant")),
 	Hall(new ImageIcon("pathManquant")),
-	Bureau(new ImageIcon("pathManquant"));
+	Study(new ImageIcon("pathManquant"));
 	
 	private Icon img;
 	
