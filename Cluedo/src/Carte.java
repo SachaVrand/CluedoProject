@@ -21,6 +21,7 @@ public class Carte {
 	@Override
 	public boolean equals(Object o)
 	{
+		//new truc
 		if(o == this)
 			return true;
 		
