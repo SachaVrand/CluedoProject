@@ -17,7 +17,7 @@ public class Humain extends Joueur
 		
 		do
 		{
-			System.out.print(nom + " > ");
+			System.out.print("[JOUER]"+nom + " > ");
 			
 			try
 			{
@@ -127,9 +127,10 @@ public class Humain extends Joueur
 		String cmd = "";
 		String[] cmdComplete;
 		Boolean carteCorrecte = false;
-		System.out.println(nomJoueur + " suggère : " + cartes[0] + " " + cartes[1] + " " + cartes[2]);
-		System.out.println("'help' pour plus d'informations sur les commandes disponibles");
-		//dans les contains, passer un string est impossible pour une collection de carte. Donc soit faire une boucle pour tester chaque carte avec le nom et le string soit trouver un autre moyen
+		System.out.println("\n"+nomJoueur + " suggère : " + cartes[0] + " " + cartes[1] + " " + cartes[2]);
+		System.out.println("'help' pour plus d'informations sur les commandes disponibles\n");
+		//dans les contains, passer un string est impossible pour une collection de carte.
+		//Donc soit faire une boucle pour tester chaque carte avec le nom et le string soit trouver un autre moyen
 		if(Carte.contientCarte(cartesJoueur, cartes))
 		{
 			for(Carte c : cartesJoueur)
@@ -139,6 +140,7 @@ public class Humain extends Joueur
 			System.out.println("\nVous pouvez refuter la proposition. Quelle carte choisissez vous de montrer ? (show <card>)");
 			do
 			{
+				System.out.print("[REFUTER] "+nom+" > ");
 				cmd = Cluedo.sc.nextLine();
 				cmdComplete = cmd.split(" ");
 				cmd = cmdComplete[0];
@@ -146,24 +148,36 @@ public class Humain extends Joueur
 				{
 					afficherAideRefuter();
 				}
-				else if(cmdComplete.length > 1)
+				else if(cmdComplete[0].equals("show") && cmdComplete.length > 1)
 				{
 					carteCorrecte = (cmdComplete[1].equals(cartes[0]) || cmdComplete[1].equals(cartes[1]) || cmdComplete[1].equals(cartes[2]));
+					if(!carteCorrecte)
+					{
+						System.out.println("Mauvaise commande !\n");
+					}
+				}
+				else
+				{
+					System.out.println("Mauvaise commande !\n");
 				}
 				//la même pour le contains en dessous
-			}while(!cmd.equals("show") || cmdComplete.length != 2 || !Carte.contientCarte(cartesJoueur, cmdComplete) || !carteCorrecte);
+			}while(!cmd.equals("show") || cmdComplete.length != 2 || !Carte.contientCarte(cartesJoueur, cmdComplete[1]) || !carteCorrecte);
 			return true;
 		}
 		else
 		{
 			System.out.println("Vous n'avez aucune carte pour réfuter la proposition. (skip pour passer)");
-			System.out.print(nom + " > ");
 			while(!cmd.equals("skip"))
 			{
+				System.out.print("[REFUTER] "+nom+" > ");
 				cmd = Cluedo.sc.nextLine();
 				if(cmd.equals("help"))
 				{
 					afficherAideRefuter();
+				}
+				else if(!cmd.equals("skip"))
+				{
+					System.out.println("Mauvaise commande !\n");
 				}
 			}
 			return false;
