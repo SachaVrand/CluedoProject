@@ -13,6 +13,7 @@ public class Humain extends Joueur
 		String[] cmdComplete = null;
 		String cmd = "";
 		//Scanner sc = new Scanner(System.in);
+		System.out.println("'help' pour plus d'informations sur les commandes disponibles");
 		
 		do
 		{
@@ -128,6 +129,7 @@ public class Humain extends Joueur
 		Boolean carteCorrecte = false;
 		System.out.println(nomJoueur + " suggère : " + cartes[0] + " " + cartes[1] + " " + cartes[2]);
 		System.out.println("'help' pour plus d'informations sur les commandes disponibles");
+		//dans les contains, passer un string est impossible pour une collection de carte. Donc soit faire une boucle pour tester chaque carte avec le nom et le string soit trouver un autre moyen
 		if(cartesJoueur.contains(cartes[0]) || cartesJoueur.contains(cartes[1]) || cartesJoueur.contains(cartes[2]))
 		{
 			for(Carte c : cartesJoueur)
@@ -148,6 +150,7 @@ public class Humain extends Joueur
 				{
 					carteCorrecte = (cmdComplete[1].equals(cartes[0]) || cmdComplete[1].equals(cartes[1]) || cmdComplete[1].equals(cartes[2]));
 				}
+				//la même pour le contains en dessous
 			}while(!cmd.equals("show") || cmdComplete.length != 2 || !cartesJoueur.contains(cmdComplete[1]) || !carteCorrecte);
 			return true;
 		}

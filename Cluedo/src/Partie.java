@@ -108,7 +108,7 @@ public class Partie {
 			}
 			else
 			{
-				if(tmp[0].equals("suggerer"))
+				if(tmp[0].equals("suggest"))
 				{
 					//boucle pour refuter
 					int i = joueurActuel;
