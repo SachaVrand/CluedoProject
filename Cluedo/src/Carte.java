@@ -21,7 +21,6 @@ public class Carte {
 	@Override
 	public boolean equals(Object o)
 	{
-		//new truc
 		if(o == this)
 			return true;
 		
@@ -40,8 +39,31 @@ public class Carte {
 		return false;
 	}
 	
-	public static boolean contientCarte(List<Carte> cartes, String c)
+	public static boolean contientCarte(List<Carte> cartes, String nom)
 	{
+		for(Carte c : cartes)
+		{
+			if(c.getNom().equals(nom))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	// retoure true si la liste de carte contient au moins l'une des cartes se trouvant dans le tableau de noms de cartes
+	public static boolean contientCarte(List<Carte> cartes, String[] noms)
+	{
+		for(Carte c : cartes)
+		{
+			for(String n : noms)
+			{
+				if(c.getNom().equals(n))
+				{
+					return true;
+				}
+			}
+		}
 		return false;
 	}
 
