@@ -127,6 +127,7 @@ public class Humain extends Joueur
 		String[] cmdComplete;
 		Boolean carteCorrecte = false;
 		System.out.println(nomJoueur + " suggère : " + cartes[0] + " " + cartes[1] + " " + cartes[2]);
+		System.out.println("'help' pour plus d'informations sur les commandes disponibles");
 		if(cartesJoueur.contains(cartes[0]) || cartesJoueur.contains(cartes[1]) || cartesJoueur.contains(cartes[2]))
 		{
 			for(Carte c : cartesJoueur)
@@ -139,8 +140,14 @@ public class Humain extends Joueur
 				cmd = Cluedo.sc.nextLine();
 				cmdComplete = cmd.split(" ");
 				cmd = cmdComplete[0];
-				carteCorrecte = (cmdComplete[1].equals(cartes[0]) || cmdComplete[1].equals(cartes[1]) || cmdComplete[1].equals(cartes[2]));
-				
+				if(cmd.equals("help") && cmdComplete.length == 1)
+				{
+					afficherAideRefuter();
+				}
+				else if(cmdComplete.length > 1)
+				{
+					carteCorrecte = (cmdComplete[1].equals(cartes[0]) || cmdComplete[1].equals(cartes[1]) || cmdComplete[1].equals(cartes[2]));
+				}
 			}while(!cmd.equals("show") || cmdComplete.length != 2 || !cartesJoueur.contains(cmdComplete[1]) || !carteCorrecte);
 			return true;
 		}
@@ -151,6 +158,10 @@ public class Humain extends Joueur
 			while(!cmd.equals("skip"))
 			{
 				cmd = Cluedo.sc.nextLine();
+				if(cmd.equals("help"))
+				{
+					afficherAideRefuter();
+				}
 			}
 			return false;
 		}

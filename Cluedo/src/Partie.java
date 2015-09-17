@@ -111,6 +111,25 @@ public class Partie {
 				if(tmp[0].equals("suggerer"))
 				{
 					//boucle pour refuter
+					int i = joueurActuel;
+					
+					do
+					{
+						if(i + 1 >= joueursPartie.size())
+						{
+							i = 0;
+						}
+						else
+						{
+							i++;
+						}
+						
+						if(i == joueurActuel)	
+						{
+							break;
+						}
+					}
+					while(!(joueursPartie.get(i).refuter(new String[]{tmp[1],tmp[2],tmp[3]}, joueursPartie.get(joueurActuel).getNom())));
 				}
 				else
 				{
