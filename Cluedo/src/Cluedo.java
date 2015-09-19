@@ -9,13 +9,13 @@ public class Cluedo
 	public static void main(String[] args)
 	{
 		String cmd = "";
-		//Scanner sc = new Scanner(System.in);
 		
 		System.out.println("Cluedo 0.1");
 		System.out.println("Taper 'help' pour plus d'informations");
 		
 		while(!cmd.equals("exit"))
 		{
+			System.out.print("Menu principal > ");
 			cmd = sc.nextLine();
 			switch(cmd)
 			{
@@ -23,10 +23,8 @@ public class Cluedo
 				List<Joueur> listJoueur = menuPartieSolo();
 				if(listJoueur.size() != 0)
 				{
-					//sc.close();
 					Partie p = new Partie(listJoueur);
 					p.boucleJeu();
-					//sc = new Scanner(System.in);
 				}
 				break;
 			case "refere" :
@@ -67,16 +65,16 @@ public class Cluedo
 	
 	private static List<Joueur> menuPartieSolo()
 	{
-		System.out.println("\nMode solo\n");
+		System.out.println("\n--Mode solo--\n");
 		System.out.println("Veuillez choisir le nombre de joueurs pour cette partie (3 à 6 joueurs).");
-		System.out.println("0 pour retourner au menu principal.");
+		System.out.println("'0' pour retourner au menu principal.");
 		
 		List<Joueur> joueursPartie = new ArrayList<Joueur>();
 		String cmd = "";
-		//Scanner sc = new Scanner(System.in);
 		
 		while(!cmd.equals("0"))
 		{
+			System.out.print("Solo > ");
 			cmd = sc.nextLine();
 			if(cmd.equals("3") || cmd.equals("4") || cmd.equals("5") || cmd.equals("6"))
 			{
@@ -91,14 +89,14 @@ public class Cluedo
 			}
 			else if(cmd.equals("0"))
 			{
-				System.out.println("\nRetour au menu principal");
+				break;
 			}
 			else
 			{
-				System.out.println("\nMauvaise commande.");
+				System.out.println("\nMauvaise commande.\n");
 			}
 		}
-		//sc.close();
+		System.out.println();
 		return joueursPartie;
 	}
 }

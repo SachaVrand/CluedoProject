@@ -12,12 +12,11 @@ public class Humain extends Joueur
 	{
 		String[] cmdComplete = null;
 		String cmd = "";
-		//Scanner sc = new Scanner(System.in);
-		System.out.println("'help' pour plus d'informations sur les commandes disponibles");
+		System.out.println("\n'help' pour plus d'informations sur les commandes disponibles");
 		
 		do
 		{
-			System.out.print("[JOUER]"+nom + " > ");
+			System.out.print("[JOUER]" + nom + " > ");
 			
 			try
 			{
@@ -49,7 +48,7 @@ public class Humain extends Joueur
 				Carte[] ordreTypeCarte = testerCartes(new String[]{cmdComplete[2],cmdComplete[3],cmdComplete[4]});
 				if(ordreTypeCarte == null)
 				{
-					System.out.println("\nMauvaises cartes. Une carte lieu, une carte arme et une carte suspect sont requises en parametres.");
+					System.out.println("\nMauvaises cartes. Une carte lieu, une carte arme et une carte suspect sont requises en parametres.\n");
 				}
 				else
 				{
@@ -101,21 +100,19 @@ public class Humain extends Joueur
 								tmp[2] = cmdComplete[4];
 							}
 						}
-						//sc.close();
 						return tmp;
 					}
 					else
 					{
-						System.out.println("\nMauvaise option, 'suggest' ou 'accuse'");
+						System.out.println("\nMauvaise option, 'suggest' ou 'accuse'\n");
 					}	
 				}	
 			}
 			else
 			{
-				System.out.println("\nMauvaise commande");
+				System.out.println("\nMauvaise commande\n");
 			}
 		}while(!cmd.equals("exit") || cmdComplete.length != 1);
-		//sc.close();
 		return null;
 		
 	}
@@ -127,10 +124,8 @@ public class Humain extends Joueur
 		String cmd = "";
 		String[] cmdComplete;
 		Boolean carteCorrecte = false;
-		System.out.println("\n"+nomJoueur + " suggère : " + cartes[0] + " " + cartes[1] + " " + cartes[2]);
-		System.out.println("'help' pour plus d'informations sur les commandes disponibles\n");
-		//dans les contains, passer un string est impossible pour une collection de carte.
-		//Donc soit faire une boucle pour tester chaque carte avec le nom et le string soit trouver un autre moyen
+		System.out.println("\n"+nomJoueur + " suggère : " + cartes[0] + " " + cartes[1] + " " + cartes[2]+ "\n");
+		System.out.println("'help' pour plus d'informations sur les commandes disponibles");
 		if(Carte.contientCarte(cartesJoueur, cartes))
 		{
 			for(Carte c : cartesJoueur)
@@ -160,8 +155,8 @@ public class Humain extends Joueur
 				{
 					System.out.println("Mauvaise commande !\n");
 				}
-				//la même pour le contains en dessous
 			}while(!cmd.equals("show") || cmdComplete.length != 2 || !Carte.contientCarte(cartesJoueur, cmdComplete[1]) || !carteCorrecte);
+			System.out.println("\n" + nomJoueur + " montre la carte " + cmdComplete[1]);
 			return true;
 		}
 		else
@@ -216,14 +211,7 @@ public class Humain extends Joueur
 		{
 			System.out.println(c.getNom());
 		}
-		if(encoreEnJeu)
-		{
-			System.out.println("\n Vous n'avez pas encore fait d'accusation.\n");
-		}
-		else
-		{
-			System.out.println("\n Vous avez fait une accusation fausse.\n");
-		}
+		System.out.println();
 	}
 	
 	private Carte[] testerCartes(String[] tabCarte)

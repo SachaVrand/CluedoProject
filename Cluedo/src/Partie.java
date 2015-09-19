@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 public class Partie {
@@ -39,31 +40,32 @@ public class Partie {
 	private void distribuerPaquet(List<Carte> paquet)
 	{
 		Collections.shuffle(paquet);
-		int x = -1,y = -1,z = -1;
-		for(int i = 0; i < paquet.size(); i++)
+		Iterator<Carte> it = paquet.iterator();
+		while(it.hasNext())
 		{
-			if(paquet.get(i) instanceof Arme)
+			Carte c = it.next();
+			if(c instanceof Arme)
 			{
 				if(!(cartesADecouvrir[0] instanceof Arme))
 				{
-					cartesADecouvrir[0] = paquet.get(i);
-					x = i;
+					cartesADecouvrir[0] = c;
+					it.remove();
 				}
 			}
-			else if(paquet.get(i) instanceof Lieu)
+			else if(c instanceof Lieu)
 			{
 				if(!(cartesADecouvrir[1] instanceof Lieu))
 				{
-					cartesADecouvrir[1] = paquet.get(i);
-					y = i;
+					cartesADecouvrir[1] = c;
+					it.remove();
 				}		
 			}
-			else if(paquet.get(i) instanceof Suspect)
+			else if(c instanceof Suspect)
 			{
 				if(!(cartesADecouvrir[2] instanceof Suspect))
 				{
-					cartesADecouvrir[2] = paquet.get(i);
-					z = i;
+					cartesADecouvrir[2] = c;
+					it.remove();
 				}
 			}
 			
@@ -72,9 +74,6 @@ public class Partie {
 				break;
 			}
 		}
-		paquet.remove(x);
-		paquet.remove(y);
-		paquet.remove(z);
 		
 		for(int i = 0, j = joueursPartie.size() - 1; i < paquet.size(); i++)
 		{
@@ -88,10 +87,11 @@ public class Partie {
 	
 	public void boucleJeu()
 	{
+		System.out.println(cartesADecouvrir[0].getNom() + " " + cartesADecouvrir[1].getNom() + " " + cartesADecouvrir[2].getNom());
 		String[] tmp;
 		while(!partieFinie)
 		{
-			//on vérifie que les joueur actuel peut jouer sinon on passe au joueur suivant et ainsi de suite.
+			//on vérifie que le joueur actuel peut jouer sinon on passe au joueur suivant et ainsi de suite.
 			while(!joueursPartie.get(joueurActuel).getEncoreEnJeu())
 			{
 				joueurActuel++;
@@ -136,13 +136,25 @@ public class Partie {
 					//verifier accusation
 					if(tmp[1].equals(cartesADecouvrir[0].getNom())  && tmp[2].equals(cartesADecouvrir[1].getNom()) && tmp[3].equals(cartesADecouvrir[2].getNom()))
 					{
-						System.out.println(joueursPartie.get(joueurActuel).getNom() + " a gagné la partie");
+						System.out.println("\n" + joueursPartie.get(joueurActuel).getNom() + " a gagné la partie\n");
 						partieFinie = true;
 					}
 					else
 					{
 						joueursPartie.get(joueurActuel).setEncoreEnJeu(false);
-						System.out.println(joueursPartie.get(joueurActuel).getNom() + " a fait une accusation fausse");
+						System.out.println("\n"+ joueursPartie.get(joueurActuel).getNom() + " a fait une accusation fausse");
+						
+						//s'il n'y a plus de joueurs en jeu
+						for(Joueur j : joueursPartie)
+						{
+							partieFinie = partieFinie || j.getEncoreEnJeu();
+						}
+						partieFinie = !partieFinie;
+						
+						if(partieFinie)
+						{
+							System.out.println("\nPersonnes n'a gagné\n");
+						}
 					}
 				}
 			}
