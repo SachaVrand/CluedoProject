@@ -54,7 +54,7 @@ public enum Armes {
 	
 	/**
 	 * Méthode qui retourne l'image associée à la carte sous la forme d'un Icon.
-	 * @return
+	 * @return Icon représentant l'image associée à la carte.
 	 */
 	public Icon getImage()
 	{

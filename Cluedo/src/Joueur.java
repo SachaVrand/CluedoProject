@@ -43,7 +43,7 @@ public abstract class Joueur {
 	
 	/**
 	 * Retourne la collection de Carte que possède le joueur.
-	 * @return List<Carte> collections de cartes du joueur.
+	 * @return Collections des cartes du joueur.
 	 */
 	public List<Carte> getCartesJoueur()
 	{
@@ -79,7 +79,7 @@ public abstract class Joueur {
 	
 	/**
 	 * Méthode qui retourne le nom du joueur sous forme de chaine de caractères.
-	 * @return
+	 * @return Nom du joueur sous forme de chaine de caractères.
 	 */
 	public String getNom()
 	{

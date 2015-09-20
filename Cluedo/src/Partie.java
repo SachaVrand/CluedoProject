@@ -33,7 +33,7 @@ public class Partie {
 	/**
 	 * Instancie une nouvelle partie avec la liste des joueurs passée en paramètre, l'indice du joueur actuel à 0, un nouveau tableau de 3 cartes, partieFinie à false 
 	 * et distribue les cartes à chaque joueur.
-	 * @param joueursPartie
+	 * @param joueursPartie Collection de Joueur jouant la partie.
 	 */
 	public Partie(List<Joueur> joueursPartie)
 	{
