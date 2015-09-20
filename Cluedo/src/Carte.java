@@ -2,17 +2,38 @@ import java.util.List;
 
 import javax.swing.Icon;
 
+/**
+ * Classe représentant une Carte du jeu cluedo.
+ * @author Sacha
+ *
+ */
 public class Carte {
 	
+	/**
+	 * Image correspondant à la carte.
+	 */
 	private Icon image;
+	
+	/**
+	 * Nom représentant la carte.
+	 */
 	private String nom;
 	
+	/**
+	 * Instancie une nouvelle Carte avec le nom et l'image passés en paramètres.
+	 * @param nom Nom correspondant à la Carte.
+	 * @param img Image correspondant à la Carte.
+	 */
 	public Carte(String nom, Icon img)
 	{
 		this.nom = nom;
 		this.image = img;
 	}
 	
+	/**
+	 * Méthode retournant le nom associé à la carte sous la forme d'une chaine de caractères.
+	 * @return Nom de la carte sous la forme d'un String
+	 */
 	public String getNom()
 	{
 		return this.nom;
@@ -39,6 +60,12 @@ public class Carte {
 		return false;
 	}
 	
+	/**
+	 * Méthode qui retourne si une carte, représentée par un String, est présente dans la Collection de cartes passée en paramètre.
+	 * @param cartes Collection de cartes dans laquelle vous souhaitez chercher.
+	 * @param nom Chaine de caractères représentant la carte recherchée.
+	 * @return true si la carte est présente au moins une fois dans la collection, sinon false.
+	 */
 	public static boolean contientCarte(List<Carte> cartes, String nom)
 	{
 		for(Carte c : cartes)
@@ -51,7 +78,12 @@ public class Carte {
 		return false;
 	}
 	
-	// retoure true si la liste de carte contient au moins l'une des cartes se trouvant dans le tableau de noms de cartes
+	/**
+	 * 
+	 * @param cartes Collection de cartes dans laquelle vous souhaitez chercher.
+	 * @param noms Tableau de noms représentant des cartes.
+	 * @return true si la liste de cartes contient, au moins une fois, l'une des cartes se trouvant dans le tableau de noms de cartes
+	 */
 	public static boolean contientCarte(List<Carte> cartes, String[] noms)
 	{
 		for(Carte c : cartes)

@@ -2,10 +2,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Classe principal du programme.
+ * 
+ * Permet de lancer le jeu cluedo. Regroupe quelques fonctions statiques permettant entre autres d'afficher l'aide du menu principal et lancer une partie solo.
+ * @author Sacha
+ *
+ */
 public class Cluedo
 {
+	
+	/**
+	 * Scanner permettant de récupérer les commandes entrées par l'utilisateur. Ouvert au démarrage et fermée à la fin du programme.
+	 */
 	public static Scanner sc = new Scanner(System.in);
 	
+	/**
+	 * Fonction main.
+	 * @param args Aucun paramètres attendus.
+	 */
 	public static void main(String[] args)
 	{
 		String cmd = "";
@@ -45,6 +60,9 @@ public class Cluedo
 		System.exit(0);
 	}
 	
+	/**
+	 * Méthode statique permettant d'afficher l'aide pour les commandes du menu principal.
+	 */
 	private static void afficherAide()
 	{
 		System.out.println("\nsolo");
@@ -63,6 +81,10 @@ public class Cluedo
 		System.out.println("\t Afficher ce message.\n");
 	}
 	
+	/**
+	 * Méthode statiques permetttant de lancer une partie solo. Demande à l'utilisateur le nombre de joueurs de la partie sur la console.
+	 * @return La liste des joueurs participant à une partie solo. Liste vide si le joueur veut revenir au menu principal.
+	 */
 	private static List<Joueur> menuPartieSolo()
 	{
 		System.out.println("\n--Mode solo--\n");

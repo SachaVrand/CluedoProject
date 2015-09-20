@@ -1,12 +1,27 @@
 import java.util.NoSuchElementException;
 
+/**
+ * Classe représentant un joueur de type Humain.
+ * @author Sacha
+ *
+ */
 public class Humain extends Joueur
 {
+	/**
+	 * Instancie un nouveau Joueur. cf Constructeur Joueur.
+	 * @see Joueur#Joueur(String, String)
+	 * @param nom Nom du joueur sous la forme de chaine de caractères.
+	 * @param adresse Adresse ip du joueur sous la forme de chaine de caractères.
+	 */
 	public Humain(String nom, String adresse)
 	{
 		super(nom, adresse);
 	}
 
+	/**
+	 * Méthode qui permet de faire une suggestion ou une accusation à un joueur sur la console..
+	 * @return Tableau de String représentant les commandes taper par l'utilisateur. Null si le joueur a décider de quitter. String[4]. String[0] option. String[1-3] carte. [1]arme [2]lieu [3]suspect
+	 */
 	@Override
 	public String[] jouerCoup()
 	{
@@ -117,6 +132,12 @@ public class Humain extends Joueur
 		
 	}
 
+	/**
+	 * Méthode qui permet à un joueur de réfuter ou non, sur la console.
+	 * @param cartes Tableau de String répresentant les 3 cartes suggérer par un joueur.
+	 * @param nomJoueur String répresentant le joueur ayant fait la suggestion.
+	 * @return true si joueur a pu réfuter sinon false.
+	 */
 	@Override
 	public boolean refuter(String[] cartes, String nomJoueur)
 	{
@@ -179,6 +200,9 @@ public class Humain extends Joueur
 		}
 	}
 	
+	/**
+	 * Méthode qui permet d'afficher l'aide sur les commandes quand un joueur suggère ou accuse.
+	 */
 	private void afficherAide()
 	{
 		System.out.println("\nLes commandes disponibles durant la partie :\n");
@@ -193,6 +217,9 @@ public class Humain extends Joueur
 		System.out.println("\t Afficher ce message.\n");
 	}
 	
+	/**
+	 * Méthode qui permet d'afficher l'aide sur les commandes quand un joueur réfute.
+	 */
 	private void afficherAideRefuter()
 	{
 		System.out.println("Les commandes disponibles :\n");
@@ -204,6 +231,9 @@ public class Humain extends Joueur
 		System.out.println("\t affiche ce message \n");
 	}
 	
+	/**
+	 * Méthode qui permet d'afficher les indices que le joueur possède.
+	 */
 	private void afficherIndices()
 	{
 		System.out.println("\n\t Indices : ");
@@ -214,6 +244,12 @@ public class Humain extends Joueur
 		System.out.println();
 	}
 	
+	/**
+	 * Méthode qui permet de tester les cartes représentées sous forme d'un tableau de string, si elle sont correctes.
+	 * Pour qu'elles soient correctes il faut une carte de chaque type(Lieu,Suspect,Arme).
+	 * @param tabCarte Tableau de String représentant les 3 cartes suggérer par le joueur.
+	 * @return Un tableau de carte avec l'ordre de chaque type de carte. Ex: tab = {Arme,Lieu,Suspect} ou tab = {Suspect,LieuArme}... Null si les cartes ne sont pas correctes.
+	 */
 	private Carte[] testerCartes(String[] tabCarte)
 	{
 		//Tester si les cartes passées sont correctes

@@ -3,13 +3,38 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Classe représentant une partie de jeu du cluedo.
+ * @author Sacha
+ *
+ */
 public class Partie {
 	
+	/**
+	 * Représente la liste des joueurs dans la partie.
+	 */
 	private List<Joueur> joueursPartie;
+	
+	/**
+	 * Représente les carte à découvrir pour résoudre le crime.
+	 */
 	private Carte[] cartesADecouvrir;
+	
+	/**
+	 * Représente l'indice, dans la liste des joueurs, du joueur actuel.
+	 */
 	private int joueurActuel;
+	
+	/**
+	 * Represente si la partie est finie ou non.
+	 */
 	private boolean partieFinie;
 	
+	/**
+	 * Instancie une nouvelle partie avec la liste des joueurs passée en paramètre, l'indice du joueur actuel à 0, un nouveau tableau de 3 cartes, partieFinie à false 
+	 * et distribue les cartes à chaque joueur.
+	 * @param joueursPartie
+	 */
 	public Partie(List<Joueur> joueursPartie)
 	{
 		this.joueursPartie = joueursPartie;
@@ -19,6 +44,10 @@ public class Partie {
 		distribuerPaquet(creerPaquetDeCartes());
 	}
 	
+	/**
+	 * Méthode qui crée le paquet de cartes du jeu Cluedo.
+	 * @return Collection des cartes du jeu Cluedo.
+	 */
 	private List<Carte> creerPaquetDeCartes()
 	{
 		List<Carte> paquet = new ArrayList<Carte>();
@@ -37,6 +66,11 @@ public class Partie {
 		return paquet;
 	}
 
+	/**
+	 * Méthode qui permet de distribuer les cartes passées en paramètre à chaque joueur présent dans la partie 
+	 * et de mettre les 3 carte du crime dans cartesADecouvrir.
+	 * @param paquet Paquet de cartes complet du jeu Cluedo. 
+	 */
 	private void distribuerPaquet(List<Carte> paquet)
 	{
 		Collections.shuffle(paquet);
@@ -85,9 +119,11 @@ public class Partie {
 		
 	}
 	
+	/**
+	 * Méthode qui permet de faire tourner une partie de cluedo.
+	 */
 	public void boucleJeu()
 	{
-		System.out.println(cartesADecouvrir[0].getNom() + " " + cartesADecouvrir[1].getNom() + " " + cartesADecouvrir[2].getNom());
 		String[] tmp;
 		while(!partieFinie)
 		{
