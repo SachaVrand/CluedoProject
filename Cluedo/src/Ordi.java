@@ -1,6 +1,6 @@
 /**
  * Classe représentant un joueur de type Ordinateur.
- * @author Sacha
+ * @author Sacha et Clement
  *
  */
 public class Ordi extends Joueur

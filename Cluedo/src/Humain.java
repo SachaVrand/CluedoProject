@@ -1,8 +1,9 @@
+import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
  * Classe représentant un joueur de type Humain.
- * @author Sacha
+ * @author Sacha et Clement
  *
  */
 public class Humain extends Joueur
@@ -145,13 +146,14 @@ public class Humain extends Joueur
 		String cmd = "";
 		String[] cmdComplete;
 		Boolean carteCorrecte = false;
+		List<String> tmp;
 		System.out.println("\n"+nomJoueur + " suggère : " + cartes[0] + " " + cartes[1] + " " + cartes[2]+ "\n");
-		System.out.println("'help' pour plus d'informations sur les commandes disponibles");
-		if(Carte.contientCarte(cartesJoueur, cartes))
+		if((tmp = Carte.cartesContenuDans(cartesJoueur, cartes)).size() != 0)
 		{
-			for(Carte c : cartesJoueur)
+			System.out.println("'help' pour plus d'informations sur les commandes disponibles\n");
+			for(String carte : tmp)
 			{
-				System.out.println(c.getNom());
+				System.out.println("\t" + carte);
 			}
 			System.out.println("\nVous pouvez refuter la proposition. Quelle carte choisissez vous de montrer ? (show <card>)");
 			do
@@ -182,7 +184,11 @@ public class Humain extends Joueur
 		}
 		else
 		{
-			System.out.println("Vous n'avez aucune carte pour réfuter la proposition. (skip pour passer)");
+			System.out.print("[REFUTER] " + nom + " n'as aucune cartes pour réfuter.");
+			return false;
+			
+			
+			/*System.out.println("Vous n'avez aucune carte pour réfuter la proposition. (skip pour passer)");
 			while(!cmd.equals("skip"))
 			{
 				System.out.print("[REFUTER] "+nom+" > ");
@@ -196,7 +202,7 @@ public class Humain extends Joueur
 					System.out.println("Mauvaise commande !\n");
 				}
 			}
-			return false;
+			return false;*/
 		}
 	}
 	
@@ -215,6 +221,22 @@ public class Humain extends Joueur
 		System.out.println("\t Quitter la partie.\n");
 		System.out.println("help");
 		System.out.println("\t Afficher ce message.\n");
+		String c = "Cartes du jeu : Armes ->";
+		for(Armes a : Armes.values())
+		{
+			c += " " + a.toString() + ",";
+		}
+		c += "\n                Lieux ->";
+		for(Lieux l : Lieux.values())
+		{
+			c += " " + l.toString() +",";
+		}
+		c += "\n                Suspects ->";
+		for(Suspects s : Suspects.values())
+		{
+			c += " " + s.toString() + ",";
+		}
+		System.out.println(c +"\n");
 	}
 	
 	/**
@@ -225,8 +247,8 @@ public class Humain extends Joueur
 		System.out.println("Les commandes disponibles :\n");
 		System.out.println("show <card>");
 		System.out.println("\t la carte que vous souhaiter montrer si vous les pouvez \n");
-		System.out.println("skip");
-		System.out.println("\t permet de passer si vous n'avez aucune carte pour réfuter \n");
+		/*System.out.println("skip");
+		System.out.println("\t permet de passer si vous n'avez aucune carte pour réfuter \n");*/
 		System.out.println("help");
 		System.out.println("\t affiche ce message \n");
 	}

@@ -1,10 +1,11 @@
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.Icon;
 
 /**
  * Classe représentant une Carte du jeu cluedo.
- * @author Sacha
+ * @author Sacha et Clement
  *
  */
 public class Carte {
@@ -79,24 +80,25 @@ public class Carte {
 	}
 	
 	/**
-	 * 
+	 * Méthode qui retourne les cartes en commun dans la collection d'objet et le tableau de String en les comparant les cartes avec leur nom.
 	 * @param cartes Collection de cartes dans laquelle vous souhaitez chercher.
 	 * @param noms Tableau de noms représentant des cartes.
-	 * @return true si la liste de cartes contient, au moins une fois, l'une des cartes se trouvant dans le tableau de noms de cartes
+	 * @return Liste des cartes contenu dans la collection de cartes et le tableau de String, liste vide si aucune carte en commun.
 	 */
-	public static boolean contientCarte(List<Carte> cartes, String[] noms)
+	public static List<String> cartesContenuDans(List<Carte> cartes, String[] noms)
 	{
+		List<String> res = new ArrayList<String>();
 		for(Carte c : cartes)
 		{
 			for(String n : noms)
 			{
 				if(c.getNom().equals(n))
 				{
-					return true;
+					res.add(n) ;
 				}
 			}
 		}
-		return false;
+		return res;
 	}
 
 }

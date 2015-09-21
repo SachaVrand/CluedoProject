@@ -2,7 +2,7 @@ import javax.swing.Icon;
 
 /**
  * Classe représentant une carte de type Arme.
- * @author Sacha
+ * @author Sacha et Clement
  *
  */
 public class Arme extends Carte{

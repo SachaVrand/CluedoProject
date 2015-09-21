@@ -3,7 +3,7 @@ import javax.swing.ImageIcon;
 
 /**
  * Enumération des differentes cartes de type Arme présentes dans le jeu cluedo.
- * @author Sacha
+ * @author Sacha et Clement
  *
  */
 public enum Armes {

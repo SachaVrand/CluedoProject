@@ -6,7 +6,7 @@ import java.util.Scanner;
  * Classe principal du programme.
  * 
  * Permet de lancer le jeu cluedo. Regroupe quelques fonctions statiques permettant entre autres d'afficher l'aide du menu principal et lancer une partie solo.
- * @author Sacha
+ * @author Sacha et Clement
  *
  */
 public class Cluedo

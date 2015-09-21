@@ -3,7 +3,7 @@ import java.util.List;
 
 /**
  * Classe abstraite répresentant un joueur de la partie de cluedo.
- * @author Sacha
+ * @author Sacha et Clement
  *
  */
 public abstract class Joueur {

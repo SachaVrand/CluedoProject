@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * Classe représentant une partie de jeu du cluedo.
- * @author Sacha
+ * @author Sacha et Clement
  *
  */
 public class Partie {

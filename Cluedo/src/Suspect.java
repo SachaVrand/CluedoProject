@@ -2,7 +2,7 @@ import javax.swing.Icon;
 
 /**
  * Classe représentant une carte de type Suspect.
- * @author Sacha
+ * @author Sacha et Clement
  *
  */
 public class Suspect extends Carte{
