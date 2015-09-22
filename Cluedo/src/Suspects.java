@@ -11,32 +11,32 @@ public enum Suspects {
 	/**
 	 * Représente la carte Miss_Scarlett
 	 */
-	Miss_Scarlett(new ImageIcon("pathManquant")),
+	Scarlett(new ImageIcon("pathManquant")),
 	
 	/**
 	 * Représente la carte Colonel_Mustard
 	 */
-	Colonel_Mustard(new ImageIcon("pathManquant")),
+	Mustard(new ImageIcon("pathManquant")),
 	
 	/**
 	 * Représente la carte Mrs_White
 	 */
-	Mrs_White(new ImageIcon("pathManquant")),
+	White(new ImageIcon("pathManquant")),
 	
 	/**
 	 * Représente la carte Professor_Plum
 	 */
-	Professor_Plum(new ImageIcon("pathManquant")),
+	Plum(new ImageIcon("pathManquant")),
 	
 	/**
 	 * Représente la carte Mrs_Peacock
 	 */
-	Mrs_Peacock(new ImageIcon("pathManquant")),
+	Peacock(new ImageIcon("pathManquant")),
 	
 	/**
 	 * Représente la carte Reverend_Green
 	 */
-	Reverend_Green(new ImageIcon("pathManquant"));
+	Green(new ImageIcon("pathManquant"));
 	
 	/**
 	 * Image associée à la carte.

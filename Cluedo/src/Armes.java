@@ -21,7 +21,7 @@ public enum Armes {
 	/**
 	 * Représente la carte Lead_pipe
 	 */
-	Lead_pipe(new ImageIcon("pathManquant")),
+	Pipe(new ImageIcon("pathManquant")),
 	
 	/**
 	 * Représente la carte Revolver

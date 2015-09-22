@@ -58,6 +58,10 @@ public class Humain extends Joueur
 			{
 				afficherAide();
 			}
+			else if(cmd.equals("exit") && cmdComplete.length == 1)
+			{
+				System.out.println(nom + "quitte la partie.");
+			}
 			else if(cmd.equals("move") && cmdComplete.length == 5)
 			{
 				//Tester si les cartes passées sont correctes
@@ -173,6 +177,10 @@ public class Humain extends Joueur
 					{
 						System.out.println("Mauvaise commande !\n");
 					}
+				}
+				else if(cmd.equals("exit") && cmdComplete.length == 1)
+				{
+					System.out.println(nom + "quitte la partie.");
 				}
 				else
 				{
