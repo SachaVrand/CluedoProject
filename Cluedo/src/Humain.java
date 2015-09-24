@@ -221,7 +221,7 @@ public class Humain extends Joueur
 	{
 		System.out.println("\nLes commandes disponibles durant la partie :\n");
 		System.out.println("show");
-		System.out.println("\t Voir les informations vous concernant (Indices et accusations faites).\n");
+		System.out.println("\t Voir les vos indices.\n");
 		System.out.println("move <type> <card1> <card2> <card3>");
 		System.out.println("\t <type> : Sois 'suggest' ou 'accuse'.");
 		System.out.println("\t <cardN> : une carte.\n");
