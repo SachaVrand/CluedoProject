@@ -192,7 +192,7 @@ public class Humain extends Joueur
 		}
 		else
 		{
-			System.out.print("[REFUTER] " + nom + " n'as aucune cartes pour réfuter.");
+			System.out.println("[REFUTER] " + nom + " n'as aucune cartes pour réfuter.");
 			return false;
 			
 			
