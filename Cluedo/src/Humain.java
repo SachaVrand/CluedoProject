@@ -60,7 +60,7 @@ public class Humain extends Joueur
 			}
 			else if(cmd.equals("exit") && cmdComplete.length == 1)
 			{
-				System.out.println(nom + "quitte la partie.");
+				System.out.println(nom + " quitte la partie.");
 			}
 			else if(cmd.equals("move") && cmdComplete.length == 5)
 			{
@@ -180,7 +180,7 @@ public class Humain extends Joueur
 				}
 				else if(cmd.equals("exit") && cmdComplete.length == 1)
 				{
-					System.out.println(nom + "quitte la partie.");
+					System.out.println(nom + " quitte la partie.");
 				}
 				else
 				{
