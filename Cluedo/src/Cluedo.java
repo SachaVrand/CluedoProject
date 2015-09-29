@@ -38,7 +38,7 @@ public class Cluedo
 				List<Joueur> listJoueur = menuPartieSolo();
 				if(listJoueur.size() != 0)
 				{
-					Partie p = new Partie(listJoueur);
+					PartieSolo p = new PartieSolo(listJoueur);
 					p.boucleJeu();
 				}
 				break;

@@ -5,7 +5,7 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.io.IOException;
-import java.time.Instant;
+//import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,7 +62,8 @@ public class RegServer {
     	this.serverSocket.setSoTimeout(250);
     	
     	// Calculate the instant the registrations will stop.
-    	Instant endInstant = Instant.now().plusMillis(regTimeout);
+    	//Instant endInstant = Instant.now().plusMillis(regTimeout);
+    	long endInstant = System.currentTimeMillis() + regTimeout;
     	    	
     	Socket client = null;
 
@@ -78,7 +79,7 @@ public class RegServer {
     				break;
     			}
     			// If the elapsed time exceeds regTimeout.
-    			if (Instant.now().isAfter(endInstant)) {
+    			if (System.currentTimeMillis() > endInstant) {
     				break;
     			}
     			// if (Thread.interrupted()) {
