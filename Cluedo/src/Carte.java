@@ -100,5 +100,257 @@ public class Carte {
 		}
 		return res;
 	}
+	
+	/**
+	 * Méthode qui permet de tester les cartes représentées sous forme d'un tableau de string, si elle sont correctes.
+	 * Pour qu'elles soient correctes il faut une carte de chaque type(Lieu,Suspect,Arme).
+	 * @param tabCarte Tableau de String représentant les 3 cartes suggérer par le joueur.
+	 * @return Un tableau de carte avec l'ordre de chaque type de carte. Ex: tab = {Arme,Lieu,Suspect} ou tab = {Suspect,LieuArme}... Null si les cartes ne sont pas correctes.
+	 */
+	public static Carte[] testerCartes(String[] tabCarte)
+	{
+		//Tester si les cartes passées sont correctes
+		//si elles sont correctes, renvoie un tableau de carte
+		//sinon renvoie null;
+		
+		Carte[] cartes = null;
+		Carte a = null;
+		Carte b = null;
+		Carte c = null;
+		
+		//on test la première carte
+		for(Armes arme : Armes.values())
+		{
+			if(arme.toString().equals(tabCarte[0]))
+			{
+				a = new Arme(arme.toString(), arme.getImage());
+			}
+		}
+		if(a == null)
+		{
+			for(Lieux lieu : Lieux.values())
+			{
+				if(lieu.toString().equals(tabCarte[0]))
+				{
+					a = new Lieu(lieu.toString(), lieu.getImage());
+				}
+			}
+		}
+		if(a == null)
+		{
+			for(Suspects suspect : Suspects.values())
+			{
+				if(suspect.toString().equals(tabCarte[0]))
+				{
+					a = new Suspect(suspect.toString(), suspect.getImage());
+				}
+			}
+		}
+		
+		//on test la 2ème carte (plus de conditions..)
+		if(a != null)
+		{
+			// si la première carte est une arme
+			if(a instanceof Arme)
+			{
+				for(Lieux lieu : Lieux.values())
+				{
+					if(lieu.toString().equals(tabCarte[1]))
+					{
+						b = new Lieu(lieu.toString(), lieu.getImage());
+					}
+				}
+				if(b == null)
+				{
+					for(Suspects suspect : Suspects.values())
+					{
+						if(suspect.toString().equals(tabCarte[1]))
+						{
+							b = new Suspect(suspect.toString(), suspect.getImage());
+						}
+					}
+				}
+			}
+			// si la première carte est un lieu
+			if(a instanceof Lieu)
+			{
+				for(Armes arme : Armes.values())
+				{
+					if(arme.toString().equals(tabCarte[1]))
+					{
+						b = new Arme(arme.toString(), arme.getImage());
+					}
+				}
+				if(b == null)
+				{
+					for(Suspects suspect : Suspects.values())
+					{
+						if(suspect.toString().equals(tabCarte[1]))
+						{
+							b = new Suspect(suspect.toString(), suspect.getImage());
+						}
+					}
+				}
+			}
+			// si la première carte est un suspect
+			if(a instanceof Suspect)
+			{
+				for(Armes arme : Armes.values())
+				{
+					if(arme.toString().equals(tabCarte[1]))
+					{
+						b = new Arme(arme.toString(), arme.getImage());
+					}
+				}
+				if(b == null)
+				{
+					for(Lieux lieu : Lieux.values())
+					{
+						if(lieu.toString().equals(tabCarte[1]))
+						{
+							b = new Lieu(lieu.toString(), lieu.getImage());
+						}
+					}
+				}
+			}
+		}
+		// on test la 3ème carte (encore plus de test...)
+		if(b != null)
+		{
+			//si la premirèe carte est une arme
+			if(a instanceof Arme)
+			{
+				//si la deuxième carte est un lieu
+				if(b instanceof Lieu)
+				{
+					for(Suspects suspect : Suspects.values())
+					{
+						if(suspect.toString().equals(tabCarte[2]))
+						{
+							c = new Suspect(suspect.toString(), suspect.getImage());
+						}
+					}
+				}
+				//si la deuxième carte est un suspect
+				else
+				{
+					for(Lieux lieu : Lieux.values())
+					{
+						if(lieu.toString().equals(tabCarte[2]))
+						{
+							c = new Lieu(lieu.toString(), lieu.getImage());
+						}
+					}
+				}
+			}
+			//si la première carte est un lieu
+			if(a instanceof Lieu)
+			{
+				//si la deuxième carte est une arme
+				if(b instanceof Arme)
+				{
+					for(Suspects suspect : Suspects.values())
+					{
+						if(suspect.toString().equals(tabCarte[2]))
+						{
+							c = new Suspect(suspect.toString(), suspect.getImage());
+						}
+					}
+				}
+				//si la deuxième carte est un suspect
+				else
+				{
+					for(Armes arme : Armes.values())
+					{
+						if(arme.toString().equals(tabCarte[2]))
+						{
+							c = new Arme(arme.toString(), arme.getImage());
+						}
+					}
+				}
+			}
+			//si la première carte est un suspect
+			if(a instanceof Suspect)
+			{
+				//si la deuxième carte est une arme
+				if(b instanceof Arme)
+				{
+					for(Lieux lieu : Lieux.values())
+					{
+						if(lieu.toString().equals(tabCarte[2]))
+						{
+							c = new Lieu(lieu.toString(), lieu.getImage());
+						}
+					}
+				}
+				//si la deuxième carte est un lieu
+				else
+				{
+					for(Armes arme : Armes.values())
+					{
+						if(arme.toString().equals(tabCarte[2]))
+						{
+							c = new Arme(arme.toString(), arme.getImage());
+						}
+					}
+				}
+			}
+		}
+		if(c != null)
+		{
+			cartes = new Carte[]{a,b,c};
+		}
+		return cartes;
+	}
+	
+	public static String[] ordonnerCartes(String[] cartes, Carte[] ordreTypeCarte)
+	{
+		//[0]arme [1]lieu [2]suspect
+		String[] tmp = new String[3];
+		if(ordreTypeCarte[0] instanceof Arme)
+		{
+			tmp[0] = cartes[0];
+			if(ordreTypeCarte[1] instanceof Lieu)
+			{
+				tmp[1] = cartes[1];
+				tmp[2] = cartes[2];
+			}
+			else if(ordreTypeCarte[1] instanceof Suspect)
+			{
+				tmp[2] = cartes[1];
+				tmp[1] = cartes[2];
+			}
+		}
+		else if(ordreTypeCarte[0] instanceof Lieu)
+		{
+			tmp[1] = cartes[0];
+			if(ordreTypeCarte[1] instanceof Suspect)
+			{
+				tmp[2] = cartes[1];
+				tmp[0] = cartes[2];
+			}
+			else if(ordreTypeCarte[1] instanceof Arme)
+			{
+				tmp[0] = cartes[1];
+				tmp[2] = cartes[2];
+			}
+			
+		}
+		else if(ordreTypeCarte[0] instanceof Suspect)
+		{
+			tmp[2] = cartes[0];
+			if(ordreTypeCarte[1] instanceof Lieu)
+			{
+				tmp[1] = cartes[1];
+				tmp[0] = cartes[2];
+			}
+			else if(ordreTypeCarte[1] instanceof Arme)
+			{
+				tmp[0] = cartes[1];
+				tmp[1] = cartes[2];
+			}
+		}
+		return tmp;
+	}
 
 }

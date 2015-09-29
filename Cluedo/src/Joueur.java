@@ -95,10 +95,10 @@ public abstract class Joueur {
 	/**
 	 * Méthode qui doit permettre au joueur de refuter ou non, une suggestion.
 	 * @param cartes Cartes sous la forme de String que l'autre joueur à suggérer.
-	 * @param nomJoueur Nom du joueur ayant suggérer.
-	 * @return true si joueur a pu réfuter.
+	 * @param cartesCommun Cartes en commun dans le paquet du joueur avec les cartes suggerer sous la forme de String
+	 * @return chaine correspondant à la carte montrer, exit si le joueur veut quitter.
 	 */
-	public abstract boolean refuter(String[] cartes, String nomJoueur);
+	public abstract String refuter(String[] cartes, List<String> carteCommun);
 	
 	
 	

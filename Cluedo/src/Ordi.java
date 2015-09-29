@@ -1,3 +1,5 @@
+import java.util.List;
+
 /**
  * Classe représentant un joueur de type Ordinateur.
  * @author Sacha et Clement
@@ -32,8 +34,8 @@ public class Ordi extends Joueur
 	 * @return null
 	 */
 	@Override
-	public boolean refuter(String[] cartes, String nomJoueur) 
+	public String refuter(String[] cartes, List<String> cartesCommun) 
 	{
-		return false;
+		return "";
 	}
 }

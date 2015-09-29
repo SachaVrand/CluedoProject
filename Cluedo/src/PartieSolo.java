@@ -40,6 +40,10 @@ public class PartieSolo extends PartieHote {
 			{
 				if(tmp[0].equals("suggest"))
 				{
+					String cartesSuggerer[] = new String[]{tmp[1],tmp[2],tmp[3]};
+					List<String> carteCommun;
+					String carteMontre;
+					System.out.println(joueursPartie.get(joueurActuel).getNom() + " suggère " + cartesSuggerer[0] + " " + cartesSuggerer[1] + " " + cartesSuggerer[2]);
 					//boucle pour refuter
 					int i = joueurActuel;
 					
@@ -58,8 +62,27 @@ public class PartieSolo extends PartieHote {
 						{
 							break;
 						}
+						
+						Joueur j = joueursPartie.get(i);
+						
+						if((carteCommun = Carte.cartesContenuDans(j.getCartesJoueur(), cartesSuggerer)).size() != 0)
+						{
+							carteMontre = j.refuter(cartesSuggerer,carteCommun);
+							if(carteMontre.equals("exit"))
+							{
+								System.out.println(j.getNom() + " quitte la partie");
+								System.out.println("Fin de la partie");
+								return;
+							}
+							System.out.println(j.getNom() + " montre : " + carteMontre);
+							break;
+						}
+						else
+						{
+							System.out.println(j.getNom() + " ne peut pas réfuter");
+						}
 					}
-					while(!(joueursPartie.get(i).refuter(new String[]{tmp[1],tmp[2],tmp[3]}, joueursPartie.get(joueurActuel).getNom())));
+					while(true);
 				}
 				else
 				{

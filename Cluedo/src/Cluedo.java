@@ -105,7 +105,7 @@ public class Cluedo
 				
 				for(int i = 1; i < Integer.parseInt(cmd); i++)
 				{
-					joueursPartie.add(new Humain("Joueur"+Integer.toString(i), Integer.toString(i)));
+					joueursPartie.add(new Humain("Joueur "+Integer.toString(i), Integer.toString(i)));
 				}
 				break;
 			}

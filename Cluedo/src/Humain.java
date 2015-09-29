@@ -1,6 +1,8 @@
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import javax.swing.text.AbstractDocument.LeafElement;
+
 /**
  * Classe représentant un joueur de type Humain.
  * @author Sacha et Clement
@@ -64,73 +66,31 @@ public class Humain extends Joueur
 			}
 			else if(cmd.equals("move") && cmdComplete.length == 5)
 			{
-				//Tester si les cartes passées sont correctes
-				Carte[] ordreTypeCarte = testerCartes(new String[]{cmdComplete[2],cmdComplete[3],cmdComplete[4]});
-				if(ordreTypeCarte == null)
+				
+				if(cmdComplete[1].equals("suggest") || cmdComplete[1].equals("accuse"))
 				{
-					System.out.println("\nMauvaises cartes. Une carte lieu, une carte arme et une carte suspect sont requises en parametres.\n");
-				}
-				else
-				{
-					if(cmdComplete[1].equals("suggest") || cmdComplete[1].equals("accuse"))
+					//Tester si les cartes passées sont correctes
+					Carte[] ordreTypeCarte = Carte.testerCartes(new String[]{cmdComplete[2],cmdComplete[3],cmdComplete[4]});
+					if(ordreTypeCarte == null)
 					{
-						String[] tmp = new String[4];
-						// tmp [0]option [1]arme [2]lieu [3]suspect
-						tmp[0] = cmdComplete[1];
-						if(ordreTypeCarte[0] instanceof Arme)
-						{
-							tmp[1] = cmdComplete[2];
-							if(ordreTypeCarte[1] instanceof Lieu)
-							{
-								tmp[2] = cmdComplete[3];
-								tmp[3] = cmdComplete[4];
-							}
-							else if(ordreTypeCarte[1] instanceof Suspect)
-							{
-								tmp[3] = cmdComplete[3];
-								tmp[2] = cmdComplete[4];
-							}
-						}
-						else if(ordreTypeCarte[0] instanceof Lieu)
-						{
-							tmp[2] = cmdComplete[2];
-							if(ordreTypeCarte[1] instanceof Suspect)
-							{
-								tmp[3] = cmdComplete[3];
-								tmp[1] = cmdComplete[4];
-							}
-							else if(ordreTypeCarte[1] instanceof Arme)
-							{
-								tmp[1] = cmdComplete[3];
-								tmp[3] = cmdComplete[4];
-							}
-							
-						}
-						else if(ordreTypeCarte[0] instanceof Suspect)
-						{
-							tmp[3] = cmdComplete[2];
-							if(ordreTypeCarte[1] instanceof Lieu)
-							{
-								tmp[2] = cmdComplete[3];
-								tmp[1] = cmdComplete[4];
-							}
-							else if(ordreTypeCarte[1] instanceof Arme)
-							{
-								tmp[1] = cmdComplete[3];
-								tmp[2] = cmdComplete[4];
-							}
-						}
-						return tmp;
+						System.out.println("Mauvaises cartes. Une carte lieu, une carte arme et une carte suspect sont requises en parametres.");
 					}
 					else
 					{
-						System.out.println("\nMauvaise option, 'suggest' ou 'accuse'\n");
-					}	
-				}	
+						String[] tmp = Carte.ordonnerCartes(new String[]{cmdComplete[2],cmdComplete[3],cmdComplete[4]},ordreTypeCarte);
+						String[] res = new String[]{cmdComplete[1],tmp[0],tmp[1],tmp[2]};
+						// return [0]option [1]arme [2]lieu [3]suspect
+						return res;
+					}
+				}
+				else
+				{
+					System.out.println("Mauvaise option, 'suggest' ou 'accuse'");
+				}		
 			}
 			else
 			{
-				System.out.println("\nMauvaise commande\n");
+				System.out.println("Mauvaise commande");
 			}
 		}while(!cmd.equals("exit") || cmdComplete.length != 1);
 		return null;
@@ -138,80 +98,57 @@ public class Humain extends Joueur
 	}
 
 	/**
-	 * Méthode qui permet à un joueur de réfuter ou non, sur la console.
+	 * Méthode qui permet à un joueur de réfuter ou non.
 	 * @param cartes Tableau de String répresentant les 3 cartes suggérer par un joueur.
-	 * @param nomJoueur String répresentant le joueur ayant fait la suggestion.
-	 * @return true si joueur a pu réfuter sinon false.
+	 * @param cartesCommun Cartes en commun dans le paquet du joueur avec les cartes suggerer sous la forme de String
+	 * @return chaine correspondant à la carte montrée ou exit si le joueur souhaite quitter.
 	 */
 	@Override
-	public boolean refuter(String[] cartes, String nomJoueur)
+	public String refuter(String[] cartes, List<String> carteCommun)
 	{
-
 		String cmd = "";
 		String[] cmdComplete;
-		Boolean carteCorrecte = false;
-		List<String> tmp;
-		System.out.println("\n"+nomJoueur + " suggère : " + cartes[0] + " " + cartes[1] + " " + cartes[2]+ "\n");
-		if((tmp = Carte.cartesContenuDans(cartesJoueur, cartes)).size() != 0)
+		
+		System.out.println();
+		for(String c : carteCommun)
 		{
-			System.out.println("'help' pour plus d'informations sur les commandes disponibles\n");
-			for(String carte : tmp)
+			System.out.println("\t" + c);
+		}
+		System.out.println();
+		
+		System.out.println("'help' pour plus d'informations sur les commandes disponibles");
+		System.out.println("Vous pouvez refuter la proposition. Quelle carte choisissez vous de montrer ? (show <card>)");
+		do
+		{
+			System.out.print("[REFUTER] "+nom+" > ");
+			cmd = Cluedo.sc.nextLine();
+			cmdComplete = cmd.split(" ");
+			cmd = cmdComplete[0];
+			if(cmd.equals("help") && cmdComplete.length == 1)
 			{
-				System.out.println("\t" + carte);
+				afficherAideRefuter();
 			}
-			System.out.println("\nVous pouvez refuter la proposition. Quelle carte choisissez vous de montrer ? (show <card>)");
-			do
+			else if(cmd.equals("exit") && cmdComplete.length == 1)
 			{
-				System.out.print("[REFUTER] "+nom+" > ");
-				cmd = Cluedo.sc.nextLine();
-				cmdComplete = cmd.split(" ");
-				cmd = cmdComplete[0];
-				if(cmd.equals("help") && cmdComplete.length == 1)
+				return "exit";
+			}
+			else if(cmd.equals("show") && cmdComplete.length == 2)
+			{
+				if((Carte.contientCarte(cartesJoueur, cmdComplete[1])) && (carteCommun.contains(cmdComplete[1])))
 				{
-					afficherAideRefuter();
-				}
-				else if(cmdComplete[0].equals("show") && cmdComplete.length > 1)
-				{
-					carteCorrecte = (cmdComplete[1].equals(cartes[0]) || cmdComplete[1].equals(cartes[1]) || cmdComplete[1].equals(cartes[2]));
-					if(!carteCorrecte)
-					{
-						System.out.println("Mauvaise commande !\n");
-					}
-				}
-				else if(cmd.equals("exit") && cmdComplete.length == 1)
-				{
-					System.out.println(nom + " quitte la partie.");
+					break;
 				}
 				else
 				{
-					System.out.println("Mauvaise commande !\n");
-				}
-			}while(!cmd.equals("show") || cmdComplete.length != 2 || !Carte.contientCarte(cartesJoueur, cmdComplete[1]) || !carteCorrecte);
-			System.out.println("\n" + nomJoueur + " montre la carte " + cmdComplete[1]);
-			return true;
-		}
-		else
-		{
-			System.out.println("[REFUTER] " + nom + " n'as aucune cartes pour réfuter.");
-			return false;
-			
-			
-			/*System.out.println("Vous n'avez aucune carte pour réfuter la proposition. (skip pour passer)");
-			while(!cmd.equals("skip"))
-			{
-				System.out.print("[REFUTER] "+nom+" > ");
-				cmd = Cluedo.sc.nextLine();
-				if(cmd.equals("help"))
-				{
-					afficherAideRefuter();
-				}
-				else if(!cmd.equals("skip"))
-				{
-					System.out.println("Mauvaise commande !\n");
+					System.out.println("Coup invalide");
 				}
 			}
-			return false;*/
-		}
+			else
+			{
+				System.out.println("Mauvaise commande !");
+			}
+		}while(true);
+		return cmdComplete[1];
 	}
 	
 	/**
@@ -274,206 +211,6 @@ public class Humain extends Joueur
 		System.out.println();
 	}
 	
-	/**
-	 * Méthode qui permet de tester les cartes représentées sous forme d'un tableau de string, si elle sont correctes.
-	 * Pour qu'elles soient correctes il faut une carte de chaque type(Lieu,Suspect,Arme).
-	 * @param tabCarte Tableau de String représentant les 3 cartes suggérer par le joueur.
-	 * @return Un tableau de carte avec l'ordre de chaque type de carte. Ex: tab = {Arme,Lieu,Suspect} ou tab = {Suspect,LieuArme}... Null si les cartes ne sont pas correctes.
-	 */
-	private Carte[] testerCartes(String[] tabCarte)
-	{
-		//Tester si les cartes passées sont correctes
-		//si elles sont correctes, renvoie un tableau de carte
-		//sinon renvoie null;
-		
-		Carte[] cartes = null;
-		Carte a = null;
-		Carte b = null;
-		Carte c = null;
-		
-		//on test la première carte
-		for(Armes arme : Armes.values())
-		{
-			if(arme.toString().equals(tabCarte[0]))
-			{
-				a = new Arme(arme.toString(), arme.getImage());
-			}
-		}
-		if(a == null)
-		{
-			for(Lieux lieu : Lieux.values())
-			{
-				if(lieu.toString().equals(tabCarte[0]))
-				{
-					a = new Lieu(lieu.toString(), lieu.getImage());
-				}
-			}
-		}
-		if(a == null)
-		{
-			for(Suspects suspect : Suspects.values())
-			{
-				if(suspect.toString().equals(tabCarte[0]))
-				{
-					a = new Suspect(suspect.toString(), suspect.getImage());
-				}
-			}
-		}
-		
-		//on test la 2ème carte (plus de conditions..)
-		if(a != null)
-		{
-			// si la première carte est une arme
-			if(a instanceof Arme)
-			{
-				for(Lieux lieu : Lieux.values())
-				{
-					if(lieu.toString().equals(tabCarte[1]))
-					{
-						b = new Lieu(lieu.toString(), lieu.getImage());
-					}
-				}
-				if(b == null)
-				{
-					for(Suspects suspect : Suspects.values())
-					{
-						if(suspect.toString().equals(tabCarte[1]))
-						{
-							b = new Suspect(suspect.toString(), suspect.getImage());
-						}
-					}
-				}
-			}
-			// si la première carte est un lieu
-			if(a instanceof Lieu)
-			{
-				for(Armes arme : Armes.values())
-				{
-					if(arme.toString().equals(tabCarte[1]))
-					{
-						b = new Arme(arme.toString(), arme.getImage());
-					}
-				}
-				if(b == null)
-				{
-					for(Suspects suspect : Suspects.values())
-					{
-						if(suspect.toString().equals(tabCarte[1]))
-						{
-							b = new Suspect(suspect.toString(), suspect.getImage());
-						}
-					}
-				}
-			}
-			// si la première carte est un suspect
-			if(a instanceof Suspect)
-			{
-				for(Armes arme : Armes.values())
-				{
-					if(arme.toString().equals(tabCarte[1]))
-					{
-						b = new Arme(arme.toString(), arme.getImage());
-					}
-				}
-				if(b == null)
-				{
-					for(Lieux lieu : Lieux.values())
-					{
-						if(lieu.toString().equals(tabCarte[1]))
-						{
-							b = new Lieu(lieu.toString(), lieu.getImage());
-						}
-					}
-				}
-			}
-		}
-		// on test la 3ème carte (encore plus de test...)
-		if(b != null)
-		{
-			//si la premirèe carte est une arme
-			if(a instanceof Arme)
-			{
-				//si la deuxième carte est un lieu
-				if(b instanceof Lieu)
-				{
-					for(Suspects suspect : Suspects.values())
-					{
-						if(suspect.toString().equals(tabCarte[2]))
-						{
-							c = new Suspect(suspect.toString(), suspect.getImage());
-						}
-					}
-				}
-				//si la deuxième carte est un suspect
-				else
-				{
-					for(Lieux lieu : Lieux.values())
-					{
-						if(lieu.toString().equals(tabCarte[2]))
-						{
-							c = new Lieu(lieu.toString(), lieu.getImage());
-						}
-					}
-				}
-			}
-			//si la première carte est un lieu
-			if(a instanceof Lieu)
-			{
-				//si la deuxième carte est une arme
-				if(b instanceof Arme)
-				{
-					for(Suspects suspect : Suspects.values())
-					{
-						if(suspect.toString().equals(tabCarte[2]))
-						{
-							c = new Suspect(suspect.toString(), suspect.getImage());
-						}
-					}
-				}
-				//si la deuxième carte est un suspect
-				else
-				{
-					for(Armes arme : Armes.values())
-					{
-						if(arme.toString().equals(tabCarte[2]))
-						{
-							c = new Arme(arme.toString(), arme.getImage());
-						}
-					}
-				}
-			}
-			//si la première carte est un suspect
-			if(a instanceof Suspect)
-			{
-				//si la deuxième carte est une arme
-				if(b instanceof Arme)
-				{
-					for(Lieux lieu : Lieux.values())
-					{
-						if(lieu.toString().equals(tabCarte[2]))
-						{
-							c = new Lieu(lieu.toString(), lieu.getImage());
-						}
-					}
-				}
-				//si la deuxième carte est un lieu
-				else
-				{
-					for(Armes arme : Armes.values())
-					{
-						if(arme.toString().equals(tabCarte[2]))
-						{
-							c = new Arme(arme.toString(), arme.getImage());
-						}
-					}
-				}
-			}
-		}
-		if(c != null)
-		{
-			cartes = new Carte[]{a,b,c};
-		}
-		return cartes;
-	}
+
 
 }
