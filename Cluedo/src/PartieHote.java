@@ -3,7 +3,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-public abstract class PartieHote implements Partie{
+public abstract class PartieHote implements IPartie{
 
 	/**
 	 * Représente la liste des joueurs dans la partie.
