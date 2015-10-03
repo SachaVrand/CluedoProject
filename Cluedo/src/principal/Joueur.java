@@ -1,3 +1,4 @@
+package principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,6 +80,11 @@ public abstract class Joueur {
 	public String getNom()
 	{
 		return this.nom;
+	}
+	
+	public void setNom(String nom)
+	{
+		this.nom = nom;
 	}
 	
 	/**

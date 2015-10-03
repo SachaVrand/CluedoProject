@@ -1,3 +1,4 @@
+package principal;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,9 +49,14 @@ public class Cluedo
 			else if(cmdComplete.length == 2 && cmdComplete[0].equals("referee") && (cmdComplete[1].equals("3") || cmdComplete[1].equals("4") || cmdComplete[1].equals("5") || cmdComplete[1].equals("6")))
 			{
 				PartieServeur p;
+				List<Joueur> listJoueur = new ArrayList<Joueur>();
+				for(int i = 0; i < Integer.parseInt(cmdComplete[1]); i++)
+				{
+					listJoueur.add(new Humain("Joueur "+Integer.toString(i)));
+				}
 				try 
 				{
-					p = new PartieServeur(Integer.parseInt(cmdComplete[1]));
+					p = new PartieServeur(listJoueur);
 					p.boucleJeu();
 				} 
 				catch (IOException e) 

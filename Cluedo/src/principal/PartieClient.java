@@ -1,3 +1,4 @@
+package principal;
 import java.io.IOException;
 
 import networking.Client;

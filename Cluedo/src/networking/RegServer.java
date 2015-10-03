@@ -4,11 +4,13 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 //import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-
 /**
  * Implements a registration server.
  * 
@@ -24,6 +26,7 @@ public class RegServer {
 	private ServerSocket serverSocket = null;
 	// List of communication servers, one for each client.
 	private List<ComServer> clients = null;
+	private Socket client;
 	/**
 	 * RegServer constructor 1.
 	 * 
@@ -33,6 +36,7 @@ public class RegServer {
 	public RegServer(int port) throws IOException {
 		this.serverSocket = new ServerSocket(port);
 		this.clients = new ArrayList<ComServer>();
+		this.client = null;
 	}
 	
 	/**
@@ -50,6 +54,7 @@ public class RegServer {
     	this.regTimeout = regTimeout;
     }
     
+    
     /**
      * Starts the server and waits for client connections.
      * 
@@ -64,14 +69,23 @@ public class RegServer {
     	//Instant endInstant = Instant.now().plusMillis(regTimeout);
     	long endInstant = System.currentTimeMillis() + regTimeout;
     	    	
-    	Socket client = null;
+    	//tableau de chaine qui servira à stocker les messages des clients demandants une connection
+    	String[] message;
 
     	while (true) {
     		try {
     			// Wait for a client connection.
     			client = this.serverSocket.accept();
-				// Adds to the list of clients.
-				this.clients.add(new ComServer(client));
+    			// récupère le message du client en le séparant mot par mot dans le tableau 'message'
+    			message = new BufferedReader(new InputStreamReader(this.client.getInputStream())).readLine().split(" ");
+    			// vérifie si le message contient que deux mots et commençant par 'register'. (le 2ème mot étant le nom du joueur)
+    			if(message[0].equals("register") && message.length == 2)
+    			{
+    				// Adds to the list of clients.
+    				this.clients.add(new ComServer(client, message[1]));
+    				// send a message
+    				new PrintWriter(this.client.getOutputStream(), true).println("ack "+clients.size());
+    			}
     		} catch (SocketTimeoutException e) {
     			// If the number of connections reached its limit.
     			if (this.getNumClients() >= this.maxConnOpen) {
@@ -109,6 +123,7 @@ public class RegServer {
     	return this.clients.get(clientNumber).recieve();
     }
     
+    
     /**
      * Sends a message to a client.
      * 
@@ -121,6 +136,12 @@ public class RegServer {
     	this.clients.get(clientNumber).send(msg);
     }
 
+    
+    public List<ComServer> getClients()
+    {
+    	return clients;
+    }
+    
     /**
      * Closes the connection with a client.
      * 

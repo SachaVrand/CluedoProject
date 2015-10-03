@@ -19,6 +19,7 @@ public class ComServer {
 	private Socket socket = null;
 	private PrintWriter out;
 	private BufferedReader in;
+	private String nom;
 
 	/**
 	 * ComServer constructor.
@@ -26,11 +27,11 @@ public class ComServer {
 	 * @param socket A Socket representing the connection with the client.
 	 * @throws IOException if an I/O error occurs.
 	 */
-    public ComServer(Socket socket) throws IOException {
+    public ComServer(Socket socket, String nom) throws IOException {
     	this.socket = socket;
         out = new PrintWriter(this.socket.getOutputStream(), true);
-        in = new BufferedReader(new InputStreamReader(
-        		this.socket.getInputStream()));
+        in = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
+        this.nom = nom;
     }
     
     /**
@@ -51,6 +52,11 @@ public class ComServer {
      */
     public String recieve() throws IOException {
     	return this.in.readLine();
+    }
+    
+    public String getNom()
+    {
+    	return nom;
     }
     
     /**
