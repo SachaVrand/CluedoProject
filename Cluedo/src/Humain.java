@@ -16,9 +16,9 @@ public class Humain extends Joueur
 	 * @param nom Nom du joueur sous la forme de chaine de caractères.
 	 * @param adresse Adresse ip du joueur sous la forme de chaine de caractères.
 	 */
-	public Humain(String nom, String adresse)
+	public Humain(String nom)
 	{
-		super(nom, adresse);
+		super(nom);
 	}
 
 	/**

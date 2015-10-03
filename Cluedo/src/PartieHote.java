@@ -1,7 +1,10 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+
+import networking.RegServer;
 
 public abstract class PartieHote implements IPartie{
 
@@ -25,6 +28,7 @@ public abstract class PartieHote implements IPartie{
 	 */
 	protected boolean partieFinie;
 	
+	protected RegServer server;
 	/**
 	 * Instancie une nouvelle partie avec la liste des joueurs passée en paramètre, l'indice du joueur actuel à 0, un nouveau tableau de 3 cartes, partieFinie à false 
 	 * et distribue les cartes à chaque joueur.
@@ -32,10 +36,20 @@ public abstract class PartieHote implements IPartie{
 	 */
 	public PartieHote(List<Joueur> joueursPartie)
 	{
+		this.server = null;
 		this.joueursPartie = joueursPartie;
 		this.joueurActuel = 0;
 		this.cartesADecouvrir = new Carte[3];
 		this.partieFinie = false;
+		distribuerPaquet(creerPaquetDeCartes());
+	}
+	
+	public PartieHote(int nbJoueur)
+	{
+		this.joueurActuel = 0;
+		this.cartesADecouvrir = new Carte[3];
+		this.partieFinie = false;
+		rechercheJoueur(nbJoueur);
 		distribuerPaquet(creerPaquetDeCartes());
 	}
 	
@@ -112,5 +126,44 @@ public abstract class PartieHote implements IPartie{
 				j = joueursPartie.size() - 1;
 		}
 		
+	}
+	
+	private void rechercheJoueur(int nbJoueur)
+	{
+		String[] message;
+		try
+		{
+			server = new RegServer(12345,nbJoueur,180000);
+			System.out.println("Waiting for connections...");
+			server.open();
+			
+			//créer les joueurs en fonction des personnes connectées au serveur d'inscription
+			for(int i = 0; i < server.getNumClients(); i++)
+			{
+				message = server.receive(i).split(" ");
+				if(message[0].equals("register ") && message.length !=2)
+				{
+					joueursPartie.add(new Humain(message[1]));
+					server.send(i,"Inscription confirmée (Joueur "+i+").");
+				}
+			}
+			
+			//dit à chaques joueurs que la partie commence et les informe des cartes qu'ils possèdent
+			for(int i = 0; i < server.getNumClients(); i++)
+			{
+				String cartes = "";
+				Iterator<Carte> ite = joueursPartie.get(i).cartesJoueur.iterator();
+				while(ite.hasNext())
+				{
+					Carte c = ite.next();
+					cartes += " "+c.getNom();
+				}
+				server.send(i, "start"+cartes);
+			}
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 }

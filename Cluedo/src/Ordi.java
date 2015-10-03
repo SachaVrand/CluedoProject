@@ -13,9 +13,9 @@ public class Ordi extends Joueur
 	 * @param nom Nom du joueur.
 	 * @param adresse Adresse ip du joueur.
 	 */
-	public Ordi(String nom, String adresse)
+	public Ordi(String nom)
 	{
-		super(nom, adresse);
+		super(nom);
 	}
 
 	/**

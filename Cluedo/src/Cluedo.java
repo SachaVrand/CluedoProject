@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -20,8 +21,9 @@ public class Cluedo
 	/**
 	 * Fonction main.
 	 * @param args Aucun paramètres attendus.
+	 * @throws IOException 
 	 */
-	public static void main(String[] args)
+	public static void main(String[] args) throws IOException
 	{
 		String cmd = "";
 		
@@ -43,6 +45,12 @@ public class Cluedo
 				}
 				break;
 			case "refere" :
+				int nbJoueur = menuRefere();
+				if(nbJoueur != 0)
+				{
+					PartieServeur p = new PartieServeur(nbJoueur);
+					p.boucleJeu();
+				}
 				break;
 			case "register" :
 				break;
@@ -100,12 +108,12 @@ public class Cluedo
 			cmd = sc.nextLine();
 			if(cmd.equals("3") || cmd.equals("4") || cmd.equals("5") || cmd.equals("6"))
 			{
-				Joueur joueur = new Humain("Joueur 0", "0");
+				Joueur joueur = new Humain("Joueur 0");
 				joueursPartie.add(joueur);
 				
 				for(int i = 1; i < Integer.parseInt(cmd); i++)
 				{
-					joueursPartie.add(new Humain("Joueur "+Integer.toString(i), Integer.toString(i)));
+					joueursPartie.add(new Humain("Joueur "+Integer.toString(i)));
 				}
 				break;
 			}
@@ -120,5 +128,34 @@ public class Cluedo
 		}
 		System.out.println();
 		return joueursPartie;
+	}
+	
+	private static int menuRefere()
+	{
+		System.out.println("\n--Serveur--\n");
+		System.out.println("Veuillez choisir le nombre de joueurs pour cette partie (3 à 6 joueurs).");
+		System.out.println("'0' pour retourner au menu principal.");
+		
+		String cmd = "";
+		
+		while(!cmd.equals("0"))
+		{
+			System.out.print("Refere > ");
+			cmd = sc.nextLine();
+			if(cmd.equals("3") || cmd.equals("4") || cmd.equals("5") || cmd.equals("6"))
+			{
+				return Integer.parseInt(cmd);
+			}
+			else if(cmd.equals("0"))
+			{
+				break;
+			}
+			else
+			{
+				System.out.println("\nMauvaise commande.\n");
+			}
+		}
+		System.out.println();
+		return Integer.parseInt(cmd);
 	}
 }

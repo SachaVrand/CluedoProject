@@ -17,21 +17,20 @@ import java.util.List;
 public class RegServer {
 	
 	// Registration period timeout in milliseconds.
-	private int regTimeout = 30000;
+	private int regTimeout = 180000;
 	// Maximum number of connections open at the same time.
 	private int maxConnOpen = 5;
 	// Server socket.
 	private ServerSocket serverSocket = null;
 	// List of communication servers, one for each client.
 	private List<ComServer> clients = null;
-	
 	/**
 	 * RegServer constructor 1.
 	 * 
 	 * @param port An integer specifying the communication port of the server.
 	 * @throws IOException if an I/O exception occurs.
 	 */
-	RegServer(int port) throws IOException {
+	public RegServer(int port) throws IOException {
 		this.serverSocket = new ServerSocket(port);
 		this.clients = new ArrayList<ComServer>();
 	}
@@ -45,7 +44,7 @@ public class RegServer {
 	 *     period in milliseconds.
 	 * @throws IOException if an I/O error occurs.
 	 */
-    RegServer(int port, int maxConnOpen, int regTimeout) throws IOException {
+    public RegServer(int port, int maxConnOpen, int regTimeout) throws IOException {
     	this(port);
     	this.maxConnOpen = maxConnOpen;
     	this.regTimeout = regTimeout;

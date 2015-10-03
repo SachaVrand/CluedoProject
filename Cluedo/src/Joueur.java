@@ -13,10 +13,6 @@ public abstract class Joueur {
 	 */
 	protected String nom;
 	
-	/**
-	 * Représente l'adresse ip du joueur.
-	 */
-	protected String adresse;
 	
 	/**
 	 * Booléen représentant si le joueur est encore en jeu ou non. true si oui, sinon false.
@@ -33,10 +29,9 @@ public abstract class Joueur {
 	 * @param nom Nom du joueur sous la forme d'une chaine de caractère.
 	 * @param adresse Adresse ip du joueur sous la forme d'une chaine de caractères.
 	 */
-	public Joueur(String nom, String adresse)
+	public Joueur(String nom)
 	{
 		this.nom = nom;
-		this.adresse = adresse;
 		this.encoreEnJeu = true;
 		this.cartesJoueur = new ArrayList<Carte>();
 	}
