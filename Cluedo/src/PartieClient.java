@@ -5,15 +5,14 @@ import networking.Client;
 public class PartieClient implements IPartie{
 
 	private Joueur joueur;
-	private int numeroPort;
+	private final int numeroPort = 12345;
 	private String hote;
 	private Client client;
 	
-	public PartieClient(Joueur joueur,String hote, int numeroPort)
+	public PartieClient(Joueur joueur,String hote)
 	{
 		this.joueur = joueur;
 		this.hote = hote;
-		this.numeroPort = numeroPort;
 		client = new Client();
 	}
 	
@@ -23,6 +22,14 @@ public class PartieClient implements IPartie{
 		try
 		{
 			client.open(hote, numeroPort);
+		}
+		catch(IOException e)
+		{
+			System.out.println("Mauvaise adresse ip, ou autre erreur");
+		}
+		try
+		{
+			
 			client.send("register " + joueur.getNom());
 			message = client.receive().split(" ");
 			if((!message[0].equals("ack")) && (message.length != 2))

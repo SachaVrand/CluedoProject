@@ -21,11 +21,11 @@ public class Cluedo
 	/**
 	 * Fonction main.
 	 * @param args Aucun paramètres attendus.
-	 * @throws IOException 
 	 */
-	public static void main(String[] args) throws IOException
+	public static void main(String[] args)
 	{
 		String cmd = "";
+		String cmdComplete[];
 		
 		System.out.println("Cluedo 0.1");
 		System.out.println("Taper 'help' pour plus d'informations");
@@ -34,7 +34,62 @@ public class Cluedo
 		{
 			System.out.print("Menu principal > ");
 			cmd = sc.nextLine();
-			switch(cmd)
+			cmdComplete = cmd.split(" ");
+			if(cmdComplete.length == 2 && cmdComplete[0].equals("solo") && (cmdComplete[1].equals("3") || cmdComplete[1].equals("4") || cmdComplete[1].equals("5") || cmdComplete[1].equals("6")))
+			{
+				List<Joueur> listJoueur = new ArrayList<Joueur>();	
+				for(int i = 0; i < Integer.parseInt(cmdComplete[1]); i++)
+				{
+					listJoueur.add(new Humain("Joueur "+Integer.toString(i)));
+				}
+				PartieSolo p = new PartieSolo(listJoueur);
+				p.boucleJeu();
+			}
+			else if(cmdComplete.length == 2 && cmdComplete[0].equals("referee") && (cmdComplete[1].equals("3") || cmdComplete[1].equals("4") || cmdComplete[1].equals("5") || cmdComplete[1].equals("6")))
+			{
+				PartieServeur p;
+				try 
+				{
+					p = new PartieServeur(Integer.parseInt(cmdComplete[1]));
+					p.boucleJeu();
+				} 
+				catch (IOException e) 
+				{
+					e.printStackTrace();
+				}	
+			}
+			else if((cmdComplete.length == 3 || cmdComplete.length == 4) && cmdComplete[0].equals("register") && (cmdComplete[1].equals("ordi") || cmdComplete[1].equals("joueur")))
+			{
+				String nomJoueur = "Joueur";
+				Joueur j = null;
+				if(cmdComplete.length == 4)
+				{
+					nomJoueur = cmdComplete[2];
+				}
+				if(cmdComplete[1].equals("ordi"))
+				{
+					j = new Ordi(nomJoueur);
+				}
+				else if(cmdComplete[1].equals("joueur"))
+				{
+					j = new Humain(nomJoueur);
+				}
+				PartieClient pc = new PartieClient(j, cmdComplete[2]);
+				pc.boucleJeu();
+			}
+			else if(cmdComplete.length == 1 && cmdComplete[0].equals("exit"))
+			{
+				System.out.println("\nAu revoir.");
+			}
+			else if(cmdComplete.length == 1 && cmdComplete[0].equals("help"))
+			{
+				afficherAide();
+			}
+			else
+			{
+				System.out.println("Mauvaise commande");
+			}
+			/*switch(cmd)
 			{
 			case "solo" :
 				List<Joueur> listJoueur = menuPartieSolo();
@@ -44,8 +99,8 @@ public class Cluedo
 					p.boucleJeu();
 				}
 				break;
-			case "refere" :
-				int nbJoueur = menuRefere();
+			case "referee" :
+				int nbJoueur = menuReferee();
 				if(nbJoueur != 0)
 				{
 					PartieServeur p = new PartieServeur(nbJoueur);
@@ -62,7 +117,7 @@ public class Cluedo
 				break;
 			default :
 				System.out.println("Mauvaise commande");
-			}
+			}*/
 		}
 		sc.close();
 		System.exit(0);
@@ -73,16 +128,18 @@ public class Cluedo
 	 */
 	private static void afficherAide()
 	{
-		System.out.println("\nsolo");
+		System.out.println("\nsolo <NombreJoueurs>");
 		System.out.println("\t Commencer une partie solo (Humain + Ordinateur)\n");
-		System.out.println("refere");
+		System.out.println("\n<NombreJoueurs> : de 3 à 6");
+		System.out.println("referee <NombreJoueurs>");
 		System.out.println("\t Commencer une partie en tant qu'hôte\n");
+		System.out.println("\n<NombreJoueurs> : de 3 à 6");
 		System.out.println("register");
 		System.out.println("\t Rechercher une partie en multijoueur");
-		System.out.println("\t register <type> [<nom> [, <addr>]]");
+		System.out.println("\t register <type> <addr> [<nom>]");
 		System.out.println("\t <type> : 'ordi' ou 'joueur'.");
-		System.out.println("\t <name> : nom du joueur.");
 		System.out.println("\t <addr> : adresse IP de l'hôte.\n");
+		System.out.println("\t <name> : nom du joueur.");
 		System.out.println("exit");
 		System.out.println("\t Quitter le jeu.\n");
 		System.out.println("help");
@@ -93,7 +150,7 @@ public class Cluedo
 	 * Méthode statiques permetttant de lancer une partie solo. Demande à l'utilisateur le nombre de joueurs de la partie sur la console.
 	 * @return La liste des joueurs participant à une partie solo. Liste vide si le joueur veut revenir au menu principal.
 	 */
-	private static List<Joueur> menuPartieSolo()
+	/*private static List<Joueur> menuPartieSolo()
 	{
 		System.out.println("\n--Mode solo--\n");
 		System.out.println("Veuillez choisir le nombre de joueurs pour cette partie (3 à 6 joueurs).");
@@ -128,9 +185,9 @@ public class Cluedo
 		}
 		System.out.println();
 		return joueursPartie;
-	}
+	}*/
 	
-	private static int menuRefere()
+	/*private static int menuReferee()
 	{
 		System.out.println("\n--Serveur--\n");
 		System.out.println("Veuillez choisir le nombre de joueurs pour cette partie (3 à 6 joueurs).");
@@ -140,7 +197,7 @@ public class Cluedo
 		
 		while(!cmd.equals("0"))
 		{
-			System.out.print("Refere > ");
+			System.out.print("Referee > ");
 			cmd = sc.nextLine();
 			if(cmd.equals("3") || cmd.equals("4") || cmd.equals("5") || cmd.equals("6"))
 			{
@@ -157,5 +214,5 @@ public class Cluedo
 		}
 		System.out.println();
 		return Integer.parseInt(cmd);
-	}
+	}*/
 }
