@@ -35,29 +35,39 @@ public class PartieClient implements IPartie{
 			message = client.receive().split(" ");
 			if((!message[0].equals("ack")) && (message.length != 2))
 			{
-				System.out.println("Message erreur");
+				System.out.println("Le serveur choisi n'est pas correcte.");
 				return;
 			}
 			message = client.receive().split(" ");
 			if(message[0].equals("start") && message.length >= 2)
 			{
-				while((!message[0].equals("end")) && (message.length == 1))
+				while((!message[0].equals("end")) || (message.length != 1))
 				{
 					message = client.receive().split(" ");
-					if(message[0].equals("error"))
+					if(message[0].equals("error") && message.length > 1)
 					{
-						if(message[1].equals("exit"))
+						if(message[1].equals("exit") && message.length == 3)
 						{
 							System.out.println(message[2] + " a quitté la partie");
 							break;
 						}
 						else if(message[1].equals("forbidden"))
 						{
-							
+							for(int i = 2; i < message.length ; i++)
+							{
+								System.out.print(message[i] + " ");
+							}
+							System.out.println();
+							//TODO faire qq chose
 						}
 						else if(message[1].equals("invalid"))
 						{
-							
+							for(int i = 2; i < message.length ; i++)
+							{
+								System.out.print(message[i] + " ");
+							}
+							System.out.println();
+							//TODO faire qqchose
 						}
 						else if(message[1].equals("other"))
 						{
@@ -67,6 +77,11 @@ public class PartieClient implements IPartie{
 							}
 							System.out.println();
 							//peut etre faire quelque chose
+						}
+						else
+						{
+							System.out.println("Le message du serveur est incorrecte. Fin de la partie.");
+							break;
 						}
 					}
 					else if(message[0].equals("move") && message.length == 6)
@@ -112,17 +127,19 @@ public class PartieClient implements IPartie{
 						}
 						else if(message.length == 2)
 						{
+							//peut etre à changer
 							System.out.println(message[1]);
 						}
 					}
-					else
+					else if(!message[0].equals("end") && message.length != 1)
 					{
-						
+						System.out.println("Le message du serveur est incorrecte. Fin de la partie.");
+						break;
 					}
 				}
 			}
 			client.send("exit");
-			System.out.println("afficher sortie");
+			System.out.println("Fin de la partie.");
 		}
 		catch(IOException e)
 		{
