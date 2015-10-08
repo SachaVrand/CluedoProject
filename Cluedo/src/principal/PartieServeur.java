@@ -84,7 +84,10 @@ public class PartieServeur extends PartieHote
 					}
 					else if(message[0].equals("move") && message.length == 5)
 					{
-						String[] tmp = {message[2],message[3],message[4]};
+						String[] cartes = {message[2],message[3],message[4]};
+						// Met dans l'ordre les cartes
+						Carte[] ordre = Carte.testerCartes(cartes);
+						String[] tmp = {ordre[0].getNom(), ordre[1].getNom(), ordre[2].getNom()};
 						// Vérifie sur le coup est valide
 						if((message[1].equals("suggest") || message[1].equals("accuse")) && (Carte.testerCartes(tmp) != null))
 						{
@@ -94,13 +97,11 @@ public class PartieServeur extends PartieHote
 								// =========
 								for(i = 0; i < server.getNumClients(); i++)
 								{
-									//!\\ "move <num> suggest <carte1> <carte2> <carte3>" PAS EXPLIQUEE //!\\
 									server.send(i, "move "+joueurActuel+" suggest "+message[2]+" "+message[3]+" "+message[4]);
 								}
-								for(Joueur j : joueursPartie)
-								{
-									
-								}
+								
+								
+								
 								// =========
 								// A TRAITER
 							}
@@ -108,10 +109,8 @@ public class PartieServeur extends PartieHote
 							{
 								for(i = 0; i < server.getNumClients(); i++)
 								{
-									//!\\ "move <num> accuse <carte1> <carte2> <carte3>" PAS EXPLIQUEE //!\\
 									server.send(i, "move "+joueurActuel+" accuse "+message[2]+" "+message[3]+" "+message[4]);
 								}
-								// METTRE DANS L'ORDRE LES CARTES
 								// Si l'accusation est bonne
 								if(message[2].equals(cartesADecouvrir[0].getNom()) && message[3].equals(cartesADecouvrir[1].getNom()) && message[4].equals(cartesADecouvrir[2].getNom()))
 								{
