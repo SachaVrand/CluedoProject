@@ -106,7 +106,7 @@ public class Carte {
 	 * Méthode qui permet de tester les cartes représentées sous forme d'un tableau de string, si elle sont correctes.
 	 * Pour qu'elles soient correctes il faut une carte de chaque type(Lieu,Suspect,Arme).
 	 * @param tabCarte Tableau de String représentant les 3 cartes suggérer par le joueur.
-	 * @return Un tableau de carte avec l'ordre de chaque type de carte. Ex: tab = {Arme,Lieu,Suspect} ou tab = {Suspect,Lieu,Arme}... Null si les cartes ne sont pas correctes.
+	 * @return Un tableau de carte correspondant aux cartes suggérer par le Joueur dans l'ordre : [0]Arme [1]Lieu [2]Suspect. Null si au moins l'une chaine des chaines ne correspond pas à une carte.
 	 */
 	public static Carte[] testerCartes(String[] tabCarte)
 	{
@@ -299,12 +299,55 @@ public class Carte {
 		}
 		if(c != null)
 		{
-			cartes = new Carte[]{a,b,c};
+			cartes = new Carte[3];
+			if(a instanceof Arme)
+			{
+				cartes[0] = a;
+				if(b instanceof Lieu)
+				{
+					cartes[1] = b;
+					cartes[2] = c;
+				}
+				else if(b instanceof Suspect)
+				{
+					cartes[2] = b;
+					cartes[1] = c;
+				}
+			}
+			else if(a instanceof Lieu)
+			{
+				cartes[1] = a;
+				if(b instanceof Arme)
+				{
+					cartes[0] = b;
+					cartes[2] = c;
+				}
+				else if(b instanceof Suspect)
+				{
+					cartes[2] = b;
+					cartes[0] = c;
+				}
+			}
+			else if(a instanceof Suspect)
+			{
+				cartes[2] = a;
+				if(b instanceof Arme)
+				{
+					cartes[0] = b;
+					cartes[1] = c;
+				}
+				else if(b instanceof Lieu)
+				{
+					cartes[1] = b;
+					cartes[0] = c;
+				}
+			}
+			
 		}
 		return cartes;
 	}
 	
-	public static String[] ordonnerCartes(String[] cartes, Carte[] ordreTypeCarte)
+	/*public static String[] ordonnerCartes(String[] cartes, Carte[] ordreTypeCarte)
 	{
 		//[0]arme [1]lieu [2]suspect
 		String[] tmp = new String[3];
@@ -352,6 +395,6 @@ public class Carte {
 			}
 		}
 		return tmp;
-	}
+	}*/
 
 }

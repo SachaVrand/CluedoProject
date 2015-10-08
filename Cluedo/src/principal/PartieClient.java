@@ -9,12 +9,14 @@ public class PartieClient implements IPartie{
 	private final int numeroPort = 12345;
 	private String hote;
 	private Client client;
+	private String[] listeJoueurs;
 	
 	public PartieClient(Joueur joueur,String hote)
 	{
 		this.joueur = joueur;
 		this.hote = hote;
 		client = new Client();
+		listeJoueurs = null;
 	}
 	
 	@Override
@@ -38,9 +40,10 @@ public class PartieClient implements IPartie{
 				System.out.println("Le serveur choisi n'est pas correcte.");
 				return;
 			}
-			message = client.receive().split(" ");
-			if(message[0].equals("start") && message.length >= 2)
+			message = client.receive().split(" ", 2);
+			if(message[0].equals("start") && message.length == 2)
 			{
+				//TODO récuperer joueurs et cartes.
 				while((!message[0].equals("end")) || (message.length != 1))
 				{
 					message = client.receive().split(" ");
@@ -51,15 +54,6 @@ public class PartieClient implements IPartie{
 							System.out.println(message[2] + " a quitté la partie");
 							break;
 						}
-						else if(message[1].equals("forbidden"))
-						{
-							for(int i = 2; i < message.length ; i++)
-							{
-								System.out.print(message[i] + " ");
-							}
-							System.out.println();
-							//TODO faire qq chose
-						}
 						else if(message[1].equals("invalid"))
 						{
 							for(int i = 2; i < message.length ; i++)
@@ -67,7 +61,6 @@ public class PartieClient implements IPartie{
 								System.out.print(message[i] + " ");
 							}
 							System.out.println();
-							//TODO faire qqchose
 						}
 						else if(message[1].equals("other"))
 						{
@@ -76,7 +69,6 @@ public class PartieClient implements IPartie{
 								System.out.print(message[i] + " ");
 							}
 							System.out.println();
-							//peut etre faire quelque chose
 						}
 						else
 						{
@@ -100,7 +92,8 @@ public class PartieClient implements IPartie{
 						String[] tmp = joueur.jouerCoup();
 						if(tmp == null)
 						{
-							client.send("exit");
+							//client.send("exit");
+							client.close();
 						}
 						else
 							client.send("move " + tmp[0] + " " + tmp[1] + " " + tmp[2] + " " + tmp[3]);

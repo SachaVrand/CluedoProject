@@ -71,15 +71,14 @@ public class Humain extends Joueur
 				if(cmdComplete[1].equals("suggest") || cmdComplete[1].equals("accuse"))
 				{
 					//Tester si les cartes passées sont correctes
-					Carte[] ordreTypeCarte = Carte.testerCartes(new String[]{cmdComplete[2],cmdComplete[3],cmdComplete[4]});
-					if(ordreTypeCarte == null)
+					Carte[] cartes = Carte.testerCartes(new String[]{cmdComplete[2],cmdComplete[3],cmdComplete[4]});
+					if(cartes == null)
 					{
 						System.out.println("Mauvaises cartes. Une carte lieu, une carte arme et une carte suspect sont requises en parametres.");
 					}
 					else
 					{
-						String[] tmp = Carte.ordonnerCartes(new String[]{cmdComplete[2],cmdComplete[3],cmdComplete[4]},ordreTypeCarte);
-						String[] res = new String[]{cmdComplete[1],tmp[0],tmp[1],tmp[2]};
+						String[] res = new String[]{cmdComplete[1],cartes[0].getNom(),cartes[1].getNom(),cartes[2].getNom()};
 						// return [0]option [1]arme [2]lieu [3]suspect
 						return res;
 					}
