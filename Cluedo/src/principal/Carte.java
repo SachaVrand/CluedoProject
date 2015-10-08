@@ -106,7 +106,7 @@ public class Carte {
 	 * Méthode qui permet de tester les cartes représentées sous forme d'un tableau de string, si elle sont correctes.
 	 * Pour qu'elles soient correctes il faut une carte de chaque type(Lieu,Suspect,Arme).
 	 * @param tabCarte Tableau de String représentant les 3 cartes suggérer par le joueur.
-	 * @return Un tableau de carte avec l'ordre de chaque type de carte. Ex: tab = {Arme,Lieu,Suspect} ou tab = {Suspect,LieuArme}... Null si les cartes ne sont pas correctes.
+	 * @return Un tableau de carte avec l'ordre de chaque type de carte. Ex: tab = {Arme,Lieu,Suspect} ou tab = {Suspect,Lieu,Arme}... Null si les cartes ne sont pas correctes.
 	 */
 	public static Carte[] testerCartes(String[] tabCarte)
 	{
