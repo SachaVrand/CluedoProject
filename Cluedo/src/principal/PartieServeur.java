@@ -185,6 +185,7 @@ public class PartieServeur extends PartieHote
 									}
 								}
 								while(true);
+								break;
 							}
 							else if(message[1].equals("accuse"))
 							{
