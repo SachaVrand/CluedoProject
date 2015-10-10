@@ -2,8 +2,6 @@ package principal;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import javax.swing.text.AbstractDocument.LeafElement;
-
 /**
  * Classe représentant un joueur de type Humain.
  * @author Sacha et Clement

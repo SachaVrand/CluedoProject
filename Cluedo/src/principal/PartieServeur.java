@@ -1,13 +1,7 @@
 package principal;
 import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-
-import networking.ComServer;
 import networking.RegServer;
 
 public class PartieServeur extends PartieHote
@@ -52,11 +46,11 @@ public class PartieServeur extends PartieHote
 				{
 					if(k == 0)
 					{
-						msgStart += " "+joueursPartie.get(k);
+						msgStart += " "+joueursPartie.get(k).getNom();
 					}
 					else
 					{
-						msgStart += ","+joueursPartie.get(k);
+						msgStart += ","+joueursPartie.get(k).getNom();
 					}
 					k++;
 				}
@@ -66,11 +60,11 @@ public class PartieServeur extends PartieHote
 				{
 					if(k == 0)
 					{
-						msgStart += " "+joueursPartie.get(i).cartesJoueur.get(k);
+						msgStart += " "+joueursPartie.get(i).getCartesJoueur().get(k).getNom();
 					}
 					else
 					{
-						msgStart += ","+joueursPartie.get(i).cartesJoueur.get(k);
+						msgStart += ","+joueursPartie.get(i).getCartesJoueur().get(k).getNom();
 					}
 					k++;
 				}
@@ -154,21 +148,22 @@ public class PartieServeur extends PartieHote
 										server.send(i, "ask "+tmp[0]+" "+tmp[1]+" "+tmp[2]);
 										carteMontre = server.receive(i).split(" ");
 										} while(!carteMontre[0].equals("exit") && !(carteMontre[0].equals("respond") && carteMontre.length == 2 && Carte.contientCarte(j.getCartesJoueur(), carteMontre[1])));
-										
+									
 										if(carteMontre.equals("exit"))
 										{
 											for(i = 0; i < server.getNumClients(); i++)
 											{
 												server.send(i, "error exit "+i);
 											}
-											// UTILITE DU RETURN ?
+											server.close();
 											return;
 										}
 										else
 										{
 											// Informe le joueur 'joueurActuel' de la réponse du joueur 'i'
 											//!\\ PAS DE COMMANDE EXISTANTE //!\\
-											server.send(joueurActuel, "info respond "+i+" "+carteMontre[1]);
+											//TODO changer le message
+											//server.send(joueurActuel, "info respond "+i+" "+carteMontre[1]);
 											for(i = 0; i < server.getNumClients(); i++)
 											{
 												server.send(i, "info show "+i+" "+joueurActuel);
@@ -199,8 +194,8 @@ public class PartieServeur extends PartieHote
 									// Informe à tout les joueurs que le joueur 'joueurActuel' a gagné la partie
 									for(i = 0; i < server.getNumClients(); i++)
 									{
-										//!\\ "win <num>" N'EXISTE PAS //!\\
-										server.send(i, "win "+joueurActuel);
+										//!\\ "end <num>" //!\\
+										server.send(i, "end "+joueurActuel);
 									}
 									partieFinie = true;
 									break;
@@ -210,11 +205,12 @@ public class PartieServeur extends PartieHote
 								{
 									joueursPartie.get(joueurActuel).setEncoreEnJeu(false);
 									// Informe tout les joueurs que le joueur 'joueurActuel' à perdu
-									for(i = 0; i < server.getNumClients(); i++)
+									//TODO Utiliser message infos qui devrait permettre ça
+									/*for(i = 0; i < server.getNumClients(); i++)
 									{
 										//!\\ "end <num>" PAS EXPLIQUEE //!\\
 										server.send(i, "end "+joueurActuel);
-									}
+									}*/
 								
 									// s'il n'y a plus de joueurs en jeu
 									for(Joueur j : joueursPartie)
