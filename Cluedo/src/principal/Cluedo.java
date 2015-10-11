@@ -70,7 +70,7 @@ public class Cluedo
 				Joueur j = null;
 				if(cmdComplete.length == 4)
 				{
-					nomJoueur = cmdComplete[2];
+					nomJoueur = cmdComplete[3];
 				}
 				if(cmdComplete[1].equals("ordi"))
 				{
@@ -136,16 +136,16 @@ public class Cluedo
 	{
 		System.out.println("\nsolo <NombreJoueurs>");
 		System.out.println("\t Commencer une partie solo (Humain + Ordinateur)\n");
-		System.out.println("\n<NombreJoueurs> : de 3 à 6");
+		System.out.println("\t <NombreJoueurs> : de 3 à 6\n");
 		System.out.println("referee <NombreJoueurs>");
 		System.out.println("\t Commencer une partie en tant qu'hôte\n");
-		System.out.println("\n<NombreJoueurs> : de 3 à 6");
+		System.out.println("\t <NombreJoueurs> : de 3 à 6 \n");
 		System.out.println("register");
 		System.out.println("\t Rechercher une partie en multijoueur");
 		System.out.println("\t register <type> <addr> [<nom>]");
 		System.out.println("\t <type> : 'ordi' ou 'joueur'.");
-		System.out.println("\t <addr> : adresse IP de l'hôte.\n");
-		System.out.println("\t <name> : nom du joueur.");
+		System.out.println("\t <addr> : adresse IP de l'hôte.");
+		System.out.println("\t <name> : nom du joueur.\n");
 		System.out.println("exit");
 		System.out.println("\t Quitter le jeu.\n");
 		System.out.println("help");
