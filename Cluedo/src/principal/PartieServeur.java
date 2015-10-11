@@ -25,13 +25,15 @@ public class PartieServeur extends PartieHote
 		{
 			// ouvre le serveur
 			server.open();
+			if(server.getNumClients() == 0)
+			{
+				System.out.println("Aucun joueurs trouvés !\n");
+				return;
+			}
 			// donne le bon nom au joueur (au lieu de Joueur 1, Joueur 2, Joueur 3 ...) en fonction du nom dans les ComServer du server
 			while(i < joueursPartie.size())
 			{
-				for(Joueur j : joueursPartie)
-				{
-					j.setNom(server.getClients().get(i).getNom());
-				}
+				joueursPartie.get(i).setNom(server.getClients().get(i).getNom());
 				i++;
 			}
 			i = 0;
@@ -56,7 +58,7 @@ public class PartieServeur extends PartieHote
 				}
 				k = 0;
 				// ajoute le nom des cartes
-				while(k < 3)
+				while(k < joueursPartie.get(i).getCartesJoueur().size())
 				{
 					if(k == 0)
 					{
@@ -79,6 +81,7 @@ public class PartieServeur extends PartieHote
 			// =====================
 			while(!partieFinie)
 			{
+				System.out.println("[AVANT] Le joueur : "+joueurActuel);
 				//on vérifie que le joueur actuel peut jouer sinon on passe au joueur suivant et ainsi de suite.
 				while(!joueursPartie.get(joueurActuel).getEncoreEnJeu())
 				{
@@ -88,7 +91,7 @@ public class PartieServeur extends PartieHote
 						joueurActuel = 0;
 					}
 				}
-				
+				System.out.println("[APRES] Le joueur : "+joueurActuel);
 				do
 				{
 					server.send(joueurActuel, "play");
@@ -238,6 +241,11 @@ public class PartieServeur extends PartieHote
 				if(message[0].equals("exit"))
 				{
 					break;
+				}
+				joueurActuel++;
+				if(joueurActuel == joueursPartie.size())
+				{
+					joueurActuel = 0;
 				}
 			}
 			for(i = 0; i < server.getNumClients(); i++)
