@@ -106,18 +106,22 @@ public class PartieServeur extends PartieHote
 						String[] cartes = {message[2],message[3],message[4]};
 						// Met dans l'ordre les cartes
 						Carte[] ordre = Carte.testerCartes(cartes);
-						String[] tmp = {ordre[0].getNom(), ordre[1].getNom(), ordre[2].getNom()};
+						String[] cartesSuggerer = null;
+						
+						if(ordre != null)
+						{
+							cartesSuggerer = new String[]{ordre[0].getNom(), ordre[1].getNom(), ordre[2].getNom()};
+						}
 						// Vérifie sur le coup est valide
-						if((message[1].equals("suggest") || message[1].equals("accuse")) && (Carte.testerCartes(tmp) != null))
+						if((message[1].equals("suggest") || message[1].equals("accuse")) && cartesSuggerer != null)
 						{
 							if(message[1].equals("suggest"))
 							{
 								for(i = 0; i < server.getNumClients(); i++)
 								{
-									server.send(i, "move "+joueurActuel+" suggest "+tmp[0]+" "+tmp[1]+" "+tmp[2]);
+									server.send(i, "move "+joueurActuel+" suggest "+cartesSuggerer[0]+" "+cartesSuggerer[1]+" "+cartesSuggerer[2]);
 								}
 								
-								String cartesSuggerer[] = new String[]{tmp[0],tmp[1],tmp[2]};
 								List<String> carteCommun;
 								String[] carteMontre;
 								i = joueurActuel;
@@ -145,15 +149,15 @@ public class PartieServeur extends PartieHote
 									{
 										do
 										{
-										server.send(i, "ask "+tmp[0]+" "+tmp[1]+" "+tmp[2]);
+										server.send(i, "ask "+cartesSuggerer[0]+" "+cartesSuggerer[1]+" "+cartesSuggerer[2]);
 										carteMontre = server.receive(i).split(" ");
 										} while(!carteMontre[0].equals("exit") && !(carteMontre[0].equals("respond") && carteMontre.length == 2 && Carte.contientCarte(j.getCartesJoueur(), carteMontre[1])));
 									
 										if(carteMontre.equals("exit"))
 										{
-											for(i = 0; i < server.getNumClients(); i++)
+											for(k = 0; k < server.getNumClients(); k++)
 											{
-												server.send(i, "error exit "+i);
+												server.send(k, "error exit "+i);
 											}
 											server.close();
 											return;
@@ -164,18 +168,19 @@ public class PartieServeur extends PartieHote
 											//!\\ PAS DE COMMANDE EXISTANTE //!\\
 											//TODO changer le message
 											//server.send(joueurActuel, "info respond "+i+" "+carteMontre[1]);
-											for(i = 0; i < server.getNumClients(); i++)
+											server.send(joueurActuel, "info "+carteMontre[1]);
+											for(k = 0; k < server.getNumClients(); k++)
 											{
-												server.send(i, "info show "+i+" "+joueurActuel);
+												server.send(k, "info show "+i+" "+joueurActuel);
 											}
 										}
 										break;
 									}
 									else
 									{
-										for(i = 0; i < server.getNumClients(); i++)
+										for(k = 0; k < server.getNumClients(); k++)
 										{
-											server.send(i, "info noshow "+i+" "+joueurActuel);
+											server.send(k, "info noshow "+i+" "+joueurActuel);
 										}
 									}
 								}
@@ -186,10 +191,10 @@ public class PartieServeur extends PartieHote
 							{
 								for(i = 0; i < server.getNumClients(); i++)
 								{
-									server.send(i, "move "+joueurActuel+" accuse "+tmp[0]+" "+tmp[1]+" "+tmp[2]);
+									server.send(i, "move "+joueurActuel+" accuse "+cartesSuggerer[0]+" "+cartesSuggerer[1]+" "+cartesSuggerer[2]);
 								}
 								// Si l'accusation est bonne
-								if(tmp[0].equals(cartesADecouvrir[0].getNom()) && tmp[1].equals(cartesADecouvrir[1].getNom()) && tmp[2].equals(cartesADecouvrir[2].getNom()))
+								if(cartesSuggerer[0].equals(cartesADecouvrir[0].getNom()) && cartesSuggerer[1].equals(cartesADecouvrir[1].getNom()) && cartesSuggerer[2].equals(cartesADecouvrir[2].getNom()))
 								{
 									// Informe à tout les joueurs que le joueur 'joueurActuel' a gagné la partie
 									for(i = 0; i < server.getNumClients(); i++)

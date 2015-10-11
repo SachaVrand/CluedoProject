@@ -84,7 +84,7 @@ public class RegServer {
     				// Adds to the list of clients.
     				this.clients.add(new ComServer(client, message[1]));
     				// send a message
-    				new PrintWriter(this.client.getOutputStream(), true).println("ack "+clients.size());
+    				new PrintWriter(this.client.getOutputStream(), true).println("ack "+(clients.size()-1));
     			}
     		} catch (SocketTimeoutException e) {
     			// If the number of connections reached its limit.
