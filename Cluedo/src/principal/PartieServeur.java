@@ -81,7 +81,6 @@ public class PartieServeur extends PartieHote
 			// =====================
 			while(!partieFinie)
 			{
-				System.out.println("[AVANT] Le joueur : "+joueurActuel);
 				//on vérifie que le joueur actuel peut jouer sinon on passe au joueur suivant et ainsi de suite.
 				while(!joueursPartie.get(joueurActuel).getEncoreEnJeu())
 				{
@@ -91,10 +90,10 @@ public class PartieServeur extends PartieHote
 						joueurActuel = 0;
 					}
 				}
-				System.out.println("[APRES] Le joueur : "+joueurActuel);
 				do
 				{
 					server.send(joueurActuel, "play");
+					System.out.println("\nLe joueur '"+joueursPartie.get(joueurActuel).getNom()+"' joue.");
 					message = server.receive(joueurActuel).split(" ");
 					
 					if(message[0].equals("exit"))
@@ -103,6 +102,7 @@ public class PartieServeur extends PartieHote
 						{
 							server.send(i, "error exit "+joueurActuel);
 						}
+						System.out.println("Le joueur '"+joueursPartie.get(joueurActuel).getNom()+"' a quitté la partie.");
 					}
 					else if(message[0].equals("move") && message.length == 5)
 					{
@@ -124,6 +124,7 @@ public class PartieServeur extends PartieHote
 								{
 									server.send(i, "move "+joueurActuel+" suggest "+cartesSuggerer[0]+" "+cartesSuggerer[1]+" "+cartesSuggerer[2]);
 								}
+								System.out.println("Le joueur '"+joueursPartie.get(joueurActuel).getNom()+"' suggère '"+cartesSuggerer[0]+"' '"+cartesSuggerer[1]+"' '"+cartesSuggerer[2]+"'.");
 								
 								List<String> carteCommun;
 								String[] carteMontre;
@@ -153,6 +154,7 @@ public class PartieServeur extends PartieHote
 										do
 										{
 										server.send(i, "ask "+cartesSuggerer[0]+" "+cartesSuggerer[1]+" "+cartesSuggerer[2]);
+										System.out.println("Le joueur '"+joueursPartie.get(i).getNom()+"' doit répondre à la suggestion du joueur '"+joueursPartie.get(joueurActuel).getNom()+"'.");
 										carteMontre = server.receive(i).split(" ");
 										} while(!carteMontre[0].equals("exit") && !(carteMontre[0].equals("respond") && carteMontre.length == 2 && Carte.contientCarte(j.getCartesJoueur(), carteMontre[1])));
 									
@@ -162,6 +164,7 @@ public class PartieServeur extends PartieHote
 											{
 												server.send(k, "error exit "+i);
 											}
+											System.out.println("Le joueur '"+joueursPartie.get(i).getNom()+"' a quitté la partie.");
 											server.close();
 											return;
 										}
@@ -176,6 +179,7 @@ public class PartieServeur extends PartieHote
 											{
 												server.send(k, "info show "+i+" "+joueurActuel);
 											}
+											System.out.println("Le joueur '"+joueursPartie.get(i).getNom()+"' montre la carte '"+carteMontre[1]+"' au joueur '"+joueursPartie.get(joueurActuel).getNom()+"'.");
 										}
 										break;
 									}
@@ -185,6 +189,7 @@ public class PartieServeur extends PartieHote
 										{
 											server.send(k, "info noshow "+i+" "+joueurActuel);
 										}
+										System.out.println("Le joueur '"+joueursPartie.get(i).getNom()+" ne peut montrer aucune carte au joueur '"+joueursPartie.get(joueurActuel).getNom()+"'.");
 									}
 								}
 								while(true);
@@ -196,6 +201,7 @@ public class PartieServeur extends PartieHote
 								{
 									server.send(i, "move "+joueurActuel+" accuse "+cartesSuggerer[0]+" "+cartesSuggerer[1]+" "+cartesSuggerer[2]);
 								}
+								System.out.println("Le joueur '"+joueursPartie.get(joueurActuel).getNom()+"' accuse '"+cartesSuggerer[0]+"' '"+cartesSuggerer[1]+"' '"+cartesSuggerer[2]+"'.");
 								// Si l'accusation est bonne
 								if(cartesSuggerer[0].equals(cartesADecouvrir[0].getNom()) && cartesSuggerer[1].equals(cartesADecouvrir[1].getNom()) && cartesSuggerer[2].equals(cartesADecouvrir[2].getNom()))
 								{
@@ -205,6 +211,7 @@ public class PartieServeur extends PartieHote
 										//!\\ "end <num>" //!\\
 										server.send(i, "end "+joueurActuel);
 									}
+									System.out.println("Le joueur '"+joueursPartie.get(joueurActuel).getNom()+"' a gagné la partie.");
 									partieFinie = true;
 									break;
 								}
@@ -231,11 +238,13 @@ public class PartieServeur extends PartieHote
 						else
 						{
 							server.send(joueurActuel, "error invalid Mauvaise commande");
+							System.out.println("Erreur commande.");
 						}
 					}
 					else
 					{
 						server.send(joueurActuel, "error invalid Mauvaise commande");
+						System.out.println("Erreur commande.");
 					}
 				} while(!message[0].equals("exit"));
 				if(message[0].equals("exit"))
@@ -252,6 +261,7 @@ public class PartieServeur extends PartieHote
 			{
 				server.send(i, "end ");
 			}
+			System.out.println("Partie terminée.\n");
 			server.close();
 		}
 		catch (IOException e)
