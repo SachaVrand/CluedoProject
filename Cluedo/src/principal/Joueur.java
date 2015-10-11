@@ -14,7 +14,6 @@ public abstract class Joueur {
 	 */
 	protected String nom;
 	
-	
 	/**
 	 * Booléen représentant si le joueur est encore en jeu ou non. true si oui, sinon false.
 	 */
@@ -82,6 +81,10 @@ public abstract class Joueur {
 		return this.nom;
 	}
 	
+	/**
+	 * Méthode qui permet d'affecter la chaine passée en paramètre au nom du Joueur.
+	 * @param nom Le nom du joueur sous forme de chaine de caractères.
+	 */
 	public void setNom(String nom)
 	{
 		this.nom = nom;

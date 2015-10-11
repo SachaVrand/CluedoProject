@@ -84,7 +84,7 @@ public class Carte {
 	 * Méthode qui retourne les cartes en commun dans la collection d'objet et le tableau de String en les comparant les cartes avec leur nom.
 	 * @param cartes Collection de cartes dans laquelle vous souhaitez chercher.
 	 * @param noms Tableau de noms représentant des cartes.
-	 * @return Liste des cartes contenu dans la collection de cartes et le tableau de String, liste vide si aucune carte en commun.
+	 * @return Liste des cartes contenu dans la collection de cartes sous la forme de String, liste vide si aucune carte en commun.
 	 */
 	public static List<String> cartesContenuDans(List<Carte> cartes, String[] noms)
 	{
@@ -106,7 +106,7 @@ public class Carte {
 	 * Méthode qui permet de tester les cartes représentées sous forme d'un tableau de string, si elle sont correctes.
 	 * Pour qu'elles soient correctes il faut une carte de chaque type(Lieu,Suspect,Arme).
 	 * @param tabCarte Tableau de String représentant les 3 cartes suggérer par le joueur.
-	 * @return Un tableau de carte correspondant aux cartes suggérer par le Joueur dans l'ordre : [0]Arme [1]Lieu [2]Suspect. Null si au moins l'une chaine des chaines ne correspond pas à une carte.
+	 * @return Un tableau de carte correspondant aux cartes suggérer par le Joueur dans l'ordre : [0]Arme [1]Lieu [2]Suspect. Null si au moins l'une des chaines ne correspond pas à une carte.
 	 */
 	public static Carte[] testerCartes(String[] tabCarte)
 	{

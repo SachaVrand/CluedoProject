@@ -96,7 +96,7 @@ public class Humain extends Joueur
 	}
 
 	/**
-	 * Méthode qui permet à un joueur de réfuter ou non.
+	 * Méthode qui permet à un joueur de réfuter.
 	 * @param cartes Tableau de String répresentant les 3 cartes suggérer par un joueur.
 	 * @param cartesCommun Cartes en commun dans le paquet du joueur avec les cartes suggerer sous la forme de String
 	 * @return chaine correspondant à la carte montrée ou exit si le joueur souhaite quitter.
@@ -190,8 +190,6 @@ public class Humain extends Joueur
 		System.out.println("Les commandes disponibles :\n");
 		System.out.println("show <card>");
 		System.out.println("\t la carte que vous souhaiter montrer si vous les pouvez \n");
-		/*System.out.println("skip");
-		System.out.println("\t permet de passer si vous n'avez aucune carte pour réfuter \n");*/
 		System.out.println("help");
 		System.out.println("\t affiche ce message \n");
 	}

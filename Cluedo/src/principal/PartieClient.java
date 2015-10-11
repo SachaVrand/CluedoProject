@@ -3,14 +3,43 @@ import java.io.IOException;
 
 import networking.Client;
 
-public class PartieClient implements IPartie{
-
+/**
+ * Classe représentant une partie en ligne de Cluedo en tant que 'Client'.
+ * @author Sacha
+ *
+ */
+public class PartieClient implements IPartie
+{
+	/**
+	 * Joueur représentant le client qui va jouer.
+	 */
 	private Joueur joueur;
+	
+	/**
+	 * Constante représentant le port utilisé pour communiquer avec le serveur.
+	 */
 	private final int numeroPort = 12345;
+	
+	/**
+	 * L'adresse du serveur distant qui héberge la partie sous forme de chaine de caractères.
+	 */
 	private String hote;
+	
+	/**
+	 * Instance de Client qui permet de faire la communication avec le serveur.
+	 */
 	private Client client;
+	
+	/**
+	 * liste des noms des joueurs, permettant de retranscrire les numéros envoyé par le serveur sous la forme de chaine représentant le joueur.
+	 */
 	private String[] listeJoueurs;
 	
+	/**
+	 * Instancie un partie en tant que client avec le Joueur et l'hote sous forme de String passés en paramètres, un nouveau Client et la listeJoueurs à null.
+	 * @param joueur Joueur représentant le client qui va jouer.
+	 * @param hote L'adresse du serveur distant qui héberge la partie sous forme de chaine de caractères.
+	 */
 	public PartieClient(Joueur joueur,String hote)
 	{
 		this.joueur = joueur;
@@ -19,6 +48,9 @@ public class PartieClient implements IPartie{
 		listeJoueurs = null;
 	}
 	
+	/**
+	 * Méthode qui permet de faire jouer une partie de Cluedo en ligne, en tant que 'client'.
+	 */
 	@Override
 	public void boucleJeu() {
 		String[] message;

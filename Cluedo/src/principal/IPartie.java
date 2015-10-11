@@ -1,6 +1,8 @@
 package principal;
-import java.io.IOException;
 
 public interface IPartie {
-	void boucleJeu() throws IOException;
+	/**
+	 * Méthode qui permet de faire tourner une partie de cluedo.
+	 */
+	void boucleJeu();
 }

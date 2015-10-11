@@ -4,8 +4,11 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import networking.RegServer;
-
+/**
+ * Classe réprésentant les parties jouées en tant qu'hôte, c'est à dire les parties en tant que serveur arbitre ou en solo sur la machine.
+ * @author Sacha
+ *
+ */
 public abstract class PartieHote implements IPartie{
 
 	/**
@@ -14,7 +17,7 @@ public abstract class PartieHote implements IPartie{
 	protected List<Joueur> joueursPartie;
 	
 	/**
-	 * Représente les carte à découvrir pour résoudre le crime.
+	 * Représente les cartes à découvrir pour résoudre le crime.
 	 */
 	protected Carte[] cartesADecouvrir;
 	
@@ -28,7 +31,6 @@ public abstract class PartieHote implements IPartie{
 	 */
 	protected boolean partieFinie;
 	
-	protected RegServer server;
 	/**
 	 * Instancie une nouvelle partie avec la liste des joueurs passée en paramètre, l'indice du joueur actuel à 0, un nouveau tableau de 3 cartes, partieFinie à false 
 	 * et distribue les cartes à chaque joueur.
@@ -36,7 +38,6 @@ public abstract class PartieHote implements IPartie{
 	 */
 	public PartieHote(List<Joueur> joueursPartie)
 	{
-		this.server = null;
 		this.joueursPartie = joueursPartie;
 		this.joueurActuel = 0;
 		this.cartesADecouvrir = new Carte[3];

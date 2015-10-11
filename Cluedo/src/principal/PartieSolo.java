@@ -2,13 +2,18 @@ package principal;
 import java.util.List;
 
 /**
- * Classe représentant une partie de jeu du cluedo.
+ * Classe représentant une partie en solo du cluedo.
  * @author Sacha et Clement
  *
  */
 public class PartieSolo extends PartieHote {
 	
 
+	/**
+	 * Instancie une nouvelle partie avec la liste des joueurs passée en paramètre, l'indice du joueur actuel à 0, un nouveau tableau de 3 cartes, partieFinie à false 
+	 * et distribue les cartes à chaque joueur.
+	 * @param joueursPartie Collection de Joueur jouant la partie.
+	 */
 	public PartieSolo(List<Joueur> joueursPartie)
 	{
 		super(joueursPartie);
