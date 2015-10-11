@@ -205,7 +205,6 @@ public class PartieServeur extends PartieHote
 								{
 									joueursPartie.get(joueurActuel).setEncoreEnJeu(false);
 									// Informe tout les joueurs que le joueur 'joueurActuel' à perdu
-									//TODO Utiliser message infos qui devrait permettre ça
 									/*for(i = 0; i < server.getNumClients(); i++)
 									{
 										//!\\ "end <num>" PAS EXPLIQUEE //!\\
