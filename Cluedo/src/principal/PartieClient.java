@@ -61,6 +61,7 @@ public class PartieClient implements IPartie
 		catch(IOException e)
 		{
 			System.out.println("Mauvaise adresse ip, ou autre erreur");
+			return;
 		}
 		try
 		{
@@ -156,11 +157,11 @@ public class PartieClient implements IPartie
 					{
 						if(message[2].equalsIgnoreCase("suggest"))
 						{
-							System.out.println(listeJoueurs[Integer.parseInt(message[1])] + " suggère " + message[3] + message[4] + message[5]);
+							System.out.println(listeJoueurs[Integer.parseInt(message[1])] + " suggère " + message[3] + " " + message[4] + " " + message[5]);
 						}
 						else if(message[2].equalsIgnoreCase("accuse"))
 						{
-							System.out.println(listeJoueurs[Integer.parseInt(message[1])] + " accuse " + message[3] + message[4] + message[5]);
+							System.out.println(listeJoueurs[Integer.parseInt(message[1])] + " accuse " + message[3] + " " + message[4] + " " + message[5]);
 						}
 					}
 					else if(message[0].equalsIgnoreCase("play") && message.length == 1)
