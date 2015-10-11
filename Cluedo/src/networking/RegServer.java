@@ -1,9 +1,11 @@
 package networking;
 
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -71,6 +73,16 @@ public class RegServer {
     	    	
     	//tableau de chaine qui servira à stocker les messages des clients demandants une connection
     	String[] message;
+    	// récupère et affiche l'adresse IP du serveur
+    	try
+    	{
+    		InetAddress thisIp = InetAddress.getLocalHost();
+    		System.out.println("IP:"+thisIp.getHostAddress());
+    	}
+    	catch(UnknownHostException e)
+    	{
+    		e.printStackTrace();
+    	}
 
     	while (true) {
     		try {
