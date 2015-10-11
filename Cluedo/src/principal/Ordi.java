@@ -35,7 +35,7 @@ public class Ordi extends Joueur
 	 * @return null
 	 */
 	@Override
-	public String refuter(String[] cartes, List<String> cartesCommun) 
+	public String refuter(List<String> cartesCommun) 
 	{
 		return "";
 	}

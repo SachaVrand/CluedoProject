@@ -102,7 +102,7 @@ public class Humain extends Joueur
 	 * @return chaine correspondant à la carte montrée ou exit si le joueur souhaite quitter.
 	 */
 	@Override
-	public String refuter(String[] cartes, List<String> carteCommun)
+	public String refuter(List<String> carteCommun)
 	{
 		String cmd = "";
 		String[] cmdComplete;

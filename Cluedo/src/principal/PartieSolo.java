@@ -73,7 +73,7 @@ public class PartieSolo extends PartieHote {
 						
 						if((carteCommun = Carte.cartesContenuDans(j.getCartesJoueur(), cartesSuggerer)).size() != 0)
 						{
-							carteMontre = j.refuter(cartesSuggerer,carteCommun);
+							carteMontre = j.refuter(carteCommun);
 							if(carteMontre.equals("exit"))
 							{
 								System.out.println(j.getNom() + " quitte la partie");

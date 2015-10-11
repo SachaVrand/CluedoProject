@@ -102,7 +102,7 @@ public abstract class Joueur {
 	 * @param cartesCommun Cartes en commun dans le paquet du joueur avec les cartes suggerer sous la forme de String
 	 * @return chaine correspondant à la carte montrer, exit si le joueur veut quitter.
 	 */
-	public abstract String refuter(String[] cartes, List<String> carteCommun);
+	public abstract String refuter(List<String> carteCommun);
 	
 	
 	

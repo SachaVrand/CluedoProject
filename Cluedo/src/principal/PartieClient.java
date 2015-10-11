@@ -177,7 +177,7 @@ public class PartieClient implements IPartie
 					}
 					else if(message[0].equalsIgnoreCase("ask") && message.length == 4)
 					{
-						String carteMontrer = joueur.refuter(new String[]{message[1],message[2],message[3]},Carte.cartesContenuDans(joueur.getCartesJoueur(), new String[]{message[1],message[2],message[3]}));
+						String carteMontrer = joueur.refuter(Carte.cartesContenuDans(joueur.getCartesJoueur(), new String[]{message[1],message[2],message[3]}));
 						if(carteMontrer.equalsIgnoreCase("exit"))
 						{
 							client.close();
