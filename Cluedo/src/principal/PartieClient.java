@@ -196,9 +196,21 @@ public class PartieClient implements IPartie
 						{
 							System.out.println(listeJoueurs[Integer.parseInt(message[2])] + " a montré une carte à " + listeJoueurs[Integer.parseInt(message[3])]);
 						}
-						else if(message.length == 2)
+						else if(message[1].equalsIgnoreCase("respond") && message.length == 4)
 						{
-							System.out.println(message[1]);
+							System.out.println(listeJoueurs[Integer.parseInt(message[2])] + " vous à montré la carte : " + message[3]);
+						}
+						else if(message[2].equalsIgnoreCase("wrong") && message.length == 3)
+						{
+							//en supposant que chaque joueur à un nom différent.
+							/*if(listeJoueurs[Integer.parseInt(message[1])].equals(joueur.getNom()))
+							{
+								System.out.println("Vous avez fait une accusation fausse, vous avez perdu.");
+							}
+							else
+							{*/
+								System.out.println(listeJoueurs[Integer.parseInt(message[1])] + " a fait une accusation fausse, il a perdu la partie.");
+							//}
 						}
 					}
 					else if(!message[0].equalsIgnoreCase("end"))
