@@ -135,10 +135,10 @@ public class Cluedo
 	private static void afficherAide()
 	{
 		System.out.println("\nsolo <NombreJoueurs>");
-		System.out.println("\t Commencer une partie solo (Humain + Ordinateur)\n");
+		System.out.println("\t Commencer une partie solo (Humain + Ordinateur)");
 		System.out.println("\t <NombreJoueurs> : de 3 à 6\n");
 		System.out.println("referee <NombreJoueurs>");
-		System.out.println("\t Commencer une partie en tant qu'hôte\n");
+		System.out.println("\t Commencer une partie en tant qu'hôte");
 		System.out.println("\t <NombreJoueurs> : de 3 à 6 \n");
 		System.out.println("register");
 		System.out.println("\t Rechercher une partie en multijoueur");
