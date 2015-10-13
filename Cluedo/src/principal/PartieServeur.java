@@ -2,6 +2,7 @@ package principal;
 import java.io.IOException;
 import java.util.List;
 
+
 import networking.RegServer;
 
 public class PartieServeur extends PartieHote
@@ -74,6 +75,7 @@ public class PartieServeur extends PartieHote
 				server.send(i, msgStart);
 				i++;
 			}
+			System.out.println("\nLa partie commence !");
 			i = 0;
 			
 			// =====================
@@ -173,8 +175,7 @@ public class PartieServeur extends PartieHote
 											// Informe le joueur 'joueurActuel' de la réponse du joueur 'i'
 											//!\\ PAS DE COMMANDE EXISTANTE //!\\
 											//TODO changer le message
-											//server.send(joueurActuel, "info respond "+i+" "+carteMontre[1]);
-											server.send(joueurActuel, "info "+carteMontre[1]);
+											server.send(joueurActuel, "info respond "+i+" "+carteMontre[1]);
 											for(k = 0; k < server.getNumClients(); k++)
 											{
 												server.send(k, "info show "+i+" "+joueurActuel);
@@ -208,7 +209,6 @@ public class PartieServeur extends PartieHote
 									// Informe à tout les joueurs que le joueur 'joueurActuel' a gagné la partie
 									for(i = 0; i < server.getNumClients(); i++)
 									{
-										//!\\ "end <num>" //!\\
 										server.send(i, "end "+joueurActuel);
 									}
 									System.out.println("Le joueur '"+joueursPartie.get(joueurActuel).getNom()+"' a gagné la partie.");
@@ -220,11 +220,10 @@ public class PartieServeur extends PartieHote
 								{
 									joueursPartie.get(joueurActuel).setEncoreEnJeu(false);
 									// Informe tout les joueurs que le joueur 'joueurActuel' à perdu
-									/*for(i = 0; i < server.getNumClients(); i++)
+									for(i = 0; i < server.getNumClients(); i++)
 									{
-										//!\\ "end <num>" PAS EXPLIQUEE //!\\
-										server.send(i, "end "+joueurActuel);
-									}*/
+										server.send(i, "info wrong "+joueurActuel);
+									}
 								
 									// s'il n'y a plus de joueurs en jeu
 									for(Joueur j : joueursPartie)
@@ -259,7 +258,7 @@ public class PartieServeur extends PartieHote
 			}
 			for(i = 0; i < server.getNumClients(); i++)
 			{
-				server.send(i, "end ");
+				server.send(i, "end");
 			}
 			System.out.println("Partie terminée.\n");
 			server.close();
