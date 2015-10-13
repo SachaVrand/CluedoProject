@@ -1,5 +1,9 @@
 package principal;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
+
+import javax.swing.Timer;
 
 import networking.Client;
 
@@ -54,6 +58,15 @@ public class PartieClient implements IPartie
 	@Override
 	public void boucleJeu() {
 		String[] message;
+		Timer t = new Timer(3000, new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("En attente");
+				Timer t = (Timer)e.getSource();
+				t.stop();
+			}
+		});
 		try
 		{
 			client.open(hote, numeroPort);
@@ -66,15 +79,21 @@ public class PartieClient implements IPartie
 		try
 		{
 			client.send("register " + joueur.getNom());
-			System.out.println("En attente...");
+			
+			t.start();
 			message = client.receive().split(" ");
+			t.stop();
+			
 			if((!message[0].equalsIgnoreCase("ack")) && (message.length != 2))
 			{
 				System.out.println("Le serveur choisi n'est pas correcte.");
 				client.close();
 				return;
 			}
+			
+			t.start();
 			message = client.receive().split(" ");
+			t.stop();
 			
 			if(message[0].equalsIgnoreCase("start") && message.length == 3)
 			{
@@ -129,8 +148,10 @@ public class PartieClient implements IPartie
 				
 				while((!message[0].equalsIgnoreCase("end")) || (message.length != 1))
 				{
-					System.out.println("En attente...");
+					t.start();
 					message = client.receive().split(" ");
+					t.stop();
+					
 					if(message[0].equalsIgnoreCase("error") && message.length > 1)
 					{
 						if(message[1].equalsIgnoreCase("exit") && message.length == 3)
