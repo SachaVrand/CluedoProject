@@ -66,6 +66,7 @@ public class PartieClient implements IPartie
 		try
 		{
 			client.send("register " + joueur.getNom());
+			System.out.println("En attente...");
 			message = client.receive().split(" ");
 			if((!message[0].equalsIgnoreCase("ack")) && (message.length != 2))
 			{
@@ -123,6 +124,7 @@ public class PartieClient implements IPartie
 				}
 				while((!message[0].equalsIgnoreCase("end")) || (message.length != 1))
 				{
+					System.out.println("En attente...");
 					message = client.receive().split(" ");
 					if(message[0].equalsIgnoreCase("error") && message.length > 1)
 					{
@@ -200,7 +202,7 @@ public class PartieClient implements IPartie
 						{
 							System.out.println(listeJoueurs[Integer.parseInt(message[2])] + " vous à montré la carte : " + message[3]);
 						}
-						else if(message[2].equalsIgnoreCase("wrong") && message.length == 3)
+						else if(message[1].equalsIgnoreCase("wrong") && message.length == 3)
 						{
 							//en supposant que chaque joueur à un nom différent.
 							/*if(listeJoueurs[Integer.parseInt(message[1])].equals(joueur.getNom()))
@@ -209,7 +211,7 @@ public class PartieClient implements IPartie
 							}
 							else
 							{*/
-								System.out.println(listeJoueurs[Integer.parseInt(message[1])] + " a fait une accusation fausse, il a perdu la partie.");
+								System.out.println(listeJoueurs[Integer.parseInt(message[2])] + " a fait une accusation fausse, il a perdu la partie.");
 							//}
 						}
 					}
