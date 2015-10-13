@@ -29,6 +29,7 @@ public class PartieServeur extends PartieHote
 			if(server.getNumClients() == 0)
 			{
 				System.out.println("Aucun joueurs trouvés !\n");
+				server.close();
 				return;
 			}
 			// donne le bon nom au joueur (au lieu de Joueur 1, Joueur 2, Joueur 3 ...) en fonction du nom dans les ComServer du server

@@ -77,7 +77,7 @@ public class RegServer {
     	try
     	{
     		InetAddress thisIp = InetAddress.getLocalHost();
-    		System.out.println("\nIP:"+thisIp.getHostAddress());
+    		System.out.println("\nIP: "+thisIp.getHostAddress()+"\n");
     	}
     	catch(UnknownHostException e)
     	{
