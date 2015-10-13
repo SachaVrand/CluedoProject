@@ -79,6 +79,8 @@ public class PartieClient implements IPartie
 			if(message[0].equalsIgnoreCase("start") && message.length == 3)
 			{
 				listeJoueurs = message[1].split(",");
+				
+				//Récupération des cartes
 				for(String carte : message[2].split(","))
 				{
 					Carte c = null;
@@ -118,10 +120,13 @@ public class PartieClient implements IPartie
 					joueur.ajouterCarte(c);
 					
 				}
+				
+				//Récupération des joueurs
 				for(int i = 0; i < listeJoueurs.length; i++)
 				{
 					System.out.println(i + ") " + listeJoueurs[i]);
 				}
+				
 				while((!message[0].equalsIgnoreCase("end")) || (message.length != 1))
 				{
 					System.out.println("En attente...");
