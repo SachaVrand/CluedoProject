@@ -95,35 +95,6 @@ public class Cluedo
 			{
 				System.out.println("Mauvaise commande");
 			}
-			/*switch(cmd)
-			{
-			case "solo" :
-				List<Joueur> listJoueur = menuPartieSolo();
-				if(listJoueur.size() != 0)
-				{
-					PartieSolo p = new PartieSolo(listJoueur);
-					p.boucleJeu();
-				}
-				break;
-			case "referee" :
-				int nbJoueur = menuReferee();
-				if(nbJoueur != 0)
-				{
-					PartieServeur p = new PartieServeur(nbJoueur);
-					p.boucleJeu();
-				}
-				break;
-			case "register" :
-				break;
-			case "exit" :
-				System.out.println("\nAu revoir.");
-				break;
-			case "help" :
-				afficherAide();
-				break;
-			default :
-				System.out.println("Mauvaise commande");
-			}*/
 		}
 		sc.close();
 		System.exit(0);
@@ -151,74 +122,4 @@ public class Cluedo
 		System.out.println("help");
 		System.out.println("\t Afficher ce message.\n");
 	}
-	
-	/**
-	 * Méthode statiques permetttant de lancer une partie solo. Demande à l'utilisateur le nombre de joueurs de la partie sur la console.
-	 * @return La liste des joueurs participant à une partie solo. Liste vide si le joueur veut revenir au menu principal.
-	 */
-	/*private static List<Joueur> menuPartieSolo()
-	{
-		System.out.println("\n--Mode solo--\n");
-		System.out.println("Veuillez choisir le nombre de joueurs pour cette partie (3 à 6 joueurs).");
-		System.out.println("'0' pour retourner au menu principal.");
-		
-		List<Joueur> joueursPartie = new ArrayList<Joueur>();
-		String cmd = "";
-		
-		while(!cmd.equals("0"))
-		{
-			System.out.print("Solo > ");
-			cmd = sc.nextLine();
-			if(cmd.equals("3") || cmd.equals("4") || cmd.equals("5") || cmd.equals("6"))
-			{
-				Joueur joueur = new Humain("Joueur 0");
-				joueursPartie.add(joueur);
-				
-				for(int i = 1; i < Integer.parseInt(cmd); i++)
-				{
-					joueursPartie.add(new Humain("Joueur "+Integer.toString(i)));
-				}
-				break;
-			}
-			else if(cmd.equals("0"))
-			{
-				break;
-			}
-			else
-			{
-				System.out.println("\nMauvaise commande.\n");
-			}
-		}
-		System.out.println();
-		return joueursPartie;
-	}*/
-	
-	/*private static int menuReferee()
-	{
-		System.out.println("\n--Serveur--\n");
-		System.out.println("Veuillez choisir le nombre de joueurs pour cette partie (3 à 6 joueurs).");
-		System.out.println("'0' pour retourner au menu principal.");
-		
-		String cmd = "";
-		
-		while(!cmd.equals("0"))
-		{
-			System.out.print("Referee > ");
-			cmd = sc.nextLine();
-			if(cmd.equals("3") || cmd.equals("4") || cmd.equals("5") || cmd.equals("6"))
-			{
-				return Integer.parseInt(cmd);
-			}
-			else if(cmd.equals("0"))
-			{
-				break;
-			}
-			else
-			{
-				System.out.println("\nMauvaise commande.\n");
-			}
-		}
-		System.out.println();
-		return Integer.parseInt(cmd);
-	}*/
 }

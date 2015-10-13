@@ -76,7 +76,7 @@ public class Humain extends Joueur
 					}
 					else
 					{*/
-						String[] res = new String[]{cmdComplete[2],cmdComplete[3],cmdComplete[4]};
+						String[] res = new String[]{cmdComplete[1],cmdComplete[2],cmdComplete[3],cmdComplete[4]};
 						//String[] res = new String[]{cmdComplete[1],cartes[0].getNom(),cartes[1].getNom(),cartes[2].getNom()};
 						// return [0]option [1]arme [2]lieu [3]suspect
 						return res;

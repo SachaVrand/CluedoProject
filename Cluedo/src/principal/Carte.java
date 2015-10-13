@@ -346,55 +346,5 @@ public class Carte {
 		}
 		return cartes;
 	}
-	
-	/*public static String[] ordonnerCartes(String[] cartes, Carte[] ordreTypeCarte)
-	{
-		//[0]arme [1]lieu [2]suspect
-		String[] tmp = new String[3];
-		if(ordreTypeCarte[0] instanceof Arme)
-		{
-			tmp[0] = cartes[0];
-			if(ordreTypeCarte[1] instanceof Lieu)
-			{
-				tmp[1] = cartes[1];
-				tmp[2] = cartes[2];
-			}
-			else if(ordreTypeCarte[1] instanceof Suspect)
-			{
-				tmp[2] = cartes[1];
-				tmp[1] = cartes[2];
-			}
-		}
-		else if(ordreTypeCarte[0] instanceof Lieu)
-		{
-			tmp[1] = cartes[0];
-			if(ordreTypeCarte[1] instanceof Suspect)
-			{
-				tmp[2] = cartes[1];
-				tmp[0] = cartes[2];
-			}
-			else if(ordreTypeCarte[1] instanceof Arme)
-			{
-				tmp[0] = cartes[1];
-				tmp[2] = cartes[2];
-			}
-			
-		}
-		else if(ordreTypeCarte[0] instanceof Suspect)
-		{
-			tmp[2] = cartes[0];
-			if(ordreTypeCarte[1] instanceof Lieu)
-			{
-				tmp[1] = cartes[1];
-				tmp[0] = cartes[2];
-			}
-			else if(ordreTypeCarte[1] instanceof Arme)
-			{
-				tmp[0] = cartes[1];
-				tmp[1] = cartes[2];
-			}
-		}
-		return tmp;
-	}*/
 
 }
