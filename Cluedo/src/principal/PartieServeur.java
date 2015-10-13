@@ -213,7 +213,6 @@ public class PartieServeur extends PartieHote
 									}
 									System.out.println("Le joueur '"+joueursPartie.get(joueurActuel).getNom()+"' a gagné la partie.");
 									partieFinie = true;
-									break;
 								}
 								// Si l'accusation est fausse
 								else
@@ -232,6 +231,7 @@ public class PartieServeur extends PartieHote
 									}
 									partieFinie = !partieFinie;
 								}
+								break;
 							}
 						}
 						else
