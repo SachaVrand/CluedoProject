@@ -63,10 +63,10 @@ public class Humain extends Joueur
 			{
 				System.out.println(nom + " quitte la partie.");
 			}
-			else if(cmd.equals("move") && cmdComplete.length == 5)
+			else //if(cmd.equals("move") && cmdComplete.length == 5)
 			{
 				
-				if(cmdComplete[1].equals("suggest") || cmdComplete[1].equals("accuse"))
+				/*if(cmdComplete[1].equals("suggest") || cmdComplete[1].equals("accuse"))
 				{
 					//Tester si les cartes passées sont correctes
 					Carte[] cartes = Carte.testerCartes(new String[]{cmdComplete[2],cmdComplete[3],cmdComplete[4]});
@@ -75,21 +75,22 @@ public class Humain extends Joueur
 						System.out.println("Mauvaises cartes. Une carte lieu, une carte arme et une carte suspect sont requises en parametres.");
 					}
 					else
-					{
-						String[] res = new String[]{cmdComplete[1],cartes[0].getNom(),cartes[1].getNom(),cartes[2].getNom()};
+					{*/
+						String[] res = new String[]{cmdComplete[2],cmdComplete[3],cmdComplete[4]};
+						//String[] res = new String[]{cmdComplete[1],cartes[0].getNom(),cartes[1].getNom(),cartes[2].getNom()};
 						// return [0]option [1]arme [2]lieu [3]suspect
 						return res;
-					}
-				}
-				else
+					//}
+				//}
+				/*else
 				{
 					System.out.println("Mauvaise option, 'suggest' ou 'accuse'");
-				}		
+				}*/		
 			}
-			else
+			/*else
 			{
 				System.out.println("Mauvaise commande");
-			}
+			}*/
 		}while(!cmd.equals("exit") || cmdComplete.length != 1);
 		return null;
 		
@@ -132,14 +133,14 @@ public class Humain extends Joueur
 			}
 			else if(cmd.equals("show") && cmdComplete.length == 2)
 			{
-				if((Carte.contientCarte(cartesJoueur, cmdComplete[1])) && (carteCommun.contains(cmdComplete[1])))
-				{
+				/*if((Carte.contientCarte(cartesJoueur, cmdComplete[1])) && (carteCommun.contains(cmdComplete[1])))
+				{*/
 					break;
-				}
+				/*}
 				else
 				{
 					System.out.println("Coup invalide");
-				}
+				}*/
 			}
 			else
 			{
