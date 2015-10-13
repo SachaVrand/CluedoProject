@@ -77,7 +77,7 @@ public class RegServer {
     	try
     	{
     		InetAddress thisIp = InetAddress.getLocalHost();
-    		System.out.println("IP:"+thisIp.getHostAddress());
+    		System.out.println("\nIP:"+thisIp.getHostAddress());
     	}
     	catch(UnknownHostException e)
     	{
@@ -97,6 +97,7 @@ public class RegServer {
     				this.clients.add(new ComServer(client, message[1]));
     				// send a message
     				new PrintWriter(this.client.getOutputStream(), true).println("ack "+(clients.size()-1));
+    				System.out.println("Le joueur '"+message[1]+"' c'est connecté.");
     			}
     		} catch (SocketTimeoutException e) {
     			// If the number of connections reached its limit.
