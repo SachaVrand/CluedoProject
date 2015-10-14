@@ -280,7 +280,12 @@ public class PartieServeur extends PartieHote
 		}
 		catch (IOException e)
 		{
-			e.printStackTrace();
+			try {
+				server.close();
+				System.out.println("Fermeture inopinיייייייייייייייי");
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 		}
 	}
 	
