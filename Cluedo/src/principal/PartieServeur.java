@@ -42,9 +42,9 @@ public class PartieServeur extends PartieHote
 		try
 		{
 			
-			if(server.getNumClients() == 0)
+			if(server.getNumClients() < joueursPartie.size())
 			{
-				System.out.println("Aucun joueurs trouvés !\n");
+				System.out.println("Pas assez de joueurs trouvés !\n");
 				server.close();
 				return;
 			}
