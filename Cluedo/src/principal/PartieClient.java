@@ -2,6 +2,7 @@ package principal;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.net.UnknownHostException;
 
 import javax.swing.Timer;
 
@@ -71,9 +72,14 @@ public class PartieClient implements IPartie
 		{
 			client.open(hote, numeroPort);
 		}
+		catch(UnknownHostException e)
+		{
+			System.out.println("Mauvaise adresse ip pour le serveur.");
+			return;
+		}
 		catch(IOException e)
 		{
-			System.out.println("Mauvaise adresse ip, ou autre erreur");
+			System.out.println("Erreur, impossible d'ouvir la connexion avec le serveur.");
 			return;
 		}
 		try
@@ -230,15 +236,7 @@ public class PartieClient implements IPartie
 						}
 						else if(message[1].equalsIgnoreCase("wrong") && message.length == 3)
 						{
-							//en supposant que chaque joueur à un nom différent.
-							/*if(listeJoueurs[Integer.parseInt(message[1])].equals(joueur.getNom()))
-							{
-								System.out.println("Vous avez fait une accusation fausse, vous avez perdu.");
-							}
-							else
-							{*/
-								System.out.println(listeJoueurs[Integer.parseInt(message[2])] + " a fait une accusation fausse, il a perdu la partie.");
-							//}
+							System.out.println(listeJoueurs[Integer.parseInt(message[2])] + " a fait une accusation fausse, il a perdu la partie.");
 						}
 					}
 					else if(!message[0].equalsIgnoreCase("end"))
@@ -260,9 +258,8 @@ public class PartieClient implements IPartie
 		}
 		catch(IOException e)
 		{
-			System.out.println("Message d'erreur");
+			System.out.println("Erreur à la reception d'un message ou à la fermeture du client.");
 		}
-		
 		
 	}
 

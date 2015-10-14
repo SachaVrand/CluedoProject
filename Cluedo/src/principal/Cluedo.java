@@ -61,7 +61,7 @@ public class Cluedo
 				} 
 				catch (IOException e) 
 				{
-					e.printStackTrace();
+					System.out.println("Le serveur n'as pas pu être crée.");
 				}	
 			}
 			else if((cmdComplete.length == 3 || cmdComplete.length == 4) && cmdComplete[0].equals("register") && (cmdComplete[1].equals("ordi") || cmdComplete[1].equals("joueur")))

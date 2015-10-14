@@ -97,7 +97,7 @@ public class RegServer {
     				this.clients.add(new ComServer(client, message[1]));
     				// send a message
     				new PrintWriter(this.client.getOutputStream(), true).println("ack "+(clients.size()-1));
-    				System.out.println("Le joueur '"+message[1]+"' c'est connecté.");
+    				System.out.println("Le joueur '"+message[1]+"' s'est connecté.");
     			}
     		} catch (SocketTimeoutException e) {
     			// If the number of connections reached its limit.

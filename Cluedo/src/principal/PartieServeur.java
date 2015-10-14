@@ -1,5 +1,6 @@
 package principal;
 import java.io.IOException;
+import java.net.SocketException;
 import java.util.List;
 
 
@@ -22,10 +23,25 @@ public class PartieServeur extends PartieHote
 		int i = 0;
 		int k = 0;
 		
+		// ouvre le serveur
+		try 
+		{
+			server.open();
+		} 
+		catch(SocketException e)
+		{
+			System.out.println("Erreur TCP à l'ouverture du serveur.");
+			return;
+		}
+		catch (IOException e1) 
+		{
+			System.out.println("Erreur, le serveur n'as pas pu être ouvert.");
+			return;
+		}
+					
 		try
 		{
-			// ouvre le serveur
-			server.open();
+			
 			if(server.getNumClients() == 0)
 			{
 				System.out.println("Aucun joueurs trouvés !\n");
@@ -174,8 +190,6 @@ public class PartieServeur extends PartieHote
 										else
 										{
 											// Informe le joueur 'joueurActuel' de la réponse du joueur 'i'
-											//!\\ PAS DE COMMANDE EXISTANTE //!\\
-											//TODO changer le message
 											server.send(joueurActuel, "info respond "+i+" "+carteMontre[1]);
 											for(k = 0; k < server.getNumClients(); k++)
 											{
