@@ -3,9 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.UnknownHostException;
-
 import javax.swing.Timer;
-
 import networking.Client;
 
 /**
@@ -41,6 +39,11 @@ public class PartieClient implements IPartie
 	private String[] listeJoueurs;
 	
 	/**
+	 * numéro correspondant au joueur
+	 */
+	private int myNum;
+	
+	/**
 	 * Instancie un partie en tant que client avec le Joueur et l'hote sous forme de String passés en paramètres, un nouveau Client et la listeJoueurs à null.
 	 * @param joueur Joueur représentant le client qui va jouer.
 	 * @param hote L'adresse du serveur distant qui héberge la partie sous forme de chaine de caractères.
@@ -51,6 +54,7 @@ public class PartieClient implements IPartie
 		this.hote = hote;
 		client = new Client();
 		listeJoueurs = null;
+		myNum = -1;
 	}
 	
 	/**
@@ -63,7 +67,7 @@ public class PartieClient implements IPartie
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("En attente");
+				System.out.println("En attente...");
 				Timer t = (Timer)e.getSource();
 				t.stop();
 			}
@@ -95,6 +99,10 @@ public class PartieClient implements IPartie
 				System.out.println("Le serveur choisi n'est pas correcte.");
 				client.close();
 				return;
+			}
+			else
+			{
+				myNum = Integer.parseInt(message[1]);
 			}
 			
 			t.start();
@@ -236,7 +244,16 @@ public class PartieClient implements IPartie
 						}
 						else if(message[1].equalsIgnoreCase("wrong") && message.length == 3)
 						{
-							System.out.println(listeJoueurs[Integer.parseInt(message[2])] + " a fait une accusation fausse, il a perdu la partie.");
+							int ind = Integer.parseInt(message[2]);
+							if(ind == myNum)
+							{
+								System.out.println("Vous avez fait une accusation fausse, vous avez perdu la partie.");
+							}
+							else
+							{
+								System.out.println(listeJoueurs[ind] + " a fait une accusation fausse, il a perdu la partie.");
+							}
+							
 						}
 					}
 					else if(!message[0].equalsIgnoreCase("end"))
@@ -247,7 +264,14 @@ public class PartieClient implements IPartie
 					else if(message[0].equalsIgnoreCase("end") && message.length == 2)
 					{
 						int ind = Integer.parseInt(message[1]);
-						System.out.println(listeJoueurs[ind] + " à gagné la partie.");
+						if(ind == myNum)
+						{
+							System.out.println("Vous avez gagné la partie.");
+						}
+						else
+						{
+							System.out.println(listeJoueurs[ind] + " à gagné la partie.");
+						}
 						break;
 					}
 				}
