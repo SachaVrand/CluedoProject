@@ -153,11 +153,12 @@ public class PartieClient implements IPartie
 					joueur.ajouterCarte(c);
 					
 				}
-				
+				String tmp = "";
 				//Récupération des joueurs
 				for(int i = 0; i < listeJoueurs.length; i++)
 				{
-					System.out.println(i + ") " + listeJoueurs[i]);
+					if(i == myNum) tmp = " (vous)";
+					System.out.println(i + ") " + listeJoueurs[i] + tmp);
 				}
 				
 				while((!message[0].equalsIgnoreCase("end")) || (message.length != 1))
@@ -291,9 +292,13 @@ public class PartieClient implements IPartie
 						break;
 					}
 				}
+				client.send("exit");
+				System.out.println("Fin de la partie.");
 			}
-			client.send("exit");
-			System.out.println("Fin de la partie.");
+			else
+			{
+				System.out.println("La partie n'as pas pu commencé.");
+			}
 			client.close();
 		}
 		catch(IOException e)
