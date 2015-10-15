@@ -282,7 +282,7 @@ public class PartieClient implements IPartie
 		}
 		catch(IOException e)
 		{
-			System.out.println("Erreur à la reception d'un message ou à la fermeture du client.");
+			System.out.println("Erreur à la reception/envoie d'un message ou à la fermeture du client.");
 		}
 		
 	}
