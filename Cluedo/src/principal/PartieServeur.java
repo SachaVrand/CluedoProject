@@ -109,11 +109,12 @@ public class PartieServeur extends PartieHote
 						joueurActuel = 0;
 					}
 				}
+				i = joueurActuel;
 				do
 				{
-					server.send(joueurActuel, "play");
-					System.out.println("\nLe joueur '"+joueursPartie.get(joueurActuel).getNom()+"' joue.");
-					message = server.receive(joueurActuel).split(" ");
+					server.send(i, "play");
+					System.out.println("\nLe joueur '"+joueursPartie.get(i).getNom()+"' joue.");
+					message = server.receive(i).split(" ");
 					
 					if(message[0].equals("exit"))
 					{
@@ -176,36 +177,39 @@ public class PartieServeur extends PartieHote
 										System.out.println("Le joueur '"+joueursPartie.get(i).getNom()+"' doit répondre à la suggestion du joueur '"+joueursPartie.get(joueurActuel).getNom()+"'.");
 										carteMontre = server.receive(i).split(" ");
 										} while(!carteMontre[0].equals("exit") && !(carteMontre[0].equals("respond") && carteMontre.length == 2 && Carte.contientCarte(j.getCartesJoueur(), carteMontre[1])));
-									
+										k = i;
 										if(carteMontre.equals("exit"))
 										{
-											for(k = 0; k < server.getNumClients(); k++)
+											for(i = 0; i < server.getNumClients(); i++)
 											{
-												server.send(k, "error exit "+i);
+												server.send(i, "error exit "+k);
 											}
-											System.out.println("Le joueur '"+joueursPartie.get(i).getNom()+"' a quitté la partie.");
+											System.out.println("Le joueur '"+joueursPartie.get(k).getNom()+"' a quitté la partie.");
 											server.close();
 											return;
 										}
 										else
 										{
+											i = joueurActuel;
 											// Informe le joueur 'joueurActuel' de la réponse du joueur 'i'
-											server.send(joueurActuel, "info respond "+i+" "+carteMontre[1]);
-											for(k = 0; k < server.getNumClients(); k++)
+											server.send(i, "info respond "+k+" "+carteMontre[1]);
+											for(i = 0; i < server.getNumClients(); i++)
 											{
-												server.send(k, "info show "+i+" "+joueurActuel);
+												server.send(i, "info show "+k+" "+joueurActuel);
 											}
-											System.out.println("Le joueur '"+joueursPartie.get(i).getNom()+"' montre la carte '"+carteMontre[1]+"' au joueur '"+joueursPartie.get(joueurActuel).getNom()+"'.");
+											System.out.println("Le joueur '"+joueursPartie.get(k).getNom()+"' montre la carte '"+carteMontre[1]+"' au joueur '"+joueursPartie.get(joueurActuel).getNom()+"'.");
 										}
 										break;
 									}
 									else
 									{
-										for(k = 0; k < server.getNumClients(); k++)
+										//
+										k = i;
+										for(i = 0; i < server.getNumClients(); i++)
 										{
-											server.send(k, "info noshow "+i+" "+joueurActuel);
+											server.send(i, "info noshow "+k+" "+joueurActuel);
 										}
-										System.out.println("Le joueur '"+joueursPartie.get(i).getNom()+" ne peut montrer aucune carte au joueur '"+joueursPartie.get(joueurActuel).getNom()+"'.");
+										System.out.println("Le joueur '"+joueursPartie.get(k).getNom()+" ne peut montrer aucune carte au joueur '"+joueursPartie.get(joueurActuel).getNom()+"'.");
 									}
 								}
 								while(true);
@@ -251,13 +255,15 @@ public class PartieServeur extends PartieHote
 						}
 						else
 						{
-							server.send(joueurActuel, "error invalid Mauvaise commande");
+							i = joueurActuel;
+							server.send(i, "error invalid Mauvaise commande");
 							System.out.println("Erreur commande.");
 						}
 					}
 					else
 					{
-						server.send(joueurActuel, "error invalid Mauvaise commande");
+						i = joueurActuel;
+						server.send(i, "error invalid Mauvaise commande");
 						System.out.println("Erreur commande.");
 					}
 				} while(!message[0].equals("exit"));
@@ -281,8 +287,12 @@ public class PartieServeur extends PartieHote
 		catch (IOException e)
 		{
 			try {
+				for(k = 0; k < server.getNumClients(); k++)
+				{
+					server.send(k, "end");
+				}
 				server.close();
-				System.out.println("Fermeture inopinéééééééééééééééé");
+				System.out.println("Le joueur '"+joueursPartie.get(i).getNom()+"' à crash !");
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
