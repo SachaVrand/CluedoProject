@@ -15,7 +15,6 @@ public class PartieServeur extends PartieHote
 		super(joueurs);
 		server = new RegServer(12345,joueurs.size(),180000);
 	}
-
 	
 	public void boucleJeu()
 	{
@@ -45,6 +44,7 @@ public class PartieServeur extends PartieHote
 			if(server.getNumClients() < joueursPartie.size())
 			{
 				System.out.println("Pas assez de joueurs trouvés !\n");
+				//envoyer à tout les joueurs co de quitter
 				server.close();
 				return;
 			}
