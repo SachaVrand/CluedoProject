@@ -33,7 +33,7 @@ public class Cluedo
 		
 		while(!cmd.equals("exit"))
 		{
-			System.out.print("Menu principal > ");
+			System.out.print("\nMenu principal > ");
 			cmd = sc.nextLine();
 			cmdComplete = cmd.split(" ");
 			if(cmdComplete.length == 2 && cmdComplete[0].equals("solo") && (cmdComplete[1].equals("3") || cmdComplete[1].equals("4") || cmdComplete[1].equals("5") || cmdComplete[1].equals("6")))

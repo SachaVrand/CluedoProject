@@ -45,6 +45,10 @@ public class PartieServeur extends PartieHote
 			{
 				System.out.println("Pas assez de joueurs trouvés !\n");
 				//envoyer à tout les joueurs co de quitter
+				for(k = 0; k < server.getNumClients(); k++)
+				{
+					server.send(k, "end");
+				}
 				server.close();
 				return;
 			}
@@ -113,7 +117,7 @@ public class PartieServeur extends PartieHote
 				do
 				{
 					server.send(i, "play");
-					System.out.println("\nLe joueur '"+joueursPartie.get(i).getNom()+"' joue.");
+					System.out.println("\nLe joueur "+i+" '"+joueursPartie.get(i).getNom()+"' joue.");
 					message = server.receive(i).split(" ");
 					
 					if(message[0].equals("exit"))
@@ -122,7 +126,7 @@ public class PartieServeur extends PartieHote
 						{
 							server.send(i, "error exit "+joueurActuel);
 						}
-						System.out.println("Le joueur '"+joueursPartie.get(joueurActuel).getNom()+"' a quitté la partie.");
+						System.out.println("Le joueur "+joueurActuel+" '"+joueursPartie.get(joueurActuel).getNom()+"' a quitté la partie.");
 					}
 					else if(message[0].equals("move") && message.length == 5)
 					{
@@ -144,7 +148,7 @@ public class PartieServeur extends PartieHote
 								{
 									server.send(i, "move "+joueurActuel+" suggest "+cartesSuggerer[0]+" "+cartesSuggerer[1]+" "+cartesSuggerer[2]);
 								}
-								System.out.println("Le joueur '"+joueursPartie.get(joueurActuel).getNom()+"' suggère '"+cartesSuggerer[0]+"' '"+cartesSuggerer[1]+"' '"+cartesSuggerer[2]+"'.");
+								System.out.println("Le joueur "+joueurActuel+" '"+joueursPartie.get(joueurActuel).getNom()+"' suggère '"+cartesSuggerer[0]+"' '"+cartesSuggerer[1]+"' '"+cartesSuggerer[2]+"'.");
 								
 								List<String> carteCommun;
 								String[] carteMontre;
@@ -168,6 +172,7 @@ public class PartieServeur extends PartieHote
 									
 									Joueur j = joueursPartie.get(i);
 									carteCommun = Carte.cartesContenuDans(j.getCartesJoueur(), cartesSuggerer);
+									k = i;
 									
 									if(carteCommun.size() != 0)
 									{
@@ -176,8 +181,7 @@ public class PartieServeur extends PartieHote
 										server.send(i, "ask "+cartesSuggerer[0]+" "+cartesSuggerer[1]+" "+cartesSuggerer[2]);
 										System.out.println("Le joueur '"+joueursPartie.get(i).getNom()+"' doit répondre à la suggestion du joueur '"+joueursPartie.get(joueurActuel).getNom()+"'.");
 										carteMontre = server.receive(i).split(" ");
-										} while(!carteMontre[0].equals("exit") && !(carteMontre[0].equals("respond") && carteMontre.length == 2 && Carte.contientCarte(j.getCartesJoueur(), carteMontre[1])));
-										k = i;
+										} while(!carteMontre[0].equals("exit") && !(carteMontre[0].equals("respond") && carteMontre.length == 2 && Carte.contientCarte(j.getCartesJoueur(), carteMontre[1]) && carteCommun.contains(carteMontre[1])));
 										if(carteMontre.equals("exit"))
 										{
 											for(i = 0; i < server.getNumClients(); i++)
@@ -203,14 +207,13 @@ public class PartieServeur extends PartieHote
 									}
 									else
 									{
-										//
-										k = i;
 										for(i = 0; i < server.getNumClients(); i++)
 										{
 											server.send(i, "info noshow "+k+" "+joueurActuel);
 										}
 										System.out.println("Le joueur '"+joueursPartie.get(k).getNom()+" ne peut montrer aucune carte au joueur '"+joueursPartie.get(joueurActuel).getNom()+"'.");
 									}
+									i = k;
 								}
 								while(true);
 								break;
@@ -289,6 +292,7 @@ public class PartieServeur extends PartieHote
 			try {
 				for(k = 0; k < server.getNumClients(); k++)
 				{
+					server.send(k, "error other Le joueur '"+joueursPartie.get(i).getNom()+"' a eu une erreur de connection.");
 					server.send(k, "end");
 				}
 				server.close();
