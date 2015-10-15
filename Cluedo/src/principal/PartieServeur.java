@@ -13,7 +13,7 @@ public class PartieServeur extends PartieHote
 	public PartieServeur(List<Joueur> joueurs) throws IOException
 	{
 		super(joueurs);
-		server = new RegServer(12345,joueurs.size(),180000);
+		server = new RegServer(12345,joueurs.size(),30000);
 	}
 
 	

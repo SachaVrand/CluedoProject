@@ -21,7 +21,7 @@ import java.util.List;
 public class RegServer {
 	
 	// Registration period timeout in milliseconds.
-	private int regTimeout = 180000;
+	private int regTimeout = 30000;
 	// Maximum number of connections open at the same time.
 	private int maxConnOpen = 5;
 	// Server socket.
