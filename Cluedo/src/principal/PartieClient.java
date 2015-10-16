@@ -153,12 +153,15 @@ public class PartieClient implements IPartie
 					joueur.ajouterCarte(c);
 					
 				}
-				String tmp = "";
+				String c = "";
 				//Récupération des joueurs
 				for(int i = 0; i < listeJoueurs.length; i++)
 				{
-					if(i == myNum) tmp = " (vous)";
-					System.out.println(i + ") " + listeJoueurs[i] + tmp);
+					if(i == myNum) 
+						c = " (vous)";
+					else 
+						c = "";
+					System.out.println(i + ") " + listeJoueurs[i] + c);
 				}
 				
 				while((!message[0].equalsIgnoreCase("end")) || (message.length != 1))
@@ -209,7 +212,6 @@ public class PartieClient implements IPartie
 					}
 					else if(message[0].equalsIgnoreCase("play") && message.length == 1)
 					{
-						/*
 						String[] tmp = joueur.jouerCoup();
 						if(tmp == null)
 						{
@@ -218,17 +220,17 @@ public class PartieClient implements IPartie
 						}
 						else
 							client.send("move " + tmp[0] + " " + tmp[1] + " " + tmp[2] + " " + tmp[3]);
-						*/
+						
 						
 						//DEBUG
-						System.out.println("Commande play");
+						/*System.out.println("Commande play");
 						String cmd = Cluedo.sc.nextLine();
-						client.send(cmd);
+						client.send(cmd);*/
 						//FDEBUG
 					}
 					else if(message[0].equalsIgnoreCase("ask") && message.length == 4)
 					{
-						/*
+						
 						String carteMontrer = joueur.refuter(Carte.cartesContenuDans(joueur.getCartesJoueur(), new String[]{message[1],message[2],message[3]}));
 						if(carteMontrer.equalsIgnoreCase("exit"))
 						{
@@ -237,12 +239,12 @@ public class PartieClient implements IPartie
 						}
 						else 
 							client.send("respond " + carteMontrer);
-						*/
+						
 						
 						//DEBUG
-						System.out.println("Commande ask");
+						/*System.out.println("Commande ask");
 						String cmd = Cluedo.sc.nextLine();
-						client.send(cmd);
+						client.send(cmd);*/
 						//FDEBUG
 					}
 					else if(message[0].equalsIgnoreCase("info") && message.length > 1)
