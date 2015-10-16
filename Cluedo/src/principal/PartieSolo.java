@@ -101,7 +101,7 @@ public class PartieSolo extends PartieHote {
 					else
 					{
 						joueursPartie.get(joueurActuel).setEncoreEnJeu(false);
-						System.out.println("\n"+ joueursPartie.get(joueurActuel).getNom() + " a fait une accusation fausse");
+						System.out.println("\n"+ joueursPartie.get(joueurActuel).getNom() + " a fait une accusation fausse, il a perdu.");
 						
 						//s'il n'y a plus de joueurs en jeu
 						for(Joueur j : joueursPartie)
