@@ -170,6 +170,7 @@ public class PartieClient implements IPartie
 					message = client.receive().split(" ");
 					t.stop();
 					
+					//Messages d'erreur
 					if(message[0].equalsIgnoreCase("error") && message.length > 1)
 					{
 						if(message[1].equalsIgnoreCase("exit") && message.length == 3)
@@ -199,6 +200,7 @@ public class PartieClient implements IPartie
 							break;
 						}
 					}
+					//Message d'informtion concernant un coup joué
 					else if(message[0].equalsIgnoreCase("move") && message.length == 6)
 					{
 						if(message[2].equalsIgnoreCase("suggest"))
@@ -210,6 +212,7 @@ public class PartieClient implements IPartie
 							System.out.println(listeJoueurs[Integer.parseInt(message[1])] + " accuse " + message[3] + " " + message[4] + " " + message[5]);
 						}
 					}
+					//Demande de suggestion/accusation par le serveur
 					else if(message[0].equalsIgnoreCase("play") && message.length == 1)
 					{
 						String[] tmp = joueur.jouerCoup();
@@ -220,14 +223,8 @@ public class PartieClient implements IPartie
 						}
 						else
 							client.send("move " + tmp[0] + " " + tmp[1] + " " + tmp[2] + " " + tmp[3]);
-						
-						
-						//DEBUG
-						/*System.out.println("Commande play");
-						String cmd = Cluedo.sc.nextLine();
-						client.send(cmd);*/
-						//FDEBUG
 					}
+					//Demande de refuter par le serveur
 					else if(message[0].equalsIgnoreCase("ask") && message.length == 4)
 					{
 						
@@ -239,14 +236,8 @@ public class PartieClient implements IPartie
 						}
 						else 
 							client.send("respond " + carteMontrer);
-						
-						
-						//DEBUG
-						/*System.out.println("Commande ask");
-						String cmd = Cluedo.sc.nextLine();
-						client.send(cmd);*/
-						//FDEBUG
 					}
+					//Messages d'informations diverses
 					else if(message[0].equalsIgnoreCase("info") && message.length > 1)
 					{
 						if(message[1].equalsIgnoreCase("noshow") && message.length == 4)
@@ -275,11 +266,13 @@ public class PartieClient implements IPartie
 							
 						}
 					}
+					//Message n'etant pas dans le protocole
 					else if(!message[0].equalsIgnoreCase("end"))
 					{
 						System.out.println("Le message du serveur est incorrecte.");
 						break;
 					}
+					//Message de fin de partie dans le cas de la victoire d'un joueur.
 					else if(message[0].equalsIgnoreCase("end") && message.length == 2)
 					{
 						int ind = Integer.parseInt(message[1]);
