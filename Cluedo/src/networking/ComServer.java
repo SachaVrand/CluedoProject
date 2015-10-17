@@ -54,6 +54,10 @@ public class ComServer {
     	return this.in.readLine();
     }
     
+    /**
+     * Permet de récupérer le pseudo du joueur
+     * @return A String containing the name.
+     */
     public String getNom()
     {
     	return nom;
