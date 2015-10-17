@@ -1,4 +1,5 @@
 package principal;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -8,15 +9,23 @@ import java.util.List;
  */
 public class Ordi extends Joueur
 {
+	
+	/**
+	 * Représente le niveau d'intelligence de l'objet Ordi. 0 = Random
+	 */
+	int IALevel;
+	
+	
 	/**
 	 * Instancie un nouveau joueur de type ordinateur.
 	 * @see Joueur#Joueur(String, String)
 	 * @param nom Nom du joueur.
 	 * @param adresse Adresse ip du joueur.
 	 */
-	public Ordi(String nom)
+	public Ordi(String nom,int IALevel)
 	{
 		super(nom);
+		this.IALevel = IALevel;
 	}
 
 	/**
@@ -26,8 +35,15 @@ public class Ordi extends Joueur
 	@Override
 	public String[] jouerCoup() 
 	{
-		return null;
+		String[] res = new String[4];
 		
+		//Random
+		if(IALevel == 0)
+		{
+			res = getCoupRandom();
+		}
+		
+		return res;
 	}
 
 	/**
@@ -37,6 +53,25 @@ public class Ordi extends Joueur
 	@Override
 	public String refuter(List<String> cartesCommun) 
 	{
-		return "";
+		String res = "";
+		
+		//Random
+		if(IALevel == 0)
+		{
+			res = getRefuterRandom(cartesCommun);
+		}
+		
+		return res;
+	}
+	
+	public String[] getCoupRandom()
+	{
+		return null;
+	}
+	
+	public String getRefuterRandom(List<String> cartesCommun)
+	{
+		Collections.shuffle(cartesCommun);
+		return cartesCommun.get(1);
 	}
 }
