@@ -74,7 +74,7 @@ public class Cluedo
 				}
 				if(cmdComplete[1].equals("ordi"))
 				{
-					j = new Ordi(nomJoueur);
+					j = new Ordi(nomJoueur,0);
 				}
 				else if(cmdComplete[1].equals("joueur"))
 				{
