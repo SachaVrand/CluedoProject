@@ -81,7 +81,7 @@ public class Carte {
 	}
 	
 	/**
-	 * Méthode qui retourne les cartes en commun dans la collection d'objet et le tableau de String en les comparant les cartes avec leur nom.
+	 * Méthode qui retourne les cartes en commun dans la collection d'objet et le tableau de String en comparant les cartes avec leur nom.
 	 * @param cartes Collection de cartes dans laquelle vous souhaitez chercher.
 	 * @param noms Tableau de noms représentant des cartes.
 	 * @return Liste des cartes contenu dans la collection de cartes sous la forme de String, liste vide si aucune carte en commun.
