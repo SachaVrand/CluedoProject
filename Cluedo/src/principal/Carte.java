@@ -346,5 +346,27 @@ public class Carte {
 		}
 		return cartes;
 	}
+	
+	/**
+	 * Méthode qui crée le paquet de cartes du jeu Cluedo.
+	 * @return Collection des cartes du jeu Cluedo.
+	 */
+	public static List<Carte> creerPaquetDeCartes()
+	{
+		List<Carte> paquet = new ArrayList<Carte>();
+		for(Armes a : Armes.values())
+		{
+			paquet.add(new Arme(a.toString(),a.getImage()));
+		}
+		for(Lieux l : Lieux.values())
+		{
+			paquet.add(new Lieu(l.toString(),l.getImage()));
+		}
+		for(Suspects s : Suspects.values())
+		{
+			paquet.add(new Suspect(s.toString(),s.getImage()));
+		}
+		return paquet;
+	}
 
 }
