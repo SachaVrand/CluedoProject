@@ -63,7 +63,7 @@ public class Ordi extends Joueur
 		this.IALevel = IALevel;
 		this.listePCartes = new ArrayList<ProbabiliteCarte>();
 		this.cartesDejaMontrees = new ArrayList<String>();
-		initialiserCarteConnues();
+		initialiserProbabiliteCartes();
 	}
 
 	/**
@@ -155,7 +155,7 @@ public class Ordi extends Joueur
 		return res;
 	}
 	
-	private void initialiserCarteConnues()
+	private void initialiserProbabiliteCartes()
 	{
 		/*List<Carte> paquet = Carte.creerPaquetDeCartes();
 		cartesConnues = new String[2][paquet.size()];
