@@ -17,38 +17,29 @@ public class Ordi extends Joueur
 		String nomJoueurPossedant;
 		int indiceProbabilite;
 		
-		public ProbabiliteCarte(Carte carte, String nomJoueurPossedant)
-		{
-			this.carte = carte;
-			this.nomJoueurPossedant = nomJoueurPossedant;
-			indiceProbabilite = 0;
-		}
-		
 		public ProbabiliteCarte(Carte carte)
 		{
 			this.carte = carte;
 			this.nomJoueurPossedant = "inconnu";
-			indiceProbabilite = 1;
+			indiceProbabilite = 100;
 		}
 	}
 	
-	private List<ProbabiliteCarte> listePCartes;
+	private List<ProbabiliteCarte> listePSuspects;
 	
+	private List<ProbabiliteCarte> listePArmes;
+	
+	private List<ProbabiliteCarte> listePLieux;
 	
 	/**
 	 * Représente le niveau d'intelligence de l'objet Ordi. 0 = Random
 	 */
-	private int IALevel;
+	private int niveauIA;
 	
 	/**
 	 * Représente la liste des cartes deja montrées par l'ordi à n'importe quel joueur.
 	 */
 	private List<String> cartesDejaMontrees;
-	
-	/**
-	 * [i][j] i=0 noms des cartes, i=1 noms des joueurs possedant la carte.
-	 */
-	//String[][] cartesConnues;
 	
 	
 	/**
@@ -60,8 +51,10 @@ public class Ordi extends Joueur
 	public Ordi(String nom,int IALevel)
 	{
 		super(nom);
-		this.IALevel = IALevel;
-		this.listePCartes = new ArrayList<ProbabiliteCarte>();
+		this.niveauIA = IALevel;
+		this.listePArmes = new ArrayList<ProbabiliteCarte>();
+		this.listePLieux = new ArrayList<ProbabiliteCarte>();
+		this.listePSuspects = new ArrayList<ProbabiliteCarte>();
 		this.cartesDejaMontrees = new ArrayList<String>();
 		initialiserProbabiliteCartes();
 	}
@@ -76,7 +69,7 @@ public class Ordi extends Joueur
 		String[] res = null;
 		
 		//Random
-		if(IALevel == 0)
+		if(niveauIA == 0)
 		{
 			res = getCoupRandom();
 		}
@@ -94,12 +87,12 @@ public class Ordi extends Joueur
 		String res = "";
 		
 		//Random
-		if(IALevel == 0)
+		if(niveauIA == 0)
 		{
 			res = getRefuterRandom(cartesCommun);
 		}
 		//Level 1
-		else if(IALevel == 1)
+		else if(niveauIA == 1)
 		{
 			res = getRefuterLevelOne(cartesCommun);
 		}
@@ -110,20 +103,23 @@ public class Ordi extends Joueur
 	private String[] getCoupRandom()
 	{
 		String[] res = new String[4];
-		List<ProbabiliteCarte> tmp = this.getCartesProbables();
-		if(tmp.size() > 3)
-		{
-			res[0] = "suggest";
-			res[1] = tmp.get(0).carte.getNom();
-			res[2] = tmp.get(1).carte.getNom();
-			res[3] = tmp.get(2).carte.getNom();
-		}
-		else if(tmp.size() == 3)
+		List<ProbabiliteCarte> tmpArme = this.getCartesProbables(this.listePArmes);
+		List<ProbabiliteCarte> tmpLieu = this.getCartesProbables(this.listePArmes);
+		List<ProbabiliteCarte> tmpSuspect = this.getCartesProbables(this.listePArmes);
+			
+		if(tmpArme.size() == 1 && tmpLieu.size() == 1 && tmpSuspect.size() == 1)
 		{
 			res[0] = "accuse";
-			res[1] = tmp.get(0).carte.getNom();
-			res[2] = tmp.get(1).carte.getNom();
-			res[3] = tmp.get(2).carte.getNom();
+			res[1] = tmpArme.get(0).carte.getNom();
+			res[2] = tmpLieu.get(0).carte.getNom();
+			res[3] = tmpSuspect.get(0).carte.getNom();
+		}
+		else
+		{
+			res[0] = "suggest";
+			res[1] = tmpArme.get(0).carte.getNom();
+			res[2] = tmpLieu.get(0).carte.getNom();
+			res[3] = tmpSuspect.get(0).carte.getNom();
 		}
 		return res;
 	}
@@ -157,17 +153,20 @@ public class Ordi extends Joueur
 	
 	private void initialiserProbabiliteCartes()
 	{
-		/*List<Carte> paquet = Carte.creerPaquetDeCartes();
-		cartesConnues = new String[2][paquet.size()];
-		for(int i = 0; i < paquet.size(); i++)
-		{
-			cartesConnues[0][i] = paquet.get(i).getNom();
-			cartesConnues[1][i] = "inconnu";
-		}*/
-		
 		for(Carte c : Carte.creerPaquetDeCartes())
 		{
-			listePCartes.add(new ProbabiliteCarte(c));
+			if(c instanceof Arme)
+			{
+				listePArmes.add(new ProbabiliteCarte(c));
+			}
+			else if(c instanceof Lieu)
+			{
+				listePLieux.add(new ProbabiliteCarte(c));
+			}
+			else if(c instanceof Suspect)
+			{
+				listePSuspects.add(new ProbabiliteCarte(c));
+			}
 		}
 	}
 	
@@ -175,47 +174,57 @@ public class Ordi extends Joueur
 	public void ajouterCarte(Carte c)
 	{
 		super.ajouterCarte(c);
-		this.ajouterCarteConnue(c.getNom(), this.getNom());
+		this.ajouterCarteConnue(c, this.getNom());
 	}
 	
-	public void ajouterCarteConnue(String c, String nomJoueur)
+	public void ajouterCarteConnue(Carte c, String nomJoueur)
 	{
-		/*for(int i = 0; i < cartesConnues[0].length; i++)
+		if(c instanceof Arme)
 		{
-			if(cartesConnues[0][i].equals(c))
+			for(ProbabiliteCarte pc : listePArmes)
 			{
-				cartesConnues[1][i] = nomJoueur;
+				if(pc.carte.equals(c))
+				{
+					pc.nomJoueurPossedant = nomJoueur;
+					pc.indiceProbabilite = 0;
+				}
 			}
-		}*/
-		for(ProbabiliteCarte pc : listePCartes)
+		}
+		else if(c instanceof Lieu)
 		{
-			if(pc.carte.equals(c))
+			for(ProbabiliteCarte pc : listePLieux)
 			{
-				pc.nomJoueurPossedant = nomJoueur;
-				pc.indiceProbabilite = 0;
+				if(pc.carte.equals(c))
+				{
+					pc.nomJoueurPossedant = nomJoueur;
+					pc.indiceProbabilite = 0;
+				}
+			}
+		}
+		else if(c instanceof Suspect)
+		{
+			for(ProbabiliteCarte pc : listePSuspects)
+			{
+				if(pc.carte.equals(c))
+				{
+					pc.nomJoueurPossedant = nomJoueur;
+					pc.indiceProbabilite = 0;
+				}
 			}
 		}
 	}
-	private List<ProbabiliteCarte> getCartesProbables()
+	
+	private List<ProbabiliteCarte> getCartesProbables(List<ProbabiliteCarte> listeATrier)
 	{
-		/*List<String> res = new ArrayList<String>();
-		for(int i = 0; i < cartesConnues[1].length; i++)
-		{
-			if(cartesConnues[1][i].equals("inconnu"))
-			{
-				res.add(cartesConnues[0][i]);
-			}
-		}
-		return res;*/
 		List<ProbabiliteCarte> res = new ArrayList<>();
-		for(ProbabiliteCarte pc : listePCartes)
+		for(ProbabiliteCarte pc : listeATrier)
 		{
 			if(pc.indiceProbabilite != 0)
 			{
 				res.add(pc);
 			}
 		}
-		//Verifier ordre de tri
+		//TODO Verifier ordre de tri
 		res.sort(new Comparator<ProbabiliteCarte>() {
 
 			@Override
