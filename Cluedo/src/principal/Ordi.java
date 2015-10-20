@@ -2,6 +2,7 @@ package principal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -41,6 +42,10 @@ public class Ordi extends Joueur
 	 */
 	private List<String> cartesDejaMontrees;
 	
+	/**
+	 * Pour le niveau 2 de refuter : table de hachage ayant pour clé le nom du joueur, et valeur une liste de cartes deja montrées
+	 */
+	private HashMap<String, List<String>> cartesMontreesJoueur;
 	
 	/**
 	 * Instancie un nouveau joueur de type ordinateur.
@@ -55,7 +60,14 @@ public class Ordi extends Joueur
 		this.listePArmes = new ArrayList<ProbabiliteCarte>();
 		this.listePLieux = new ArrayList<ProbabiliteCarte>();
 		this.listePSuspects = new ArrayList<ProbabiliteCarte>();
-		this.cartesDejaMontrees = new ArrayList<String>();
+		if(niveauIA < 2)
+		{
+			this.cartesDejaMontrees = new ArrayList<String>();
+		}
+		else
+		{
+			this.cartesMontreesJoueur = new HashMap<>();
+		}
 		initialiserProbabiliteCartes();
 	}
 
@@ -95,6 +107,10 @@ public class Ordi extends Joueur
 		else if(niveauIA == 1)
 		{
 			res = getRefuterLevelOne(cartesCommun);
+		}
+		else if(niveauIA == 2)
+		{
+			res = getRefuterLevelTwo(cartesCommun);
 		}
 
 		return res;
@@ -149,6 +165,12 @@ public class Ordi extends Joueur
 		res = getRefuterRandom(cartesCommun);
 		cartesDejaMontrees.add(res);
 		return res;
+	}
+	
+	private String getRefuterLevelTwo(List<String> cartesCommun)
+	{
+		
+		return null;
 	}
 	
 	private void initialiserProbabiliteCartes()
