@@ -224,7 +224,7 @@ public class Ordi extends Joueur
 				res.add(pc);
 			}
 		}
-		//TODO Verifier ordre de tri
+		//TODO Verifier ordre de tri et véririfer dans le cas de même probabilité, quelle carte est en premier pour ne peut etre pas toujours avoir la même
 		res.sort(new Comparator<ProbabiliteCarte>() {
 
 			@Override

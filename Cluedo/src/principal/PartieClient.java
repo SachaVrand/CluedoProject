@@ -251,6 +251,11 @@ public class PartieClient implements IPartie
 						else if(message[1].equalsIgnoreCase("respond") && message.length == 4)
 						{
 							System.out.println(listeJoueurs[Integer.parseInt(message[2])] + " vous à montré la carte : " + message[3]);
+							if(joueur instanceof Ordi)
+							{
+								Ordi tmp = (Ordi)joueur;
+								tmp.ajouterCarteConnue(Carte.retrouverCarte(message[3]), listeJoueurs[Integer.parseInt(message[2])]);
+							}
 						}
 						else if(message[1].equalsIgnoreCase("wrong") && message.length == 3)
 						{

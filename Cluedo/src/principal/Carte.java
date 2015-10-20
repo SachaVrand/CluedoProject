@@ -62,6 +62,33 @@ public class Carte {
 		return false;
 	}
 	
+	public static Carte retrouverCarte(String nomCarte)
+	{
+		Carte c = null;
+		for(Armes a : Armes.values())
+		{
+			if(a.toString().equalsIgnoreCase(nomCarte))
+			{
+				c = new Arme(a.toString(),a.getImage());
+			}
+		}
+		for(Lieux l : Lieux.values())
+		{
+			if(l.toString().equalsIgnoreCase(nomCarte))
+			{
+				c = new Lieu(l.toString(),l.getImage());
+			}
+		}
+		for(Suspects s : Suspects.values())
+		{
+			if(s.toString().equalsIgnoreCase(nomCarte))
+			{
+				c = new Suspect(s.toString(),s.getImage());
+			}
+		}
+		return c;
+	}
+	
 	/**
 	 * Méthode qui retourne si une carte, représentée par un String, est présente dans la Collection de cartes passée en paramètre.
 	 * @param cartes Collection de cartes dans laquelle vous souhaitez chercher.

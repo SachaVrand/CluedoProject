@@ -81,6 +81,14 @@ public class PartieSolo extends PartieHote {
 								return;
 							}
 							System.out.println(j.getNom() + " montre : " + carteMontre);
+							
+							//ajouter le fait que l'ordi a retenu la carte qu'on lui à montré, et qui lui a montré
+							if(joueursPartie.get(joueurActuel) instanceof Ordi)
+							{
+								Ordi ordi = (Ordi)joueursPartie.get(joueurActuel);
+								ordi.ajouterCarteConnue(Carte.retrouverCarte(carteMontre), j.getNom());
+							}
+							
 							break;
 						}
 						else
