@@ -52,6 +52,9 @@ public class Ordi extends Joueur
 	private boolean aucuneRefutation;
 	
 	private String[] dernierCoupJouer;
+	
+	private int nombreTour;
+	
 	/**
 	 * Instancie un nouveau joueur de type ordinateur.
 	 * @see Joueur#Joueur(String, String)
@@ -73,6 +76,7 @@ public class Ordi extends Joueur
 		{
 			this.cartesMontreesParJoueur = new HashMap<>();
 		}
+		nombreTour = 1;
 		aucuneRefutation = false;
 		dernierCoupJouer = null;
 		initialiserProbabiliteCartes();
@@ -86,11 +90,6 @@ public class Ordi extends Joueur
 		{
 			cartesMontreesParJoueur.put(nom, new ArrayList<String>());
 		}
-	}
-
-	public boolean getAucuneRefutation()
-	{
-		return this.aucuneRefutation;
 	}
 	
 	public void setAucuneRefutation(boolean b)
@@ -111,13 +110,24 @@ public class Ordi extends Joueur
 		{
 			res = getCoupRandom();
 		}
+		//Level 1
 		else if(niveauIA == 1)
 		{
 			res = getCoupLevelOne();
 		}
-		
+		//Level 2
+		else if(niveauIA == 2)
+		{
+			res = getCoupLevelTwo();
+		}
+
 		aucuneRefutation = true;
+		if(nombreTour == 1 && niveauIA > 1)
+		{
+			aucuneRefutation = false;
+		}
 		dernierCoupJouer = res;
+		nombreTour++;
 		return res;
 	}
 
@@ -140,6 +150,7 @@ public class Ordi extends Joueur
 		{
 			res = getRefuterLevelOne(cartesCommun);
 		}
+		//Level 2
 		else if(niveauIA == 2)
 		{
 			res = getRefuterLevelTwo(cartesCommun);
@@ -154,7 +165,7 @@ public class Ordi extends Joueur
 		List<ProbabiliteCarte> tmpArme = this.getCartesProbables(this.listePArmes);
 		List<ProbabiliteCarte> tmpLieu = this.getCartesProbables(this.listePArmes);
 		List<ProbabiliteCarte> tmpSuspect = this.getCartesProbables(this.listePArmes);
-			
+		
 		if(tmpArme.size() == 1 && tmpLieu.size() == 1 && tmpSuspect.size() == 1)
 		{
 			res[0] = "accuse";
@@ -179,6 +190,7 @@ public class Ordi extends Joueur
 		List<ProbabiliteCarte> tmpLieu = this.getCartesProbables(this.listePArmes);
 		List<ProbabiliteCarte> tmpSuspect = this.getCartesProbables(this.listePArmes);
 		
+		
 		if(aucuneRefutation)
 		{
 			dernierCoupJouer[0] = "accuse";
@@ -201,6 +213,77 @@ public class Ordi extends Joueur
 				res[3] = tmpSuspect.get(0).carte.getNom();
 			}
 		}
+		return res;
+	}
+	
+	private String[] getCoupLevelTwo()
+	{
+		String[] res = new String[4];
+		List<ProbabiliteCarte> tmpArme = this.getCartesProbables(this.listePArmes);
+		List<ProbabiliteCarte> tmpLieu = this.getCartesProbables(this.listePArmes);
+		List<ProbabiliteCarte> tmpSuspect = this.getCartesProbables(this.listePArmes);
+		
+		if(nombreTour == 1)
+		{
+			res[0] = "suggest";
+			for(Carte c : cartesJoueur)
+			{
+				if(c instanceof Arme && res[1] == null)
+				{
+					res[1] = c.getNom();
+				}
+				else if(c instanceof Lieu && res[2] == null)
+				{
+					res[2] = c.getNom();
+				}
+				else if(c instanceof Suspect && res[3] == null)
+				{
+					res[3] = c.getNom();
+				}
+				if(res[1] != null && res[2] != null && res[2] != null)
+				{
+					break;
+				}
+			}
+			if(res[1] == null)
+			{
+				res[1] = getCartesProbables(listePArmes).get(0).carte.getNom();
+			}
+			if(res[2] == null)
+			{
+				res[2] = getCartesProbables(listePLieux).get(0).carte.getNom();
+			}
+			if(res[3] == null)
+			{
+				res[3] = getCartesProbables(listePSuspects).get(0).carte.getNom();
+			}
+		}
+		else
+		{
+			if(aucuneRefutation)
+			{
+				dernierCoupJouer[0] = "accuse";
+				return dernierCoupJouer;
+			}
+			else
+			{
+				if(tmpArme.size() == 1 && tmpLieu.size() == 1 && tmpSuspect.size() == 1)
+				{
+					res[0] = "accuse";
+					res[1] = tmpArme.get(0).carte.getNom();
+					res[2] = tmpLieu.get(0).carte.getNom();
+					res[3] = tmpSuspect.get(0).carte.getNom();
+				}
+				else
+				{
+					res[0] = "suggest";
+					res[1] = tmpArme.get(0).carte.getNom();
+					res[2] = tmpLieu.get(0).carte.getNom();
+					res[3] = tmpSuspect.get(0).carte.getNom();
+				}
+			}
+		}
+
 		return res;
 	}
 	
