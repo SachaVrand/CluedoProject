@@ -45,7 +45,9 @@ public class Ordi extends Joueur
 	/**
 	 * Pour le niveau 2 de refuter : table de hachage ayant pour clé le nom du joueur, et valeur une liste de cartes deja montrées
 	 */
-	private HashMap<String, List<String>> cartesMontreesJoueur;
+	private HashMap<String, List<String>> cartesMontreesParJoueur;
+	
+	private String joueurActuel;
 	
 	/**
 	 * Instancie un nouveau joueur de type ordinateur.
@@ -66,9 +68,19 @@ public class Ordi extends Joueur
 		}
 		else
 		{
-			this.cartesMontreesJoueur = new HashMap<>();
+			this.cartesMontreesParJoueur = new HashMap<>();
 		}
 		initialiserProbabiliteCartes();
+		joueurActuel = "";
+	}
+	
+	public void setJoueurActuel(String nom)
+	{
+		this.joueurActuel = nom;
+		if(niveauIA > 2 && !cartesMontreesParJoueur.containsKey(nom))
+		{
+			cartesMontreesParJoueur.put(nom, new ArrayList<String>());
+		}
 	}
 
 	/**
@@ -169,8 +181,30 @@ public class Ordi extends Joueur
 	
 	private String getRefuterLevelTwo(List<String> cartesCommun)
 	{
-		
-		return null;
+		//cas où nous avons déjà montrer l'une des cartes demandées au joueur.
+		for (String carte : cartesCommun)
+		{
+			if(cartesMontreesParJoueur.get(joueurActuel).contains(carte))
+			{
+				return carte;
+			}
+		}
+		//cas où nous avons deja montrée l'une des cartes demandées a un autre joueur.
+		for(List<String> listeCartes : cartesMontreesParJoueur.values())
+		{
+			for(String carte : listeCartes)
+			{
+				if(cartesCommun.contains(carte))
+				{
+					cartesMontreesParJoueur.get(joueurActuel).add(carte);
+					return carte;
+				}
+			}
+		}
+		//cas où aucune des cartes demandées n'a déjà été montrées.
+		String res = getRefuterRandom(cartesCommun);
+		cartesMontreesParJoueur.get(joueurActuel).add(res);
+		return res;
 	}
 	
 	private void initialiserProbabiliteCartes()

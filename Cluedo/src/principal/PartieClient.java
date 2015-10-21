@@ -203,6 +203,11 @@ public class PartieClient implements IPartie
 					//Message d'informtion concernant un coup joué
 					else if(message[0].equalsIgnoreCase("move") && message.length == 6)
 					{
+						if(joueur instanceof Ordi)
+						{
+							Ordi tmp = (Ordi)joueur;
+							tmp.setJoueurActuel(listeJoueurs[Integer.parseInt(message[1])]);
+						}
 						if(message[2].equalsIgnoreCase("suggest"))
 						{
 							System.out.println(listeJoueurs[Integer.parseInt(message[1])] + " suggère " + message[3] + " " + message[4] + " " + message[5]);
