@@ -73,6 +73,11 @@ public class PartieSolo extends PartieHote {
 						
 						if((carteCommun = Carte.cartesContenuDans(j.getCartesJoueur(), cartesSuggerer)).size() != 0)
 						{
+							if(j instanceof Ordi)
+							{
+								((Ordi) j).setJoueurActuel(joueursPartie.get(joueurActuel).getNom());
+								((Ordi) joueursPartie.get(joueurActuel)).setAucuneRefutation(false);
+							}
 							carteMontre = j.refuter(carteCommun);
 							if(carteMontre.equals("exit"))
 							{

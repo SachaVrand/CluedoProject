@@ -49,6 +49,9 @@ public class Ordi extends Joueur
 	
 	private String joueurActuel;
 	
+	private boolean aucuneRefutation;
+	
+	private String[] dernierCoupJouer;
 	/**
 	 * Instancie un nouveau joueur de type ordinateur.
 	 * @see Joueur#Joueur(String, String)
@@ -70,6 +73,8 @@ public class Ordi extends Joueur
 		{
 			this.cartesMontreesParJoueur = new HashMap<>();
 		}
+		aucuneRefutation = false;
+		dernierCoupJouer = null;
 		initialiserProbabiliteCartes();
 		joueurActuel = "";
 	}
@@ -83,6 +88,15 @@ public class Ordi extends Joueur
 		}
 	}
 
+	public boolean getAucuneRefutation()
+	{
+		return this.aucuneRefutation;
+	}
+	
+	public void setAucuneRefutation(boolean b)
+	{
+		this.aucuneRefutation = b;
+	}
 	/**
 	 * Méthode non implémentée
 	 * @return Null
@@ -97,7 +111,13 @@ public class Ordi extends Joueur
 		{
 			res = getCoupRandom();
 		}
+		else if(niveauIA == 1)
+		{
+			res = getCoupLevelOne();
+		}
 		
+		aucuneRefutation = true;
+		dernierCoupJouer = res;
 		return res;
 	}
 
@@ -148,6 +168,38 @@ public class Ordi extends Joueur
 			res[1] = tmpArme.get(0).carte.getNom();
 			res[2] = tmpLieu.get(0).carte.getNom();
 			res[3] = tmpSuspect.get(0).carte.getNom();
+		}
+		return res;
+	}
+	
+	private String[] getCoupLevelOne()
+	{
+		String[] res = new String[4];
+		List<ProbabiliteCarte> tmpArme = this.getCartesProbables(this.listePArmes);
+		List<ProbabiliteCarte> tmpLieu = this.getCartesProbables(this.listePArmes);
+		List<ProbabiliteCarte> tmpSuspect = this.getCartesProbables(this.listePArmes);
+		
+		if(aucuneRefutation)
+		{
+			dernierCoupJouer[0] = "accuse";
+			return dernierCoupJouer;
+		}
+		else
+		{
+			if(tmpArme.size() == 1 && tmpLieu.size() == 1 && tmpSuspect.size() == 1)
+			{
+				res[0] = "accuse";
+				res[1] = tmpArme.get(0).carte.getNom();
+				res[2] = tmpLieu.get(0).carte.getNom();
+				res[3] = tmpSuspect.get(0).carte.getNom();
+			}
+			else
+			{
+				res[0] = "suggest";
+				res[1] = tmpArme.get(0).carte.getNom();
+				res[2] = tmpLieu.get(0).carte.getNom();
+				res[3] = tmpSuspect.get(0).carte.getNom();
+			}
 		}
 		return res;
 	}

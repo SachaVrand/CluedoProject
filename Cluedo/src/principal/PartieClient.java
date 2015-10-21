@@ -260,6 +260,7 @@ public class PartieClient implements IPartie
 							{
 								Ordi tmp = (Ordi)joueur;
 								tmp.ajouterCarteConnue(Carte.retrouverCarte(message[3]), listeJoueurs[Integer.parseInt(message[2])]);
+								tmp.setAucuneRefutation(false);
 							}
 						}
 						else if(message[1].equalsIgnoreCase("wrong") && message.length == 3)
