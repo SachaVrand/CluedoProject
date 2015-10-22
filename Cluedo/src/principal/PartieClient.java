@@ -207,6 +207,23 @@ public class PartieClient implements IPartie
 						{
 							Ordi tmp = (Ordi)joueur;
 							tmp.setJoueurActuel(listeJoueurs[Integer.parseInt(message[1])]);
+							if(Integer.parseInt(message[1]) != myNum)
+							{
+								if(tmp.getAucuneRefutationAutre())
+								{
+									//augmenter les prob des dernieres cartes
+									tmp.changerProbDerCartes(30);
+								}
+								else
+								{
+									if(tmp.getDernierCoupJouer() != null)
+									{
+										tmp.changerProbDerCartes(-20);
+									}
+								}
+								tmp.setAucuneRefutationAutre(true);
+								tmp.setDernierCoupJouer(new String[]{message[3], message[4], message[5]});
+							}
 						}
 						if(message[2].equalsIgnoreCase("suggest"))
 						{
@@ -251,6 +268,11 @@ public class PartieClient implements IPartie
 						}
 						else if(message[1].equalsIgnoreCase("show") && message.length == 4)
 						{
+							if(joueur instanceof Ordi)
+							{
+								((Ordi)joueur).setAucuneRefutationAutre(false);
+								((Ordi)joueur).setJoueurRefutant(listeJoueurs[Integer.parseInt(message[2])]);
+							}
 							System.out.println(listeJoueurs[Integer.parseInt(message[2])] + " a montré une carte à " + listeJoueurs[Integer.parseInt(message[3])]);
 						}
 						else if(message[1].equalsIgnoreCase("respond") && message.length == 4)
@@ -260,7 +282,7 @@ public class PartieClient implements IPartie
 							{
 								Ordi tmp = (Ordi)joueur;
 								tmp.ajouterCarteConnue(Carte.retrouverCarte(message[3]), listeJoueurs[Integer.parseInt(message[2])]);
-								tmp.setAucuneRefutation(false);
+								tmp.setAucuneRefutationDeMonCoup(false);
 							}
 						}
 						else if(message[1].equalsIgnoreCase("wrong") && message.length == 3)
@@ -272,6 +294,7 @@ public class PartieClient implements IPartie
 							}
 							else
 							{
+								((Ordi)joueur).changerProbDerCartes(-10);
 								System.out.println(listeJoueurs[ind] + " a fait une accusation fausse, il a perdu la partie.");
 							}
 							

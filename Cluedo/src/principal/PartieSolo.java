@@ -38,18 +38,39 @@ public class PartieSolo extends PartieHote {
 			}
 			
 			tmp = joueursPartie.get(joueurActuel).jouerCoup();
+			
+			//set du joueur actuel pour les ordi
+			for(int x=0 ; x < joueursPartie.size() ; x++)
+			{
+				if(joueursPartie.get(x) instanceof Ordi)
+				{
+					((Ordi)joueursPartie.get(x)).setJoueurActuel(joueursPartie.get(joueurActuel).getNom());
+				}
+			}
+			
 			if(tmp == null)
 			{
 				return;
 			}
 			else
 			{
+				String cartesSuggerer[] = new String[]{tmp[1],tmp[2],tmp[3]};
+				
+				//Informer tous les autres joueurs ordi des dernieres cartes suggérer.
+				for(int x=0 ; x < joueursPartie.size() ; x++)
+				{
+					if(x != joueurActuel && joueursPartie.get(x) instanceof Ordi)
+					{
+						((Ordi)joueursPartie.get(x)).setDernierCoupJouer(cartesSuggerer);
+					}
+				}
+				
 				if(tmp[0].equals("suggest"))
 				{
-					String cartesSuggerer[] = new String[]{tmp[1],tmp[2],tmp[3]};
 					List<String> carteCommun;
 					String carteMontre;
 					System.out.println(joueursPartie.get(joueurActuel).getNom() + " suggère " + cartesSuggerer[0] + " " + cartesSuggerer[1] + " " + cartesSuggerer[2]);
+					
 					//boucle pour refuter
 					int i = joueurActuel;
 					
@@ -64,19 +85,49 @@ public class PartieSolo extends PartieHote {
 							i++;
 						}
 						
+						//si personne n'a pu refuter
 						if(i == joueurActuel)	
 						{
+							//si personne n'a pu refuter les carte suggérées du joueur actuel alors augmenter les prob des dernieres cartes 
+							//pour tous les Ordi autre que le joueur actuel
+							for(int x=0 ; x < joueursPartie.size() ; x++)
+							{
+								if(x != joueurActuel && joueursPartie.get(x) instanceof Ordi)
+								{
+									((Ordi)joueursPartie.get(x)).changerProbDerCartes(30);
+								}
+							}
+							
 							break;
 						}
 						
 						Joueur j = joueursPartie.get(i);
 						
+						//si quelqu'un peut refuter
 						if((carteCommun = Carte.cartesContenuDans(j.getCartesJoueur(), cartesSuggerer)).size() != 0)
 						{
-							if(j instanceof Ordi)
+							//informer tous les joueurs ordi du joueur réfutant
+							for(int x=0 ; x < joueursPartie.size() ; x++)
 							{
-								((Ordi) j).setJoueurActuel(joueursPartie.get(joueurActuel).getNom());
-								((Ordi) joueursPartie.get(joueurActuel)).setAucuneRefutation(false);
+								if(joueursPartie.get(x) instanceof Ordi)
+								{
+									((Ordi)joueursPartie.get(x)).setJoueurRefutant(j.getNom());
+								}
+							}
+							
+							//si le joueur qui à suggerer est un ordi
+							if(joueursPartie.get(joueurActuel) instanceof Ordi)
+							{
+								//si quelqu'un répond à sa suggestion
+								((Ordi) joueursPartie.get(joueurActuel)).setAucuneRefutationDeMonCoup(false);
+								//pour tous les autres Ordi, informer que quelqu'un a pu refuter
+								for(int x=0 ; x < joueursPartie.size() ; x++)
+								{
+									if(x != joueurActuel && joueursPartie.get(x) instanceof Ordi)
+									{
+										((Ordi)joueursPartie.get(x)).changerProbDerCartes(-20);
+									}
+								}
 							}
 							carteMontre = j.refuter(carteCommun);
 							if(carteMontre.equals("exit"))
@@ -113,6 +164,15 @@ public class PartieSolo extends PartieHote {
 					}
 					else
 					{
+						//si le jouer actuel a eu faux, alors changer les prob des cartes accusées à tous les autres joueurs ordi.
+						for(int x=0 ; x < joueursPartie.size() ; x++)
+						{
+							if(x != joueurActuel && joueursPartie.get(x) instanceof Ordi)
+							{
+								((Ordi)joueursPartie.get(x)).changerProbDerCartes(-10);
+							}
+						}
+						
 						joueursPartie.get(joueurActuel).setEncoreEnJeu(false);
 						System.out.println("\n"+ joueursPartie.get(joueurActuel).getNom() + " a fait une accusation fausse, il a perdu.");
 						

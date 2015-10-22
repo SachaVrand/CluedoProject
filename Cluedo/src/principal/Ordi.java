@@ -49,7 +49,13 @@ public class Ordi extends Joueur
 	
 	private String joueurActuel;
 	
-	private boolean aucuneRefutation;
+	private String joueurRefutant;
+	
+	private boolean auncuneRefutationDeMonCoup;
+	
+	private boolean aucuneRefutationAutre;
+	
+	private String[] monDernierCoupJouer;
 	
 	private String[] dernierCoupJouer;
 	
@@ -77,10 +83,13 @@ public class Ordi extends Joueur
 			this.cartesMontreesParJoueur = new HashMap<>();
 		}
 		nombreTour = 1;
-		aucuneRefutation = false;
+		auncuneRefutationDeMonCoup = false;
+		aucuneRefutationAutre = false;
+		monDernierCoupJouer = null;
 		dernierCoupJouer = null;
 		initialiserProbabiliteCartes();
 		joueurActuel = "";
+		joueurRefutant = "";
 	}
 	
 	public void setJoueurActuel(String nom)
@@ -92,10 +101,36 @@ public class Ordi extends Joueur
 		}
 	}
 	
-	public void setAucuneRefutation(boolean b)
+	public void setJoueurRefutant(String nom)
 	{
-		this.aucuneRefutation = b;
+		this.joueurRefutant = nom;
 	}
+	
+	public void setDernierCoupJouer(String[] dernierCoup)
+	{
+		this.dernierCoupJouer = dernierCoup;
+	}
+	
+	public String[] getDernierCoupJouer()
+	{
+		return this.dernierCoupJouer;
+	}
+	
+	public void setAucuneRefutationDeMonCoup(boolean b)
+	{
+		this.auncuneRefutationDeMonCoup = b;
+	}
+	
+	public void setAucuneRefutationAutre(boolean b)
+	{
+		this.aucuneRefutationAutre = b;
+	}
+	
+	public boolean getAucuneRefutationAutre()
+	{
+		return this.aucuneRefutationAutre;
+	}
+	
 	/**
 	 * Méthode non implémentée
 	 * @return Null
@@ -121,12 +156,12 @@ public class Ordi extends Joueur
 			res = getCoupLevelTwo();
 		}
 
-		aucuneRefutation = true;
+		auncuneRefutationDeMonCoup = true;
 		if(nombreTour == 1 && niveauIA > 1)
 		{
-			aucuneRefutation = false;
+			auncuneRefutationDeMonCoup = false;
 		}
-		dernierCoupJouer = res;
+		monDernierCoupJouer = res;
 		nombreTour++;
 		return res;
 	}
@@ -191,10 +226,10 @@ public class Ordi extends Joueur
 		List<ProbabiliteCarte> tmpSuspect = this.getCartesProbables(this.listePArmes);
 		
 		
-		if(aucuneRefutation)
+		if(auncuneRefutationDeMonCoup)
 		{
-			dernierCoupJouer[0] = "accuse";
-			return dernierCoupJouer;
+			monDernierCoupJouer[0] = "accuse";
+			return monDernierCoupJouer;
 		}
 		else
 		{
@@ -260,10 +295,10 @@ public class Ordi extends Joueur
 		}
 		else
 		{
-			if(aucuneRefutation)
+			if(auncuneRefutationDeMonCoup)
 			{
-				dernierCoupJouer[0] = "accuse";
-				return dernierCoupJouer;
+				monDernierCoupJouer[0] = "accuse";
+				return monDernierCoupJouer;
 			}
 			else
 			{
@@ -402,6 +437,79 @@ public class Ordi extends Joueur
 					pc.indiceProbabilite = 0;
 				}
 			}
+		}
+	}
+	
+	public void changerProbDerCartes(int valeur)
+	{
+		boolean trouve;
+		int nbCarteConnues = 0;
+		ProbabiliteCarte pcInconnu = null;
+		
+		for(String carte : dernierCoupJouer)
+		{
+			trouve = false;
+			for(ProbabiliteCarte pc : listePArmes)
+			{
+				if(pc.carte.getNom().equals(carte))
+				{
+					if(pc.nomJoueurPossedant.equals("inconnu"))
+					{
+						pc.indiceProbabilite += valeur;
+						pcInconnu = pc;
+					}
+					else
+					{
+						nbCarteConnues++;
+					}
+					trouve = true;
+					break;
+				}
+			}
+			if(!trouve)
+			{
+				for(ProbabiliteCarte pc : listePLieux)
+				{
+					if(pc.carte.getNom().equals(carte))
+					{
+						if(pc.nomJoueurPossedant.equals("inconnu"))
+						{
+							pc.indiceProbabilite += valeur;
+							pcInconnu = pc;
+						}
+						else
+						{
+							nbCarteConnues++;
+						}
+						trouve = true;
+						break;
+					}
+				}
+				if(!trouve)
+				{
+					for(ProbabiliteCarte pc : listePSuspects)
+					{
+						if(pc.carte.getNom().equals(carte))
+						{
+							if(pc.nomJoueurPossedant.equals("inconnu"))
+							{
+								pc.indiceProbabilite += valeur;
+								pcInconnu = pc;
+							}
+							else
+							{
+								nbCarteConnues++;
+							}
+							break;
+						}
+					}
+				}
+			}
+		}
+		if(valeur == -20 && nbCarteConnues == 2)
+		{
+			pcInconnu.indiceProbabilite = 0;
+			pcInconnu.nomJoueurPossedant = joueurRefutant;
 		}
 	}
 	

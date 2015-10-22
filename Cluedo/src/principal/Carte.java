@@ -70,6 +70,7 @@ public class Carte {
 			if(a.toString().equalsIgnoreCase(nomCarte))
 			{
 				c = new Arme(a.toString(),a.getImage());
+				return c;
 			}
 		}
 		for(Lieux l : Lieux.values())
@@ -77,6 +78,7 @@ public class Carte {
 			if(l.toString().equalsIgnoreCase(nomCarte))
 			{
 				c = new Lieu(l.toString(),l.getImage());
+				return c;
 			}
 		}
 		for(Suspects s : Suspects.values())
@@ -84,6 +86,7 @@ public class Carte {
 			if(s.toString().equalsIgnoreCase(nomCarte))
 			{
 				c = new Suspect(s.toString(),s.getImage());
+				return c;
 			}
 		}
 		return c;
