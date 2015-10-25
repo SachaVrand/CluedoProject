@@ -207,22 +207,28 @@ public class PartieClient implements IPartie
 						{
 							Ordi tmp = (Ordi)joueur;
 							tmp.setJoueurActuel(listeJoueurs[Integer.parseInt(message[1])]);
+							if(tmp.getAucuneRefutationAutre() != null && tmp.getAucuneRefutationAutre())
+							{
+								//augmenter les prob des dernieres cartes
+								tmp.changerProbDerCartes(Ordi.SUGGEST_NO_REFUTATION);
+								tmp.setAucuneRefutationAutre(false);
+							}
+							else if(tmp.getAucuneRefutationAutre() != null && !tmp.getAucuneRefutationAutre())
+							{
+								if(tmp.getDernierCoupJouer() != null)
+								{
+									tmp.changerProbDerCartes(Ordi.SUGGEST_REFUTATION);
+								}
+							}
+							
 							if(Integer.parseInt(message[1]) != myNum)
 							{
-								if(tmp.getAucuneRefutationAutre())
-								{
-									//augmenter les prob des dernieres cartes
-									tmp.changerProbDerCartes(Ordi.SUGGEST_NO_REFUTATION);
-								}
-								else
-								{
-									if(tmp.getDernierCoupJouer() != null)
-									{
-										tmp.changerProbDerCartes(Ordi.SUGGEST_REFUTATION);
-									}
-								}
 								tmp.setAucuneRefutationAutre(true);
 								tmp.setDernierCoupJouer(new String[]{message[3], message[4], message[5]});
+							}
+							else
+							{
+								tmp.setAucuneRefutationAutre(null);
 							}
 						}
 						if(message[2].equalsIgnoreCase("suggest"))

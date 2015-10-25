@@ -110,7 +110,7 @@ public class Ordi extends Joueur
 	/**
 	 * Booléen représentant si la suggestiondu joueur autre que moi a pu être réfuter. Vrai si elle n'as pas pu être réfuter, sinon faux.
 	 */
-	private boolean aucuneRefutationAutre;
+	private Boolean aucuneRefutationAutre;
 	
 	/**
 	 * Entier permettant de savoir si il reste des cartes inconnues à determiner, si l'entier est égale à 3 alors il ne reste plus que les cartes du crime dans les listes de ProbabiliteCarte.
@@ -220,7 +220,7 @@ public class Ordi extends Joueur
 	 * Méthode qui permet de changer le booléen représentant si le coup dd'un joueur autre que moi à pu être réfuter.
 	 * @param b Vrai si n'as pas pu être réfuter, faux sinon.
 	 */
-	public void setAucuneRefutationAutre(boolean b)
+	public void setAucuneRefutationAutre(Boolean b)
 	{
 		this.aucuneRefutationAutre = b;
 	}
@@ -229,7 +229,7 @@ public class Ordi extends Joueur
 	 * Méthode qui permet de récupérer le booléen aucuneRefutationAutre
 	 * @return aucuneRefutationAutre
 	 */
-	public boolean getAucuneRefutationAutre()
+	public Boolean getAucuneRefutationAutre()
 	{
 		return this.aucuneRefutationAutre;
 	}
