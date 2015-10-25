@@ -212,13 +212,13 @@ public class PartieClient implements IPartie
 								if(tmp.getAucuneRefutationAutre())
 								{
 									//augmenter les prob des dernieres cartes
-									tmp.changerProbDerCartes(30);
+									tmp.changerProbDerCartes(Ordi.SUGGEST_NO_REFUTATION);
 								}
 								else
 								{
 									if(tmp.getDernierCoupJouer() != null)
 									{
-										tmp.changerProbDerCartes(-20);
+										tmp.changerProbDerCartes(Ordi.SUGGEST_REFUTATION);
 									}
 								}
 								tmp.setAucuneRefutationAutre(true);
@@ -294,7 +294,7 @@ public class PartieClient implements IPartie
 							}
 							else
 							{
-								((Ordi)joueur).changerProbDerCartes(-10);
+								((Ordi)joueur).changerProbDerCartes(Ordi.LOSING_AFTER_ACCUSE);
 								System.out.println(listeJoueurs[ind] + " a fait une accusation fausse, il a perdu la partie.");
 							}
 							

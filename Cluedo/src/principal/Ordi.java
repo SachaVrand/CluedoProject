@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -12,12 +13,32 @@ import java.util.List;
  */
 public class Ordi extends Joueur
 {
+	/**
+	 * Classe interne permettant de représenter la probabilité d'une carte. Cette est uniquement utile pour l'intelligence artificielle.
+	 * Elle permet de "determiner" si une carte à plus de chance d'être celle du crime ou non, et si elle n'appartient pas au crime elle permet de savoir qui possède la carte.
+	 * @author Sacha
+	 *
+	 */
 	private class ProbabiliteCarte
 	{
+		/**
+		 * Carte représentant une carte du jeu Cluedo.
+		 */
 		Carte carte;
+		
+		/**
+		 * Nom du joueur possèdant la carte. "inconnu" si on ne sait pas qui la possède.
+		 */
 		String nomJoueurPossedant;
+		/**
+		 * Entier représentant la probabilité d'une carte. 
+		 */
 		int indiceProbabilite;
 		
+		/**
+		 * Instancie un nouvel objet ProbabiliteCarte avec le nom du joueur possèdant à "inconnu"
+		 * @param carte Carte du jeu Cluedo.
+		 */
 		public ProbabiliteCarte(Carte carte)
 		{
 			this.carte = carte;
@@ -26,10 +47,34 @@ public class Ordi extends Joueur
 		}
 	}
 	
+	/**
+	 * Constante entière représentant la valeur à ajouter aux probalilités dans le cas d'une suggestion que personne n'as pu réfuter.
+	 */
+	public final static int SUGGEST_NO_REFUTATION = 30;
+	
+	/**
+	 * Constante entière représentant la valeur à ajouter aux probabilités dans le cas d'une accusation d'un joueur qui à echouer.
+	 */
+	public final static int LOSING_AFTER_ACCUSE = -10;
+	
+	/**
+	 * Constante entière représentant la valeur à ajouter aux probabilités dans le cas d'une suggestion que quelqu'un à pu réfuter.
+	 */
+	public final static int SUGGEST_REFUTATION = -20;
+	
+	/**
+	 * Liste des ProbabiliteCarte pour les cartes de type Suspect
+	 */
 	private List<ProbabiliteCarte> listePSuspects;
 	
+	/**
+	 * Liste des ProbabiliteCarte pour les cartes de type Arme
+	 */
 	private List<ProbabiliteCarte> listePArmes;
 	
+	/**
+	 * Liste des ProbabiliteCarte pour les cartes de type Lieu
+	 */
 	private List<ProbabiliteCarte> listePLieux;
 	
 	/**
@@ -47,25 +92,54 @@ public class Ordi extends Joueur
 	 */
 	private HashMap<String, List<String>> cartesMontreesParJoueur;
 	
+	/**
+	 * Chaine de caractère représentant le joueur en train de jouer.
+	 */
 	private String joueurActuel;
 	
+	/**
+	 * Chaine de caractère représentant le joueur en train de réfuter.
+	 */
 	private String joueurRefutant;
 	
+	/**
+	 * Booléen représentant si ma suggestion a pu être réfuter. Vrai si elle n'as pas pu être réfuter, sinon faux.
+	 */
 	private boolean auncuneRefutationDeMonCoup;
 	
+	/**
+	 * Booléen représentant si la suggestiondu joueur autre que moi a pu être réfuter. Vrai si elle n'as pas pu être réfuter, sinon faux.
+	 */
 	private boolean aucuneRefutationAutre;
 	
+	/**
+	 * Entier permettant de savoir si il reste des cartes inconnues à determiner, si l'entier est égale à 3 alors il ne reste plus que les cartes du crime dans les listes de ProbabiliteCarte.
+	 * sinon si il est inférieur à 3, il reste plus d'une inconnu dans une des listes de ProbabiliteCarte
+	 */
+	private int doitAccuser;
+	
+	/**
+	 * Tableau de String représentant la derniere suggestion que ce joueur a fait.
+	 */
 	private String[] monDernierCoupJouer;
 	
+	/**
+	 * Tableau de String représentant la dernière suggest faite par un joueur autre que celui ci.
+	 */
 	private String[] dernierCoupJouer;
 	
+	/**
+	 * Nombre de tour dans la partie. Pour le moment elle n'est pas utilisé.
+	 */
 	private int nombreTour;
 	
 	/**
-	 * Instancie un nouveau joueur de type ordinateur.
-	 * @see Joueur#Joueur(String, String)
-	 * @param nom Nom du joueur.
-	 * @param adresse Adresse ip du joueur.
+	 * Instancie un nouvelle Ordi avec le nom de joueur et le niveau d'intelligence de l'IA choisi.
+	 * Si le niveau d'IA choisi est inférieur à 2 instancie une ArrayList pour carteDejaMontrees, sinon instancie une HashMap vide pour CartesMontreesParJoueur.
+	 * Initialise auncuneRefutationDeMonCoup à faux, aucuneRefutationAutre à faux, monDernierCoupJouer à null, dernierCoupJouer à null, doitAccuser à 0, joueurActuel à 0, joueurRefutant à 0.
+	 * Instancie les trois listes de ProbabiliteCarte avec chacune des cartes du jeu et le joueur possèdant à "inconnu" et l'indice de probabilité à 0;
+	 * @param nom Nom du joueur sous la forme de String
+	 * @param IALevel Niveau du joueur sous la forme d'entier, de 0 à 2.
 	 */
 	public Ordi(String nom,int IALevel)
 	{
@@ -88,52 +162,81 @@ public class Ordi extends Joueur
 		monDernierCoupJouer = null;
 		dernierCoupJouer = null;
 		initialiserProbabiliteCartes();
+		doitAccuser = 0;
 		joueurActuel = "";
 		joueurRefutant = "";
 	}
 	
+	/**
+	 * Méthode qui permet de changer le nom du joueur actuel avec celui passé en paramètre.
+	 * @param nom Nom du joueur sous la forme de String
+	 */
 	public void setJoueurActuel(String nom)
 	{
 		this.joueurActuel = nom;
-		if(niveauIA > 2 && !cartesMontreesParJoueur.containsKey(nom))
+		if(niveauIA >= 2 && !cartesMontreesParJoueur.containsKey(nom))
 		{
 			cartesMontreesParJoueur.put(nom, new ArrayList<String>());
 		}
 	}
 	
+	/**
+	 * Méthode qui permet de changer le nom du joueur réfutant avec celui passé en paramètre.
+	 * @param nom Nom du joueur sous la forme de String
+	 */
 	public void setJoueurRefutant(String nom)
 	{
 		this.joueurRefutant = nom;
 	}
 	
+	/**
+	 * Méthode qui permet de changer le dernier coup joué par un autre joueur avec le tableau de String passé en paramètre.
+	 * @param dernierCoup Tableau de String représentant le dernier coup jouer par un autre joueur. [0]->String de Carte [1]->String de Carte [2]->String de Carte
+	 */
 	public void setDernierCoupJouer(String[] dernierCoup)
 	{
 		this.dernierCoupJouer = dernierCoup;
 	}
 	
+	/**
+	 * Méthode qui permet de récupérer le dernier coup jouer par un autre joueur.
+	 * @return
+	 */
 	public String[] getDernierCoupJouer()
 	{
 		return this.dernierCoupJouer;
 	}
 	
+	/**
+	 * Méthode qui permet de changer le booléen représentant si mon coup à pu être réfuter ou non
+	 * @param b Vrai si il n'as pas pu etre réfuter, faux sinon.
+	 */
 	public void setAucuneRefutationDeMonCoup(boolean b)
 	{
 		this.auncuneRefutationDeMonCoup = b;
 	}
 	
+	/**
+	 * Méthode qui permet de changer le booléen représentant si le coup dd'un joueur autre que moi à pu être réfuter.
+	 * @param b Vrai si n'as pas pu être réfuter, faux sinon.
+	 */
 	public void setAucuneRefutationAutre(boolean b)
 	{
 		this.aucuneRefutationAutre = b;
 	}
 	
+	/**
+	 * Méthode qui permet de récupérer le booléen aucuneRefutationAutre
+	 * @return aucuneRefutationAutre
+	 */
 	public boolean getAucuneRefutationAutre()
 	{
 		return this.aucuneRefutationAutre;
 	}
 	
 	/**
-	 * Méthode non implémentée
-	 * @return Null
+	 * Méthode qui permet à l'intelligence artificielle de faire une suggestion ou une accusation en fonction de son niveau d'intelligence. 
+	 * @return Un tableau de String représentant le coup joué, [0]->"suggest" ou "accuse", [1-3]->Carte sous la forme de String, 1 de chaque type.
 	 */
 	@Override
 	public String[] jouerCoup() 
@@ -167,8 +270,8 @@ public class Ordi extends Joueur
 	}
 
 	/**
-	 * Méthode non implémentée
-	 * @return null
+	 * Méthode qui permet à l'intelligence artificielle de réfuter en fonction de niveau d'intelligence.
+	 * @return Chaine représentant la carte montrer.
 	 */
 	@Override
 	public String refuter(List<String> cartesCommun) 
@@ -194,36 +297,48 @@ public class Ordi extends Joueur
 		return res;
 	}
 	
+	/**
+	 * Méthode qui permet de jouer un coup pour une intelligence de niveau 0.
+	 * Suggère des cartes au hasard parmis celle qu'elle ne connais pas et accuse des lors qu'elle connait toutes les cartes des joueurs.
+	 * @return Un tableau de String représentant le coup joué, [0]->"suggest" ou "accuse", [1-3]->Carte sous la forme de String, 1 de chaque type.
+	 */
 	private String[] getCoupRandom()
 	{
 		String[] res = new String[4];
-		List<ProbabiliteCarte> tmpArme = this.getCartesProbables(this.listePArmes);
-		List<ProbabiliteCarte> tmpLieu = this.getCartesProbables(this.listePArmes);
-		List<ProbabiliteCarte> tmpSuspect = this.getCartesProbables(this.listePArmes);
+		doitAccuser = 0;
+		String tmpArme = this.getCarteProbable(this.listePArmes);
+		String tmpLieu = this.getCarteProbable(this.listePLieux);
+		String tmpSuspect = this.getCarteProbable(this.listePSuspects);
 		
-		if(tmpArme.size() == 1 && tmpLieu.size() == 1 && tmpSuspect.size() == 1)
+		if(doitAccuser == 3)
 		{
 			res[0] = "accuse";
-			res[1] = tmpArme.get(0).carte.getNom();
-			res[2] = tmpLieu.get(0).carte.getNom();
-			res[3] = tmpSuspect.get(0).carte.getNom();
+			res[1] = tmpArme;
+			res[2] = tmpLieu;
+			res[3] = tmpSuspect;
 		}
 		else
 		{
 			res[0] = "suggest";
-			res[1] = tmpArme.get(0).carte.getNom();
-			res[2] = tmpLieu.get(0).carte.getNom();
-			res[3] = tmpSuspect.get(0).carte.getNom();
+			res[1] = tmpArme;
+			res[2] = tmpLieu;
+			res[3] = tmpSuspect;
 		}
 		return res;
 	}
 	
+	/**
+	 * Méthode qui permet de jouer un coup pour une intelligence de niveau 1.
+	 * Suggère des cartes au hasard parmis celle qu'elle ne connais pas. Et accuse dès lors qu'elle à soit suggérer des cartes qui ne lui appartenais pas et que personne n'as pu répondre. Ou des lors qu'elle connais toutes les cartes des autres joueurs.
+	 * @return Un tableau de String représentant le coup joué, [0]->"suggest" ou "accuse", [1-3]->Carte sous la forme de String, 1 de chaque type.
+	 */
 	private String[] getCoupLevelOne()
 	{
 		String[] res = new String[4];
-		List<ProbabiliteCarte> tmpArme = this.getCartesProbables(this.listePArmes);
-		List<ProbabiliteCarte> tmpLieu = this.getCartesProbables(this.listePArmes);
-		List<ProbabiliteCarte> tmpSuspect = this.getCartesProbables(this.listePArmes);
+		doitAccuser = 0;
+		String tmpArme = this.getCarteProbable(this.listePArmes);
+		String tmpLieu = this.getCarteProbable(this.listePLieux);
+		String tmpSuspect = this.getCarteProbable(this.listePSuspects);
 		
 		
 		if(auncuneRefutationDeMonCoup)
@@ -233,32 +348,38 @@ public class Ordi extends Joueur
 		}
 		else
 		{
-			if(tmpArme.size() == 1 && tmpLieu.size() == 1 && tmpSuspect.size() == 1)
+			if(doitAccuser == 3)
 			{
 				res[0] = "accuse";
-				res[1] = tmpArme.get(0).carte.getNom();
-				res[2] = tmpLieu.get(0).carte.getNom();
-				res[3] = tmpSuspect.get(0).carte.getNom();
+				res[1] = tmpArme;
+				res[2] = tmpLieu;
+				res[3] = tmpSuspect;
 			}
 			else
 			{
 				res[0] = "suggest";
-				res[1] = tmpArme.get(0).carte.getNom();
-				res[2] = tmpLieu.get(0).carte.getNom();
-				res[3] = tmpSuspect.get(0).carte.getNom();
+				res[1] = tmpArme;
+				res[2] = tmpLieu;
+				res[3] = tmpSuspect;
 			}
 		}
 		return res;
 	}
 	
+	/**
+	 * Méthode qui permet de jouer un coup pour une intelligence de niveau 2.
+	 * Suggère des cartes au hasard parmis celle qu'elle ne connais pas. Et accuse dès lors qu'elle à soit suggérer des cartes qui ne lui appartenais pas et que personne n'as pu répondre. Ou des lors qu'elle connais toutes les cartes des autres joueurs.
+	 * @return Un tableau de String représentant le coup joué, [0]->"suggest" ou "accuse", [1-3]->Carte sous la forme de String, 1 de chaque type.
+	 */
 	private String[] getCoupLevelTwo()
 	{
 		String[] res = new String[4];
-		List<ProbabiliteCarte> tmpArme = this.getCartesProbables(this.listePArmes);
-		List<ProbabiliteCarte> tmpLieu = this.getCartesProbables(this.listePArmes);
-		List<ProbabiliteCarte> tmpSuspect = this.getCartesProbables(this.listePArmes);
+		doitAccuser = 0;
+		String tmpArme = this.getCarteProbable(this.listePArmes);
+		String tmpLieu = this.getCarteProbable(this.listePLieux);
+		String tmpSuspect = this.getCarteProbable(this.listePSuspects);
 		
-		if(nombreTour == 1)
+		/*if(nombreTour == 1)
 		{
 			res[0] = "suggest";
 			for(Carte c : cartesJoueur)
@@ -282,19 +403,19 @@ public class Ordi extends Joueur
 			}
 			if(res[1] == null)
 			{
-				res[1] = getCartesProbables(listePArmes).get(0).carte.getNom();
+				res[1] = getCarteProbable(listePArmes);
 			}
 			if(res[2] == null)
 			{
-				res[2] = getCartesProbables(listePLieux).get(0).carte.getNom();
+				res[2] = getCarteProbable(listePLieux);
 			}
 			if(res[3] == null)
 			{
-				res[3] = getCartesProbables(listePSuspects).get(0).carte.getNom();
+				res[3] = getCarteProbable(listePSuspects);
 			}
 		}
 		else
-		{
+		{*/
 			if(auncuneRefutationDeMonCoup)
 			{
 				monDernierCoupJouer[0] = "accuse";
@@ -302,32 +423,44 @@ public class Ordi extends Joueur
 			}
 			else
 			{
-				if(tmpArme.size() == 1 && tmpLieu.size() == 1 && tmpSuspect.size() == 1)
+				if(doitAccuser == 3)
 				{
 					res[0] = "accuse";
-					res[1] = tmpArme.get(0).carte.getNom();
-					res[2] = tmpLieu.get(0).carte.getNom();
-					res[3] = tmpSuspect.get(0).carte.getNom();
+					res[1] = tmpArme;
+					res[2] = tmpLieu;
+					res[3] = tmpSuspect;
 				}
 				else
 				{
 					res[0] = "suggest";
-					res[1] = tmpArme.get(0).carte.getNom();
-					res[2] = tmpLieu.get(0).carte.getNom();
-					res[3] = tmpSuspect.get(0).carte.getNom();
+					res[1] = tmpArme;
+					res[2] = tmpLieu;
+					res[3] = tmpSuspect;
 				}
 			}
-		}
+		//}
 
 		return res;
 	}
 	
+	/**
+	 * Méthode qui permet de réfuter pour une intelligence de niveau 0.
+	 * Montre une carte au hasard parmis celle qu'elle peut réfuter.
+	 * @param cartesCommun Liste des cartes en commun entre la suggestion et les cartes de ce joueur.
+	 * @return Une carte sous la forme de String.
+	 */
 	private String getRefuterRandom(List<String> cartesCommun)
 	{
 		Collections.shuffle(cartesCommun);
 		return cartesCommun.get(0);
 	}
 	
+	/**
+	 * Méthode qui permet de réfuter pour une intelligence de niveau 1.
+	 * Montre une carte qu'elle à déjà montrer si possible, sinon montre une carte au hasard.
+	 * @param cartesCommun Liste des cartes en commun entre la suggestion et les cartes de ce joueur.
+	 * @return Une carte sous la forme de String.
+	 */
 	private String getRefuterLevelOne(List<String> cartesCommun)
 	{
 		String res = "";
@@ -349,6 +482,12 @@ public class Ordi extends Joueur
 		return res;
 	}
 	
+	/**
+	 * Méthode qui permet de réfute pour une intelligence de niveau 2.
+	 * Montre une carte que le joueur qui suggère lui à déjà demandé en priorité, sinon une carte qu'elle a déjà montrée à un autre joueur, sinon une carte au hasard.
+	 * @param cartesCommun cartesCommun Liste des cartes en commun entre la suggestion et les cartes de ce joueur.
+	 * @return Une carte sous la forme de String.
+	 */
 	private String getRefuterLevelTwo(List<String> cartesCommun)
 	{
 		//cas où nous avons déjà montrer l'une des cartes demandées au joueur.
@@ -377,6 +516,9 @@ public class Ordi extends Joueur
 		return res;
 	}
 	
+	/**
+	 * Méthode qui permet d'initialiser les liste de ProbabiliteCarte avec toutes les cartes du jeu.
+	 */
 	private void initialiserProbabiliteCartes()
 	{
 		for(Carte c : Carte.creerPaquetDeCartes())
@@ -396,6 +538,10 @@ public class Ordi extends Joueur
 		}
 	}
 	
+	/**
+	 * Méthode qui permet d'ajouter une carte aux carte du joueur.
+	 * @param c Carte à ajouter.
+	 */
 	@Override
 	public void ajouterCarte(Carte c)
 	{
@@ -403,6 +549,11 @@ public class Ordi extends Joueur
 		this.ajouterCarteConnue(c, this.getNom());
 	}
 	
+	/**
+	 * Méthode qui permet de changer le nomJoueurPossedant de ProbabiliteCarte après avoir découvert à qui elle apartient.
+	 * @param c Carte découverte
+	 * @param nomJoueur Nom du joueur la possédant.
+	 */
 	public void ajouterCarteConnue(Carte c, String nomJoueur)
 	{
 		if(c instanceof Arme)
@@ -440,8 +591,18 @@ public class Ordi extends Joueur
 		}
 	}
 	
+	/**
+	 * Méthode qui permet d'ajouter, à l'indice de probabilité des dernieres carte jouer par un autre joueur, si elle ne sont pas connu, l'entier passé en paramètre.
+	 * N'as pas d'effet si le niveauIA est inférieur à 2.
+	 * Dans le cas où la valeur vaut la constante SUGGEST_REFUTATION alors on vérifie si nous connaissons les deux autres carte, et si oui changer le nomJoueurPossedant à celui qui vient de réfuter.
+	 * @param valeur Entier à ajouter aux ProbabiliteCarte.
+	 */
 	public void changerProbDerCartes(int valeur)
 	{
+		if(niveauIA < 2)
+		{
+			return;
+		}
 		boolean trouve;
 		int nbCarteConnues = 0;
 		ProbabiliteCarte pcInconnu = null;
@@ -458,7 +619,7 @@ public class Ordi extends Joueur
 						pc.indiceProbabilite += valeur;
 						pcInconnu = pc;
 					}
-					else
+					else if(!pc.nomJoueurPossedant.equals(joueurRefutant))
 					{
 						nbCarteConnues++;
 					}
@@ -477,7 +638,7 @@ public class Ordi extends Joueur
 							pc.indiceProbabilite += valeur;
 							pcInconnu = pc;
 						}
-						else
+						else if(!pc.nomJoueurPossedant.equals(joueurRefutant))
 						{
 							nbCarteConnues++;
 						}
@@ -496,7 +657,7 @@ public class Ordi extends Joueur
 								pc.indiceProbabilite += valeur;
 								pcInconnu = pc;
 							}
-							else
+							else if(!pc.nomJoueurPossedant.equals(joueurRefutant))
 							{
 								nbCarteConnues++;
 							}
@@ -506,33 +667,37 @@ public class Ordi extends Joueur
 				}
 			}
 		}
-		if(valeur == -20 && nbCarteConnues == 2)
-		{
+		if(valeur == SUGGEST_REFUTATION && nbCarteConnues == 2 && pcInconnu != null)
+		{		
 			pcInconnu.indiceProbabilite = 0;
 			pcInconnu.nomJoueurPossedant = joueurRefutant;
 		}
 	}
 	
-	private List<ProbabiliteCarte> getCartesProbables(List<ProbabiliteCarte> listeATrier)
+	/**
+	 * Méthode qui retourne la carte qui à le plus de probabilité d'être la carte du meutre.
+	 * @param listeATrier Liste de ProbabiliteCarte dont vous souhaitez savoir la carte la plus probable.
+	 * @return La carte avec la plus grande probabilité d'être la carte du meutre.
+	 */
+	private String getCarteProbable(List<ProbabiliteCarte> listeATrier)
 	{
 		List<ProbabiliteCarte> res = new ArrayList<>();
 		for(ProbabiliteCarte pc : listeATrier)
 		{
-			if(pc.indiceProbabilite != 0)
+			if(pc.nomJoueurPossedant.equals("inconnu"))
 			{
 				res.add(pc);
 			}
 		}
-		//TODO Verifier ordre de tri et véririfer dans le cas de même probabilité, quelle carte est en premier pour ne peut etre pas toujours avoir la même
 		res.sort(new Comparator<ProbabiliteCarte>() {
 
 			@Override
 			public int compare(ProbabiliteCarte o1, ProbabiliteCarte o2) {
-				if(o1.indiceProbabilite < o2.indiceProbabilite)
+				if(o1.indiceProbabilite > o2.indiceProbabilite)
 				{
 					return -1;
 				}
-				else if(o1.indiceProbabilite > o2.indiceProbabilite)
+				else if(o1.indiceProbabilite < o2.indiceProbabilite)
 				{
 					return 1;
 				}
@@ -543,6 +708,22 @@ public class Ordi extends Joueur
 			}
 			
 		});
-		return res;
+		//TODO montrer une carte à nous si possible, si nous avons par exemple deja trouver toutes les armes mais pas les autres cartes à trouver
+		if(res.size() == 1)
+		{
+			doitAccuser += 1;
+			return res.get(0).carte.getNom();
+		}
+		int max = res.get(0).indiceProbabilite;
+		Iterator<ProbabiliteCarte> it = res.iterator();
+		while(it.hasNext())
+		{
+			if(it.next().indiceProbabilite != max)
+			{
+				it.remove();
+			}
+		}
+		Collections.shuffle(res);
+		return res.get(0).carte.getNom();
 	}
 }
