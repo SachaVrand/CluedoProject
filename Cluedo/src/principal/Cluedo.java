@@ -143,55 +143,12 @@ public class Cluedo
 				tabTotal[0] += tmp[0]; tabTotal[1] += tmp[1]; tabTotal[2] += tmp[2]; tabTotal[3] += tmp[3]; tabTotal[4] += tmp[4]; tabTotal[5] += tmp[5];
 				tmp = lancerTestsIA(new String[]{"level2","level2","level2","level2","level2","level2"},new int[]{2,2,2,2,2,2},nombreParties);
 				tabTotal[0] += tmp[0]; tabTotal[1] += tmp[1]; tabTotal[2] += tmp[2]; tabTotal[3] += tmp[3]; tabTotal[4] += tmp[4]; tabTotal[5] += tmp[5];
-				System.out.println("\nPremier : " + tabTotal[0] + " , Deuxieme : " + tabTotal[1] + " , Troisieme : " + tabTotal[2] + " , Quatrieme : " + tabTotal[3] + " , Cinquieme : " +tabTotal[4] + " , Sixieme : " + tabTotal[5]+"\n");
+				System.out.println("\nPremier : " + tabTotal[0] + " , Deuxieme : " + tabTotal[1] + " , Troisieme : " + tabTotal[2] + " , Quatrieme : " + tabTotal[3] + " , Cinquieme : " +tabTotal[4] + " , Sixieme : " + tabTotal[5]+"\n");			
 				
-				tabTotal = new int[2]; tabTotal[0] = 0; tabTotal[1] = 0;
-				tmp = lancerTestsIA(new String[]{"level1","level1","level2","level2"},new int[]{1,1,2,2},nombreParties);
-				tabTotal[0] += tmp[0] + tmp[1]; tabTotal[1] += tmp[2] + tmp[3];
-				tmp = lancerTestsIA(new String[]{"level1","level2","level1","level2"},new int[]{1,2,1,2},nombreParties);
-				tabTotal[0] += tmp[0] + tmp[2]; tabTotal[1] += tmp[1] + tmp[3];
-				tmp = lancerTestsIA(new String[]{"level2","level1","level2","level1"},new int[]{2,1,2,1},nombreParties);
-				tabTotal[0] += tmp[1] + tmp[3]; tabTotal[1] += tmp[0] + tmp[2];
-				tmp = lancerTestsIA(new String[]{"level2","level2","level1","level1"},new int[]{2,2,1,1},nombreParties);
-				tabTotal[0] += tmp[2] + tmp[3]; tabTotal[1] += tmp[0] + tmp[1];
-				System.out.println("Total | Level 1 : " + tabTotal[0] + " , level 2 : " + tabTotal[1] +"\n");
-				
-				tabTotal = new int[2]; tabTotal[0] = 0; tabTotal[1] = 0;
-				tmp = lancerTestsIA(new String[]{"level1","level1","random","level2","level2"},new int[]{1,1,0,2,2},nombreParties);
-				tabTotal[0] += tmp[0] + tmp[1]; tabTotal[1] += tmp[4] + tmp[3];
-				tmp = lancerTestsIA(new String[]{"level2","level2","random","level1","level1"},new int[]{2,2,0,1,1},nombreParties);
-				tabTotal[0] += tmp[3] + tmp[4]; tabTotal[1] += tmp[0] + tmp[1];
-				tmp = lancerTestsIA(new String[]{"level2","level1","random","level2","level1"},new int[]{2,1,0,2,1},nombreParties);
-				tabTotal[0] += tmp[1] + tmp[4]; tabTotal[1] += tmp[0] + tmp[3];
-				tmp = lancerTestsIA(new String[]{"level1","level2","random","level1","level2"},new int[]{1,2,0,1,2},nombreParties);
-				tabTotal[0] += tmp[0] + tmp[3]; tabTotal[1] += tmp[1] + tmp[4];
-				System.out.println("Total | Level 1 : " + tabTotal[0] + " , level 2 : " + tabTotal[1] +"\n");
-				
-				tabTotal = new int[2]; tabTotal[0] = 0; tabTotal[1] = 0;
-				tmp = lancerTestsIA(new String[]{"level1","level2","level1","level2","level1","level2"},new int[]{1,2,1,2,1,2},nombreParties);
-				tabTotal[0] += tmp[0] + tmp[2] + tmp[4]; tabTotal[1] += tmp[1] + tmp[3] +tmp[5];
-				tmp = lancerTestsIA(new String[]{"level2","level1","level2","level1","level2","level1"},new int[]{2,1,2,1,2,1},nombreParties);
-				tabTotal[0] += tmp[1] + tmp[3] +tmp[5];  tabTotal[1] += tmp[0] + tmp[2] + tmp[4];
-				System.out.println("Total | Level 1 : " + tabTotal[0] + " , level 2 : " + tabTotal[1] +"\n");
-				
-				System.out.println("test avec position aléatoires 6 joueurs : ");
-				tabTotal = new int[3]; tabTotal[0] = 0; tabTotal[1] = 0; tabTotal[2] = 0;
-				int[] tabNiv = new int[]{2,2,0,0,1,1};
-				String[] tabNoms = new String[6];
-				for(int j = 0; j < 20; j++)
-				{
-					melangerTableau(tabNiv);
-					for(int i = 0; i < tabNiv.length; i++)
-					{
-						tabNoms[i] = "level" + tabNiv[i];
-					}
-					tmp = lancerTestsIA(tabNoms,tabNiv,nombreParties);
-					for(int i = 0; i < tabNiv.length; i++)
-					{
-						tabTotal[tabNiv[i]] += tmp[i];
-					}
-				}
-				System.out.println("Total | Random : " + tabTotal[0] + " , level 1 : " + tabTotal[1] + " , level 2 : " + tabTotal[2] +"\n");
+				testIAPosAlea(new int[]{2,2,0,0,1,1},nombreParties,30);
+				testIAPosAlea(new int[]{2,2,0,1,1},nombreParties,30);
+				testIAPosAlea(new int[]{2,2,1,1},nombreParties,30);
+				testIAPosAlea(new int[]{2,0,1},nombreParties,30);
 			}
 			else if(cmdComplete.length == 1 && cmdComplete[0].equals("exit"))
 			{
@@ -273,5 +230,30 @@ public class Cluedo
 			tab[j] = tab[i];
 			tab[i] = tmp;
 		}
+	}
+	
+	private static void testIAPosAlea(int[] tabNiv, int nombreParties, int nbTests)
+	{
+		System.out.println("Tests avec positions aléatoires : ");
+		int[] tabTotal = new int[3]; 
+		int[] tmp;
+		tabTotal[0] = 0; 
+		tabTotal[1] = 0; 
+		tabTotal[2] = 0;
+		String[] tabNoms = new String[tabNiv.length];
+		for(int j = 0; j < nbTests; j++)
+		{
+			melangerTableau(tabNiv);
+			for(int i = 0; i < tabNiv.length; i++)
+			{
+				tabNoms[i] = "level" + tabNiv[i];
+			}
+			tmp = lancerTestsIA(tabNoms,tabNiv,nombreParties);
+			for(int i = 0; i < tabNiv.length; i++)
+			{
+				tabTotal[tabNiv[i]] += tmp[i];
+			}
+		}
+		System.out.println("Total | Random : " + tabTotal[0] + " , level 1 : " + tabTotal[1] + " , level 2 : " + tabTotal[2] +"\n");
 	}
 }
