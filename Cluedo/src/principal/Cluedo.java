@@ -2,6 +2,7 @@ package principal;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -41,7 +42,7 @@ public class Cluedo
 				List<Joueur> listJoueur = new ArrayList<Joueur>();	
 				for(int i = 0; i < Integer.parseInt(cmdComplete[1]); i++)
 				{
-					listJoueur.add(new Ordi("Joueur "+Integer.toString(i),1));
+					listJoueur.add(new Ordi("Joueur "+Integer.toString(i),2));
 				}
 				PartieSolo p = new PartieSolo(listJoueur);
 				p.boucleJeu();
@@ -172,6 +173,25 @@ public class Cluedo
 				tmp = lancerTestsIA(new String[]{"level2","level1","level2","level1","level2","level1"},new int[]{2,1,2,1,2,1},nombreParties);
 				tabTotal[0] += tmp[1] + tmp[3] +tmp[5];  tabTotal[1] += tmp[0] + tmp[2] + tmp[4];
 				System.out.println("Total | Level 1 : " + tabTotal[0] + " , level 2 : " + tabTotal[1] +"\n");
+				
+				System.out.println("test avec position aléatoires 6 joueurs : ");
+				tabTotal = new int[3]; tabTotal[0] = 0; tabTotal[1] = 0; tabTotal[2] = 0;
+				int[] tabNiv = new int[]{2,2,0,0,1,1};
+				String[] tabNoms = new String[6];
+				for(int j = 0; j < 20; j++)
+				{
+					melangerTableau(tabNiv);
+					for(int i = 0; i < tabNiv.length; i++)
+					{
+						tabNoms[i] = "level" + tabNiv[i];
+					}
+					tmp = lancerTestsIA(tabNoms,tabNiv,nombreParties);
+					for(int i = 0; i < tabNiv.length; i++)
+					{
+						tabTotal[tabNiv[i]] += tmp[i];
+					}
+				}
+				System.out.println("Total | Random : " + tabTotal[0] + " , level 1 : " + tabTotal[1] + " , level 2 : " + tabTotal[2] +"\n");
 			}
 			else if(cmdComplete.length == 1 && cmdComplete[0].equals("exit"))
 			{
@@ -241,5 +261,17 @@ public class Cluedo
 		System.out.print("\n");
 		
 		return tabRes;
+	}
+	
+	private static void melangerTableau(int[] tab)
+	{
+		Random r = new Random();
+		for(int i = 0; i< tab.length; i++)
+		{
+			int j = r.nextInt(tab.length);
+			int tmp = tab[j];
+			tab[j] = tab[i];
+			tab[i] = tmp;
+		}
 	}
 }

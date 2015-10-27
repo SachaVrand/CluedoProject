@@ -108,7 +108,7 @@ public class Ordi extends Joueur
 	private boolean auncuneRefutationDeMonCoup;
 	
 	/**
-	 * Booléen représentant si la suggestiondu joueur autre que moi a pu être réfuter. Vrai si elle n'as pas pu être réfuter, sinon faux.
+	 * Booléen représentant si la suggestiondu joueur autre que moi a pu être réfuter. Vrai si elle n'as pas pu être réfuter, sinon faux. et null si c'était le tour de ce joueur avant.
 	 */
 	private Boolean aucuneRefutationAutre;
 	
@@ -218,7 +218,7 @@ public class Ordi extends Joueur
 	
 	/**
 	 * Méthode qui permet de changer le booléen représentant si le coup dd'un joueur autre que moi à pu être réfuter.
-	 * @param b Vrai si n'as pas pu être réfuter, faux sinon.
+	 * @param b Vrai si n'as pas pu être réfuter, faux sinon. et null si c'etait mon tour juste avant.
 	 */
 	public void setAucuneRefutationAutre(Boolean b)
 	{
@@ -550,7 +550,7 @@ public class Ordi extends Joueur
 	}
 	
 	/**
-	 * Méthode qui permet de changer le nomJoueurPossedant de ProbabiliteCarte après avoir découvert à qui elle apartient.
+	 * Méthode qui permet de changer le nomJoueurPossedant de ProbabiliteCarte après avoir découvert à qui elle appartient.
 	 * @param c Carte découverte
 	 * @param nomJoueur Nom du joueur la possédant.
 	 */
@@ -564,6 +564,7 @@ public class Ordi extends Joueur
 				{
 					pc.nomJoueurPossedant = nomJoueur;
 					pc.indiceProbabilite = 0;
+					break;
 				}
 			}
 		}
@@ -575,6 +576,7 @@ public class Ordi extends Joueur
 				{
 					pc.nomJoueurPossedant = nomJoueur;
 					pc.indiceProbabilite = 0;
+					break;
 				}
 			}
 		}
@@ -586,6 +588,7 @@ public class Ordi extends Joueur
 				{
 					pc.nomJoueurPossedant = nomJoueur;
 					pc.indiceProbabilite = 0;
+					break;
 				}
 			}
 		}
@@ -607,6 +610,7 @@ public class Ordi extends Joueur
 		int nbCarteConnues = 0;
 		ProbabiliteCarte pcInconnu = null;
 		
+		//TODO faire une boucle plus performante
 		for(String carte : dernierCoupJouer)
 		{
 			trouve = false;
@@ -668,7 +672,7 @@ public class Ordi extends Joueur
 			}
 		}
 		if(valeur == SUGGEST_REFUTATION && nbCarteConnues == 2 && pcInconnu != null)
-		{		
+		{	
 			pcInconnu.indiceProbabilite = 0;
 			pcInconnu.nomJoueurPossedant = joueurRefutant;
 		}
