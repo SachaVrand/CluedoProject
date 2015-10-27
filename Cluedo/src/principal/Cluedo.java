@@ -145,10 +145,10 @@ public class Cluedo
 				tabTotal[0] += tmp[0]; tabTotal[1] += tmp[1]; tabTotal[2] += tmp[2]; tabTotal[3] += tmp[3]; tabTotal[4] += tmp[4]; tabTotal[5] += tmp[5];
 				System.out.println("\nPremier : " + tabTotal[0] + " , Deuxieme : " + tabTotal[1] + " , Troisieme : " + tabTotal[2] + " , Quatrieme : " + tabTotal[3] + " , Cinquieme : " +tabTotal[4] + " , Sixieme : " + tabTotal[5]+"\n");			
 				
-				testIAPosAlea(new int[]{2,2,0,0,1,1},nombreParties,30);
-				testIAPosAlea(new int[]{2,2,0,1,1},nombreParties,30);
-				testIAPosAlea(new int[]{2,2,1,1},nombreParties,30);
-				testIAPosAlea(new int[]{2,0,1},nombreParties,30);
+				testIAPosAlea(new int[]{2,2,0,0,1,1},nombreParties,20);
+				testIAPosAlea(new int[]{2,2,0,1,1},nombreParties,20);
+				testIAPosAlea(new int[]{2,2,1,1},nombreParties,20);
+				testIAPosAlea(new int[]{2,0,1},nombreParties,20);
 			}
 			else if(cmdComplete.length == 1 && cmdComplete[0].equals("exit"))
 			{
