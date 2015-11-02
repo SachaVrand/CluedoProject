@@ -39,8 +39,9 @@ public class Cluedo
 			cmdComplete = cmd.split(" ");
 			if(cmdComplete.length == 2 && cmdComplete[0].equals("solo") && (cmdComplete[1].equals("3") || cmdComplete[1].equals("4") || cmdComplete[1].equals("5") || cmdComplete[1].equals("6")))
 			{
-				List<Joueur> listJoueur = new ArrayList<Joueur>();	
-				for(int i = 0; i < Integer.parseInt(cmdComplete[1]); i++)
+				List<Joueur> listJoueur = new ArrayList<Joueur>();
+				listJoueur.add(new Humain("Joueur 0 (vous)"));
+				for(int i = 1; i < Integer.parseInt(cmdComplete[1]); i++)
 				{
 					listJoueur.add(new Ordi("Joueur "+Integer.toString(i),2));
 				}
@@ -75,7 +76,7 @@ public class Cluedo
 				}
 				if(cmdComplete[1].equals("ordi"))
 				{
-					j = new Ordi(nomJoueur,0);
+					j = new Ordi(nomJoueur,2);
 				}
 				else if(cmdComplete[1].equals("joueur"))
 				{

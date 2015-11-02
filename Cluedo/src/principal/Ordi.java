@@ -610,7 +610,6 @@ public class Ordi extends Joueur
 		int nbCarteConnues = 0;
 		ProbabiliteCarte pcInconnu = null;
 		
-		//TODO faire une boucle plus performante
 		for(String carte : dernierCoupJouer)
 		{
 			trouve = false;
@@ -712,7 +711,6 @@ public class Ordi extends Joueur
 			}
 			
 		});
-		//TODO montrer une carte à nous si possible, si nous avons par exemple deja trouver toutes les armes mais pas les autres cartes à trouver
 		if(res.size() == 1)
 		{
 			doitAccuser += 1;
