@@ -692,7 +692,7 @@ public class Ordi extends Joueur
 				res.add(pc);
 			}
 		}
-		res.sort(new Comparator<ProbabiliteCarte>() {
+		Collections.sort(res,new Comparator<ProbabiliteCarte>() {
 
 			@Override
 			public int compare(ProbabiliteCarte o1, ProbabiliteCarte o2) {
