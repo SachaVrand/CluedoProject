@@ -11,9 +11,8 @@ public class Humain extends Joueur
 {
 	/**
 	 * Instancie un nouveau Joueur. cf Constructeur Joueur.
-	 * @see Joueur#Joueur(String, String)
+	 * @see Joueur#Joueur(String)
 	 * @param nom Nom du joueur sous la forme de chaine de caractères.
-	 * @param adresse Adresse ip du joueur sous la forme de chaine de caractères.
 	 */
 	public Humain(String nom)
 	{
@@ -97,8 +96,7 @@ public class Humain extends Joueur
 
 	/**
 	 * Méthode qui permet à un joueur de réfuter.
-	 * @param cartes Tableau de String répresentant les 3 cartes suggérer par un joueur.
-	 * @param cartesCommun Cartes en commun dans le paquet du joueur avec les cartes suggerer sous la forme de String
+	 * @param carteCommun Cartes en commun dans le paquet du joueur avec les cartes suggerer sous la forme de String
 	 * @return chaine correspondant à la carte montrée ou exit si le joueur souhaite quitter.
 	 */
 	@Override

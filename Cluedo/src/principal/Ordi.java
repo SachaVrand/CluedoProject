@@ -200,7 +200,7 @@ public class Ordi extends Joueur
 	
 	/**
 	 * Méthode qui permet de récupérer le dernier coup jouer par un autre joueur.
-	 * @return
+	 * @return le dernier coup jouer par un autre joueur sous la forme d'un tableau de chaine de caractères.
 	 */
 	public String[] getDernierCoupJouer()
 	{

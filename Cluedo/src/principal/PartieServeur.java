@@ -19,7 +19,7 @@ public class PartieServeur extends PartieHote
 	/**
 	 * Instancie une nouvelle partie en ligne (côté serveur) avec la liste des joueurs passée en paramètre, l'indice du joueur actuel à 0, un nouveau tableau de 3 cartes, partieFinie à false 
 	 * et distribue les cartes à chaque joueur.
-	 * @param joueursPartie Collection de Joueur jouant la partie.
+	 * @param joueurs Collection de Joueur jouant la partie.
 	 */
 	public PartieServeur(List<Joueur> joueurs) throws IOException
 	{

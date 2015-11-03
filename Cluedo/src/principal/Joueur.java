@@ -27,7 +27,6 @@ public abstract class Joueur {
 	/**
 	 * Instancie un nouveau joueur avec le nom et l'adresse passés en paramètres, l'attribut encoreEnJeu à true et instancie une nouvelle collections de carte vide.
 	 * @param nom Nom du joueur sous la forme d'une chaine de caractère.
-	 * @param adresse Adresse ip du joueur sous la forme d'une chaine de caractères.
 	 */
 	public Joueur(String nom)
 	{
@@ -98,8 +97,7 @@ public abstract class Joueur {
 	
 	/**
 	 * Méthode qui doit permettre au joueur de refuter ou non, une suggestion.
-	 * @param cartes Cartes sous la forme de String que l'autre joueur à suggérer.
-	 * @param cartesCommun Cartes en commun dans le paquet du joueur avec les cartes suggerer sous la forme de String
+	 * @param carteCommun Cartes en commun dans le paquet du joueur avec les cartes suggerer sous la forme de String
 	 * @return chaine correspondant à la carte montrer, exit si le joueur veut quitter.
 	 */
 	public abstract String refuter(List<String> carteCommun);
