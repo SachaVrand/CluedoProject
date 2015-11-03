@@ -29,7 +29,7 @@ public class Cluedo
 		String cmd = "";
 		String cmdComplete[];
 		
-		System.out.println("Cluedo 0.1");
+		System.out.println("Cluedo 0.3");
 		System.out.println("Taper 'help' pour plus d'informations");
 		
 		while(!cmd.equals("exit"))
@@ -38,7 +38,7 @@ public class Cluedo
 			cmd = sc.nextLine();
 			cmdComplete = cmd.split(" ");
 			if(cmdComplete.length == 2 && cmdComplete[0].equals("solo") && (cmdComplete[1].equals("3") || cmdComplete[1].equals("4") || cmdComplete[1].equals("5") || cmdComplete[1].equals("6")))
-			{
+			{	
 				List<Joueur> listJoueur = new ArrayList<Joueur>();
 				listJoueur.add(new Humain("Joueur 0 (vous)"));
 				for(int i = 1; i < Integer.parseInt(cmdComplete[1]); i++)

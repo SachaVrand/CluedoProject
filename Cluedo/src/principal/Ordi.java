@@ -251,12 +251,12 @@ public class Ordi extends Joueur
 		//Level 1
 		else if(niveauIA == 1)
 		{
-			res = getCoupLevelOne();
+			res = getCoupLevelOneOrTwo();
 		}
 		//Level 2
 		else if(niveauIA == 2)
 		{
-			res = getCoupLevelTwo();
+			res = getCoupLevelOneOrTwo();
 		}
 
 		auncuneRefutationDeMonCoup = true;
@@ -328,11 +328,12 @@ public class Ordi extends Joueur
 	}
 	
 	/**
-	 * Méthode qui permet de jouer un coup pour une intelligence de niveau 1.
-	 * Suggère des cartes au hasard parmis celle qu'elle ne connais pas. Et accuse dès lors qu'elle à soit suggérer des cartes qui ne lui appartenais pas et que personne n'as pu répondre. Ou des lors qu'elle connais toutes les cartes des autres joueurs.
+	 * Méthode qui permet de jouer un coup pour une intelligence de niveau 1 ou 2.
+	 * Dans le cas d'un niv 1 : Suggère des cartes au hasard parmis celle qu'elle ne connais pas. Et accuse dès lors qu'elle à soit suggérer des cartes qui ne lui appartenais pas et que personne n'as pu répondre. Ou des lors qu'elle connais toutes les cartes des autres joueurs.
+	 * Dans le cas d'un niveau 2: Suggère des cartes au hasard parmis celle qu'elle ne connais pas. Et accuse dès lors qu'elle à soit suggérer des cartes qui ne lui appartenais pas et que personne n'as pu répondre. Ou des lors qu'elle connais toutes les cartes des autres joueurs.
 	 * @return Un tableau de String représentant le coup joué, [0]->"suggest" ou "accuse", [1-3]->Carte sous la forme de String, 1 de chaque type.
 	 */
-	private String[] getCoupLevelOne()
+	private String[] getCoupLevelOneOrTwo()
 	{
 		String[] res = new String[4];
 		doitAccuser = 0;
@@ -363,83 +364,6 @@ public class Ordi extends Joueur
 				res[3] = tmpSuspect;
 			}
 		}
-		return res;
-	}
-	
-	/**
-	 * Méthode qui permet de jouer un coup pour une intelligence de niveau 2.
-	 * Suggère des cartes au hasard parmis celle qu'elle ne connais pas. Et accuse dès lors qu'elle à soit suggérer des cartes qui ne lui appartenais pas et que personne n'as pu répondre. Ou des lors qu'elle connais toutes les cartes des autres joueurs.
-	 * @return Un tableau de String représentant le coup joué, [0]->"suggest" ou "accuse", [1-3]->Carte sous la forme de String, 1 de chaque type.
-	 */
-	private String[] getCoupLevelTwo()
-	{
-		String[] res = new String[4];
-		doitAccuser = 0;
-		String tmpArme = this.getCarteProbable(this.listePArmes);
-		String tmpLieu = this.getCarteProbable(this.listePLieux);
-		String tmpSuspect = this.getCarteProbable(this.listePSuspects);
-		
-		/*if(nombreTour == 1)
-		{
-			res[0] = "suggest";
-			for(Carte c : cartesJoueur)
-			{
-				if(c instanceof Arme && res[1] == null)
-				{
-					res[1] = c.getNom();
-				}
-				else if(c instanceof Lieu && res[2] == null)
-				{
-					res[2] = c.getNom();
-				}
-				else if(c instanceof Suspect && res[3] == null)
-				{
-					res[3] = c.getNom();
-				}
-				if(res[1] != null && res[2] != null && res[2] != null)
-				{
-					break;
-				}
-			}
-			if(res[1] == null)
-			{
-				res[1] = getCarteProbable(listePArmes);
-			}
-			if(res[2] == null)
-			{
-				res[2] = getCarteProbable(listePLieux);
-			}
-			if(res[3] == null)
-			{
-				res[3] = getCarteProbable(listePSuspects);
-			}
-		}
-		else
-		{*/
-			if(auncuneRefutationDeMonCoup)
-			{
-				monDernierCoupJouer[0] = "accuse";
-				return monDernierCoupJouer;
-			}
-			else
-			{
-				if(doitAccuser == 3)
-				{
-					res[0] = "accuse";
-					res[1] = tmpArme;
-					res[2] = tmpLieu;
-					res[3] = tmpSuspect;
-				}
-				else
-				{
-					res[0] = "suggest";
-					res[1] = tmpArme;
-					res[2] = tmpLieu;
-					res[3] = tmpSuspect;
-				}
-			}
-		//}
-
 		return res;
 	}
 	
