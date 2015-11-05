@@ -276,7 +276,10 @@ public class PartieClient implements IPartie
 						{
 							if(joueur instanceof Ordi)
 							{
-								((Ordi)joueur).setAucuneRefutationAutre(false);
+								if(((Ordi)joueur).getAucuneRefutationAutre() != null)
+								{
+									((Ordi)joueur).setAucuneRefutationAutre(false);
+								}
 								((Ordi)joueur).setJoueurRefutant(listeJoueurs[Integer.parseInt(message[2])]);
 							}
 							System.out.println(listeJoueurs[Integer.parseInt(message[2])] + " a montré une carte à " + listeJoueurs[Integer.parseInt(message[3])]);
