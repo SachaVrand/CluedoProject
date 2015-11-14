@@ -9,6 +9,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import principal.Cluedo;
+
 public class MenuPrincipal extends JPanel{
 	
 	private JButton btnSolo;
@@ -32,18 +34,20 @@ public class MenuPrincipal extends JPanel{
 		btnExit = new JButton("Exit");
 		
 		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.insets = new Insets(25, 10, 10, 10);
+		gbc.insets = new Insets(25, 25, 5, 25);
 		gbc.gridx = 0;
 		gbc.gridy = 0;
-		
+		gbc.ipadx = 30;
+		gbc.ipady = 5;
+		gbc.fill = GridBagConstraints.HORIZONTAL;
 		this.add(btnSolo,gbc);
 		gbc.gridy = 1;
-		gbc.insets = new Insets(10, 10, 10, 10);
+		gbc.insets = new Insets(5, 25, 5, 25);
 		this.add(btnRegister, gbc);
 		gbc.gridy = 2;
-		this.add(btnRegister, gbc);
+		this.add(btnReferee, gbc);
 		gbc.gridy = 3;
-		gbc.insets = new Insets(10, 10, 25, 10);
+		gbc.insets = new Insets(5, 25, 25, 25);
 		this.add(btnExit, gbc);
 	}
 	
@@ -53,7 +57,7 @@ public class MenuPrincipal extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO afficher MenuSolo
+				Cluedo.afficherGUIMenuSolo();
 				
 			}
 		});
