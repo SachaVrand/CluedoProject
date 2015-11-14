@@ -5,6 +5,10 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+import javax.swing.JFrame;
+
+import GUI.MenuPrincipal;
+
 /**
  * Classe principal du programme.
  * 
@@ -14,7 +18,8 @@ import java.util.Scanner;
  */
 public class Cluedo
 {
-	
+
+	private static JFrame fenetrePrincipal = null;
 	/**
 	 * Scanner permettant de récupérer les commandes entrées par l'utilisateur. Ouvert au démarrage et fermée à la fin du programme.
 	 */
@@ -25,6 +30,60 @@ public class Cluedo
 	 * @param args Aucun paramètres attendus.
 	 */
 	public static void main(String[] args)
+	{
+		if(args.length > 1)
+		{
+			System.err.println("Un seul paramètre requis sur la ligne de commande, -gui ou -console.");
+			System.exit(1);
+		}
+		else if(args.length == 0 || (args.length == 1 && args[0].equals("-gui")) )
+		{
+			fenetrePrincipal = new JFrame("Cluedo 1.0");
+			fenetrePrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			fenetrePrincipal.setResizable(false);
+			afficherGUIMenu();
+			fenetrePrincipal.setVisible(true);
+		}
+		else if(args.length == 1 && args[0].equals("-console"))
+		{
+			menuModeConsole();
+		}
+		else
+		{
+			System.out.println("Un seul paramètre requis sur la ligne de commande, -gui ou -console.");
+			System.exit(1);;
+		}
+	}
+	
+	/**
+	 * Méthode statique permettant d'afficher l'aide pour les commandes du menu principal.
+	 */
+	private static void afficherAide()
+	{
+		System.out.println("\nsolo <NombreJoueurs>");
+		System.out.println("\t Commencer une partie solo (Humain + Ordinateur)");
+		System.out.println("\t <NombreJoueurs> : de 3 à 6\n");
+		System.out.println("referee <NombreJoueurs>");
+		System.out.println("\t Commencer une partie en tant qu'hôte");
+		System.out.println("\t <NombreJoueurs> : de 3 à 6 \n");
+		System.out.println("register");
+		System.out.println("\t Rechercher une partie en multijoueur");
+		System.out.println("\t register <type> <addr> [<nom>]");
+		System.out.println("\t <type> : 'ordi' ou 'joueur'.");
+		System.out.println("\t <addr> : adresse IP de l'hôte.");
+		System.out.println("\t <name> : nom du joueur.\n");
+		System.out.println("exit");
+		System.out.println("\t Quitter le jeu.\n");
+		System.out.println("help");
+		System.out.println("\t Afficher ce message.\n");
+	}
+	
+	public static void afficherGUIMenu()
+	{
+		fenetrePrincipal.setContentPane(new MenuPrincipal());
+	}
+	
+	private static void menuModeConsole()
 	{
 		String cmd = "";
 		String cmdComplete[];
@@ -166,29 +225,6 @@ public class Cluedo
 		}
 		sc.close();
 		System.exit(0);
-	}
-	
-	/**
-	 * Méthode statique permettant d'afficher l'aide pour les commandes du menu principal.
-	 */
-	private static void afficherAide()
-	{
-		System.out.println("\nsolo <NombreJoueurs>");
-		System.out.println("\t Commencer une partie solo (Humain + Ordinateur)");
-		System.out.println("\t <NombreJoueurs> : de 3 à 6\n");
-		System.out.println("referee <NombreJoueurs>");
-		System.out.println("\t Commencer une partie en tant qu'hôte");
-		System.out.println("\t <NombreJoueurs> : de 3 à 6 \n");
-		System.out.println("register");
-		System.out.println("\t Rechercher une partie en multijoueur");
-		System.out.println("\t register <type> <addr> [<nom>]");
-		System.out.println("\t <type> : 'ordi' ou 'joueur'.");
-		System.out.println("\t <addr> : adresse IP de l'hôte.");
-		System.out.println("\t <name> : nom du joueur.\n");
-		System.out.println("exit");
-		System.out.println("\t Quitter le jeu.\n");
-		System.out.println("help");
-		System.out.println("\t Afficher ce message.\n");
 	}
 	
 	private static int[] lancerTestsIA(String[] listeNoms, int[] listeNiveaux, int nbPartiesAJouer)
