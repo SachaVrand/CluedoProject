@@ -1,4 +1,5 @@
 package principal;
+import java.awt.Dimension;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +9,9 @@ import java.util.Scanner;
 import javax.swing.JFrame;
 
 import GUI.MenuPrincipal;
+import GUI.MenuReferee;
+import GUI.MenuRegister;
+import GUI.MenuSolo;
 
 /**
  * Classe principal du programme.
@@ -41,7 +45,9 @@ public class Cluedo
 			fenetrePrincipal = new JFrame("Cluedo 1.0");
 			fenetrePrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			fenetrePrincipal.setResizable(false);
-			afficherGUIMenu();
+			afficherGUIMenuPrincipal();
+			Dimension dim = fenetrePrincipal.getToolkit().getScreenSize(); 
+			fenetrePrincipal.setLocation((dim.width/2)-(fenetrePrincipal.getWidth()/2), (dim.height/2)-(fenetrePrincipal.getHeight()/2));
 			fenetrePrincipal.setVisible(true);
 		}
 		else if(args.length == 1 && args[0].equals("-console"))
@@ -78,9 +84,28 @@ public class Cluedo
 		System.out.println("\t Afficher ce message.\n");
 	}
 	
-	public static void afficherGUIMenu()
+	public static void afficherGUIMenuPrincipal()
 	{
 		fenetrePrincipal.setContentPane(new MenuPrincipal());
+		fenetrePrincipal.pack();
+	}
+	
+	public static void afficherGUIMenuSolo()
+	{
+		fenetrePrincipal.setContentPane(new MenuSolo());
+		fenetrePrincipal.pack();
+	}
+	
+	public static void afficherGUIMenuRegister()
+	{
+		fenetrePrincipal.setContentPane(new MenuRegister());
+		fenetrePrincipal.pack();
+	}
+	
+	public static void afficherGUIMenuReferee()
+	{
+		fenetrePrincipal.setContentPane(new MenuReferee());
+		fenetrePrincipal.pack();
 	}
 	
 	private static void menuModeConsole()

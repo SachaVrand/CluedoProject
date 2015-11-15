@@ -66,7 +66,7 @@ public class MenuPrincipal extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO	afficher MenuRegister
+				Cluedo.afficherGUIMenuRegister();
 				
 			}
 		});
@@ -75,7 +75,7 @@ public class MenuPrincipal extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO afficher MenuReferee
+				Cluedo.afficherGUIMenuReferee();
 				
 			}
 		});
