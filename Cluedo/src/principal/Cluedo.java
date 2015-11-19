@@ -8,10 +8,10 @@ import java.util.Scanner;
 
 import javax.swing.JFrame;
 
-import GUI.MenuPrincipal;
-import GUI.MenuReferee;
-import GUI.MenuRegister;
-import GUI.MenuSolo;
+import gui.MenuPrincipal;
+import gui.MenuReferee;
+import gui.MenuRegister;
+import gui.MenuSolo;
 
 /**
  * Classe principal du programme.
