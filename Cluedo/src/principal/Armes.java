@@ -12,32 +12,32 @@ public enum Armes {
 	/**
 	 * Représente la carte Candlestick
 	 */
-	Candlestick(new ImageIcon("pathManquant")),
+	Candlestick(new ImageIcon("Images/Candlestick.jpg")),
 	
 	/**
 	 * Représente la carte Dagger
 	 */
-	Dagger(new ImageIcon("pathManquant")),
+	Dagger(new ImageIcon("Images/Dagger.jpg")),
 	
 	/**
 	 * Représente la carte Lead_pipe
 	 */
-	LeadPipe(new ImageIcon("pathManquant")),
+	LeadPipe(new ImageIcon("Images/LeadPipe.jpg")),
 	
 	/**
 	 * Représente la carte Revolver
 	 */
-	Revolver(new ImageIcon("pathManquant")),
+	Revolver(new ImageIcon("Images/Revolver.jpg")),
 	
 	/**
 	 * Représente la carte Rope
 	 */
-	Rope(new ImageIcon("pathManquant")),
+	Rope(new ImageIcon("Images/Rope.jpg")),
 	
 	/**
 	 * Représente la carte Spanner
 	 */
-	Spanner(new ImageIcon("pathManquant"));
+	Spanner(new ImageIcon("Images/Spanner.jpg"));
 	
 	/**
 	 * Image de type Icon représentant la carte.

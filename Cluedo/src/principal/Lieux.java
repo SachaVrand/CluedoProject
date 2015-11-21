@@ -12,47 +12,47 @@ public enum Lieux {
 	/**
 	 * Représente la carte Kitchen
 	 */
-	Kitchen(new ImageIcon("pathManquant")),
+	Kitchen(new ImageIcon("Images/Kitchen.jpg")),
 	
 	/**
 	 * Représente la carte Ballroom
 	 */
-	Ballroom(new ImageIcon("pathManquant")),
+	Ballroom(new ImageIcon("Images/Ballroom.jpg")),
 	
 	/**
 	 * Représente la carte Conservatory
 	 */
-	Conservatory(new ImageIcon("pathManquant")),
+	Conservatory(new ImageIcon("Images/Conservatory.jpg")),
 	
 	/**
 	 * Représente la carte Dining_room
 	 */
-	DiningRoom(new ImageIcon("pathManquant")),
+	DiningRoom(new ImageIcon("Images/DiningRoom.jpg")),
 	
 	/**
 	 * Représente la carte Billard_room
 	 */
-	BillardRoom(new ImageIcon("pathManquant")),
+	BillardRoom(new ImageIcon("Images/BillardRoom.jpg")),
 	
 	/**
 	 * Représente la carte Library
 	 */
-	Library(new ImageIcon("pathManquant")),
+	Library(new ImageIcon("Images/Library.jpg")),
 	
 	/**
 	 * Représente la carte Lounge
 	 */
-	Lounge(new ImageIcon("pathManquant")),
+	Lounge(new ImageIcon("Images/Lounge.jpg")),
 	
 	/**
 	 * Représente la carte Hall
 	 */
-	Hall(new ImageIcon("pathManquant")),
+	Hall(new ImageIcon("Images/Hall.jpg")),
 	
 	/**
 	 * Représente la carte Study
 	 */
-	Study(new ImageIcon("pathManquant"));
+	Study(new ImageIcon("Images/Study.jpg"));
 	
 	/**
 	 * Représente l'image associée à la carte.
