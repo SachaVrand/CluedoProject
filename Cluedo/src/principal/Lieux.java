@@ -27,12 +27,12 @@ public enum Lieux {
 	/**
 	 * Représente la carte Dining_room
 	 */
-	Dining(new ImageIcon("pathManquant")),
+	DiningRoom(new ImageIcon("pathManquant")),
 	
 	/**
 	 * Représente la carte Billard_room
 	 */
-	Billard(new ImageIcon("pathManquant")),
+	BillardRoom(new ImageIcon("pathManquant")),
 	
 	/**
 	 * Représente la carte Library
