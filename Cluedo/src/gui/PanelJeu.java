@@ -61,4 +61,9 @@ public class PanelJeu extends JPanel{
 	{
 		this.joueur = j;
 	}
+	
+	public static void afficherCartesJoueur()
+	{
+		//TODO afficher panel ou fenetre avec les carte du joueur.
+	}
 }
