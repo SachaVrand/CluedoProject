@@ -107,6 +107,7 @@ public class MenuSolo extends JPanel{
 				int nivIA = (int) cbxNiveauIA.getSelectedItem();
 				int nbJoueurs = (int) cbxNbJoueurs.getSelectedItem();
 				String nom = tfNomJoueur.getText();
+				Cluedo.afficherGUIJeu();
 				
 			}
 		});

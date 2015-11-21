@@ -7,11 +7,13 @@ import java.util.Random;
 import java.util.Scanner;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import gui.MenuPrincipal;
 import gui.MenuReferee;
 import gui.MenuRegister;
 import gui.MenuSolo;
+import gui.PanelJeu;
 
 /**
  * Classe principal du programme.
@@ -105,6 +107,22 @@ public class Cluedo
 	public static void afficherGUIMenuReferee()
 	{
 		fenetrePrincipal.setContentPane(new MenuReferee());
+		fenetrePrincipal.pack();
+	}
+	
+	public static void afficherGUIJeu()
+	{
+		PanelJeu panelJeu = new PanelJeu();
+		//juste pour tester pr le moment
+		//TEST
+		Joueur j = new Humain("Raikken");
+		for(Carte c : Carte.creerPaquetDeCartes())
+		{
+			j.ajouterCarte(c);
+		}
+		panelJeu.setJoueur(j);
+		//FTEST
+		fenetrePrincipal.setContentPane(panelJeu);
 		fenetrePrincipal.pack();
 	}
 	

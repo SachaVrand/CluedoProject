@@ -41,6 +41,11 @@ public class Carte {
 		return this.nom;
 	}
 	
+	public Icon getImage()
+	{
+		return this.image;
+	}
+	
 	@Override
 	public boolean equals(Object o)
 	{
