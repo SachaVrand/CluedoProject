@@ -1,12 +1,17 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.PrintStream;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,14 +25,18 @@ import principal.TextAreaOutputStream;
 public class PanelJeu extends JPanel{
 	
 	private JTextArea txtConsole;
-	private List<JLabel> listeJoueurs;
+	private List<JLabel> listeLabelsJoueurs;
+	private List<Joueur> listeJoueurs;
 	private Joueur joueur;
 	private JButton btnShow;
 	private boolean isCardsPanelDisplayed;
+	private PanelCartes panelCards;
 	
-	public PanelJeu()
+	public PanelJeu(Joueur j, List<Joueur> listeJoueurs)
 	{
 		super(new BorderLayout());
+		this.joueur = j;
+		this.listeJoueurs = listeJoueurs;
 		this.load();
 		this.loadListeners();
 		System.setOut(new PrintStream(new TextAreaOutputStream(txtConsole)));
@@ -35,22 +44,23 @@ public class PanelJeu extends JPanel{
 	
 	private void load()
 	{
-		JPanel panelPrincipal = new JPanel(new BorderLayout());
+		JPanel panelBoutons = new JPanel(new FlowLayout());
+		JPanel panelIconesJoueurs = new JPanel();
+		JPanel panelConsole = new JPanel(new FlowLayout());
+		panelIconesJoueurs.setLayout(new BoxLayout(panelIconesJoueurs, BoxLayout.PAGE_AXIS));
+		panelCards = new PanelCartes(joueur.getCartesJoueur(), false);
+		panelCards.setVisible(false);
 		txtConsole = new JTextArea();
 		txtConsole.setPreferredSize(new Dimension(500, 200));
 		txtConsole.setEditable(false);
+		txtConsole.setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		btnShow = new JButton("Show my cards");
 		
-		panelPrincipal.add(txtConsole);
-		//warning si le bouton change de parent, le code du listener devra changer
-		panelPrincipal.add(btnShow,BorderLayout.SOUTH);
-		
-		JPanel panelIconesJoueurs = new JPanel();
-		panelIconesJoueurs.setLayout(new BoxLayout(panelIconesJoueurs, BoxLayout.PAGE_AXIS));
-		
-		panelPrincipal.add(panelIconesJoueurs,BorderLayout.EAST);
-		this.add(panelPrincipal,BorderLayout.CENTER);
-		
+		panelConsole.add(txtConsole);
+		panelBoutons.add(btnShow);
+		this.add(panelConsole,BorderLayout.NORTH);
+		this.add(panelBoutons,BorderLayout.CENTER);
+		this.add(panelCards, BorderLayout.SOUTH);
 	}
 	
 	private void loadListeners()
@@ -64,14 +74,18 @@ public class PanelJeu extends JPanel{
 				{
 					if(isCardsPanelDisplayed)
 					{
-						//retirer
+						isCardsPanelDisplayed = false;
+						panelCards.setVisible(false);
+						JButton tmpBtn = (JButton)e.getSource();
+						JFrame tmpMainFrame = (JFrame)tmpBtn.getTopLevelAncestor();
+						tmpMainFrame.pack();
 					}
 					else
 					{
 						isCardsPanelDisplayed = true;
-						JButton tmpBtnShow = (JButton)e.getSource();
-						tmpBtnShow.getParent().add(new PanelCartes(joueur.getCartesJoueur()), BorderLayout.WEST);
-						JFrame tmpMainFrame = (JFrame)tmpBtnShow.getTopLevelAncestor();
+						panelCards.setVisible(true);
+						JButton tmpBtn = (JButton)e.getSource();
+						JFrame tmpMainFrame = (JFrame)tmpBtn.getTopLevelAncestor();
 						tmpMainFrame.pack();
 					}
 				}

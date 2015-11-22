@@ -112,7 +112,6 @@ public class Cluedo
 	
 	public static void afficherGUIJeu()
 	{
-		PanelJeu panelJeu = new PanelJeu();
 		//juste pour tester pr le moment
 		//TEST
 		Joueur j = new Humain("Raikken");
@@ -120,8 +119,9 @@ public class Cluedo
 		{
 			j.ajouterCarte(c);
 		}
-		panelJeu.setJoueur(j);
 		//FTEST
+		PanelJeu panelJeu = new PanelJeu(j,null);
+		
 		fenetrePrincipal.setContentPane(panelJeu);
 		fenetrePrincipal.pack();
 	}
