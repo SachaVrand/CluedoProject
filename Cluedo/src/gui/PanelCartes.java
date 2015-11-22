@@ -16,7 +16,6 @@ import principal.Suspect;
 
 public class PanelCartes extends JPanel{
 	
-	private List<Carte> listeCartes;
 	private List<JLabel> listeLblCartes;
 	private boolean areListened;
 	
@@ -24,13 +23,12 @@ public class PanelCartes extends JPanel{
 	public PanelCartes(List<Carte> listeCartes, boolean areListened)
 	{
 		super(new FlowLayout());
-		this.listeCartes = listeCartes;
 		this.listeLblCartes = new ArrayList<JLabel>();
 		this.areListened = areListened;
-		this.load();
+		this.load(listeCartes);
 	}
 	
-	private void load()
+	private void load(List<Carte> listeCartes)
 	{
 		Collections.sort(listeCartes, new Comparator<Carte>() {
 

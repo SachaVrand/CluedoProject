@@ -20,7 +20,6 @@ import principal.Suspect;
 
 public class PanelAllCards extends JPanel{
 	
-	private List<Carte> listeCartes;
 	private List<JLabel> lblCartesSuspect;
 	private List<JLabel> lblCartesArme;
 	private List<JLabel> lblCartesLieu;
@@ -31,7 +30,6 @@ public class PanelAllCards extends JPanel{
 	public PanelAllCards()
 	{
 		super(new GridBagLayout());
-		this.listeCartes = Carte.creerPaquetDeCartes();
 		this.lblCartesArme = new ArrayList<JLabel>();
 		this.lblCartesLieu = new ArrayList<JLabel>();
 		this.lblCartesSuspect = new ArrayList<JLabel>();
@@ -123,6 +121,7 @@ public class PanelAllCards extends JPanel{
 	
 	private void loadLabelsCartes()
 	{
+		List<Carte> listeCartes = Carte.creerPaquetDeCartes();
 		for(Carte c : listeCartes)
 		{
 			JLabel tmp = new JLabel(c.getImage());
