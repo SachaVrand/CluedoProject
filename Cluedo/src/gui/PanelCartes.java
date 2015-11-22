@@ -60,53 +60,59 @@ public class PanelCartes extends JPanel{
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		
-		gbc.insets = new Insets(25, 25, 5, 25);
+		gbc.insets = new Insets(10, 15, 5, 15);
 		this.add(lblSuspects,gbc);
 		gbc.gridy++;
-		gbc.gridwidth = 6;
-		gbc.insets = new Insets(5, 5, 25, 5);
+		gbc.gridwidth = GridBagConstraints.REMAINDER;
+		gbc.insets = new Insets(5, 5, 10, 5);
+		gbc.fill = GridBagConstraints.HORIZONTAL;
 		JSeparator sepSuspect = new JSeparator();
 		sepSuspect.setPreferredSize(new Dimension(100, 1));
 		this.add(sepSuspect, gbc);
+		gbc.fill = GridBagConstraints.NONE;
 		gbc.gridwidth = 1;
 		gbc.gridy++;
-		gbc.insets = new Insets(25, 5, 25, 5);
+		gbc.insets = new Insets(10, 5, 10, 5);
 		for(JLabel lbl : lblCartesSuspect)
 		{
 			this.add(lbl, gbc);
 			gbc.gridx++;
 		}
 		gbc.gridy++;
-		gbc.insets = new Insets(25, 25, 5, 25);
+		gbc.insets = new Insets(10, 15, 5, 15);
 		gbc.gridx = 0;
 		this.add(lblArmes,gbc);
 		gbc.gridy++;
-		gbc.gridwidth = 6;
-		gbc.insets = new Insets(5, 5, 25, 5);
+		gbc.gridwidth = GridBagConstraints.REMAINDER;
+		gbc.insets = new Insets(5, 5, 10, 5);
+		gbc.fill = GridBagConstraints.HORIZONTAL;
 		JSeparator sepArmes = new JSeparator();
 		sepArmes.setPreferredSize(new Dimension(100, 1));
 		this.add(sepArmes, gbc);
+		gbc.fill = GridBagConstraints.NONE;
 		gbc.gridwidth = 1;
 		gbc.gridy++;
-		gbc.insets = new Insets(25, 5, 25, 5);
+		gbc.insets = new Insets(10, 5, 10, 5);
 		for(JLabel lbl : lblCartesArme)
 		{
 			this.add(lbl, gbc);
 			gbc.gridx++;
 		}
 		gbc.gridy++;
-		gbc.insets = new Insets(25, 25, 5, 25);
+		gbc.insets = new Insets(10, 15, 5, 15);
 		gbc.gridx = 0;
 		this.add(lblLieux,gbc);
 		gbc.gridy++;
-		gbc.gridwidth = 6;
-		gbc.insets = new Insets(5, 5, 25, 5);
+		gbc.gridwidth = GridBagConstraints.REMAINDER;
+		gbc.insets = new Insets(5, 5, 10, 5);
+		gbc.fill = GridBagConstraints.HORIZONTAL;
 		JSeparator sepLieux = new JSeparator();
 		sepLieux.setPreferredSize(new Dimension(100, 1));
 		this.add(sepLieux, gbc);
+		gbc.fill = GridBagConstraints.NONE;
 		gbc.gridwidth = 1;
 		gbc.gridy++;
-		gbc.insets = new Insets(25, 5, 25, 5);
+		gbc.insets = new Insets(10, 5, 10, 5);
 		for(JLabel lbl : lblCartesLieu)
 		{
 			this.add(lbl, gbc);
@@ -136,7 +142,7 @@ public class PanelCartes extends JPanel{
 			{
 				if(mlLieu != null)
 					tmp.addMouseListener(mlLieu);
-				lblCartesSuspect.add(tmp);
+				lblCartesLieu.add(tmp);
 			}
 		}
 	}
