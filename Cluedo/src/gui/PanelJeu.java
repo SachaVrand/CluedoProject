@@ -31,7 +31,6 @@ public class PanelJeu extends JPanel{
 		this.load();
 		this.loadListeners();
 		System.setOut(new PrintStream(new TextAreaOutputStream(txtConsole)));
-		isCardsPanelDisplayed = false;
 	}
 	
 	private void load()
@@ -39,6 +38,7 @@ public class PanelJeu extends JPanel{
 		JPanel panelPrincipal = new JPanel(new BorderLayout());
 		txtConsole = new JTextArea();
 		txtConsole.setPreferredSize(new Dimension(500, 200));
+		txtConsole.setEditable(false);
 		btnShow = new JButton("Show my cards");
 		
 		panelPrincipal.add(txtConsole);
@@ -70,7 +70,7 @@ public class PanelJeu extends JPanel{
 					{
 						isCardsPanelDisplayed = true;
 						JButton tmpBtnShow = (JButton)e.getSource();
-						tmpBtnShow.getParent().add(new PanelCartesJoueur(joueur), BorderLayout.WEST);
+						tmpBtnShow.getParent().add(new PanelCartes(joueur.getCartesJoueur()), BorderLayout.WEST);
 						JFrame tmpMainFrame = (JFrame)tmpBtnShow.getTopLevelAncestor();
 						tmpMainFrame.pack();
 					}
