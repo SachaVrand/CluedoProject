@@ -119,7 +119,7 @@ public class PanelAllCards extends JPanel implements ActionListener{
 			JButton tmp = new JButton(c.getImage());
 			tmp.setName(c.getNom());
 			tmp.setContentAreaFilled(false);
-			tmp.setBorder(BorderFactory.createLineBorder(Color.red, 1));
+			tmp.setBorder(BorderFactory.createLineBorder(Color.red, 2));
 			tmp.setBorderPainted(false);
 			if(!areListened)
 				tmp.setFocusPainted(false);

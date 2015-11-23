@@ -1,5 +1,6 @@
 package principal;
 import java.awt.Dimension;
+import java.awt.Point;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +9,8 @@ import java.util.Scanner;
 
 import javax.swing.JFrame;
 
+import gui.FenetreJouer;
+import gui.FenetreRefuter;
 import gui.MenuPrincipal;
 import gui.MenuReferee;
 import gui.MenuRegister;
@@ -118,6 +121,11 @@ public class Cluedo
 		{
 			j.ajouterCarte(c);
 		}
+		ArrayList<Carte> tmpLst = new ArrayList<>();
+		tmpLst.add(Carte.retrouverCarte("White"));
+		tmpLst.add(Carte.retrouverCarte("Rope"));
+		JFrame fentest1 = new FenetreJouer(new Point(0, 0));
+		JFrame fentest2 = new FenetreRefuter(tmpLst,new Point(0, 0));
 		//FTEST
 		PanelJeu panelJeu = new PanelJeu(j,null);
 		

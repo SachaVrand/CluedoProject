@@ -4,31 +4,31 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import principal.Cluedo;
 import principal.Joueur;
 import principal.TextAreaOutputStream;
 
 public class PanelJeu extends JPanel{
 	
 	private JTextArea txtConsole;
-	private List<JLabel> listeLabelsJoueurs;
+	private List<PlayerIcon> listeIconesJoueurs;
 	private List<Joueur> listeJoueurs;
 	private Joueur joueur;
 	private JButton btnShow;
+	private JButton btnQuit;
 	private boolean isCardsPanelDisplayed;
 	private PanelCartes panelCards;
 	
@@ -48,6 +48,11 @@ public class PanelJeu extends JPanel{
 		JPanel panelIconesJoueurs = new JPanel();
 		JPanel panelConsole = new JPanel(new FlowLayout());
 		panelIconesJoueurs.setLayout(new BoxLayout(panelIconesJoueurs, BoxLayout.PAGE_AXIS));
+		loadLabelsJoueurs();
+		for(PlayerIcon lbl : listeIconesJoueurs)
+		{
+			panelIconesJoueurs.add(lbl);
+		}
 		panelCards = new PanelCartes(joueur.getCartesJoueur(), true);
 		panelCards.setVisible(false);
 		txtConsole = new JTextArea();
@@ -55,12 +60,14 @@ public class PanelJeu extends JPanel{
 		txtConsole.setEditable(false);
 		txtConsole.setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		btnShow = new JButton("Show my cards");
+		btnQuit = new JButton("Quit");
 		
 		panelConsole.add(txtConsole);
 		panelBoutons.add(btnShow);
 		this.add(panelConsole,BorderLayout.NORTH);
 		this.add(panelBoutons,BorderLayout.CENTER);
 		this.add(panelCards, BorderLayout.SOUTH);
+		//TODO ajouter panel icones joueurs
 	}
 	
 	private void loadListeners()
@@ -69,7 +76,6 @@ public class PanelJeu extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//TODO afficher mes cartes.
 				if(joueur != null)
 				{
 					if(isCardsPanelDisplayed)
@@ -91,13 +97,29 @@ public class PanelJeu extends JPanel{
 				}
 			}
 		});
-	}
-	
-	public void ajouterIconesJoueurs(List<String> listeNomsJoueurs)
-	{
 		
+		btnQuit.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Cluedo.afficherGUIMenuPrincipal();
+				//TODO SEND EXIT
+				
+			}
+		});
 	}
 
+	private void loadLabelsJoueurs()
+	{
+		listeIconesJoueurs = new ArrayList<PlayerIcon>();
+		for(Joueur j : listeJoueurs)
+		{
+			//NEED IMG PR LBL
+			PlayerIcon tmp = new PlayerIcon(j);
+			listeIconesJoueurs.add(tmp);
+		}
+	}
+	
 	public void setJoueur(Joueur j)
 	{
 		this.joueur = j;

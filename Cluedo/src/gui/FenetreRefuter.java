@@ -20,7 +20,7 @@ public class FenetreRefuter extends JFrame{
 	
 	public FenetreRefuter(List<Carte> listeCartesCommun, Point location)
 	{
-		super("A vous de réfuter !");
+		super("You have to refute!");
 		this.load(listeCartesCommun,location);
 		this.loadListener();
 	}
@@ -34,9 +34,9 @@ public class FenetreRefuter extends JFrame{
 		panelCartes = new PanelCartes(listeCartesCommun, true);
 		panelRefuter.add(panelCartes);
 		panelButton.add(btnShow);
-		this.add(panelButton,BorderLayout.SOUTH);
-		this.add(panelCartes,BorderLayout.NORTH);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.getContentPane().add(panelButton,BorderLayout.SOUTH);
+		this.getContentPane().add(panelCartes,BorderLayout.NORTH);
+		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		this.setResizable(false);
 		this.setLocation(location);
 		this.setVisible(true);
