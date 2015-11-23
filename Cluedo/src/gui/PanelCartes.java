@@ -1,12 +1,16 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import javax.swing.JLabel;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import principal.Arme;
@@ -14,16 +18,17 @@ import principal.Carte;
 import principal.Lieu;
 import principal.Suspect;
 
-public class PanelCartes extends JPanel{
+public class PanelCartes extends JPanel implements ActionListener{
 	
-	private List<JLabel> listeLblCartes;
+	private List<JButton> listeBtnCartes;
 	private boolean areListened;
+	private JButton highlightedCard = null;
 	
 	
 	public PanelCartes(List<Carte> listeCartes, boolean areListened)
 	{
 		super(new FlowLayout());
-		this.listeLblCartes = new ArrayList<JLabel>();
+		this.listeBtnCartes = new ArrayList<JButton>();
 		this.areListened = areListened;
 		this.load(listeCartes);
 	}
@@ -76,15 +81,32 @@ public class PanelCartes extends JPanel{
 		
 		for(Carte c : listeCartes)
 		{
-			JLabel tmp = new JLabel(c.getImage());
+			JButton tmp = new JButton(c.getImage());
 			tmp.setName(c.getNom());
-			listeLblCartes.add(tmp);
+			tmp.setContentAreaFilled(false);
+			if(!areListened)
+				tmp.setFocusPainted(false);
+			tmp.setBorderPainted(false);
+			tmp.setBorder(BorderFactory.createLineBorder(Color.red, 2));
+			listeBtnCartes.add(tmp);
 			if(areListened)
 			{
-				//ajouter listener
+				tmp.addActionListener(this);
 			}
 			this.add(tmp);
 		}
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(highlightedCard != null)
+			highlightedCard.setBorderPainted(false);
+		highlightedCard = (JButton)e.getSource();
+		highlightedCard.setBorderPainted(true);		
+	}
+	
+	public JButton getHighlightedCard() {
+		return highlightedCard;
 	}
 
 }

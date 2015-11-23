@@ -7,7 +7,6 @@ import java.util.Random;
 import java.util.Scanner;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import gui.MenuPrincipal;
 import gui.MenuReferee;

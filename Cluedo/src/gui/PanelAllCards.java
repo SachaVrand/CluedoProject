@@ -1,14 +1,17 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.MouseListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.security.auth.login.CredentialExpiredException;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
@@ -18,36 +21,25 @@ import principal.Carte;
 import principal.Lieu;
 import principal.Suspect;
 
-public class PanelAllCards extends JPanel{
+public class PanelAllCards extends JPanel implements ActionListener{
 	
-	private List<JLabel> lblCartesSuspect;
-	private List<JLabel> lblCartesArme;
-	private List<JLabel> lblCartesLieu;
-	private MouseListener mlSuspect = null;
-	private MouseListener mlLieu = null;
-	private MouseListener mlArme = null;
+	private List<JButton> lstBtnCartesSuspect;
+	private List<JButton> lstBtnCartesArme;
+	private List<JButton> lstBtnCartesLieu;
+	private boolean areListened;
+	private JButton highlightedCardArme = null;
+	private JButton highlightedCardSuspect = null;
+	private JButton highlightedCardLieu = null;
 	
-	public PanelAllCards()
+	public PanelAllCards(boolean areListened)
 	{
 		super(new GridBagLayout());
-		this.lblCartesArme = new ArrayList<JLabel>();
-		this.lblCartesLieu = new ArrayList<JLabel>();
-		this.lblCartesSuspect = new ArrayList<JLabel>();
+		this.areListened = areListened;
+		this.lstBtnCartesArme = new ArrayList<JButton>();
+		this.lstBtnCartesLieu = new ArrayList<JButton>();
+		this.lstBtnCartesSuspect = new ArrayList<JButton>();
 		this.load();
 	}
-	
-	/*public PanelAllCards(List<Carte> listeCartes, MouseListener mlSuspect, MouseListener mlArme, MouseListener mlLieu)
-	{
-		super(new GridBagLayout());
-		this.listeCartes = listeCartes;
-		this.lblCartesArme = new ArrayList<JLabel>();
-		this.lblCartesLieu = new ArrayList<JLabel>();
-		this.lblCartesSuspect = new ArrayList<JLabel>();
-		this.mlArme = mlArme;
-		this.mlSuspect = mlSuspect;
-		this.mlLieu = mlLieu;
-		this.load();
-	}*/
 	
 	private void load()
 	{
@@ -72,9 +64,9 @@ public class PanelAllCards extends JPanel{
 		gbc.gridwidth = 1;
 		gbc.gridy++;
 		gbc.insets = new Insets(10, 5, 10, 5);
-		for(JLabel lbl : lblCartesSuspect)
+		for(JButton btn : lstBtnCartesSuspect)
 		{
-			this.add(lbl, gbc);
+			this.add(btn, gbc);
 			gbc.gridx++;
 		}
 		gbc.gridy++;
@@ -92,9 +84,9 @@ public class PanelAllCards extends JPanel{
 		gbc.gridwidth = 1;
 		gbc.gridy++;
 		gbc.insets = new Insets(10, 5, 10, 5);
-		for(JLabel lbl : lblCartesArme)
+		for(JButton btn : lstBtnCartesArme)
 		{
-			this.add(lbl, gbc);
+			this.add(btn, gbc);
 			gbc.gridx++;
 		}
 		gbc.gridy++;
@@ -112,9 +104,9 @@ public class PanelAllCards extends JPanel{
 		gbc.gridwidth = 1;
 		gbc.gridy++;
 		gbc.insets = new Insets(10, 5, 10, 5);
-		for(JLabel lbl : lblCartesLieu)
+		for(JButton btn : lstBtnCartesLieu)
 		{
-			this.add(lbl, gbc);
+			this.add(btn, gbc);
 			gbc.gridx++;
 		}
 	}
@@ -124,27 +116,68 @@ public class PanelAllCards extends JPanel{
 		List<Carte> listeCartes = Carte.creerPaquetDeCartes();
 		for(Carte c : listeCartes)
 		{
-			JLabel tmp = new JLabel(c.getImage());
+			JButton tmp = new JButton(c.getImage());
 			tmp.setName(c.getNom());
+			tmp.setContentAreaFilled(false);
+			tmp.setBorder(BorderFactory.createLineBorder(Color.red, 1));
+			tmp.setBorderPainted(false);
+			if(!areListened)
+				tmp.setFocusPainted(false);
 			if(c instanceof Suspect)
 			{
-				if(mlSuspect != null) 
-					tmp.addMouseListener(mlSuspect);
-				lblCartesSuspect.add(tmp);
+				if(areListened) 
+					tmp.addActionListener(this);
+				lstBtnCartesSuspect.add(tmp);
 			}
 			else if(c instanceof Arme)
 			{
-				if(mlArme != null)
-					tmp.addMouseListener(mlArme);
-				lblCartesArme.add(tmp);
+				if(areListened)
+					tmp.addActionListener(this);
+				lstBtnCartesArme.add(tmp);
 			}
 			else if(c instanceof Lieu)
 			{
-				if(mlLieu != null)
-					tmp.addMouseListener(mlLieu);
-				lblCartesLieu.add(tmp);
+				if(areListened)
+					tmp.addActionListener(this);
+				lstBtnCartesLieu.add(tmp);
 			}
 		}
 	}
 
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(lstBtnCartesArme.contains((JButton)e.getSource()))
+		{
+			if(highlightedCardArme != null)
+				highlightedCardArme.setBorderPainted(false);
+			highlightedCardArme = (JButton)e.getSource();
+			highlightedCardArme.setBorderPainted(true);
+		}
+		else if(lstBtnCartesLieu.contains((JButton)e.getSource()))
+		{
+			if(highlightedCardLieu != null)
+				highlightedCardLieu.setBorderPainted(false);
+			highlightedCardLieu = (JButton)e.getSource();
+			highlightedCardLieu.setBorderPainted(true);
+		}
+		else if(lstBtnCartesSuspect.contains((JButton)e.getSource()))
+		{
+			if(highlightedCardSuspect != null)
+				highlightedCardSuspect.setBorderPainted(false);
+			highlightedCardSuspect = (JButton)e.getSource();
+			highlightedCardSuspect.setBorderPainted(true);
+		}
+	}
+	
+	public JButton getHighlightedCardArme() {
+		return highlightedCardArme;
+	}
+	
+	public JButton getHighlightedCardLieu() {
+		return highlightedCardLieu;
+	}
+
+	public JButton getHighlightedCardSuspect() {
+		return highlightedCardSuspect;
+	}
 }

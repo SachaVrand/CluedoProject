@@ -1,29 +1,58 @@
 package gui;
 
+import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import principal.Carte;
 
 public class FenetreRefuter extends JFrame{
 	
-	public FenetreRefuter(List<Carte> listeCartesCommun)
+	private JButton btnShow;
+	private PanelCartes panelCartes;
+	
+	public FenetreRefuter(List<Carte> listeCartesCommun, Point location)
 	{
 		super("A vous de réfuter !");
-		this.load(listeCartesCommun);
+		this.load(listeCartesCommun,location);
+		this.loadListener();
 	}
 	
-	private void load(List<Carte> listeCartesCommun)
+	private void load(List<Carte> listeCartesCommun, Point location)
 	{
-		this.setLayout(new FlowLayout());
-		this.add(new PanelCartes(listeCartesCommun, true));
+		btnShow = new JButton("show");
+		this.setLayout(new BorderLayout());
+		JPanel panelRefuter = new JPanel(new FlowLayout());
+		JPanel panelButton = new JPanel(new FlowLayout());
+		panelCartes = new PanelCartes(listeCartesCommun, true);
+		panelRefuter.add(panelCartes);
+		panelButton.add(btnShow);
+		this.add(panelButton,BorderLayout.SOUTH);
+		this.add(panelCartes,BorderLayout.NORTH);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
-		//TODO set location
+		this.setLocation(location);
 		this.setVisible(true);
 		this.pack();
+	}
+	
+	private void loadListener()
+	{
+		btnShow.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//TODO 
+				
+			}
+		});
 	}
 
 }

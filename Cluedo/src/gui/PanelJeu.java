@@ -48,7 +48,7 @@ public class PanelJeu extends JPanel{
 		JPanel panelIconesJoueurs = new JPanel();
 		JPanel panelConsole = new JPanel(new FlowLayout());
 		panelIconesJoueurs.setLayout(new BoxLayout(panelIconesJoueurs, BoxLayout.PAGE_AXIS));
-		panelCards = new PanelCartes(joueur.getCartesJoueur(), false);
+		panelCards = new PanelCartes(joueur.getCartesJoueur(), true);
 		panelCards.setVisible(false);
 		txtConsole = new JTextArea();
 		txtConsole.setPreferredSize(new Dimension(500, 200));
