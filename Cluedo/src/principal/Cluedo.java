@@ -127,7 +127,8 @@ public class Cluedo
 		JFrame fentest1 = new FenetreJouer(new Point(0, 0));
 		JFrame fentest2 = new FenetreRefuter(tmpLst,new Point(0, 0));
 		//FTEST
-		PanelJeu panelJeu = new PanelJeu(j,null);
+		
+		PanelJeu panelJeu = new PanelJeu(j,new ArrayList<Joueur>());
 		
 		fenetrePrincipal.setContentPane(panelJeu);
 		fenetrePrincipal.pack();

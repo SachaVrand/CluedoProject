@@ -15,7 +15,7 @@ public class PlayerIcon extends JLabel implements MouseListener{
 	{
 		super();
 		joueur = j;
-		//seticon
+		//TODO seticon
 		this.setName(joueur.getNom());
 		this.addMouseListener(this);
 	}

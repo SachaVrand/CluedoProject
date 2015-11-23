@@ -45,6 +45,7 @@ public class PanelJeu extends JPanel{
 	private void load()
 	{
 		JPanel panelBoutons = new JPanel(new FlowLayout());
+		JPanel panelPrincipal = new JPanel(new BorderLayout());
 		JPanel panelIconesJoueurs = new JPanel();
 		JPanel panelConsole = new JPanel(new FlowLayout());
 		panelIconesJoueurs.setLayout(new BoxLayout(panelIconesJoueurs, BoxLayout.PAGE_AXIS));
@@ -64,10 +65,12 @@ public class PanelJeu extends JPanel{
 		
 		panelConsole.add(txtConsole);
 		panelBoutons.add(btnShow);
-		this.add(panelConsole,BorderLayout.NORTH);
+		panelPrincipal.add(panelConsole,BorderLayout.WEST);
+		panelPrincipal.add(panelIconesJoueurs,BorderLayout.EAST);
+		this.add(panelPrincipal,BorderLayout.NORTH);
 		this.add(panelBoutons,BorderLayout.CENTER);
 		this.add(panelCards, BorderLayout.SOUTH);
-		//TODO ajouter panel icones joueurs
+		
 	}
 	
 	private void loadListeners()
@@ -114,7 +117,6 @@ public class PanelJeu extends JPanel{
 		listeIconesJoueurs = new ArrayList<PlayerIcon>();
 		for(Joueur j : listeJoueurs)
 		{
-			//NEED IMG PR LBL
 			PlayerIcon tmp = new PlayerIcon(j);
 			listeIconesJoueurs.add(tmp);
 		}
