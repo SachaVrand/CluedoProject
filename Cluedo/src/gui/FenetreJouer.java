@@ -15,6 +15,7 @@ public class FenetreJouer extends JFrame{
 	private PanelAllCards allCardsPane;
 	private JButton btnSuggest;
 	private JButton btnAccuse;
+	private String[] move = null;
 	
 	public FenetreJouer(Point location)
 	{
@@ -48,8 +49,13 @@ public class FenetreJouer extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
+				JButton arme = allCardsPane.getHighlightedCardArme();
+				JButton suspect = allCardsPane.getHighlightedCardSuspect();
+				JButton lieu = allCardsPane.getHighlightedCardLieu();
+				if(arme != null && lieu != null && suspect != null)
+				{
+					move = new String[]{"accuse",arme.getName(),lieu.getName(),suspect.getName()};
+				}
 			}
 		});
 		
@@ -57,7 +63,13 @@ public class FenetreJouer extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				JButton arme = allCardsPane.getHighlightedCardArme();
+				JButton suspect = allCardsPane.getHighlightedCardSuspect();
+				JButton lieu = allCardsPane.getHighlightedCardLieu();
+				if(arme != null && lieu != null && suspect != null)
+				{
+					move = new String[]{"suggest",arme.getName(),lieu.getName(),suspect.getName()};
+				}
 				
 			}
 		});

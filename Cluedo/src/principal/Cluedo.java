@@ -126,9 +126,16 @@ public class Cluedo
 		tmpLst.add(Carte.retrouverCarte("Rope"));
 		JFrame fentest1 = new FenetreJouer(new Point(0, 0));
 		JFrame fentest2 = new FenetreRefuter(tmpLst,new Point(0, 0));
+		ArrayList<Joueur> lstJoueurs = new ArrayList<>();
+		Humain r1 = new Humain("Raikken");
+		Humain r2 = new Humain("Raikken2");
+		r1.ajouterCarte(Carte.retrouverCarte("White"));
+		r2.ajouterCarte(Carte.retrouverCarte("Rope"));
+		lstJoueurs.add(r1);
+		lstJoueurs.add(r2);
 		//FTEST
 		
-		PanelJeu panelJeu = new PanelJeu(j,new ArrayList<Joueur>());
+		PanelJeu panelJeu = new PanelJeu(j,lstJoueurs);
 		
 		fenetrePrincipal.setContentPane(panelJeu);
 		fenetrePrincipal.pack();

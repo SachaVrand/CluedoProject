@@ -17,6 +17,7 @@ public class FenetreRefuter extends JFrame{
 	
 	private JButton btnShow;
 	private PanelCartes panelCartes;
+	private String refute = null;
 	
 	public FenetreRefuter(List<Carte> listeCartesCommun, Point location)
 	{
@@ -49,8 +50,11 @@ public class FenetreRefuter extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//TODO 
-				
+				JButton carte = panelCartes.getHighlightedCard();
+				if(carte != null)
+				{
+					refute = carte.getName();
+				}
 			}
 		});
 	}

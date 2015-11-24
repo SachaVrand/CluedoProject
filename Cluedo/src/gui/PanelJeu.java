@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -50,9 +51,11 @@ public class PanelJeu extends JPanel{
 		JPanel panelConsole = new JPanel(new FlowLayout());
 		panelIconesJoueurs.setLayout(new BoxLayout(panelIconesJoueurs, BoxLayout.PAGE_AXIS));
 		loadLabelsJoueurs();
+		panelIconesJoueurs.add(Box.createVerticalStrut(10));
 		for(PlayerIcon lbl : listeIconesJoueurs)
 		{
 			panelIconesJoueurs.add(lbl);
+			panelIconesJoueurs.add(Box.createVerticalStrut(10));
 		}
 		panelCards = new PanelCartes(joueur.getCartesJoueur(), true);
 		panelCards.setVisible(false);
