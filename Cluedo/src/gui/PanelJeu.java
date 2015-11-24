@@ -45,10 +45,11 @@ public class PanelJeu extends JPanel{
 	
 	private void load()
 	{
-		JPanel panelBoutons = new JPanel(new FlowLayout());
-		JPanel panelPrincipal = new JPanel(new BorderLayout());
+		JPanel panelBoutons = new JPanel(new BorderLayout());
+		JPanel panelPrincipal = new JPanel(new FlowLayout());
 		JPanel panelIconesJoueurs = new JPanel();
-		JPanel panelConsole = new JPanel(new FlowLayout());
+		JPanel panelConsole = new JPanel(new BorderLayout());
+		JPanel panelAhhhh = new JPanel(new FlowLayout());
 		panelIconesJoueurs.setLayout(new BoxLayout(panelIconesJoueurs, BoxLayout.PAGE_AXIS));
 		loadLabelsJoueurs();
 		panelIconesJoueurs.add(Box.createVerticalStrut(10));
@@ -68,6 +69,8 @@ public class PanelJeu extends JPanel{
 		
 		panelConsole.add(txtConsole);
 		panelBoutons.add(btnShow);
+		panelBoutons.add(btnQuit);
+		panelAhhhh.add(panelBoutons);
 		panelPrincipal.add(panelConsole,BorderLayout.WEST);
 		panelPrincipal.add(panelIconesJoueurs,BorderLayout.EAST);
 		this.add(panelPrincipal,BorderLayout.NORTH);

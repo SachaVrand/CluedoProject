@@ -44,17 +44,6 @@ public class PlayerIcon extends JLabel implements MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		/*if(!tooltipPerso.isVisible())
-		{
-			Point p = this.getLocationOnScreen();
-			p.x = p.x + this.getWidth();
-			tooltipPerso.setLocation(p);
-			tooltipPerso.setVisible(true);
-		}
-		else
-		{
-			tooltipPerso.setVisible(false);
-		}*/
 		
 		if(tooltipPerso.isVisible())
 		{
