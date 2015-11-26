@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -8,7 +9,10 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -16,6 +20,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import principal.Cluedo;
+import principal.Humain;
+import principal.Joueur;
+import principal.Ordi;
+import principal.PartieSolo;
 
 public class MenuSolo extends JPanel{
 	
@@ -103,12 +111,18 @@ public class MenuSolo extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+
 				int nivIA = (int) cbxNiveauIA.getSelectedItem();
 				int nbJoueurs = (int) cbxNbJoueurs.getSelectedItem();
 				String nom = tfNomJoueur.getText();
-				Cluedo.afficherGUIJeu();
-				
+				if(!nom.equals(""))
+				{
+					Cluedo.lancerPartie(nom, nivIA, nbJoueurs);		
+				}
+				else
+				{
+					tfNomJoueur.setBorder(BorderFactory.createLineBorder(Color.red));
+				}
 			}
 		});
 	}

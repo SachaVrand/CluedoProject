@@ -2,9 +2,10 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.PipedOutputStream;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,16 +16,18 @@ public class FenetreJouer extends JFrame{
 	private PanelAllCards allCardsPane;
 	private JButton btnSuggest;
 	private JButton btnAccuse;
-	private String[] move = null;
+	//private String[] move = null;
+	private PipedOutputStream pipeOut;
 	
-	public FenetreJouer(Point location)
+	public FenetreJouer()
 	{
 		super("Your turn!");
-		this.load(location);
+		this.load();
 		this.loadListeners();
+		pipeOut = new PipedOutputStream();
 	}
 	
-	private void load(Point location)
+	private void load()
 	{
 		this.btnAccuse = new JButton("Accuse");
 		this.btnSuggest = new JButton("Suggest");
@@ -38,8 +41,6 @@ public class FenetreJouer extends JFrame{
 		
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		this.setResizable(false);
-		this.setLocation(location);
-		this.setVisible(true);
 		this.pack();
 	}
 	
@@ -54,7 +55,13 @@ public class FenetreJouer extends JFrame{
 				JButton lieu = allCardsPane.getHighlightedCardLieu();
 				if(arme != null && lieu != null && suspect != null)
 				{
-					move = new String[]{"accuse",arme.getName(),lieu.getName(),suspect.getName()};
+					//move = new String[]{"accuse",arme.getName(),lieu.getName(),suspect.getName()};
+					try {
+						pipeOut.write(("move " + "accuse" + " " + arme.getName() + " " + lieu.getName() + " " + suspect.getName() + "\n").getBytes());
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			}
 		});
@@ -68,11 +75,24 @@ public class FenetreJouer extends JFrame{
 				JButton lieu = allCardsPane.getHighlightedCardLieu();
 				if(arme != null && lieu != null && suspect != null)
 				{
-					move = new String[]{"suggest",arme.getName(),lieu.getName(),suspect.getName()};
+					//move = new String[]{"suggest",arme.getName(),lieu.getName(),suspect.getName()};
+					try {
+						pipeOut.write(("move " + "suggest" + " " + arme.getName() + " " + lieu.getName() + " " + suspect.getName() + "\n").getBytes());
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 				
 			}
 		});
 	}
+	
+	/*public String[] getMove() {
+		return move;
+	}*/
 
+	public PipedOutputStream getPipeOut() {
+		return pipeOut;
+	}
 }

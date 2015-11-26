@@ -58,6 +58,7 @@ public class MenuPrincipal extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Cluedo.afficherGUIMenuSolo();
+				System.out.println(Thread.currentThread().getName());
 				
 			}
 		});
@@ -84,6 +85,7 @@ public class MenuPrincipal extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				//Cluedo.sc.close();
 				System.exit(0);
 			}
 		});

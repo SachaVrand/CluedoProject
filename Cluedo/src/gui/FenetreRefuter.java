@@ -2,9 +2,10 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.PipedOutputStream;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -17,16 +18,19 @@ public class FenetreRefuter extends JFrame{
 	
 	private JButton btnShow;
 	private PanelCartes panelCartes;
-	private String refute = null;
+	//private String refute = null;
+	private PipedOutputStream pipeOut;
 	
-	public FenetreRefuter(List<Carte> listeCartesCommun, Point location)
+	public FenetreRefuter(List<Carte> listeCartesCommun)
 	{
 		super("You have to refute!");
-		this.load(listeCartesCommun,location);
+		pipeOut = new PipedOutputStream();
+		this.load(listeCartesCommun);
 		this.loadListener();
+		
 	}
 	
-	private void load(List<Carte> listeCartesCommun, Point location)
+	private void load(List<Carte> listeCartesCommun)
 	{
 		btnShow = new JButton("show");
 		this.setLayout(new BorderLayout());
@@ -39,8 +43,6 @@ public class FenetreRefuter extends JFrame{
 		this.getContentPane().add(panelCartes,BorderLayout.NORTH);
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		this.setResizable(false);
-		this.setLocation(location);
-		this.setVisible(true);
 		this.pack();
 	}
 	
@@ -53,10 +55,23 @@ public class FenetreRefuter extends JFrame{
 				JButton carte = panelCartes.getHighlightedCard();
 				if(carte != null)
 				{
-					refute = carte.getName();
+					//refute = carte.getName();
+					try {
+						pipeOut.write(("show " + carte.getName() + "\n").getBytes());
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			}
 		});
 	}
-
+	
+	/*public String getRefute() {
+		return refute;
+	}*/
+	
+	public PipedOutputStream getPipeOut() {
+		return pipeOut;
+	}
 }

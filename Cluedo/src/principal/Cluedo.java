@@ -1,13 +1,15 @@
 package principal;
 import java.awt.Dimension;
-import java.awt.Point;
 import java.io.IOException;
+import java.io.PipedInputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 import gui.FenetreJouer;
 import gui.FenetreRefuter;
@@ -26,8 +28,23 @@ import gui.PanelJeu;
  */
 public class Cluedo
 {
-
+	public static int mode;
+	
+	public final static int GUI_MODE = 1;
+	
+	public final static int CONSOLE_MODE = 2;
+	
+	private static FenetreRefuter fenRefuter;
+	
+	private static FenetreJouer fenJouer;
+	
+	/**
+	 * Fenetre principal du programme sous forme graphique.
+	 */
 	private static JFrame fenetrePrincipal = null;
+	
+	public static Dimension screenSize = null;
+	
 	/**
 	 * Scanner permettant de récupérer les commandes entrées par l'utilisateur. Ouvert au démarrage et fermée à la fin du programme.
 	 */
@@ -46,22 +63,19 @@ public class Cluedo
 		}
 		else if(args.length == 0 || (args.length == 1 && args[0].equals("-gui")) )
 		{
-			fenetrePrincipal = new JFrame("Cluedo 1.0");
-			fenetrePrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			fenetrePrincipal.setResizable(false);
-			afficherGUIMenuPrincipal();
-			Dimension dim = fenetrePrincipal.getToolkit().getScreenSize(); 
-			fenetrePrincipal.setLocation((dim.width/2)-(fenetrePrincipal.getWidth()/2), (dim.height/2)-(fenetrePrincipal.getHeight()/2));
-			fenetrePrincipal.setVisible(true);
+			mode = GUI_MODE;
+			afficherFenPrincipal();
+			System.out.println(Thread.currentThread().getName());
 		}
 		else if(args.length == 1 && args[0].equals("-console"))
 		{
+			mode = CONSOLE_MODE;
 			menuModeConsole();
 		}
 		else
 		{
 			System.out.println("Un seul paramètre requis sur la ligne de commande, -gui ou -console.");
-			System.exit(1);;
+			System.exit(1);
 		}
 	}
 	
@@ -88,57 +102,184 @@ public class Cluedo
 		System.out.println("\t Afficher ce message.\n");
 	}
 	
+	public static void desafficherFenRefuter()
+	{
+		if(fenRefuter != null)
+		{
+			fenRefuter.setVisible(false);
+			fenRefuter = null;
+		}
+	}
+	
+	public static void desafficherFenJouer()
+	{
+		if(fenJouer != null)
+		{
+			fenJouer.setVisible(false);
+			fenJouer = null;
+		}
+	}
+	
+	public static void afficherFenPrincipal()
+	{
+		SwingUtilities.invokeLater(new Runnable() {
+			
+			@Override
+			public void run() {
+				
+				fenetrePrincipal = new JFrame("Cluedo 1.0");
+				fenetrePrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				fenetrePrincipal.setResizable(false);
+				afficherGUIMenuPrincipal();
+				screenSize = fenetrePrincipal.getToolkit().getScreenSize(); 
+				fenetrePrincipal.setLocation((screenSize.width/2)-(fenetrePrincipal.getWidth()/2), (screenSize.height/2)-(fenetrePrincipal.getHeight()/2));
+				fenetrePrincipal.setVisible(true);
+			}
+		});
+	}
+	
 	public static void afficherGUIMenuPrincipal()
 	{
-		fenetrePrincipal.setContentPane(new MenuPrincipal());
-		fenetrePrincipal.pack();
+		SwingUtilities.invokeLater(new Runnable() {
+			
+			@Override
+			public void run() {
+				fenetrePrincipal.setContentPane(new MenuPrincipal());
+				fenetrePrincipal.pack();
+			}
+		});
+		
 	}
 	
 	public static void afficherGUIMenuSolo()
 	{
-		fenetrePrincipal.setContentPane(new MenuSolo());
-		fenetrePrincipal.pack();
+		SwingUtilities.invokeLater(new Runnable() {
+			
+			@Override
+			public void run() {
+				fenetrePrincipal.setContentPane(new MenuSolo());
+				fenetrePrincipal.pack();
+			}
+		});
+		
 	}
 	
 	public static void afficherGUIMenuRegister()
 	{
-		fenetrePrincipal.setContentPane(new MenuRegister());
-		fenetrePrincipal.pack();
+		SwingUtilities.invokeLater(new Runnable() {
+			
+			@Override
+			public void run() {
+				fenetrePrincipal.setContentPane(new MenuRegister());
+				fenetrePrincipal.pack();
+			}
+		});
+		
 	}
 	
 	public static void afficherGUIMenuReferee()
 	{
-		fenetrePrincipal.setContentPane(new MenuReferee());
-		fenetrePrincipal.pack();
+		SwingUtilities.invokeLater(new Runnable() {
+			
+			@Override
+			public void run() {
+				fenetrePrincipal.setContentPane(new MenuReferee());
+				fenetrePrincipal.pack();
+			}
+		});
+		
 	}
 	
-	public static void afficherGUIJeu()
-	{
-		//juste pour tester pr le moment
-		//TEST
-		Joueur j = new Humain("Raikken");
-		for(Carte c : Carte.creerPaquetDeCartes())
-		{
-			j.ajouterCarte(c);
+	public static void afficherFenJouer()
+	{	
+		try {
+			SwingUtilities.invokeAndWait(new Runnable() {
+				
+				@Override
+				public void run() {
+					fenJouer = new FenetreJouer();
+					fenJouer.setLocation((Cluedo.screenSize.width/2) - fenJouer.getWidth()/2, (Cluedo.screenSize.height/2) - fenJouer.getHeight()/2);
+					fenJouer.setVisible(true);	
+				}
+			});
+		} catch (InvocationTargetException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
-		ArrayList<Carte> tmpLst = new ArrayList<>();
-		tmpLst.add(Carte.retrouverCarte("White"));
-		tmpLst.add(Carte.retrouverCarte("Rope"));
-		JFrame fentest1 = new FenetreJouer(new Point(0, 0));
-		JFrame fentest2 = new FenetreRefuter(tmpLst,new Point(0, 0));
-		ArrayList<Joueur> lstJoueurs = new ArrayList<>();
-		Humain r1 = new Humain("Raikken");
-		Humain r2 = new Humain("Raikken2");
-		r1.ajouterCarte(Carte.retrouverCarte("White"));
-		r2.ajouterCarte(Carte.retrouverCarte("Rope"));
-		lstJoueurs.add(r1);
-		lstJoueurs.add(r2);
-		//FTEST
-		
-		PanelJeu panelJeu = new PanelJeu(j,lstJoueurs);
-		
-		fenetrePrincipal.setContentPane(panelJeu);
-		fenetrePrincipal.pack();
+		try {
+			PipedInputStream pipeIn = new PipedInputStream();
+			pipeIn.connect(fenJouer.getPipeOut());
+			sc.close();
+			sc = new Scanner(pipeIn);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void afficherFenRefuter(final List<Carte> listeCartesCommun)
+	{
+		try {
+			SwingUtilities.invokeAndWait(new Runnable() {
+				
+				@Override
+				public void run() {
+					fenRefuter = new FenetreRefuter(listeCartesCommun);
+					fenRefuter.setLocation((Cluedo.screenSize.width/2) - fenRefuter.getWidth()/2, (Cluedo.screenSize.height/2) - fenRefuter.getHeight()/2);
+					fenRefuter.setVisible(true);
+				}
+			});
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			PipedInputStream pipeIn = new PipedInputStream();
+			pipeIn.connect(fenRefuter.getPipeOut());
+			sc.close();
+			sc = new Scanner(pipeIn);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void afficherGUIJeu(final List<Joueur> listeJoueurs, final Joueur j)
+	{	
+		SwingUtilities.invokeLater(new Runnable() {
+			
+			@Override
+			public void run() {
+				PanelJeu panelJeu = new PanelJeu(j,listeJoueurs);
+				fenetrePrincipal.setContentPane(panelJeu);
+				fenetrePrincipal.pack();
+			}
+		});
+	}
+	
+	public static void lancerPartie(final String nomJoueur, final int nivIA, final int nbJoueurs)
+	{
+		Thread threadJeu = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				List<Joueur> listeJoueurs = new ArrayList<Joueur>();
+				Joueur humain = new Humain(nomJoueur);
+				listeJoueurs.add(humain);
+				for(int i = 1; i < nbJoueurs; i++)
+				{
+					listeJoueurs.add(new Ordi("Joueur "+Integer.toString(i),nivIA));
+				}
+				PartieSolo partie = new PartieSolo(listeJoueurs);
+				afficherGUIJeu(listeJoueurs,humain);
+				partie.boucleJeu();
+			}
+		});
+		threadJeu.start();
 	}
 	
 	private static void menuModeConsole()

@@ -1,4 +1,5 @@
 package principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -26,6 +27,10 @@ public class Humain extends Joueur
 	@Override
 	public String[] jouerCoup()
 	{
+		if(Cluedo.mode == Cluedo.GUI_MODE)
+		{
+			Cluedo.afficherFenJouer();
+		}
 		String[] cmdComplete = null;
 		String cmd = "";
 		System.out.println("\n'help' pour plus d'informations sur les commandes disponibles");
@@ -77,6 +82,10 @@ public class Humain extends Joueur
 					{
 						String[] res = new String[]{cmdComplete[1],cartes[0].getNom(),cartes[1].getNom(),cartes[2].getNom()};
 						// return [0]option [1]arme [2]lieu [3]suspect
+						if(Cluedo.mode == Cluedo.GUI_MODE)
+						{
+							Cluedo.desafficherFenJouer();
+						}
 						return res;
 					}
 				}
@@ -90,8 +99,11 @@ public class Humain extends Joueur
 				System.out.println("Mauvaise commande");
 			}
 		}while(!cmd.equals("exit") || cmdComplete.length != 1);
+		if(Cluedo.mode == Cluedo.GUI_MODE)
+		{
+			Cluedo.desafficherFenJouer();
+		}
 		return null;
-		
 	}
 
 	/**
@@ -102,6 +114,15 @@ public class Humain extends Joueur
 	@Override
 	public String refuter(List<String> carteCommun)
 	{
+		if(Cluedo.mode == Cluedo.GUI_MODE)
+		{
+			ArrayList<Carte> listeCartesCommun = new ArrayList<Carte>();
+			for(String c : carteCommun)
+			{
+				listeCartesCommun.add(Carte.retrouverCarte(c));
+			}
+			Cluedo.afficherFenRefuter(listeCartesCommun);
+		}
 		String cmd = "";
 		String[] cmdComplete;
 		
@@ -144,6 +165,10 @@ public class Humain extends Joueur
 				System.out.println("Mauvaise commande !");
 			}
 		}while(true);
+		if(Cluedo.mode == Cluedo.GUI_MODE)
+		{
+			Cluedo.desafficherFenRefuter();
+		}
 		return cmdComplete[1];
 	}
 	

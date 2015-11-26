@@ -16,8 +16,9 @@ public class TextAreaOutputStream extends OutputStream{
 	
 	@Override
 	public void write(int b) throws IOException {
-		this.textArea.append(String.valueOf((char) b));
-		this.textArea.setCaretPosition(textArea.getDocument().getLength());	
+		String s = new String(new byte[]{(byte)b},"ISO8859_1");
+		this.textArea.append(s);
+		this.textArea.setCaretPosition(textArea.getDocument().getLength());
 	}
 
 }

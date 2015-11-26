@@ -16,7 +16,9 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.text.DefaultCaret;
 
 import principal.Cluedo;
 import principal.Joueur;
@@ -45,11 +47,10 @@ public class PanelJeu extends JPanel{
 	
 	private void load()
 	{
-		JPanel panelBoutons = new JPanel(new BorderLayout());
+		JPanel panelBoutons = new JPanel(new FlowLayout());
 		JPanel panelPrincipal = new JPanel(new FlowLayout());
 		JPanel panelIconesJoueurs = new JPanel();
 		JPanel panelConsole = new JPanel(new BorderLayout());
-		JPanel panelAhhhh = new JPanel(new FlowLayout());
 		panelIconesJoueurs.setLayout(new BoxLayout(panelIconesJoueurs, BoxLayout.PAGE_AXIS));
 		loadLabelsJoueurs();
 		panelIconesJoueurs.add(Box.createVerticalStrut(10));
@@ -60,17 +61,19 @@ public class PanelJeu extends JPanel{
 		}
 		panelCards = new PanelCartes(joueur.getCartesJoueur(), true);
 		panelCards.setVisible(false);
-		txtConsole = new JTextArea();
-		txtConsole.setPreferredSize(new Dimension(500, 200));
-		txtConsole.setEditable(false);
+		txtConsole = new JTextArea(15,50);
+		//txtConsole.setPreferredSize(new Dimension(500, 200));
+		txtConsole.setEditable(true);
 		txtConsole.setBorder(BorderFactory.createLineBorder(Color.black, 1));
+		JScrollPane scrollPane = new JScrollPane(txtConsole);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		((DefaultCaret)txtConsole.getCaret()).setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 		btnShow = new JButton("Show my cards");
 		btnQuit = new JButton("Quit");
 		
-		panelConsole.add(txtConsole);
+		panelConsole.add(scrollPane);
 		panelBoutons.add(btnShow);
 		panelBoutons.add(btnQuit);
-		panelAhhhh.add(panelBoutons);
 		panelPrincipal.add(panelConsole,BorderLayout.WEST);
 		panelPrincipal.add(panelIconesJoueurs,BorderLayout.EAST);
 		this.add(panelPrincipal,BorderLayout.NORTH);
@@ -112,7 +115,9 @@ public class PanelJeu extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Cluedo.afficherGUIMenuPrincipal();
-				//TODO SEND EXIT
+				Cluedo.desafficherFenJouer();
+				Cluedo.desafficherFenRefuter();
+				//TODO SEND EXIT ET LA ON VA SE MARRER !
 				
 			}
 		});
