@@ -2,7 +2,6 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,6 +14,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -26,6 +26,10 @@ import principal.TextAreaOutputStream;
 
 public class PanelJeu extends JPanel{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3738101737134996357L;
 	private JTextArea txtConsole;
 	private List<PlayerIcon> listeIconesJoueurs;
 	private List<Joueur> listeJoueurs;
@@ -62,14 +66,14 @@ public class PanelJeu extends JPanel{
 		panelCards = new PanelCartes(joueur.getCartesJoueur(), true);
 		panelCards.setVisible(false);
 		txtConsole = new JTextArea(15,50);
-		//txtConsole.setPreferredSize(new Dimension(500, 200));
-		txtConsole.setEditable(true);
+		txtConsole.setEditable(false);
 		txtConsole.setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		JScrollPane scrollPane = new JScrollPane(txtConsole);
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		((DefaultCaret)txtConsole.getCaret()).setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 		btnShow = new JButton("Show my cards");
 		btnQuit = new JButton("Quit");
+		btnQuit.setEnabled(false);
 		
 		panelConsole.add(scrollPane);
 		panelBoutons.add(btnShow);
@@ -118,7 +122,7 @@ public class PanelJeu extends JPanel{
 				Cluedo.desafficherFenJouer();
 				Cluedo.desafficherFenRefuter();
 				//TODO SEND EXIT ET LA ON VA SE MARRER !
-				
+				Cluedo.sendExitInGame();
 			}
 		});
 	}
@@ -133,9 +137,17 @@ public class PanelJeu extends JPanel{
 		}
 	}
 	
-	public void setJoueur(Joueur j)
+	public void setEnabledBtnQuit(boolean b)
 	{
-		this.joueur = j;
+		this.btnQuit.setEnabled(b);
+	}
+	
+	public void updatePlayersIcon()
+	{
+		for(PlayerIcon pl : listeIconesJoueurs)
+		{
+			pl.updateCardsForTooltip();
+		}
 	}
 	
 }

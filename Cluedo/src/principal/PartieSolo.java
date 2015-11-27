@@ -138,6 +138,10 @@ public class PartieSolo extends PartieHote {
 							}
 							System.out.println(j.getNom() + " montre : " + carteMontre);
 							
+							//Pour la gui, on retient les cartes qu'on nous a montré. Ne fait rien si la liste n'a pas été set;
+							joueursPartie.get(joueurActuel).updateKnownedCardForPlayer(i, carteMontre);
+							Cluedo.updatePanelJeu();
+							
 							//ajouter le fait que l'ordi a retenu la carte qu'on lui à montré, et qui lui a montré
 							if(joueursPartie.get(joueurActuel) instanceof Ordi)
 							{

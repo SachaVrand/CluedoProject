@@ -23,6 +23,10 @@ import principal.Suspect;
 
 public class PanelAllCards extends JPanel implements ActionListener{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 160299452614029965L;
 	private List<JButton> lstBtnCartesSuspect;
 	private List<JButton> lstBtnCartesArme;
 	private List<JButton> lstBtnCartesLieu;
@@ -119,24 +123,27 @@ public class PanelAllCards extends JPanel implements ActionListener{
 			JButton tmp = new JButton(c.getImage());
 			tmp.setName(c.getNom());
 			tmp.setContentAreaFilled(false);
-			tmp.setBorder(BorderFactory.createLineBorder(Color.red, 2));
+			
 			tmp.setBorderPainted(false);
 			if(!areListened)
 				tmp.setFocusPainted(false);
 			if(c instanceof Suspect)
 			{
+				tmp.setBorder(BorderFactory.createLineBorder(Color.black, 3, true));
 				if(areListened) 
 					tmp.addActionListener(this);
 				lstBtnCartesSuspect.add(tmp);
 			}
 			else if(c instanceof Arme)
 			{
+				tmp.setBorder(BorderFactory.createLineBorder(Color.red, 3, true));
 				if(areListened)
 					tmp.addActionListener(this);
 				lstBtnCartesArme.add(tmp);
 			}
 			else if(c instanceof Lieu)
 			{
+				tmp.setBorder(BorderFactory.createLineBorder(Color.blue, 3, true));
 				if(areListened)
 					tmp.addActionListener(this);
 				lstBtnCartesLieu.add(tmp);

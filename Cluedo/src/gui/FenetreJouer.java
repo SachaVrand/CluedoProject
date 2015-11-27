@@ -13,10 +13,13 @@ import javax.swing.JPanel;
 
 public class FenetreJouer extends JFrame{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2829818863755807169L;
 	private PanelAllCards allCardsPane;
 	private JButton btnSuggest;
 	private JButton btnAccuse;
-	//private String[] move = null;
 	private PipedOutputStream pipeOut;
 	
 	public FenetreJouer()
@@ -55,7 +58,6 @@ public class FenetreJouer extends JFrame{
 				JButton lieu = allCardsPane.getHighlightedCardLieu();
 				if(arme != null && lieu != null && suspect != null)
 				{
-					//move = new String[]{"accuse",arme.getName(),lieu.getName(),suspect.getName()};
 					try {
 						pipeOut.write(("move " + "accuse" + " " + arme.getName() + " " + lieu.getName() + " " + suspect.getName() + "\n").getBytes());
 					} catch (IOException e1) {
@@ -75,7 +77,6 @@ public class FenetreJouer extends JFrame{
 				JButton lieu = allCardsPane.getHighlightedCardLieu();
 				if(arme != null && lieu != null && suspect != null)
 				{
-					//move = new String[]{"suggest",arme.getName(),lieu.getName(),suspect.getName()};
 					try {
 						pipeOut.write(("move " + "suggest" + " " + arme.getName() + " " + lieu.getName() + " " + suspect.getName() + "\n").getBytes());
 					} catch (IOException e1) {
@@ -87,12 +88,18 @@ public class FenetreJouer extends JFrame{
 			}
 		});
 	}
-	
-	/*public String[] getMove() {
-		return move;
-	}*/
 
 	public PipedOutputStream getPipeOut() {
 		return pipeOut;
+	}
+	
+	public void sendExit()
+	{
+		try {
+			pipeOut.write(("exit\n").getBytes());
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 }

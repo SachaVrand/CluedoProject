@@ -10,6 +10,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -20,6 +21,10 @@ import principal.Suspect;
 
 public class PanelCartes extends JPanel implements ActionListener{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1596893856667466757L;
 	private List<JButton> listeBtnCartes;
 	private boolean areListened;
 	private JButton highlightedCard = null;
@@ -78,16 +83,32 @@ public class PanelCartes extends JPanel implements ActionListener{
 				return 0;
 			}
 		});
-		
-		for(Carte c : listeCartes)
+		if(listeCartes.size() > 0)
 		{
-			JButton tmp = new JButton(c.getImage());
-			tmp.setName(c.getNom());
-			tmp.setContentAreaFilled(false);
-			if(!areListened)
+			for(Carte c : listeCartes)
+			{
+				JButton tmp = new JButton(c.getImage());
+				tmp.setName(c.getNom());
+				tmp.setContentAreaFilled(false);
 				tmp.setFocusPainted(false);
-			tmp.setBorderPainted(false);
-			tmp.setBorder(BorderFactory.createLineBorder(Color.red, 2));
+				tmp.setBorderPainted(false);
+				tmp.setBorder(BorderFactory.createLineBorder(Color.red, 3, true));
+				listeBtnCartes.add(tmp);
+				if(areListened)
+				{
+					tmp.addActionListener(this);
+				}
+				this.add(tmp);
+			}
+		}
+		else
+		{
+			JButton tmp = new JButton(new ImageIcon("Images/Unknown.jpg"));
+			tmp.setName("Unknwown");
+			tmp.setContentAreaFilled(false);
+			tmp.setFocusPainted(false);
+			tmp.setBorderPainted(true);
+			tmp.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3, true));
 			listeBtnCartes.add(tmp);
 			if(areListened)
 			{

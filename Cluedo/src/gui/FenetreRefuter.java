@@ -16,9 +16,12 @@ import principal.Carte;
 
 public class FenetreRefuter extends JFrame{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2957925619579505L;
 	private JButton btnShow;
 	private PanelCartes panelCartes;
-	//private String refute = null;
 	private PipedOutputStream pipeOut;
 	
 	public FenetreRefuter(List<Carte> listeCartesCommun)
@@ -55,7 +58,6 @@ public class FenetreRefuter extends JFrame{
 				JButton carte = panelCartes.getHighlightedCard();
 				if(carte != null)
 				{
-					//refute = carte.getName();
 					try {
 						pipeOut.write(("show " + carte.getName() + "\n").getBytes());
 					} catch (IOException e1) {
@@ -67,11 +69,17 @@ public class FenetreRefuter extends JFrame{
 		});
 	}
 	
-	/*public String getRefute() {
-		return refute;
-	}*/
-	
 	public PipedOutputStream getPipeOut() {
 		return pipeOut;
+	}
+	
+	public void sendExit()
+	{
+		try {
+			pipeOut.write(("exit\n").getBytes());
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 }

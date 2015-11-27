@@ -9,6 +9,8 @@ import java.util.List;
  */
 public abstract class Joueur {
 	
+	protected List<Joueur> playersInTheGame;
+	
 	/**
 	 * Représente le nom du joueur.
 	 */
@@ -33,6 +35,7 @@ public abstract class Joueur {
 		this.nom = nom;
 		this.encoreEnJeu = true;
 		this.cartesJoueur = new ArrayList<Carte>();
+		this.playersInTheGame = null;
 	}
 	
 	/**
@@ -102,7 +105,13 @@ public abstract class Joueur {
 	 */
 	public abstract String refuter(List<String> carteCommun);
 	
+	public void updateKnownedCardForPlayer(int indPlayer, String card)
+	{
+		if(playersInTheGame == null) return;
+		playersInTheGame.get(indPlayer).ajouterCarte(Carte.retrouverCarte(card));
+	}
 	
-	
-
+	public void setPlayersInTheGame(List<Joueur> playersInTheGame) {
+		this.playersInTheGame = playersInTheGame;
+	}
 }

@@ -15,6 +15,10 @@ import principal.Joueur;
 
 public class PlayerIcon extends JLabel implements MouseListener{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7340494978447112993L;
 	private Joueur joueur;
 	private JFrame tooltipPerso;
 
@@ -38,6 +42,13 @@ public class PlayerIcon extends JLabel implements MouseListener{
 		Color myColor = new Color(91, 125, 206, 50);
 		panelPrincipal.setBorder(BorderFactory.createLineBorder(myColor,5,true));
 		tooltipPerso.setContentPane(panelPrincipal);
+		tooltipPerso.getContentPane().add(new PanelCartes(joueur.getCartesJoueur(), false));
+		tooltipPerso.pack();
+	}
+	
+	public void updateCardsForTooltip()
+	{
+		tooltipPerso.getContentPane().removeAll();
 		tooltipPerso.getContentPane().add(new PanelCartes(joueur.getCartesJoueur(), false));
 		tooltipPerso.pack();
 	}
@@ -75,13 +86,13 @@ public class PlayerIcon extends JLabel implements MouseListener{
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
+		//do nothing
 		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
+		//do nothing
 		
 	}
 

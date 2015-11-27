@@ -229,7 +229,6 @@ public class Humain extends Joueur
 		}
 		System.out.println();
 	}
-	
 
 
 }

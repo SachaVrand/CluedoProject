@@ -13,6 +13,10 @@ import principal.Cluedo;
 
 public class MenuPrincipal extends JPanel{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2665638510165801518L;
 	private JButton btnSolo;
 	private JButton btnRegister;
 	private JButton btnReferee;

@@ -9,8 +9,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -20,13 +18,13 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import principal.Cluedo;
-import principal.Humain;
-import principal.Joueur;
-import principal.Ordi;
-import principal.PartieSolo;
 
 public class MenuSolo extends JPanel{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8159482267328787297L;
 	private JLabel lblNbJoueurs;
 	private JLabel lblNiveauIA;
 	private JLabel lblSolo;

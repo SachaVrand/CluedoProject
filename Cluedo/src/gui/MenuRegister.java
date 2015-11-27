@@ -21,6 +21,10 @@ import principal.Cluedo;
 
 public class MenuRegister extends JPanel{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5761830545778961543L;
 	private JButton btnRegister;
 	private JButton btnRetour;
 	private JLabel lblAdrrHote;
