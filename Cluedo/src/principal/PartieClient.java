@@ -6,6 +6,7 @@ import java.net.UnknownHostException;
 
 import javax.swing.Timer;
 
+import gui.GraphicalUserInterface;
 import networking.Client;
 
 /**
@@ -158,14 +159,17 @@ public class PartieClient implements IPartie
 					
 				}
 				String c = "";
-				//Récupération des joueurs
-				for(int i = 0; i < listeJoueurs.length; i++)
+				//Affichage des joueurs
+				if(Cluedo.mode == Cluedo.CONSOLE_MODE)
 				{
-					if(i == myNum) 
-						c = " (vous)";
-					else 
-						c = "";
-					System.out.println(i + ") " + listeJoueurs[i] + c);
+					for(int i = 0; i < listeJoueurs.length; i++)
+					{
+						if(i == myNum) 
+							c = " (vous)";
+						else 
+							c = "";
+						System.out.println(i + ") " + listeJoueurs[i] + c);
+					}
 				}
 			}
 			else
@@ -328,7 +332,7 @@ public class PartieClient implements IPartie
 						}
 						//on met à jour les cartes que nous on montrées les autres joueurs.
 						joueur.updateKnownedCardForPlayer(Integer.parseInt(message[2]), message[3]);
-						Cluedo.updatePanelJeu();
+						GraphicalUserInterface.updatePanelJeu();
 					}
 					else if(message[1].equalsIgnoreCase("wrong") && message.length == 3)
 					{

@@ -3,6 +3,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import gui.GraphicalUserInterface;
+
 /**
  * Classe représentant un joueur de type Humain.
  * @author Sacha et Clement
@@ -29,7 +31,7 @@ public class Humain extends Joueur
 	{
 		if(Cluedo.mode == Cluedo.GUI_MODE)
 		{
-			Cluedo.afficherFenJouer();
+			GraphicalUserInterface.afficherFenJouer();
 		}
 		String[] cmdComplete = null;
 		String cmd = "";
@@ -84,7 +86,7 @@ public class Humain extends Joueur
 						// return [0]option [1]arme [2]lieu [3]suspect
 						if(Cluedo.mode == Cluedo.GUI_MODE)
 						{
-							Cluedo.desafficherFenJouer();
+							GraphicalUserInterface.desafficherFenJouer();
 						}
 						return res;
 					}
@@ -101,7 +103,7 @@ public class Humain extends Joueur
 		}while(!cmd.equals("exit") || cmdComplete.length != 1);
 		if(Cluedo.mode == Cluedo.GUI_MODE)
 		{
-			Cluedo.desafficherFenJouer();
+			GraphicalUserInterface.desafficherFenJouer();
 		}
 		return null;
 	}
@@ -121,7 +123,7 @@ public class Humain extends Joueur
 			{
 				listeCartesCommun.add(Carte.retrouverCarte(c));
 			}
-			Cluedo.afficherFenRefuter(listeCartesCommun);
+			GraphicalUserInterface.afficherFenRefuter(listeCartesCommun);
 		}
 		String cmd = "";
 		String[] cmdComplete;
@@ -167,7 +169,7 @@ public class Humain extends Joueur
 		}while(true);
 		if(Cluedo.mode == Cluedo.GUI_MODE)
 		{
-			Cluedo.desafficherFenRefuter();
+			GraphicalUserInterface.desafficherFenRefuter();
 		}
 		return cmdComplete[1];
 	}

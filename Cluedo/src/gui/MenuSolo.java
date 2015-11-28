@@ -17,8 +17,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import principal.Cluedo;
-
 public class MenuSolo extends JPanel{
 	
 	/**
@@ -102,7 +100,7 @@ public class MenuSolo extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Cluedo.afficherGUIMenuPrincipal();
+				GraphicalUserInterface.afficherGUIMenuPrincipal();
 			}
 		});
 		btnJouer.addActionListener(new ActionListener() {
@@ -115,7 +113,7 @@ public class MenuSolo extends JPanel{
 				String nom = tfNomJoueur.getText();
 				if(!nom.equals(""))
 				{
-					Cluedo.lancerPartie(nom, nivIA, nbJoueurs);		
+					GraphicalUserInterface.lancerPartie(nom, nivIA, nbJoueurs);		
 				}
 				else
 				{

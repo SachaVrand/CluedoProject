@@ -9,8 +9,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import principal.Cluedo;
-
 public class MenuPrincipal extends JPanel{
 	
 	/**
@@ -61,9 +59,7 @@ public class MenuPrincipal extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Cluedo.afficherGUIMenuSolo();
-				System.out.println(Thread.currentThread().getName());
-				
+				GraphicalUserInterface.afficherGUIMenuSolo();
 			}
 		});
 		
@@ -71,7 +67,7 @@ public class MenuPrincipal extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Cluedo.afficherGUIMenuRegister();
+				GraphicalUserInterface.afficherGUIMenuRegister();
 				
 			}
 		});
@@ -80,7 +76,7 @@ public class MenuPrincipal extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Cluedo.afficherGUIMenuReferee();
+				GraphicalUserInterface.afficherGUIMenuReferee();
 				
 			}
 		});

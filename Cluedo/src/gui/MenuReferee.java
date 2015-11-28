@@ -15,8 +15,6 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import principal.Cluedo;
-
 public class MenuReferee extends JPanel{
 	
 	/**
@@ -99,7 +97,7 @@ public class MenuReferee extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Cluedo.afficherGUIMenuPrincipal();
+				GraphicalUserInterface.afficherGUIMenuPrincipal();
 				
 			}
 		});

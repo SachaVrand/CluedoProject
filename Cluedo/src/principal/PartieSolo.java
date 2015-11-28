@@ -1,6 +1,8 @@
 package principal;
 import java.util.List;
 
+import gui.GraphicalUserInterface;
+
 /**
  * Classe représentant une partie en solo du cluedo.
  * @author Sacha et Clement
@@ -140,7 +142,7 @@ public class PartieSolo extends PartieHote {
 							
 							//Pour la gui, on retient les cartes qu'on nous a montré. Ne fait rien si la liste n'a pas été set;
 							joueursPartie.get(joueurActuel).updateKnownedCardForPlayer(i, carteMontre);
-							Cluedo.updatePanelJeu();
+							GraphicalUserInterface.updatePanelJeu();
 							
 							//ajouter le fait que l'ordi a retenu la carte qu'on lui à montré, et qui lui a montré
 							if(joueursPartie.get(joueurActuel) instanceof Ordi)

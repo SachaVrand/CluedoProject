@@ -19,7 +19,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.text.DefaultCaret;
 
-import principal.Cluedo;
 import principal.Joueur;
 import principal.TextAreaOutputStream;
 
@@ -118,11 +117,11 @@ public class PanelJeu extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//TODO SEND EXIT ET LA ON VA SE MARRER !
-				Cluedo.sendExitInGame();
+				GraphicalUserInterface.sendExitInGame();
 				
-				Cluedo.desafficherFenJouer();
-				Cluedo.desafficherFenRefuter();
-				Cluedo.afficherGUIMenuPrincipal();
+				GraphicalUserInterface.desafficherFenJouer();
+				GraphicalUserInterface.desafficherFenRefuter();
+				GraphicalUserInterface.afficherGUIMenuPrincipal();
 				
 				
 			}

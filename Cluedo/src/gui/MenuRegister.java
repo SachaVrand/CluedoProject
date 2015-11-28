@@ -19,7 +19,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import principal.Cluedo;
 import principal.Humain;
 import principal.Joueur;
 import principal.Ordi;
@@ -127,7 +126,7 @@ public class MenuRegister extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Cluedo.afficherGUIMenuPrincipal();
+				GraphicalUserInterface.afficherGUIMenuPrincipal();
 				
 			}
 		});
@@ -170,7 +169,7 @@ public class MenuRegister extends JPanel{
 						j = new Humain(nom);
 					}
 					setButtonsEnabled(false);
-					Cluedo.lancerPartieClient(j, addr);
+					GraphicalUserInterface.lancerPartieClient(j, addr);
 				}				
 			}
 		});
