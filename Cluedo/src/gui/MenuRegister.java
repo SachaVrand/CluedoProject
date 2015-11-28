@@ -201,7 +201,7 @@ public class MenuRegister extends JPanel{
 				{	
 					if(nom.equals(""))
 					{
-						tfNomJoueur.setBorder(BorderFactory.createLineBorder(Color.red, 2, true));
+						tfNomJoueur.setBorder(BorderFactory.createLineBorder(Color.red));
 					}
 					else
 					{
@@ -209,7 +209,7 @@ public class MenuRegister extends JPanel{
 					}
 					if(addr.equals(""))
 					{
-						tfAddrHote.setBorder(BorderFactory.createLineBorder(Color.red, 2, true));
+						tfAddrHote.setBorder(BorderFactory.createLineBorder(Color.red));
 					}
 					else
 					{
