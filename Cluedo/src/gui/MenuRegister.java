@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -11,13 +12,18 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.plaf.BorderUIResource;
 
 import principal.Cluedo;
+import principal.Humain;
+import principal.Joueur;
+import principal.Ordi;
 
 public class MenuRegister extends JPanel{
 
@@ -31,6 +37,7 @@ public class MenuRegister extends JPanel{
 	private JLabel lblNomJoueur;
 	private JLabel lblTypeJoueur;
 	private JLabel lblRegister;
+	private JLabel lblError;
 	private JComboBox<String> cbxTypeJoueur;
 	private JComboBox<Integer> cbxNivIA;
 	private JTextField tfAddrHote;
@@ -53,6 +60,8 @@ public class MenuRegister extends JPanel{
 		lblTypeJoueur = new JLabel("Type du joueur : ");
 		lblRegister = new JLabel("Register");
 		lblRegister.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 35));
+		lblError = new JLabel();
+		lblError.setVisible(false);
 		tfNomJoueur = new JTextField();
 		tfNomJoueur.setPreferredSize(new Dimension(120, 25));
 		tfAddrHote = new JTextField();
@@ -108,6 +117,9 @@ public class MenuRegister extends JPanel{
 		panelButtons.add(btnRegister);
 		panelButtons.add(btnRetour);
 		this.add(panelButtons,gbc);
+		gbc.gridy++;
+		this.add(lblError, gbc);
+		
 	}
 	
 	private void loadListeners()
@@ -125,9 +137,42 @@ public class MenuRegister extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				String nom = tfNomJoueur.getText();
-				
+				String typeJoueur = (String)cbxTypeJoueur.getSelectedItem();
+				String addr = tfAddrHote.getText();
+				Joueur j;
+				if(nom.equals("") || addr.equals(""))
+				{	
+					if(nom.equals(""))
+					{
+						tfNomJoueur.setBorder(BorderFactory.createLineBorder(Color.red, 2, true));
+					}
+					else
+					{
+						tfNomJoueur.setBorder(new JTextField().getBorder());
+					}
+					if(addr.equals(""))
+					{
+						tfAddrHote.setBorder(BorderFactory.createLineBorder(Color.red, 2, true));
+					}
+					else
+					{
+						tfAddrHote.setBorder(new JTextField().getBorder());
+					}
+				}
+				else
+				{
+					if(typeJoueur.equals("Ordinateur"))
+					{
+						j = new Ordi(nom, (int) cbxNivIA.getSelectedItem());
+					}
+					else
+					{
+						j = new Humain(nom);
+					}
+					setButtonsEnabled(false);
+					Cluedo.lancerPartieClient(j, addr);
+				}				
 			}
 		});
 		
@@ -145,8 +190,18 @@ public class MenuRegister extends JPanel{
 					cbxNivIA.setEnabled(false);
 				}
 			}
-		});
-		
-		
+		});	
+	}
+	
+	public void changeTextlblError(String text)
+	{
+		this.lblError.setText(text);
+		this.lblError.setVisible(true);
+	}
+	
+	public void setButtonsEnabled(boolean b)
+	{
+		btnRegister.setEnabled(b);
+		btnRetour.setEnabled(b);
 	}
 }

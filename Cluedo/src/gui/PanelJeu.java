@@ -118,11 +118,14 @@ public class PanelJeu extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Cluedo.afficherGUIMenuPrincipal();
-				Cluedo.desafficherFenJouer();
-				Cluedo.desafficherFenRefuter();
 				//TODO SEND EXIT ET LA ON VA SE MARRER !
 				Cluedo.sendExitInGame();
+				
+				Cluedo.desafficherFenJouer();
+				Cluedo.desafficherFenRefuter();
+				Cluedo.afficherGUIMenuPrincipal();
+				
+				
 			}
 		});
 	}

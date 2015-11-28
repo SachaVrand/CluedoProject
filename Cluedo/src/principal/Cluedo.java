@@ -104,52 +104,117 @@ public class Cluedo
 	
 	public static void desafficherFenRefuter()
 	{
-		if(fenRefuter != null)
+		
+		//si on est dans un autre thread que l'EDT
+		if(!SwingUtilities.isEventDispatchThread())
 		{
-			fenRefuter.setVisible(false);
-			fenRefuter = null;
-			if(fenetrePrincipal != null && fenetrePrincipal.getContentPane() instanceof PanelJeu)
+			SwingUtilities.invokeLater(new Runnable() {
+				
+				@Override
+				public void run() {
+					if(fenRefuter != null)
+					{
+						fenRefuter.setVisible(false);
+						fenRefuter = null;
+						if(fenetrePrincipal != null && fenetrePrincipal.getContentPane() instanceof PanelJeu)
+						{
+							PanelJeu tmp = (PanelJeu)fenetrePrincipal.getContentPane();
+							tmp.setEnabledBtnQuit(false);
+						}
+					}
+				}
+			});		
+		}
+		//sinon on est déjà dans l'EDT
+		else
+		{
+			if(fenRefuter != null)
 			{
-				PanelJeu tmp = (PanelJeu)fenetrePrincipal.getContentPane();
-				tmp.setEnabledBtnQuit(false);
+				fenRefuter.setVisible(false);
+				fenRefuter = null;
+				if(fenetrePrincipal != null && fenetrePrincipal.getContentPane() instanceof PanelJeu)
+				{
+					PanelJeu tmp = (PanelJeu)fenetrePrincipal.getContentPane();
+					tmp.setEnabledBtnQuit(false);
+				}
 			}
 		}
 	}
 	
 	public static void desafficherFenJouer()
 	{
-		if(fenJouer != null)
+		//si on est dans un autre thread que l'EDT
+		if(!SwingUtilities.isEventDispatchThread())
 		{
-			fenJouer.setVisible(false);
-			fenJouer = null;
-			if(fenetrePrincipal != null && fenetrePrincipal.getContentPane() instanceof PanelJeu)
+			SwingUtilities.invokeLater(new Runnable() {
+				
+				@Override
+				public void run() {
+					if(fenJouer != null)
+					{
+						fenJouer.setVisible(false);
+						fenJouer = null;
+						if(fenetrePrincipal != null && fenetrePrincipal.getContentPane() instanceof PanelJeu)
+						{
+							PanelJeu tmp = (PanelJeu)fenetrePrincipal.getContentPane();
+							tmp.setEnabledBtnQuit(false);
+						}
+					}
+				}
+			});		
+		}
+		//sinon on est déjà dans l'EDT
+		else
+		{
+			if(fenJouer != null)
 			{
-				PanelJeu tmp = (PanelJeu)fenetrePrincipal.getContentPane();
-				tmp.setEnabledBtnQuit(false);
+				fenJouer.setVisible(false);
+				fenJouer = null;
+				if(fenetrePrincipal != null && fenetrePrincipal.getContentPane() instanceof PanelJeu)
+				{
+					PanelJeu tmp = (PanelJeu)fenetrePrincipal.getContentPane();
+					tmp.setEnabledBtnQuit(false);
+				}
 			}
 		}
 	}
 	
 	public static void afficherFenPrincipal()
 	{
-		SwingUtilities.invokeLater(new Runnable() {
-			
-			@Override
-			public void run() {
+		//si on est dans un autre thread que l'EDT
+		if(!SwingUtilities.isEventDispatchThread())
+		{
+			SwingUtilities.invokeLater(new Runnable() {
 				
-				fenetrePrincipal = new JFrame("Cluedo 1.0");
-				fenetrePrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				fenetrePrincipal.setResizable(false);
-				afficherGUIMenuPrincipal();
-				screenSize = fenetrePrincipal.getToolkit().getScreenSize(); 
-				fenetrePrincipal.setLocation((screenSize.width/2)-(fenetrePrincipal.getWidth()/2), (screenSize.height/2)-(fenetrePrincipal.getHeight()/2));
-				fenetrePrincipal.setVisible(true);
-			}
-		});
+				@Override
+				public void run() {
+					
+					fenetrePrincipal = new JFrame("Cluedo 1.0");
+					fenetrePrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					fenetrePrincipal.setResizable(false);
+					afficherGUIMenuPrincipal();
+					screenSize = fenetrePrincipal.getToolkit().getScreenSize(); 
+					fenetrePrincipal.setLocation((screenSize.width/2)-(fenetrePrincipal.getWidth()/2), (screenSize.height/2)-(fenetrePrincipal.getHeight()/2));
+					fenetrePrincipal.setVisible(true);
+				}
+			});
+		}
+		//sinon on est déjà dans l'EDT
+		else
+		{
+			fenetrePrincipal = new JFrame("Cluedo 1.0");
+			fenetrePrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			fenetrePrincipal.setResizable(false);
+			afficherGUIMenuPrincipal();
+			screenSize = fenetrePrincipal.getToolkit().getScreenSize(); 
+			fenetrePrincipal.setLocation((screenSize.width/2)-(fenetrePrincipal.getWidth()/2), (screenSize.height/2)-(fenetrePrincipal.getHeight()/2));
+			fenetrePrincipal.setVisible(true);
+		}
 	}
 	
 	public static void afficherGUIMenuPrincipal()
 	{
+		//si on est dans un autre thread que l'EDT
 		if(!SwingUtilities.isEventDispatchThread())
 		{
 			SwingUtilities.invokeLater(new Runnable() {
@@ -161,6 +226,7 @@ public class Cluedo
 				}
 			});
 		}
+		//sinon on est déjà dans l'EDT
 		else
 		{
 			fenetrePrincipal.setContentPane(new MenuPrincipal());
@@ -171,6 +237,7 @@ public class Cluedo
 	
 	public static void afficherGUIMenuSolo()
 	{	
+		//si on est dans un autre thread que l'EDT
 		if(!SwingUtilities.isEventDispatchThread())
 		{
 			SwingUtilities.invokeLater(new Runnable() {
@@ -182,6 +249,7 @@ public class Cluedo
 				}
 			});
 		}
+		//sinon on est déjà dans l'EDT
 		else
 		{
 			fenetrePrincipal.setContentPane(new MenuSolo());
@@ -191,6 +259,7 @@ public class Cluedo
 	
 	public static void afficherGUIMenuRegister()
 	{	
+		//si on est dans un autre thread que l'EDT
 		if(!SwingUtilities.isEventDispatchThread())
 		{
 			SwingUtilities.invokeLater(new Runnable() {
@@ -202,6 +271,7 @@ public class Cluedo
 				}
 			});
 		}
+		//sinon on est déjà dans l'EDT
 		else
 		{
 			fenetrePrincipal.setContentPane(new MenuRegister());
@@ -211,6 +281,7 @@ public class Cluedo
 	
 	public static void afficherGUIMenuReferee()
 	{
+		//si on est dans un autre thread que l'EDT
 		if(!SwingUtilities.isEventDispatchThread())
 		{
 			SwingUtilities.invokeLater(new Runnable() {
@@ -222,6 +293,7 @@ public class Cluedo
 				}
 			});
 		}
+		//sinon on est déjà dans l'EDT
 		else
 		{
 			fenetrePrincipal.setContentPane(new MenuReferee());
@@ -231,6 +303,7 @@ public class Cluedo
 	
 	public static void afficherFenJouer()
 	{	
+		//si on est dans un autre thread que l'EDT
 		if(!SwingUtilities.isEventDispatchThread())
 		{
 			try {
@@ -256,6 +329,7 @@ public class Cluedo
 				e1.printStackTrace();
 			}
 		}
+		//sinon on est déjà dans l'EDT
 		else
 		{
 			fenJouer = new FenetreJouer();
@@ -267,6 +341,7 @@ public class Cluedo
 				tmp.setEnabledBtnQuit(true);
 			}
 		}
+		//connecter le pipeOut avec le pipeIn pour établir la connexion entre les deux thread 
 		try {
 			PipedInputStream pipeIn = new PipedInputStream();
 			pipeIn.connect(fenJouer.getPipeOut());
@@ -279,6 +354,7 @@ public class Cluedo
 	
 	public static void afficherFenRefuter(final List<Carte> listeCartesCommun)
 	{
+		//si on est dans un autre thread que l'EDT
 		if(!SwingUtilities.isEventDispatchThread())
 		{
 			try {
@@ -304,6 +380,7 @@ public class Cluedo
 				e.printStackTrace();
 			}
 		}
+		//sinon on est déjà dans l'EDT
 		else
 		{
 			fenRefuter = new FenetreRefuter(listeCartesCommun);
@@ -315,6 +392,7 @@ public class Cluedo
 				tmp.setEnabledBtnQuit(true);
 			}
 		}
+		//connecter le pipeOut avec le pipeIn pour établir la connexion entre les deux thread 
 		try {
 			PipedInputStream pipeIn = new PipedInputStream();
 			pipeIn.connect(fenRefuter.getPipeOut());
@@ -327,6 +405,7 @@ public class Cluedo
 	
 	public static void afficherGUIJeu(final List<Joueur> listeJoueurs, final Joueur j)
 	{	
+		//si on est dans un autre thread que l'EDT
 		if(!SwingUtilities.isEventDispatchThread())
 		{
 			SwingUtilities.invokeLater(new Runnable() {
@@ -339,12 +418,124 @@ public class Cluedo
 				}
 			});
 		}
+		//sinon on est déjà dans l'EDT
 		else
 		{
 			PanelJeu panelJeu = new PanelJeu(j,listeJoueurs);
 			fenetrePrincipal.setContentPane(panelJeu);
 			fenetrePrincipal.pack();
 		}
+	}
+	public static void sendExitInGame()
+	{
+		
+		//si on est dans un autre thread que l'EDT
+		if(!SwingUtilities.isEventDispatchThread())
+		{
+			SwingUtilities.invokeLater(new Runnable() {
+				
+				@Override
+				public void run() {
+					if(fenJouer != null)
+					{
+						fenJouer.sendExit();
+					}
+					else if(fenRefuter != null)
+					{
+						fenRefuter.sendExit();
+					}
+				}
+			});
+		}
+		//sinon on est déjà dans l'EDT
+		else
+		{
+			if(fenJouer != null)
+			{
+				fenJouer.sendExit();
+			}
+			else if(fenRefuter != null)
+			{
+				fenRefuter.sendExit();
+			}
+		}
+	}
+	
+	public static void updatePanelJeu()
+	{
+		//si on est dans un autre thread que l'EDT
+		if(!SwingUtilities.isEventDispatchThread())
+		{
+			SwingUtilities.invokeLater(new Runnable() {
+				
+				@Override
+				public void run() {
+					if(fenetrePrincipal != null && fenetrePrincipal.getContentPane() instanceof PanelJeu)
+					{
+						PanelJeu tmp = (PanelJeu)fenetrePrincipal.getContentPane();
+						tmp.updatePlayersIcon();
+					}
+				}
+			});
+		}
+		//sinon on est déjà dans l'EDT
+		else
+		{
+			if(fenetrePrincipal != null && fenetrePrincipal.getContentPane() instanceof PanelJeu)
+			{
+				PanelJeu tmp = (PanelJeu)fenetrePrincipal.getContentPane();
+				tmp.updatePlayersIcon();
+			}
+		}
+	}
+	
+	public static void lancerPartieClient(final Joueur j, final String hote)
+	{
+		Thread threadClient = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+
+				final String err;
+				PartieClient pc = new PartieClient(j, hote);
+				if((err = pc.connexionServeur()) != PartieClient.NO_ERROR)
+				{
+					//afficher erreur
+					SwingUtilities.invokeLater(new Runnable() {
+						
+						@Override
+						public void run() {
+							if(fenetrePrincipal != null && fenetrePrincipal.getContentPane() instanceof MenuRegister)
+							{
+								MenuRegister tmp = (MenuRegister)fenetrePrincipal.getContentPane();
+								tmp.changeTextlblError(err);
+								tmp.setButtonsEnabled(true);
+								fenetrePrincipal.pack();
+							}
+						}
+					});
+				}
+				else
+				{
+					String[] tmpListeNomsJoueurs = pc.getListeJoueurs();
+					String tmpSwap = tmpListeNomsJoueurs[pc.getMyNum()];
+					tmpListeNomsJoueurs[pc.getMyNum()] = tmpListeNomsJoueurs[0];
+					tmpListeNomsJoueurs[0] = tmpSwap;
+					//creation liste joueurs
+					List<Joueur> listeJoueurs = new ArrayList<Joueur>();
+					listeJoueurs.add(j);
+					for(int i = 1; i < tmpListeNomsJoueurs.length; i++)
+					{
+						listeJoueurs.add(new Humain(tmpListeNomsJoueurs[i]));
+					}
+					j.setPlayersInTheGame(listeJoueurs);
+					//TODO verifier que rien ne se passe avant que le panel jeu soit affichée
+					afficherGUIJeu(listeJoueurs, j);
+					pc.boucleJeu();
+				}
+			}
+		});
+		threadClient.start();
 	}
 	
 	public static void lancerPartie(final String nomJoueur, final int nivIA, final int nbJoueurs)
@@ -367,18 +558,6 @@ public class Cluedo
 				afficherGUIJeu(listeAAffJeu,humain);
 				humain.setPlayersInTheGame(listeAAffJeu);
 				partie.boucleJeu();
-				SwingUtilities.invokeLater(new Runnable() {
-					
-					@Override
-					public void run() {
-						if(fenetrePrincipal != null && fenetrePrincipal.getContentPane() instanceof PanelJeu)
-						{
-							PanelJeu tmp = (PanelJeu)fenetrePrincipal.getContentPane();
-							tmp.setEnabledBtnQuit(true);
-						}
-						
-					}
-				});
 			}
 		});
 		threadJeu.start();
@@ -429,6 +608,7 @@ public class Cluedo
 			else if((cmdComplete.length == 3 || cmdComplete.length == 4) && cmdComplete[0].equals("register") && (cmdComplete[1].equals("ordi") || cmdComplete[1].equals("joueur")))
 			{
 				String nomJoueur = "Joueur";
+				String msgErreur;
 				Joueur j = null;
 				if(cmdComplete.length == 4)
 				{
@@ -443,7 +623,14 @@ public class Cluedo
 					j = new Humain(nomJoueur);
 				}
 				PartieClient pc = new PartieClient(j, cmdComplete[2]);
-				pc.boucleJeu();
+				if((msgErreur = pc.connexionServeur()) != PartieClient.NO_ERROR)
+				{
+					System.out.println(msgErreur);
+				}
+				else
+				{
+					pc.boucleJeu();
+				}
 			}
 			else if(cmdComplete.length == 2 && cmdComplete[0].equals("test"))
 			{				
@@ -595,30 +782,5 @@ public class Cluedo
 		System.out.println("Total | Random : " + tabTotal[0] + " , level 1 : " + tabTotal[1] + " , level 2 : " + tabTotal[2] +"\n");
 	}
 	
-	public static void sendExitInGame()
-	{
-		if(fenJouer != null)
-		{
-			fenJouer.sendExit();
-		}
-		else if(fenRefuter != null)
-		{
-			fenRefuter.sendExit();
-		}
-	}
-	
-	public static void updatePanelJeu()
-	{
-		SwingUtilities.invokeLater(new Runnable() {
-			
-			@Override
-			public void run() {
-				if(fenetrePrincipal != null && fenetrePrincipal.getContentPane() instanceof PanelJeu)
-				{
-					PanelJeu tmp = (PanelJeu)fenetrePrincipal.getContentPane();
-					tmp.updatePlayersIcon();
-				}
-			}
-		});
-	}
+
 }
