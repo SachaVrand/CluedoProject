@@ -21,20 +21,59 @@ import principal.Carte;
 import principal.Lieu;
 import principal.Suspect;
 
+
+/**
+ * Clase représentant un panel composée de toutes les cartes du jeu. Implemente l'interface ActionListener utilisée pour écouter les cartes(JButton).
+ * @author Sacha
+ *
+ */
 public class PanelAllCards extends JPanel implements ActionListener{
 	
 	/**
-	 * 
+	 * ID permettant de sauvegarder l'objet. N'est pas utilisé.
 	 */
 	private static final long serialVersionUID = 160299452614029965L;
+	
+	/**
+	 * Liste de boutons. Chaque bouton représente un carte suspect du jeu.
+	 */
 	private List<JButton> lstBtnCartesSuspect;
+	
+	/**
+	 * Liste de boutons. Chaque bouton représente un carte arme du jeu.
+	 */
 	private List<JButton> lstBtnCartesArme;
+	
+	/**
+	 * Liste de boutons. Chaque bouton représente un carte lieu du jeu.
+	 */
 	private List<JButton> lstBtnCartesLieu;
+	
+	/**
+	 * Boolean permettant de savoir si les boutons du panel doivent être écoutés.
+	 */
 	private boolean areListened;
+	
+	/**
+	 * Bouton représentant la carte de type arme selectionnée.
+	 */
 	private JButton highlightedCardArme = null;
+	
+	/**
+	 * Bouton représentant la carte de type suspect selectionnée.
+	 */
 	private JButton highlightedCardSuspect = null;
+	
+	/**
+	 * Bouton représentant la carte de type lieu selectionnée.
+	 */
 	private JButton highlightedCardLieu = null;
 	
+	
+	/**
+	 * Constructeur de la classe PanelAllCards. Instancie un nouveau panel. Charge ses composants, et listeners si la valeur areListened est à true.
+	 * @param areListened true si les composants doivent être écoutés, false sinon.
+	 */
 	public PanelAllCards(boolean areListened)
 	{
 		super(new GridBagLayout());
@@ -45,9 +84,12 @@ public class PanelAllCards extends JPanel implements ActionListener{
 		this.load();
 	}
 	
+	/**
+	 * Méthode permettant de charger les différents composants graphique.
+	 */
 	private void load()
 	{
-		loadLabelsCartes();
+		loadJButtonCartes();
 		GridBagConstraints gbc = new GridBagConstraints();
 		JLabel lblSuspects = new JLabel("Suspects");
 		JLabel lblArmes = new JLabel("Armes");
@@ -115,7 +157,10 @@ public class PanelAllCards extends JPanel implements ActionListener{
 		}
 	}
 	
-	private void loadLabelsCartes()
+	/**
+	 * Méthode permettant de charger les différents boutons représentant les cartes du jeu.
+	 */
+	private void loadJButtonCartes()
 	{
 		List<Carte> listeCartes = Carte.creerPaquetDeCartes();
 		for(Carte c : listeCartes)
@@ -176,14 +221,26 @@ public class PanelAllCards extends JPanel implements ActionListener{
 		}
 	}
 	
+	/**
+	 * Méthode qui retourne la carte arme slectionnée. null si aucune.
+	 * @return la carte arme slectionnée. null si aucune.
+	 */
 	public JButton getHighlightedCardArme() {
 		return highlightedCardArme;
 	}
 	
+	/**
+	 * Méthode qui retourne la carte lieu slectionnée. null si aucune.
+	 * @return la carte lieu slectionnée. null si aucune.
+	 */
 	public JButton getHighlightedCardLieu() {
 		return highlightedCardLieu;
 	}
 
+	/**
+	 * Méthode qui retourne la carte suspect slectionnée. null si aucune.
+	 * @return la carte suspect slectionnée. null si aucune.
+	 */
 	public JButton getHighlightedCardSuspect() {
 		return highlightedCardSuspect;
 	}

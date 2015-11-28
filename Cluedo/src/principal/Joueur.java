@@ -9,6 +9,9 @@ import java.util.List;
  */
 public abstract class Joueur {
 	
+	/**
+	 * Liste des joueurs de la partie. N'est pas instanciée ou affectée dès la créationd d'un joueur. Doit être set quand on en a besoin.
+	 */
 	protected List<Joueur> playersInTheGame;
 	
 	/**
@@ -105,12 +108,21 @@ public abstract class Joueur {
 	 */
 	public abstract String refuter(List<String> carteCommun);
 	
+	/**
+	 * Méthode permettant de mettre à jour les cartes connues d'un joueur de la liste des joueurs de la partie. Ne fait rien si la liste des joueurs n'a pas été set avant.
+	 * @param indPlayer Indice du joueur dans la liste.
+	 * @param card Nouvelle carte connue sous la forme de chaine
+	 */
 	public void updateKnownedCardForPlayer(int indPlayer, String card)
 	{
 		if(playersInTheGame == null) return;
 		playersInTheGame.get(indPlayer).ajouterCarte(Carte.retrouverCarte(card));
 	}
 	
+	/**
+	 * Méthode qui permet de set les joueurs de la partie.
+	 * @param playersInTheGame Liste des joueurs présents dans la partie.
+	 */
 	public void setPlayersInTheGame(List<Joueur> playersInTheGame) {
 		this.playersInTheGame = playersInTheGame;
 	}

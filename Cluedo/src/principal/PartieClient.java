@@ -16,6 +16,7 @@ import networking.Client;
  */
 public class PartieClient implements IPartie
 {
+	// Les constantes suivantes permettent de définir les différentes erreurs pouvant se produirent lors de la connexion à un hote.
 	private static final String MAUVAISE_IP = "Mauvaise adresse ip pour le serveur.";
 	private static final String IMP_CONNEX_SERV = "Erreur, impossible d'ouvir la connexion avec le serveur.";
 	private static final String SERV_INCORRECTE = "Le serveur choisi n'est pas correcte.";
@@ -69,6 +70,11 @@ public class PartieClient implements IPartie
 		myNum = -1;
 	}
 	
+	/**
+	 * Méthode permettant d'établir la connexion à l'hôte. Ajoute les cartes au joueur et instancie la lsite des joueurs de la partie si la connexion se déroule correctement.
+	 * Retourne la constante NO_ERROR si la connexion s'est passée correctement, sinon une des constantes représentant l'erreur survenue.
+	 * @return la constante NO_ERROR si la connexion s'est passée correctement, sinon une des constantes représentant l'erreur survenue.
+	 */
 	public String connexionServeur()
 	{
 		String[] message;

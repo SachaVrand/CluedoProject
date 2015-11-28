@@ -14,16 +14,37 @@ import javax.swing.JPanel;
 
 import principal.Carte;
 
+/**
+ * Classe représentant la fenetre pour réfuter. Comporte un panel des cartes, selectionnable, que le joueur peut montrer pour réfuter.
+ * @author Sacha
+ *
+ */
 public class FenetreRefuter extends JFrame{
 	
 	/**
-	 * 
+	 * ID permettant de sauvegarder l'objet. N'est pas utilisé.
 	 */
 	private static final long serialVersionUID = 2957925619579505L;
+	
+	/**
+	 * Bouton permettant d'afficher ou non les cartes du joueur.
+	 */
 	private JButton btnShow;
+	
+	/**
+	 * Panel permettant d'afficher les cartes du joueur.
+	 */
 	private PanelCartes panelCartes;
+	
+	/**
+	 * Flux permettant la communication entre le thread graphique et le thread de la boucle de jeu.
+	 */
 	private PipedOutputStream pipeOut;
 	
+	/**
+	 * Constructeur de la classe FenetreRefuter. Charge les composants et les listeners. Instancie un nouveau flux de type PipedOutputStream.
+	 * @param listeCartesCommun Les cartes que le joueur peut montrer pour réfuter.
+	 */
 	public FenetreRefuter(List<Carte> listeCartesCommun)
 	{
 		super("You have to refute!");
@@ -33,6 +54,9 @@ public class FenetreRefuter extends JFrame{
 		
 	}
 	
+	/**
+	 * Méthode permettant de charger les différents composants graphique.
+	 */
 	private void load(List<Carte> listeCartesCommun)
 	{
 		btnShow = new JButton("show");
@@ -49,6 +73,9 @@ public class FenetreRefuter extends JFrame{
 		this.pack();
 	}
 	
+	/**
+	 * Méthode permettant de charger les différents listener.
+	 */
 	private void loadListener()
 	{
 		btnShow.addActionListener(new ActionListener() {
@@ -69,10 +96,17 @@ public class FenetreRefuter extends JFrame{
 		});
 	}
 	
+	/**
+	 * Méthode permettant de récupérer le flux de type PipeOutputStream de la fenetre.
+	 * @return le flux de type PipeOutputStream de la fenetre.
+	 */
 	public PipedOutputStream getPipeOut() {
 		return pipeOut;
 	}
 	
+	/**
+	 * Méthode permettant d'enovyer la commande exit à la boucle de jeu.
+	 */
 	public void sendExit()
 	{
 		try {

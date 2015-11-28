@@ -23,24 +23,76 @@ import principal.Humain;
 import principal.Joueur;
 import principal.Ordi;
 
+/**
+ * Classe représentant le panel du menu pour se connecter à une partie en tant que client. Comporte plusieurs composants permettant la connexion à la partie.
+ * @author Sacha
+ *
+ */
 public class MenuRegister extends JPanel{
 
 	/**
-	 * 
+	 * ID permettant de sauvegarder l'objet. N'est pas utilisé.
 	 */
 	private static final long serialVersionUID = -5761830545778961543L;
+	
+	/**
+	 * Bouton permettant de se connecter à la partie.
+	 */
 	private JButton btnRegister;
+	
+	/**
+	 * Bouton permettant de revenir au menu principal.
+	 */
 	private JButton btnRetour;
+	
+	/**
+	 * label de l'adresse de l'hôte.
+	 */
 	private JLabel lblAdrrHote;
+	
+	/**
+	 * Label du nom du joueur.
+	 */
 	private JLabel lblNomJoueur;
+	
+	/**
+	 * Label tu type du joueur.
+	 */
 	private JLabel lblTypeJoueur;
+	
+	/**
+	 * Label du titre du menu.
+	 */
 	private JLabel lblRegister;
+	
+	/**
+	 * Label d'erreur, affiché en cas d'erreur lors de la tentative de connexion à l'hôte.
+	 */
 	private JLabel lblError;
+	
+	/**
+	 * Liste permettant de selectionner le type du joueur.
+	 */
 	private JComboBox<String> cbxTypeJoueur;
+	
+	/**
+	 * Liste permettant de selectionner le niveau de l'IA si le type du joueur est un Ordi.
+	 */
 	private JComboBox<Integer> cbxNivIA;
+	
+	/**
+	 * Zone de texte permettant de récupérer le nom de l'adresse de l'hôte.
+	 */
 	private JTextField tfAddrHote;
+	
+	/**
+	 * Zone de texte permettant de récupérer le nom du joueur.
+	 */
 	private JTextField tfNomJoueur;
 	
+	/**
+	 * Constructeur de la classe MenuRegister. Instancie un nouveau panel, charge ses composants et listeners.
+	 */
 	public MenuRegister()
 	{
 		super();
@@ -49,6 +101,9 @@ public class MenuRegister extends JPanel{
 		this.loadListeners();
 	}
 	
+	/**
+	 * Méthode permettant de charger les différents composants graphique.
+	 */
 	private void load()
 	{
 		btnRegister = new JButton("Connexion");
@@ -120,6 +175,9 @@ public class MenuRegister extends JPanel{
 		
 	}
 	
+	/**
+	 * Méthode permettant de charger les différents listener.
+	 */
 	private void loadListeners()
 	{
 		btnRetour.addActionListener(new ActionListener() {
@@ -191,12 +249,20 @@ public class MenuRegister extends JPanel{
 		});	
 	}
 	
+	/**
+	 * Méthode permettant d'afficher un erreur sur le label d'erreur.
+	 * @param text Chaine représentant lérreur survenue.
+	 */
 	public void changeTextlblError(String text)
 	{
 		this.lblError.setText(text);
 		this.lblError.setVisible(true);
 	}
 	
+	/**
+	 * Méthode permettant de changer l'état des boutons du panel.
+	 * @param b Vrai s'il sont cliquable, faux sinon.
+	 */
 	public void setButtonsEnabled(boolean b)
 	{
 		btnRegister.setEnabled(b);

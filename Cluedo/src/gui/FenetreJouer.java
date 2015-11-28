@@ -11,17 +11,41 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+/**
+ * Classe représentant la fenetre pour jouer un coup. Comporte un panel de toute les cartes du jeu selectionnable avec un bouton pour accuser et un bouton pour suggerer.
+ * @author Sacha
+ *
+ */
 public class FenetreJouer extends JFrame{
 	
 	/**
-	 * 
+	 * ID permettant de sauvegarder l'objet. N'est pas utilisé.
 	 */
 	private static final long serialVersionUID = -2829818863755807169L;
+	
+	/**
+	 * Panel comportant toute les cartes du jeu.
+	 */
 	private PanelAllCards allCardsPane;
+	
+	/**
+	 * Bouton permettant de suggérer
+	 */
 	private JButton btnSuggest;
+	
+	/**
+	 * Bouton permettant d'accuser.
+	 */
 	private JButton btnAccuse;
+	
+	/**
+	 * Flux permettant la communication entre le thread graphique et le thread de la boucle de jeu.
+	 */
 	private PipedOutputStream pipeOut;
 	
+	/**
+	 * Constructeur de la classe FenetreJouer. Charge les composants et les listeners. Instancie un nouveau PipedOutputStream.
+	 */
 	public FenetreJouer()
 	{
 		super("Your turn!");
@@ -30,6 +54,9 @@ public class FenetreJouer extends JFrame{
 		pipeOut = new PipedOutputStream();
 	}
 	
+	/**
+	 * Méthode permettant de charger les différents composants graphique.
+	 */
 	private void load()
 	{
 		this.btnAccuse = new JButton("Accuse");
@@ -47,6 +74,9 @@ public class FenetreJouer extends JFrame{
 		this.pack();
 	}
 	
+	/**
+	 * Méthode permettant de charger les différents listener.
+	 */
 	private void loadListeners()
 	{
 		btnAccuse.addActionListener(new ActionListener() {
@@ -89,10 +119,17 @@ public class FenetreJouer extends JFrame{
 		});
 	}
 
+	/**
+	 * Méthode permettant de récupérer le flux de type PipeOutputStream de la fenetre.
+	 * @return le flux de type PipeOutputStream de la fenetre.
+	 */
 	public PipedOutputStream getPipeOut() {
 		return pipeOut;
 	}
 	
+	/**
+	 * Méthode permettant d'enovyer la commande exit à la boucle de jeu.
+	 */
 	public void sendExit()
 	{
 		try {

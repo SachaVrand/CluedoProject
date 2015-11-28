@@ -10,19 +10,26 @@ import gui.GraphicalUserInterface;
 /**
  * Classe principal du programme.
  * 
- * Permet de lancer le jeu cluedo. Regroupe quelques fonctions statiques permettant entre autres d'afficher l'aide du menu principal et lancer une partie solo.
+ * Permet de lancer le jeu cluedo. Regroupe quelques fonctions statiques permettant entre autres d'afficher l'aide du menu principal et lancer différents types de partie..
  * @author Sacha et Clement
  *
  */
 public class Cluedo
 {
+	/**
+	 * Variable statique permettant de savoir sur quel mode l'utilisateur a choisi de lancer le programme.
+	 */
 	public static int mode;
 	
+	/**
+	 * Constante représentant le mode graphique du programme.
+	 */
 	public final static int GUI_MODE = 1;
 	
+	/**
+	 * Constante représentant le mode console du programme.
+	 */
 	public final static int CONSOLE_MODE = 2;
-	
-
 	
 	/**
 	 * Scanner permettant de récupérer les commandes entrées par l'utilisateur. Ouvert au démarrage et fermée à la fin du programme.
@@ -80,6 +87,9 @@ public class Cluedo
 		System.out.println("\t Afficher ce message.\n");
 	}
 	
+	/**
+	 * Méthode permettant de lancer le cluedo et son menu sur la console.
+	 */
 	private static void menuModeConsole()
 	{
 		String cmd = "";

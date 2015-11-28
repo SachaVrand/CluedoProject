@@ -13,15 +13,33 @@ import javax.swing.JPanel;
 
 import principal.Joueur;
 
+/**
+ * Classe représentant un icone de joueur durant un partie de Cluedo. Un tooltip est affichée lors du passage de la souris sur l'icone.
+ * Implémente un MouseListener permettant de gérer l'affichage du tootltip.
+ * @author Sacha
+ *
+ */
 public class PlayerIcon extends JLabel implements MouseListener{
 	
 	/**
-	 * 
+	 * ID permettant de sauvegarder l'objet. N'est pas utilisé.
 	 */
 	private static final long serialVersionUID = -7340494978447112993L;
+	
+	/**
+	 * Joueur représenté par l'icone.
+	 */
 	private Joueur joueur;
+	
+	/**
+	 * Fenetre représentant le tooltip personnalisée. Affiche les cartes connues du joueur.
+	 */
 	private JFrame tooltipPerso;
 
+	/**
+	 * Constructeur de la classe PlayerIcon. Charge les composants du labels et du tooltip. Lance l'écoute de l'icone.
+	 * @param j
+	 */
 	public PlayerIcon(Joueur j)
 	{
 		super();
@@ -30,6 +48,9 @@ public class PlayerIcon extends JLabel implements MouseListener{
 		this.addMouseListener(this);
 	}
 	
+	/**
+	 * Méthode permettant de charger les différents composants graphique.
+	 */
 	private void load()
 	{
 		this.setIcon(new ImageIcon("Images/userIcon.png"));
@@ -46,6 +67,9 @@ public class PlayerIcon extends JLabel implements MouseListener{
 		tooltipPerso.pack();
 	}
 	
+	/**
+	 * Méthode permettant de mettre à jouer le tooltip de l'icone.
+	 */
 	public void updateCardsForTooltip()
 	{
 		tooltipPerso.getContentPane().removeAll();

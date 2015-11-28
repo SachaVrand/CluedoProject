@@ -15,20 +15,56 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * Classe représentant le panel du menu pour créer une partie en tant qu'hôte. Comporte plusieurs permettant la création de la partie.
+ * @author Sacha
+ *
+ */
 public class MenuReferee extends JPanel{
 	
 	/**
-	 * 
+	 * ID permettant de sauvegarder l'objet. N'est pas utilisé.
 	 */
 	private static final long serialVersionUID = 4903624604136421379L;
+	
+	/**
+	 * Bouton permettant de lancer une partie en tant que hote.
+	 */
 	private JButton btnReferee;
+	
+	/**
+	 * Bouton permettant de retourner au menu principal
+	 */
 	private JButton btnRetour;
+	
+	/**
+	 * Label de l'adresse de l'hote.
+	 */
 	private JLabel lblAdrrHote;
+	
+	/**
+	 * Label du titre du menu
+	 */
 	private JLabel lblReferee;
+	
+	/**
+	 * Label du nombre de joueurs
+	 */
 	private JLabel lblNbJoueurs;
+	
+	/**
+	 * Label représentant l'adresse ip de l'hote.
+	 */
 	private JLabel lblAddrIp;
+	
+	/**
+	 * Liste permettant de selectionner le nombre de joueurs.
+	 */
 	private JComboBox<Integer> cbxNbJoueurs;
 	
+	/**
+	 * Constructeur de la classe MenuReferee. Instancie un nouveau panel MenuReferee et charge ses compsoants, et listeners.
+	 */
 	public MenuReferee()
 	{
 		super();
@@ -37,6 +73,9 @@ public class MenuReferee extends JPanel{
 		this.loadListeners();
 	}
 	
+	/**
+	 * Méthode permettant de charger les différents composants graphique.
+	 */
 	private void load()
 	{
 		btnReferee = new JButton("Connexion");
@@ -91,6 +130,9 @@ public class MenuReferee extends JPanel{
 		this.add(panelButtons,gbc);
 	}
 	
+	/**
+	 * Méthode permettant de charger les différents listener.
+	 */
 	private void loadListeners()
 	{
 		btnRetour.addActionListener(new ActionListener() {

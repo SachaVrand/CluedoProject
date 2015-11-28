@@ -19,24 +19,46 @@ import principal.Ordi;
 import principal.PartieClient;
 import principal.PartieSolo;
 
+/**
+ * Classe fournissant des méthodes et variables statiques permettant de gérer l'interface graphique du programme.
+ * Cette classe ne peut pas être dérivée ou instanciée.
+ * @author Sacha
+ *
+ */
 public final class GraphicalUserInterface {
 	
+	/**
+	 * Constructeur de la classe GraphicalUserInterface, mais ne doit pas être utilisée car la classe ne doit pas être instanciée.
+	 */
 	private GraphicalUserInterface()
 	{
 		throw new RuntimeException();
 	}
 	
+	/**
+	 * Variable statique représentant la fenêtre étant affichée quand le joueur doit réfuter.
+	 */
 	private static FenetreRefuter fenRefuter;
 	
+	/**
+	 * Variable statique représentant la fenêtre étant affichée quand le joueur doit jouer un coup.
+	 */
 	private static FenetreJouer fenJouer;
 	
 	/**
-	 * Fenetre principal du programme sous forme graphique.
+	 * Variable statique représentant la fenetre principal du programme sous forme graphique.
 	 */
 	private static JFrame fenetrePrincipal = null;
 	
+	/**
+	 * Variable static permettant représentant les dimensions de l'écran de l'utilisateur. 
+	 */
 	public static Dimension screenSize = null;
 	
+	/**
+	 * Fonction permettant désafficher la fenêtre pour réfuter. Cette opération est toujours effectuée dans l'EDT. 
+	 * Désactive aussi le bouton quit de la fenêtre principal si elle contient le panel jeu.
+	 */
 	public static void desafficherFenRefuter()
 	{
 		if(fenRefuter == null) return;
@@ -70,6 +92,10 @@ public final class GraphicalUserInterface {
 		}
 	}
 	
+	/**
+	 * Fonction permettant désafficher la fenêtre pour jouer. Cette opération est toujours effectuée dans l'EDT.
+	 * Désactive aussi le bouton quit de la fenêtre principal si elle contient le panel jeu.
+	 */
 	public static void desafficherFenJouer()
 	{
 		if(fenJouer == null) return;
@@ -105,6 +131,10 @@ public final class GraphicalUserInterface {
 		}
 	}
 	
+	/**
+	 * Fonction permettant d'afficher et d'instancier la fenêtre principale. Cette opération est toujours effectuée dans l'EDT.
+	 * Le content pane de la fenetre principale instanciée est le menu principal.
+	 */
 	public static void afficherFenPrincipal()
 	{
 		//si on est dans un autre thread que l'EDT
@@ -138,6 +168,9 @@ public final class GraphicalUserInterface {
 		}
 	}
 	
+	/**
+	 * Fonction permettant d'afficher le menu principal dans la fenêtre principale. Cette opération est toujours effectuée dans l'EDT.
+	 */
 	public static void afficherGUIMenuPrincipal()
 	{
 		//si on est dans un autre thread que l'EDT
@@ -161,6 +194,9 @@ public final class GraphicalUserInterface {
 		
 	}
 	
+	/**
+	 * Fonction permettant d'afficher le menu solo dans la fenêtre principale. Cette opération est toujours effectuée dans l'EDT.
+	 */
 	public static void afficherGUIMenuSolo()
 	{	
 		//si on est dans un autre thread que l'EDT
@@ -183,6 +219,9 @@ public final class GraphicalUserInterface {
 		}	
 	}
 	
+	/**
+	 * Fonction permettant d'afficher le menu register dans la fenêtre principale. Cette opération est toujours effectuée dans l'EDT.
+	 */
 	public static void afficherGUIMenuRegister()
 	{	
 		//si on est dans un autre thread que l'EDT
@@ -205,6 +244,9 @@ public final class GraphicalUserInterface {
 		}	
 	}
 	
+	/**
+	 * Fonction permettant d'afficher le menu referee dans la fenêtre principale. Cette opération est toujours effectuée dans l'EDT.
+	 */
 	public static void afficherGUIMenuReferee()
 	{
 		//si on est dans un autre thread que l'EDT
@@ -227,6 +269,10 @@ public final class GraphicalUserInterface {
 		}	
 	}
 	
+	/**
+	 * Fonction permettant d'afficher et d'instancier la fenêtre pour jouer. Cette opération est toujours effectuée dans l'EDT.
+	 * Active le bouton quit de la fenetre principal si son contentPane est le panel jeu.
+	 */
 	public static void afficherFenJouer()
 	{	
 		//si on est dans un autre thread que l'EDT
@@ -278,6 +324,11 @@ public final class GraphicalUserInterface {
 		}
 	}
 	
+	/**
+	 * Fonction permettant d'afficher et d'instancier la fenêtre pour réfuter. Cette opération est toujours effectuée dans l'EDT.
+	 * Active le bouton quit de la fenetre principal si son contentPane est le panel jeu.
+	 * @param listeCartesCommun liste des cartes que le joueur à droit de montrer pour réfuter.
+	 */
 	public static void afficherFenRefuter(final List<Carte> listeCartesCommun)
 	{
 		//si on est dans un autre thread que l'EDT
@@ -329,6 +380,11 @@ public final class GraphicalUserInterface {
 		}
 	}
 	
+	/**
+	 * Fonction permettant d'afficher le panel de jeu dans la fenêtre principale. Cette opération est toujours effectuée dans l'EDT.
+	 * @param listeJoueurs Liste des joueurs de la partie. Doit contenir le joueur jouant avec toutes ses cartes, et les autres joueurs mais sans leurs cartes.
+	 * @param j Joueur jouant la partie.	
+	 */
 	public static void afficherGUIJeu(final List<Joueur> listeJoueurs, final Joueur j)
 	{	
 		//si on est dans un autre thread que l'EDT
@@ -357,6 +413,10 @@ public final class GraphicalUserInterface {
 			fenetrePrincipal.pack();
 		}
 	}
+	
+	/**
+	 * Fonction d'envoyer le message exit a travers le pipeStream de la fenetre jouer ou réfuter.
+	 */
 	public static void sendExitInGame()
 	{
 		if(fenJouer == null && fenRefuter == null)
@@ -393,6 +453,9 @@ public final class GraphicalUserInterface {
 		}
 	}
 	
+	/**
+	 * Fonction qui met à jour le panel Jeu. Met à jour les icone de joueurs et leurs tooltips.
+	 */
 	public static void updatePanelJeu()
 	{
 		//si on est dans un autre thread que l'EDT
@@ -421,6 +484,12 @@ public final class GraphicalUserInterface {
 		}
 	}
 	
+	/**
+	 * Fonction qui permet de lancer une partie en tant que client. Créer un nouveau thread pour la boucle de la partie. 
+	 * Si la connection n'a pas pu être effectuée, affiche le message d'erreur dans le label d'erreur du menu register.
+	 * @param j Joueur jouant la partie.
+	 * @param hote Adresse de l'hote de la partie, sous forme de string.
+	 */
 	public static void lancerPartieClient(final Joueur j, final String hote)
 	{
 		Thread threadClient = new Thread(new Runnable() {
@@ -466,7 +535,6 @@ public final class GraphicalUserInterface {
 							listeJoueurs.add(new Humain(tmpListeNomsJoueurs[i]));
 					}
 					j.setPlayersInTheGame(listeJoueurs);
-					//TODO verifier que rien ne se passe avant que le panel jeu soit affichée. PROB
 					afficherGUIJeu(listeJoueurs, j);
 					pc.boucleJeu();
 					
@@ -487,6 +555,12 @@ public final class GraphicalUserInterface {
 		threadClient.start();
 	}
 	
+	/**
+	 * Fonction qui permet de lancer une partie en solo. Créer un nouveau thread pour la boucle de la partie. 
+	 * @param nomJoueur le nom du joueur jouant la partie.
+	 * @param nivIA le niveau choisi pour l'IA de la partie.
+	 * @param nbJoueurs le nombre de joueurs choisi pour la partie.
+	 */
 	public static void lancerPartie(final String nomJoueur, final int nivIA, final int nbJoueurs)
 	{
 		Thread threadJeu = new Thread(new Runnable() {

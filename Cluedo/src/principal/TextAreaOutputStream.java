@@ -5,10 +5,22 @@ import java.io.OutputStream;
 
 import javax.swing.JTextArea;
 
+/**
+ * Classe représentant un flux qui écrira dans la textArea passée en paramètre.
+ * @author Sacha
+ *
+ */
 public class TextAreaOutputStream extends OutputStream{
 
+	/**
+	 * TextArea où sera écrit les différents octects du flux.
+	 */
 	private JTextArea textArea;
 	
+	/**
+	 * Constructeur de la classe TextAreaOutputStream.
+	 * @param textArea TextArea où sera écrit les différents octects du flux.
+	 */
 	public TextAreaOutputStream(JTextArea textArea) {
 		this.textArea = textArea;
 		

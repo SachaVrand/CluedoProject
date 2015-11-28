@@ -9,17 +9,41 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+/**
+ * Classe représentant le panel du menu principal. Comporte différents bouton permettant d'accéder aux menus suivant ou de quitter le jeu.
+ * @author Sacha
+ *
+ */
 public class MenuPrincipal extends JPanel{
 	
 	/**
-	 * 
+	 * ID permettant de sauvegarder l'objet. N'est pas utilisé.
 	 */
 	private static final long serialVersionUID = -2665638510165801518L;
+	
+	/**
+	 * Bouton permettant de passer au menu solo.
+	 */
 	private JButton btnSolo;
+	
+	/**
+	 * Bouton permettant de passer au menu register.
+	 */
 	private JButton btnRegister;
+	
+	/**
+	 * Bouton permettant de passer au menu referee.
+	 */
 	private JButton btnReferee;
+	
+	/**
+	 * Bouton permettant de quitter le jeu.
+	 */
 	private JButton btnExit;
 	
+	/**
+	 * Constructeur de la classe MenuPrincipal. Instancie un nouveau panel MenuPrincipal. Charge les composants et les listeners.
+	 */
 	public MenuPrincipal()
 	{
 		super();
@@ -28,6 +52,9 @@ public class MenuPrincipal extends JPanel{
 		this.loadListeners();
 	}
 	
+	/**
+	 * Méthode permettant de charger les différents composants graphique.
+	 */
 	private void load()
 	{
 		btnSolo = new JButton("Solo");
@@ -53,6 +80,9 @@ public class MenuPrincipal extends JPanel{
 		this.add(btnExit, gbc);
 	}
 	
+	/**
+	 * Méthode permettant de charger les différents listener.
+	 */
 	private void loadListeners()
 	{
 		btnSolo.addActionListener(new ActionListener() {

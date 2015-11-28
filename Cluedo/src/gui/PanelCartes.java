@@ -19,17 +19,38 @@ import principal.Carte;
 import principal.Lieu;
 import principal.Suspect;
 
+/**
+ * Classe représentant un panel composé des cartes passée en paramètre. Implémente l'interface ActionListener pour écouté les cartes(JButton) si demandée.
+ * @author Sacha
+ *
+ */
 public class PanelCartes extends JPanel implements ActionListener{
 	
 	/**
-	 * 
+	 * ID permettant de sauvegarder l'objet. N'est pas utilisé.
 	 */
 	private static final long serialVersionUID = 1596893856667466757L;
+	
+	/**
+	 * Liste de boutons représentant les cartes présentes sur la panel.
+	 */
 	private List<JButton> listeBtnCartes;
+	
+	/**
+	 * Boolean représentant si les cartes(JButton) sont écoutées ou non;
+	 */
 	private boolean areListened;
+	
+	/**
+	 * Bouton représentant la carte sélectionnée.
+	 */
 	private JButton highlightedCard = null;
 	
-	
+	/**
+	 * Constructeur de la classe PanelCartes. Instancie un nouveau panel. Charge les composants, et les listeners si demandé.
+	 * @param listeCartes Liste des cartes à affichées sur la panel.
+	 * @param areListened True si les cartes doivent être écouté et selectionnable, faux sinon.
+	 */
 	public PanelCartes(List<Carte> listeCartes, boolean areListened)
 	{
 		super(new FlowLayout());
@@ -38,6 +59,9 @@ public class PanelCartes extends JPanel implements ActionListener{
 		this.load(listeCartes);
 	}
 	
+	/**
+	 * Méthode permettant de charger les différents composants graphique.
+	 */
 	private void load(List<Carte> listeCartes)
 	{
 		Collections.sort(listeCartes, new Comparator<Carte>() {
@@ -126,6 +150,10 @@ public class PanelCartes extends JPanel implements ActionListener{
 		highlightedCard.setBorderPainted(true);		
 	}
 	
+	/**
+	 * Méthode retournant la carte selectionné sur le panel.
+	 * @return la carte selectionnée sur le panel.
+	 */
 	public JButton getHighlightedCard() {
 		return highlightedCard;
 	}

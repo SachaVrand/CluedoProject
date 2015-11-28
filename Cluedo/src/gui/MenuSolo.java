@@ -17,22 +17,67 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+/**
+ * Classe représentant le panel du menu pour lancer une partie solo. Comporte plusieurs composants permettant la création de la partie.
+ * @author Sacha
+ *
+ */
 public class MenuSolo extends JPanel{
 	
 	/**
-	 * 
+	 * ID permettant de sauvegarder l'objet. N'est pas utilisé.
 	 */
 	private static final long serialVersionUID = -8159482267328787297L;
+	
+	/**
+	 * Label du nombre de joueurs.
+	 */
 	private JLabel lblNbJoueurs;
+	
+	/**
+	 * Label du niveau de l'IA.
+	 */
 	private JLabel lblNiveauIA;
+	
+	/**
+	 * Label du titre du menu.
+	 */
 	private JLabel lblSolo;
+	
+	/**
+	 * Label du nom du joueur.
+	 */
 	private JLabel lblNomJoueur;
+	
+	/**
+	 * Bouton permettant de créer et lancer la partie.
+	 */
 	private JButton btnJouer;
+	
+	/**
+	 * Bouton permettant de revenir au menu principal.
+	 */
 	private JButton btnRetour;
+	
+	/**
+	 * Liste permettant de chosir le niveau de l'IA
+	 */
 	private JComboBox<Integer> cbxNiveauIA;
+	
+	/**
+	 * Liste permettant de choisir le nombre de joueurs.
+	 */
 	private JComboBox<Integer> cbxNbJoueurs;
+	
+	/**
+	 * Zone de texte permettant de récupérer le nom du joueur.
+	 */
 	private JTextField tfNomJoueur;
 	
+	
+	/**
+	 * Constructeur de la classe MenuSolo. Instancie un nouveau panel de menu solo, charge les composants et listeners.
+	 */
 	public MenuSolo()
 	{
 		super();
@@ -41,6 +86,9 @@ public class MenuSolo extends JPanel{
 		this.loadListeners();
 	}
 	
+	/**
+	 * Méthode permettant de charger les différents composants graphique.
+	 */
 	private void load()
 	{
 		lblNbJoueurs = new JLabel("Nombre de joueurs : ");
@@ -94,6 +142,9 @@ public class MenuSolo extends JPanel{
 		this.add(panelButtons, gbc);
 	}
 	
+	/**
+	 * Méthode permettant de charger les différents listener.
+	 */
 	private void loadListeners()
 	{
 		btnRetour.addActionListener(new ActionListener() {
