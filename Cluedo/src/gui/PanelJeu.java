@@ -94,7 +94,7 @@ public class PanelJeu extends JPanel{
 	
 	
 	/**
-	 * Constructeur de la classe PanelJeu. Charge les composants et listeners du panel. Lie la textArea à la sortie standard.
+	 * Constructeur de la classe PanelJeu. Charge les composants et listeners du panel. Lie la textArea à la sortie standard. En passant un joueur avec les cartes voulu, on peut afficher n'importe quelles cartes dans le panel de cartes.
 	 * @param j joueur jouant la partie.
 	 * @param listeJoueurs liste des joueurs de la partie. Le joueur jouant inclue.
 	 * @param constantePanel Constante permettant de définir pour quel type de joueur le panel va être créer.
@@ -107,6 +107,8 @@ public class PanelJeu extends JPanel{
 		this.typePanel = constantePanel;
 		this.load();
 		this.loadListeners();
+		//ne retiens pas le flux de sortie standard et si le panel n'est plus utilise, si un sysout est fait il tentera d'afficher sur un textArea qui n'existe plus. Mais ce n'est pas censé arrivé.
+		System.out.close();
 		System.setOut(new PrintStream(new TextAreaOutputStream(txtConsole)));
 	}
 	
@@ -135,14 +137,15 @@ public class PanelJeu extends JPanel{
 		JScrollPane scrollPane = new JScrollPane(txtConsole);
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		((DefaultCaret)txtConsole.getCaret()).setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
-		if(typePanel == PANEL_HUMAIN)
+		if(typePanel == PANEL_HUMAIN || typePanel == PANEL_ORDI)
 			btnShow = new JButton("Show my cards");
+		else if(typePanel == PANEL_HOTE)
+			btnShow = new JButton("Show murder's cards");
 		btnQuit = new JButton("Quit");
 		btnQuit.setEnabled(false);
 		
 		panelConsole.add(scrollPane);
-		if(typePanel == PANEL_HUMAIN)
-			panelBoutons.add(btnShow);
+		panelBoutons.add(btnShow);
 		panelBoutons.add(btnQuit);
 		panelPrincipal.add(panelConsole,BorderLayout.WEST);
 		panelPrincipal.add(panelIconesJoueurs,BorderLayout.EAST);

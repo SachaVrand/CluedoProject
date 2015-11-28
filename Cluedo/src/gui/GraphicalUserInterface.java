@@ -70,6 +70,7 @@ public final class GraphicalUserInterface {
 				@Override
 				public void run() {
 					fenRefuter.setVisible(false);
+					fenRefuter.closePipeOut();
 					fenRefuter = null;
 					if(fenetrePrincipal != null && fenetrePrincipal.getContentPane() instanceof PanelJeu)
 					{
@@ -83,6 +84,7 @@ public final class GraphicalUserInterface {
 		else
 		{
 			fenRefuter.setVisible(false);
+			fenRefuter.closePipeOut();
 			fenRefuter = null;
 			if(fenetrePrincipal != null && fenetrePrincipal.getContentPane() instanceof PanelJeu)
 			{
@@ -108,6 +110,7 @@ public final class GraphicalUserInterface {
 				public void run() {
 					
 					fenJouer.setVisible(false);
+					fenJouer.closePipeOut();
 					fenJouer = null;
 					if(fenetrePrincipal != null && fenetrePrincipal.getContentPane() instanceof PanelJeu)
 					{
@@ -122,6 +125,7 @@ public final class GraphicalUserInterface {
 		else
 		{
 			fenJouer.setVisible(false);
+			fenJouer.closePipeOut();
 			fenJouer = null;
 			if(fenetrePrincipal != null && fenetrePrincipal.getContentPane() instanceof PanelJeu)
 			{

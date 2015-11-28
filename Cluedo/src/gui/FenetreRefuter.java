@@ -105,6 +105,19 @@ public class FenetreRefuter extends JFrame{
 	}
 	
 	/**
+	 * Méthode qui permet de fermer le flux de type PipeOutputStream de la fenetre.
+	 */
+	public void closePipeOut()
+	{
+		try {
+			pipeOut.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	/**
 	 * Méthode permettant d'enovyer la commande exit à la boucle de jeu.
 	 */
 	public void sendExit()
