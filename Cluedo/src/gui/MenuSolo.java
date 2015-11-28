@@ -164,7 +164,7 @@ public class MenuSolo extends JPanel{
 				String nom = tfNomJoueur.getText();
 				if(!nom.equals(""))
 				{
-					GraphicalUserInterface.lancerPartie(nom, nivIA, nbJoueurs);		
+					GraphicalUserInterface.lancerPartieSolo(nom, nivIA, nbJoueurs);		
 				}
 				else
 				{

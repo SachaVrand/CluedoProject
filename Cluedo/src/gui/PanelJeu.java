@@ -31,6 +31,23 @@ import principal.TextAreaOutputStream;
 public class PanelJeu extends JPanel{
 	
 	/**
+	 * Constante permettant de définir que le type du panel crée sera un panel pour un humain.
+	 */
+	public static final int PANEL_HUMAIN = 0;
+	
+	/**
+	 * Constante permettant de définir que le type du panel crée sera un panel pour un hote de partie.
+	 */
+	public static final int PANEL_HOTE = 0;
+	
+	/**
+	 * Constante permettant de définir que le type du panel crée sera un panel pour un ordi.
+	 */
+	public static final int PANEL_ORDI = 0;
+	
+	private int typePanel;
+	
+	/**
 	 * ID permettant de sauvegarder l'objet. N'est pas utilisé.
 	 */
 	private static final long serialVersionUID = -3738101737134996357L;
@@ -80,12 +97,14 @@ public class PanelJeu extends JPanel{
 	 * Constructeur de la classe PanelJeu. Charge les composants et listeners du panel. Lie la textArea à la sortie standard.
 	 * @param j joueur jouant la partie.
 	 * @param listeJoueurs liste des joueurs de la partie. Le joueur jouant inclue.
+	 * @param constantePanel Constante permettant de définir pour quel type de joueur le panel va être créer.
 	 */
-	public PanelJeu(Joueur j, List<Joueur> listeJoueurs)
+	public PanelJeu(Joueur j, List<Joueur> listeJoueurs, final int constantePanel)
 	{
 		super(new BorderLayout());
 		this.joueur = j;
 		this.listeJoueurs = listeJoueurs;
+		this.typePanel = constantePanel;
 		this.load();
 		this.loadListeners();
 		System.setOut(new PrintStream(new TextAreaOutputStream(txtConsole)));
@@ -116,12 +135,14 @@ public class PanelJeu extends JPanel{
 		JScrollPane scrollPane = new JScrollPane(txtConsole);
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		((DefaultCaret)txtConsole.getCaret()).setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
-		btnShow = new JButton("Show my cards");
+		if(typePanel == PANEL_HUMAIN)
+			btnShow = new JButton("Show my cards");
 		btnQuit = new JButton("Quit");
 		btnQuit.setEnabled(false);
 		
 		panelConsole.add(scrollPane);
-		panelBoutons.add(btnShow);
+		if(typePanel == PANEL_HUMAIN)
+			panelBoutons.add(btnShow);
 		panelBoutons.add(btnQuit);
 		panelPrincipal.add(panelConsole,BorderLayout.WEST);
 		panelPrincipal.add(panelIconesJoueurs,BorderLayout.EAST);
@@ -136,44 +157,43 @@ public class PanelJeu extends JPanel{
 	 */
 	private void loadListeners()
 	{
-		this.btnShow.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(joueur != null)
-				{
-					if(isCardsPanelDisplayed)
+		if(typePanel == PANEL_HUMAIN)
+		{
+			this.btnShow.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if(joueur != null)
 					{
-						isCardsPanelDisplayed = false;
-						panelCards.setVisible(false);
-						JButton tmpBtn = (JButton)e.getSource();
-						JFrame tmpMainFrame = (JFrame)tmpBtn.getTopLevelAncestor();
-						tmpMainFrame.pack();
-					}
-					else
-					{
-						isCardsPanelDisplayed = true;
-						panelCards.setVisible(true);
-						JButton tmpBtn = (JButton)e.getSource();
-						JFrame tmpMainFrame = (JFrame)tmpBtn.getTopLevelAncestor();
-						tmpMainFrame.pack();
+						if(isCardsPanelDisplayed)
+						{
+							isCardsPanelDisplayed = false;
+							panelCards.setVisible(false);
+							JButton tmpBtn = (JButton)e.getSource();
+							JFrame tmpMainFrame = (JFrame)tmpBtn.getTopLevelAncestor();
+							tmpMainFrame.pack();
+						}
+						else
+						{
+							isCardsPanelDisplayed = true;
+							panelCards.setVisible(true);
+							JButton tmpBtn = (JButton)e.getSource();
+							JFrame tmpMainFrame = (JFrame)tmpBtn.getTopLevelAncestor();
+							tmpMainFrame.pack();
+						}
 					}
 				}
-			}
-		});
+			});
+		}
 		
 		btnQuit.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//TODO SEND EXIT ET LA ON VA SE MARRER !
 				GraphicalUserInterface.sendExitInGame();
-				
 				GraphicalUserInterface.desafficherFenJouer();
 				GraphicalUserInterface.desafficherFenRefuter();
 				GraphicalUserInterface.afficherGUIMenuPrincipal();
-				
-				
 			}
 		});
 	}

@@ -385,7 +385,7 @@ public final class GraphicalUserInterface {
 	 * @param listeJoueurs Liste des joueurs de la partie. Doit contenir le joueur jouant avec toutes ses cartes, et les autres joueurs mais sans leurs cartes.
 	 * @param j Joueur jouant la partie.	
 	 */
-	public static void afficherGUIJeu(final List<Joueur> listeJoueurs, final Joueur j)
+	public static void afficherGUIJeu(final List<Joueur> listeJoueurs, final Joueur j, final int constantePanel)
 	{	
 		//si on est dans un autre thread que l'EDT
 		if(!SwingUtilities.isEventDispatchThread())
@@ -395,7 +395,7 @@ public final class GraphicalUserInterface {
 					
 					@Override
 					public void run() {
-						PanelJeu panelJeu = new PanelJeu(j,listeJoueurs);
+						PanelJeu panelJeu = new PanelJeu(j,listeJoueurs,constantePanel);
 						fenetrePrincipal.setContentPane(panelJeu);
 						fenetrePrincipal.pack();
 					}
@@ -408,7 +408,7 @@ public final class GraphicalUserInterface {
 		//sinon on est déjà dans l'EDT
 		else
 		{
-			PanelJeu panelJeu = new PanelJeu(j,listeJoueurs);
+			PanelJeu panelJeu = new PanelJeu(j,listeJoueurs,constantePanel);
 			fenetrePrincipal.setContentPane(panelJeu);
 			fenetrePrincipal.pack();
 		}
@@ -519,11 +519,7 @@ public final class GraphicalUserInterface {
 				}
 				else
 				{
-					if(j.getCartesJoueur().size() == 0)
-						System.out.println("aucune carte");
 					String[] tmpListeNomsJoueurs = pc.getListeJoueurs();
-					if(tmpListeNomsJoueurs.length == 0)
-						System.out.println("aucun joueur");
 					
 					//creation liste joueurs
 					List<Joueur> listeJoueurs = new ArrayList<Joueur>();
@@ -535,7 +531,8 @@ public final class GraphicalUserInterface {
 							listeJoueurs.add(new Humain(tmpListeNomsJoueurs[i]));
 					}
 					j.setPlayersInTheGame(listeJoueurs);
-					afficherGUIJeu(listeJoueurs, j);
+					final int cst = (j instanceof Humain)?(PanelJeu.PANEL_HUMAIN):(PanelJeu.PANEL_ORDI);
+					afficherGUIJeu(listeJoueurs, j, cst);
 					pc.boucleJeu();
 					
 					SwingUtilities.invokeLater(new Runnable() {
@@ -561,7 +558,7 @@ public final class GraphicalUserInterface {
 	 * @param nivIA le niveau choisi pour l'IA de la partie.
 	 * @param nbJoueurs le nombre de joueurs choisi pour la partie.
 	 */
-	public static void lancerPartie(final String nomJoueur, final int nivIA, final int nbJoueurs)
+	public static void lancerPartieSolo(final String nomJoueur, final int nivIA, final int nbJoueurs)
 	{
 		Thread threadJeu = new Thread(new Runnable() {
 			
@@ -578,7 +575,7 @@ public final class GraphicalUserInterface {
 					listeAAffJeu.add(new Ordi("Joueur "+Integer.toString(i),nivIA));
 				}
 				PartieSolo partie = new PartieSolo(listeJoueurs);
-				afficherGUIJeu(listeAAffJeu,humain);
+				afficherGUIJeu(listeAAffJeu,humain,PanelJeu.PANEL_HUMAIN);
 				humain.setPlayersInTheGame(listeAAffJeu);
 				partie.boucleJeu();
 				
