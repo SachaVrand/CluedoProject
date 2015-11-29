@@ -81,7 +81,7 @@ public class MenuReferee extends JPanel{
 		btnReferee = new JButton("Connexion");
 		btnRetour = new JButton("Retour");
 		lblAdrrHote = new JLabel("Adresse de l'hôte : ");
-		lblReferee = new JLabel("Register");
+		lblReferee = new JLabel("Referee");
 		lblNbJoueurs = new JLabel("Nombre de joueurs : ");
 		String addresseIp;
 		try {

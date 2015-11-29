@@ -22,7 +22,7 @@ import principal.PartieSolo;
 /**
  * Classe fournissant des méthodes et variables statiques permettant de gérer l'interface graphique du programme.
  * Cette classe ne peut pas être dérivée ou instanciée.
- * @author Sacha
+ * @author Sacha Clément
  *
  */
 public final class GraphicalUserInterface {
@@ -56,7 +56,7 @@ public final class GraphicalUserInterface {
 	public static Dimension screenSize = null;
 	
 	/**
-	 * Fonction permettant désafficher la fenêtre pour réfuter. Cette opération est toujours effectuée dans l'EDT. 
+	 * Fonction permettant de désafficher la fenêtre pour réfuter. Cette opération est toujours effectuée dans l'EDT. 
 	 * Désactive aussi le bouton quit de la fenêtre principal si elle contient le panel jeu.
 	 */
 	public static void desafficherFenRefuter()
