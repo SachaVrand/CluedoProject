@@ -160,34 +160,31 @@ public class PanelJeu extends JPanel{
 	 */
 	private void loadListeners()
 	{
-		if(typePanel == PANEL_HUMAIN)
-		{
-			this.btnShow.addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					if(joueur != null)
+		this.btnShow.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(joueur != null)
+				{
+					if(isCardsPanelDisplayed)
 					{
-						if(isCardsPanelDisplayed)
-						{
-							isCardsPanelDisplayed = false;
-							panelCards.setVisible(false);
-							JButton tmpBtn = (JButton)e.getSource();
-							JFrame tmpMainFrame = (JFrame)tmpBtn.getTopLevelAncestor();
-							tmpMainFrame.pack();
-						}
-						else
-						{
-							isCardsPanelDisplayed = true;
-							panelCards.setVisible(true);
-							JButton tmpBtn = (JButton)e.getSource();
-							JFrame tmpMainFrame = (JFrame)tmpBtn.getTopLevelAncestor();
-							tmpMainFrame.pack();
-						}
+						isCardsPanelDisplayed = false;
+						panelCards.setVisible(false);
+						JButton tmpBtn = (JButton)e.getSource();
+						JFrame tmpMainFrame = (JFrame)tmpBtn.getTopLevelAncestor();
+						tmpMainFrame.pack();
+					}
+					else
+					{
+						isCardsPanelDisplayed = true;
+						panelCards.setVisible(true);
+						JButton tmpBtn = (JButton)e.getSource();
+						JFrame tmpMainFrame = (JFrame)tmpBtn.getTopLevelAncestor();
+						tmpMainFrame.pack();
 					}
 				}
-			});
-		}
+			}
+		});
 		
 		btnQuit.addActionListener(new ActionListener() {
 			

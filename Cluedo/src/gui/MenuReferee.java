@@ -7,13 +7,20 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import principal.Humain;
+import principal.Joueur;
+import principal.PartieServeur;
 
 /**
  * Classe représentant le panel du menu pour créer une partie en tant qu'hôte. Comporte plusieurs permettant la création de la partie.
@@ -63,6 +70,11 @@ public class MenuReferee extends JPanel{
 	private JComboBox<Integer> cbxNbJoueurs;
 	
 	/**
+	 * Label d'erreur, affiché en cas d'erreur lors de la tentative de connexion à l'hôte.
+	 */
+	private JLabel lblError;
+	
+	/**
 	 * Constructeur de la classe MenuReferee. Instancie un nouveau panel MenuReferee et charge ses compsoants, et listeners.
 	 */
 	public MenuReferee()
@@ -82,6 +94,8 @@ public class MenuReferee extends JPanel{
 		btnRetour = new JButton("Retour");
 		lblAdrrHote = new JLabel("Adresse de l'hôte : ");
 		lblReferee = new JLabel("Referee");
+		lblError = new JLabel();
+		lblError.setVisible(false);
 		lblNbJoueurs = new JLabel("Nombre de joueurs : ");
 		String addresseIp;
 		try {
@@ -128,6 +142,8 @@ public class MenuReferee extends JPanel{
 		panelButtons.add(btnReferee);
 		panelButtons.add(btnRetour);
 		this.add(panelButtons,gbc);
+		gbc.gridy++;
+		this.add(lblError, gbc);
 	}
 	
 	/**
@@ -148,12 +164,29 @@ public class MenuReferee extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
+				int nbJoueur = (int) cbxNbJoueurs.getSelectedItem();
+				List<Joueur> listJoueur = new ArrayList<Joueur>();
+				for(int i = 0; i < nbJoueur; i++)
+				{
+					listJoueur.add(new Humain("Joueur "+Integer.toString(i)));
+				}
+				setButtonsEnabled(false);
+				GraphicalUserInterface.lancerPartieServer(listJoueur);
 			}
 		});
 		
 		
 	}
+	
+	public void changeTextlblError(String text)
+	{
+		this.lblError.setText(text);
+		this.lblError.setVisible(true);
+	}
 
+	public void setButtonsEnabled(boolean b)
+	{
+		btnReferee.setEnabled(b);
+		btnRetour.setEnabled(b);
+	}
 }

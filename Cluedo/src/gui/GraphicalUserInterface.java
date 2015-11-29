@@ -17,6 +17,7 @@ import principal.Humain;
 import principal.Joueur;
 import principal.Ordi;
 import principal.PartieClient;
+import principal.PartieServeur;
 import principal.PartieSolo;
 
 /**
@@ -606,4 +607,43 @@ public final class GraphicalUserInterface {
 		threadJeu.start();
 	}
 
+	public static void lancerPartieServer(final List<Joueur> listJoueur)
+	{
+		Thread threadJeu = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				try
+					{
+					Joueur j = new Humain("Carte à trouver");
+					final String err;
+					PartieServeur ps = new PartieServeur(listJoueur);
+					for(Carte carte : ps.getCartesADecouvrir())
+					{
+						j.ajouterCarte(carte);
+					}
+					afficherGUIJeu(listJoueur,j,PanelJeu.PANEL_HOTE);
+					ps.boucleJeu();
+				
+					SwingUtilities.invokeLater(new Runnable() {
+					
+						@Override
+						public void run() {
+							if(fenetrePrincipal != null && fenetrePrincipal.getContentPane() instanceof PanelJeu)
+							{
+								PanelJeu tmp = (PanelJeu)fenetrePrincipal.getContentPane();
+								tmp.setEnabledBtnQuit(true);
+							}	
+						}
+					});
+				}
+				catch (IOException e)
+				{
+					return;
+				}
+			}
+		});
+		threadJeu.start();
+	}
+	
 }

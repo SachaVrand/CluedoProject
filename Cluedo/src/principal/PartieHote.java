@@ -96,4 +96,8 @@ public abstract class PartieHote implements IPartie{
 		}
 		
 	}
+	
+	public Carte[] getCartesADecouvrir() {
+		return cartesADecouvrir;
+	}
 }
