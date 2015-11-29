@@ -27,9 +27,9 @@ public class Ordi extends Joueur
 		Carte carte;
 		
 		/**
-		 * Nom du joueur possèdant la carte. "inconnu" si on ne sait pas qui la possède.
+		 * Indice du joueur possèdant la carte. -1 si on ne sait pas qui la possède.
 		 */
-		String nomJoueurPossedant;
+		int indJoueurPossedant;
 		/**
 		 * Entier représentant la probabilité d'une carte. 
 		 */
@@ -42,7 +42,7 @@ public class Ordi extends Joueur
 		public ProbabiliteCarte(Carte carte)
 		{
 			this.carte = carte;
-			this.nomJoueurPossedant = "inconnu";
+			this.indJoueurPossedant = -1;
 			indiceProbabilite = 100;
 		}
 	}
@@ -88,19 +88,19 @@ public class Ordi extends Joueur
 	private List<String> cartesDejaMontrees;
 	
 	/**
-	 * Pour le niveau 2 de refuter : table de hachage ayant pour clé le nom du joueur, et valeur une liste de cartes deja montrées
+	 * Pour le niveau 2 de refuter : table de hachage ayant pour clé l'indice du joueur, et valeur une liste de cartes deja montrées
 	 */
-	private HashMap<String, List<String>> cartesMontreesParJoueur;
+	private HashMap<Integer, List<String>> cartesMontreesParJoueur;
 	
 	/**
-	 * Chaine de caractère représentant le joueur en train de jouer.
+	 * indice dans la liste des joueurs de la partie représentant le joueur en train de jouer.
 	 */
-	private String joueurActuel;
+	private int joueurActuel;
 	
 	/**
-	 * Chaine de caractère représentant le joueur en train de réfuter.
+	 * indice dans la liste des joueurs de la partie représentant le joueur en train de réfuter.
 	 */
-	private String joueurRefutant;
+	private int joueurRefutant;
 	
 	/**
 	 * Booléen représentant si ma suggestion a pu être réfuter. Vrai si elle n'as pas pu être réfuter, sinon faux.
@@ -134,6 +134,11 @@ public class Ordi extends Joueur
 	private int nombreTour;
 	
 	/**
+	 * Indice de ce joueur dans la liste des joueurs de la partie.
+	 */
+	private int myIndInList;
+	
+	/**
 	 * Instancie un nouvelle Ordi avec le nom de joueur et le niveau d'intelligence de l'IA choisi.
 	 * Si le niveau d'IA choisi est inférieur à 2 instancie une ArrayList pour carteDejaMontrees, sinon instancie une HashMap vide pour CartesMontreesParJoueur.
 	 * Initialise auncuneRefutationDeMonCoup à faux, aucuneRefutationAutre à faux, monDernierCoupJouer à null, dernierCoupJouer à null, doitAccuser à 0, joueurActuel à 0, joueurRefutant à 0.
@@ -141,7 +146,7 @@ public class Ordi extends Joueur
 	 * @param nom Nom du joueur sous la forme de String
 	 * @param IALevel Niveau du joueur sous la forme d'entier, de 0 à 2.
 	 */
-	public Ordi(String nom,int IALevel)
+	public Ordi(String nom, int IALevel)
 	{
 		super(nom);
 		this.niveauIA = IALevel;
@@ -163,20 +168,20 @@ public class Ordi extends Joueur
 		dernierCoupJouer = null;
 		initialiserProbabiliteCartes();
 		doitAccuser = 0;
-		joueurActuel = "";
-		joueurRefutant = "";
+		joueurActuel = -1;
+		joueurRefutant = -1;
 	}
 	
 	/**
 	 * Méthode qui permet de changer le nom du joueur actuel avec celui passé en paramètre.
 	 * @param nom Nom du joueur sous la forme de String
 	 */
-	public void setJoueurActuel(String nom)
+	public void setJoueurActuel(int indJoueur)
 	{
-		this.joueurActuel = nom;
-		if(niveauIA >= 2 && !cartesMontreesParJoueur.containsKey(nom))
+		this.joueurActuel = indJoueur;
+		if(niveauIA >= 2 && !cartesMontreesParJoueur.containsKey(indJoueur))
 		{
-			cartesMontreesParJoueur.put(nom, new ArrayList<String>());
+			cartesMontreesParJoueur.put(indJoueur, new ArrayList<String>());
 		}
 	}
 	
@@ -184,9 +189,9 @@ public class Ordi extends Joueur
 	 * Méthode qui permet de changer le nom du joueur réfutant avec celui passé en paramètre.
 	 * @param nom Nom du joueur sous la forme de String
 	 */
-	public void setJoueurRefutant(String nom)
+	public void setJoueurRefutant(int indJoueur)
 	{
-		this.joueurRefutant = nom;
+		this.joueurRefutant = indJoueur;
 	}
 	
 	/**
@@ -205,6 +210,14 @@ public class Ordi extends Joueur
 	public String[] getDernierCoupJouer()
 	{
 		return this.dernierCoupJouer;
+	}
+	
+	/**
+	 * Méthode qui permet de set l'indice du joueur dans la liste.
+	 * @param myIndInList
+	 */
+	public void setMyIndInList(int myIndInList) {
+		this.myIndInList = myIndInList;
 	}
 	
 	/**
@@ -414,7 +427,7 @@ public class Ordi extends Joueur
 	 */
 	private String getRefuterLevelTwo(List<String> cartesCommun)
 	{
-		//cas où nous avons déjà montrer l'une des cartes demandées au joueur.
+		//cas où nous avons déjà montré l'une des cartes demandées au joueur.
 		for (String carte : cartesCommun)
 		{
 			if(cartesMontreesParJoueur.get(joueurActuel).contains(carte))
@@ -422,7 +435,7 @@ public class Ordi extends Joueur
 				return carte;
 			}
 		}
-		//cas où nous avons deja montrée l'une des cartes demandées a un autre joueur.
+		//cas où nous avons deja montré l'une des cartes demandées à un autre joueur.
 		for(List<String> listeCartes : cartesMontreesParJoueur.values())
 		{
 			for(String carte : listeCartes)
@@ -441,7 +454,7 @@ public class Ordi extends Joueur
 	}
 	
 	/**
-	 * Méthode qui permet d'initialiser les liste de ProbabiliteCarte avec toutes les cartes du jeu.
+	 * Méthode qui permet d'initialiser les listes de ProbabiliteCarte avec toutes les cartes du jeu.
 	 */
 	private void initialiserProbabiliteCartes()
 	{
@@ -463,22 +476,22 @@ public class Ordi extends Joueur
 	}
 	
 	/**
-	 * Méthode qui permet d'ajouter une carte aux carte du joueur.
+	 * Méthode qui permet d'ajouter une carte aux cartes du joueur.
 	 * @param c Carte à ajouter.
 	 */
 	@Override
 	public void ajouterCarte(Carte c)
 	{
 		super.ajouterCarte(c);
-		this.ajouterCarteConnue(c, this.getNom());
+		this.ajouterCarteConnue(c, myIndInList);
 	}
 	
 	/**
 	 * Méthode qui permet de changer le nomJoueurPossedant de ProbabiliteCarte après avoir découvert à qui elle appartient.
 	 * @param c Carte découverte
-	 * @param nomJoueur Nom du joueur la possédant.
+	 * @param indJoueur Indice du joueur la possédant.
 	 */
-	public void ajouterCarteConnue(Carte c, String nomJoueur)
+	public void ajouterCarteConnue(Carte c, int indJoueur)
 	{
 		if(c instanceof Arme)
 		{
@@ -486,7 +499,7 @@ public class Ordi extends Joueur
 			{
 				if(pc.carte.equals(c))
 				{
-					pc.nomJoueurPossedant = nomJoueur;
+					pc.indJoueurPossedant = indJoueur;
 					pc.indiceProbabilite = 0;
 					break;
 				}
@@ -498,7 +511,7 @@ public class Ordi extends Joueur
 			{
 				if(pc.carte.equals(c))
 				{
-					pc.nomJoueurPossedant = nomJoueur;
+					pc.indJoueurPossedant = indJoueur;
 					pc.indiceProbabilite = 0;
 					break;
 				}
@@ -510,7 +523,7 @@ public class Ordi extends Joueur
 			{
 				if(pc.carte.equals(c))
 				{
-					pc.nomJoueurPossedant = nomJoueur;
+					pc.indJoueurPossedant = indJoueur;
 					pc.indiceProbabilite = 0;
 					break;
 				}
@@ -541,12 +554,12 @@ public class Ordi extends Joueur
 			{
 				if(pc.carte.getNom().equals(carte))
 				{
-					if(pc.nomJoueurPossedant.equals("inconnu"))
+					if(pc.indJoueurPossedant == -1)
 					{
 						pc.indiceProbabilite += valeur;
 						pcInconnu = pc;
 					}
-					else if(!pc.nomJoueurPossedant.equals(joueurRefutant))
+					else if(pc.indJoueurPossedant != joueurRefutant)
 					{
 						nbCarteConnues++;
 					}
@@ -560,12 +573,12 @@ public class Ordi extends Joueur
 				{
 					if(pc.carte.getNom().equals(carte))
 					{
-						if(pc.nomJoueurPossedant.equals("inconnu"))
+						if(pc.indJoueurPossedant == -1)
 						{
 							pc.indiceProbabilite += valeur;
 							pcInconnu = pc;
 						}
-						else if(!pc.nomJoueurPossedant.equals(joueurRefutant))
+						else if(pc.indJoueurPossedant != joueurRefutant)
 						{
 							nbCarteConnues++;
 						}
@@ -579,12 +592,12 @@ public class Ordi extends Joueur
 					{
 						if(pc.carte.getNom().equals(carte))
 						{
-							if(pc.nomJoueurPossedant.equals("inconnu"))
+							if(pc.indJoueurPossedant == -1)
 							{
 								pc.indiceProbabilite += valeur;
 								pcInconnu = pc;
 							}
-							else if(!pc.nomJoueurPossedant.equals(joueurRefutant))
+							else if(pc.indJoueurPossedant != joueurRefutant)
 							{
 								nbCarteConnues++;
 							}
@@ -597,7 +610,7 @@ public class Ordi extends Joueur
 		if(valeur == SUGGEST_REFUTATION && nbCarteConnues == 2 && pcInconnu != null)
 		{	
 			pcInconnu.indiceProbabilite = 0;
-			pcInconnu.nomJoueurPossedant = joueurRefutant;
+			pcInconnu.indJoueurPossedant = joueurRefutant;
 		}
 	}
 	
@@ -611,7 +624,7 @@ public class Ordi extends Joueur
 		List<ProbabiliteCarte> res = new ArrayList<>();
 		for(ProbabiliteCarte pc : listeATrier)
 		{
-			if(pc.nomJoueurPossedant.equals("inconnu"))
+			if(pc.indJoueurPossedant == -1)
 			{
 				res.add(pc);
 			}

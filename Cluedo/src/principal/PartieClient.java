@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 
 import javax.swing.Timer;
 
@@ -115,6 +116,10 @@ public class PartieClient implements IPartie
 			else
 			{
 				myNum = Integer.parseInt(message[1]);
+				if(joueur instanceof Ordi)
+				{
+					((Ordi) joueur).setMyIndInList(myNum);
+				}
 			}
 			
 			t.start();
@@ -249,7 +254,7 @@ public class PartieClient implements IPartie
 					if(joueur instanceof Ordi)
 					{
 						Ordi tmp = (Ordi)joueur;
-						tmp.setJoueurActuel(listeJoueurs[Integer.parseInt(message[1])]);
+						tmp.setJoueurActuel(Integer.parseInt(message[1]));
 						if(tmp.getAucuneRefutationAutre() != null && tmp.getAucuneRefutationAutre())
 						{
 							//augmenter les prob des dernieres cartes
@@ -323,7 +328,7 @@ public class PartieClient implements IPartie
 							{
 								((Ordi)joueur).setAucuneRefutationAutre(false);
 							}
-							((Ordi)joueur).setJoueurRefutant(listeJoueurs[Integer.parseInt(message[2])]);
+							((Ordi)joueur).setJoueurRefutant(Integer.parseInt(message[2]));
 						}
 						System.out.println(listeJoueurs[Integer.parseInt(message[2])] + " a montré une carte à " + listeJoueurs[Integer.parseInt(message[3])]);
 					}
@@ -333,7 +338,7 @@ public class PartieClient implements IPartie
 						if(joueur instanceof Ordi)
 						{
 							Ordi tmp = (Ordi)joueur;
-							tmp.ajouterCarteConnue(Carte.retrouverCarte(message[3]), listeJoueurs[Integer.parseInt(message[2])]);
+							tmp.ajouterCarteConnue(Carte.retrouverCarte(message[3]), Integer.parseInt(message[2]));
 							tmp.setAucuneRefutationDeMonCoup(false);
 						}
 						//on met à jour les cartes que nous on montrées les autres joueurs.

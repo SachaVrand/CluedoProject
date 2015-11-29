@@ -46,7 +46,7 @@ public class PartieSolo extends PartieHote {
 			{
 				if(joueursPartie.get(x) instanceof Ordi)
 				{
-					((Ordi)joueursPartie.get(x)).setJoueurActuel(joueursPartie.get(joueurActuel).getNom());
+					((Ordi)joueursPartie.get(x)).setJoueurActuel(joueurActuel);
 				}
 			}
 			
@@ -113,7 +113,7 @@ public class PartieSolo extends PartieHote {
 							{
 								if(joueursPartie.get(x) instanceof Ordi)
 								{
-									((Ordi)joueursPartie.get(x)).setJoueurRefutant(j.getNom());
+									((Ordi)joueursPartie.get(x)).setJoueurRefutant(i);
 								}
 							}
 							
@@ -148,7 +148,7 @@ public class PartieSolo extends PartieHote {
 							if(joueursPartie.get(joueurActuel) instanceof Ordi)
 							{
 								Ordi ordi = (Ordi)joueursPartie.get(joueurActuel);
-								ordi.ajouterCarteConnue(Carte.retrouverCarte(carteMontre), j.getNom());
+								ordi.ajouterCarteConnue(Carte.retrouverCarte(carteMontre), i);
 							}
 							
 							break;
@@ -228,7 +228,7 @@ public class PartieSolo extends PartieHote {
 			{
 				if(joueursPartie.get(x) instanceof Ordi)
 				{
-					((Ordi)joueursPartie.get(x)).setJoueurActuel(joueursPartie.get(joueurActuel).getNom());
+					((Ordi)joueursPartie.get(x)).setJoueurActuel(joueurActuel);
 				}
 			}
 			
@@ -294,7 +294,7 @@ public class PartieSolo extends PartieHote {
 							{
 								if(joueursPartie.get(x) instanceof Ordi)
 								{
-									((Ordi)joueursPartie.get(x)).setJoueurRefutant(j.getNom());
+									((Ordi)joueursPartie.get(x)).setJoueurRefutant(i);
 								}
 							}
 							
@@ -317,7 +317,7 @@ public class PartieSolo extends PartieHote {
 							if(joueursPartie.get(joueurActuel) instanceof Ordi)
 							{
 								Ordi ordi = (Ordi)joueursPartie.get(joueurActuel);
-								ordi.ajouterCarteConnue(Carte.retrouverCarte(carteMontre), j.getNom());
+								ordi.ajouterCarteConnue(Carte.retrouverCarte(carteMontre), i);
 							}
 							
 							break;
