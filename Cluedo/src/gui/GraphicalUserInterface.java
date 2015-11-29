@@ -56,7 +56,7 @@ public final class GraphicalUserInterface {
 	public static Dimension screenSize = null;
 	
 	/**
-	 * Fonction permettant de désafficher la fenêtre pour réfuter. Cette opération est toujours effectuée dans l'EDT. 
+	 * Fonction permettant désafficher la fenêtre pour réfuter. Cette opération est toujours effectuée dans l'EDT. 
 	 * Désactive aussi le bouton quit de la fenêtre principal si elle contient le panel jeu.
 	 */
 	public static void desafficherFenRefuter()
