@@ -109,7 +109,9 @@ public class Cluedo
 				listJoueur.add(new Humain("Joueur 0 (vous)"));
 				for(int i = 1; i < Integer.parseInt(cmdComplete[1]); i++)
 				{
-					listJoueur.add(new Ordi("Joueur "+Integer.toString(i),2));
+					Ordi ordi = new Ordi("Joueur "+Integer.toString(i),2);
+					ordi.setMyIndInList(i);
+					listJoueur.add(ordi);
 				}
 				PartieSolo p = new PartieSolo(listJoueur);
 				p.boucleJeu();
@@ -257,7 +259,9 @@ public class Cluedo
 			List<Joueur> lst = new ArrayList<>();
 			for(int j = 0 ; j < listeNoms.length ; j++)
 			{
-				lst.add(new Ordi(listeNoms[j],listeNiveaux[j]));
+				Ordi ordi = new Ordi(listeNoms[j],listeNiveaux[j]);
+				ordi.setMyIndInList(j);
+				lst.add(ordi);
 			}
 			PartieSolo ps = new PartieSolo(lst);
 			tabRes[ps.boucleJeuTestIA()]++;

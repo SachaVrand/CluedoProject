@@ -575,8 +575,15 @@ public final class GraphicalUserInterface {
 				listeAAffJeu.add(humain);
 				for(int i = 1; i < nbJoueurs; i++)
 				{
-					listeJoueurs.add(new Ordi("Joueur "+Integer.toString(i),nivIA));
+					Ordi ordi = new Ordi("Joueur "+Integer.toString(i),nivIA);
+					ordi.setMyIndInList(i);
+					listeJoueurs.add(ordi);
+					
 					listeAAffJeu.add(new Ordi("Joueur "+Integer.toString(i),nivIA));
+				}
+				for(int i = 1; i < nbJoueurs; i++)
+				{
+					listeJoueurs.get(i).setPlayersInTheGame(listeJoueurs);
 				}
 				PartieSolo partie = new PartieSolo(listeJoueurs);
 				afficherGUIJeu(listeAAffJeu,humain,PanelJeu.PANEL_HUMAIN);
