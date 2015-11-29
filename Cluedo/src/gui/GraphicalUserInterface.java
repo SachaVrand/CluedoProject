@@ -616,7 +616,6 @@ public final class GraphicalUserInterface {
 				try
 					{
 					Joueur j = new Humain("Carte à trouver");
-					final String err;
 					PartieServeur ps = new PartieServeur(listJoueur);
 					for(Carte carte : ps.getCartesADecouvrir())
 					{

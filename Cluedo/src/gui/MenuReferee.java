@@ -7,7 +7,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -20,7 +19,6 @@ import javax.swing.JPanel;
 
 import principal.Humain;
 import principal.Joueur;
-import principal.PartieServeur;
 
 /**
  * Classe représentant le panel du menu pour créer une partie en tant qu'hôte. Comporte plusieurs permettant la création de la partie.
