@@ -531,7 +531,10 @@ public final class GraphicalUserInterface {
 					for(int i = 0; i < tmpListeNomsJoueurs.length; i++)
 					{
 						if(i == pc.getMyNum())
+						{
 							listeJoueurs.add(j);
+							j.setMyIndInList(i);
+						}
 						else
 							listeJoueurs.add(new Humain(tmpListeNomsJoueurs[i]));
 					}
@@ -572,6 +575,7 @@ public final class GraphicalUserInterface {
 				List<Joueur> listeJoueurs = new ArrayList<Joueur>();
 				List<Joueur> listeAAffJeu = new ArrayList<Joueur>();
 				Joueur humain = new Humain(nomJoueur);
+				humain.setMyIndInList(0);
 				listeJoueurs.add(humain);
 				listeAAffJeu.add(humain);
 				for(int i = 1; i < nbJoueurs; i++)
@@ -579,12 +583,7 @@ public final class GraphicalUserInterface {
 					Ordi ordi = new Ordi("Joueur "+Integer.toString(i),nivIA);
 					ordi.setMyIndInList(i);
 					listeJoueurs.add(ordi);
-					
 					listeAAffJeu.add(new Ordi("Joueur "+Integer.toString(i),nivIA));
-				}
-				for(int i = 1; i < nbJoueurs; i++)
-				{
-					listeJoueurs.get(i).setPlayersInTheGame(listeJoueurs);
 				}
 				PartieSolo partie = new PartieSolo(listeJoueurs);
 				afficherGUIJeu(listeAAffJeu,humain,PanelJeu.PANEL_HUMAIN);

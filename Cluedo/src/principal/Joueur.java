@@ -10,7 +10,7 @@ import java.util.List;
 public abstract class Joueur {
 	
 	/**
-	 * Liste des joueurs de la partie. N'est pas instanciée ou affectée dès la créationd d'un joueur. Doit être set quand on en a besoin.
+	 * Liste des joueurs de la partie. N'est pas instanciée ou affectée dès la création d'un joueur. Doit être set quand on en a besoin.
 	 */
 	protected List<Joueur> playersInTheGame;
 	
@@ -28,6 +28,11 @@ public abstract class Joueur {
 	 * Collection de carte que le joueur a durant une partie.
 	 */
 	protected List<Carte> cartesJoueur;
+	
+	/**
+	 * Indice de ce joueur dans la liste des joueurs de la partie.
+	 */
+	protected int myIndInList = -1;
 	
 	/**
 	 * Instancie un nouveau joueur avec le nom et l'adresse passés en paramètres, l'attribut encoreEnJeu à true et instancie une nouvelle collections de carte vide.
@@ -113,17 +118,27 @@ public abstract class Joueur {
 	 * @param indPlayer Indice du joueur dans la liste.
 	 * @param card Nouvelle carte connue sous la forme de chaine
 	 */
-	public void updateKnownedCardForPlayer(int indPlayer, String card)
+	public void updateKnownedCardForGUI(int indPlayer, String card)
 	{
-		if(playersInTheGame == null) return;
-		playersInTheGame.get(indPlayer).ajouterCarte(Carte.retrouverCarte(card));
+		if(playersInTheGame == null || indPlayer == myIndInList) return;
+		Carte carte = Carte.retrouverCarte(card);
+		if(!playersInTheGame.get(indPlayer).getCartesJoueur().contains(carte))
+			playersInTheGame.get(indPlayer).ajouterCarte(carte);
 	}
 	
 	/**
-	 * Méthode qui permet de set les joueurs de la partie.
+	 * Méthode qui permet de set les joueurs de la partie. N'est utile que pour la partie graphique. Doit correspondre au joueur principal avec toutes es cartes et aux autres joueurs sans leurs cartes au début.
 	 * @param playersInTheGame Liste des joueurs présents dans la partie.
 	 */
 	public void setPlayersInTheGame(List<Joueur> playersInTheGame) {
 		this.playersInTheGame = playersInTheGame;
+	}
+	
+	/**
+	 * Méthode qui permet de set l'indice du joueur dans la liste. Obligatoire pour l'IA. Utile pour la GUI.
+	 * @param myIndInList
+	 */
+	public void setMyIndInList(int myIndInList) {
+		this.myIndInList = myIndInList;
 	}
 }

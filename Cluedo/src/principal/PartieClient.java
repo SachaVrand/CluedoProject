@@ -341,7 +341,7 @@ public class PartieClient implements IPartie
 							tmp.setAucuneRefutationDeMonCoup(false);
 						}
 						//on met à jour les cartes que nous on montrées les autres joueurs.
-						joueur.updateKnownedCardForPlayer(Integer.parseInt(message[2]), message[3]);
+						joueur.updateKnownedCardForGUI(Integer.parseInt(message[2]), message[3]);
 						GraphicalUserInterface.updatePanelJeu();
 					}
 					else if(message[1].equalsIgnoreCase("wrong") && message.length == 3)

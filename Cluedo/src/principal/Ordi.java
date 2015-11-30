@@ -134,11 +134,6 @@ public class Ordi extends Joueur
 	private int nombreTour;
 	
 	/**
-	 * Indice de ce joueur dans la liste des joueurs de la partie.
-	 */
-	private int myIndInList;
-	
-	/**
 	 * Instancie un nouvelle Ordi avec le nom de joueur et le niveau d'intelligence de l'IA choisi.
 	 * Si le niveau d'IA choisi est inférieur à 2 instancie une ArrayList pour carteDejaMontrees, sinon instancie une HashMap vide pour CartesMontreesParJoueur.
 	 * Initialise auncuneRefutationDeMonCoup à faux, aucuneRefutationAutre à faux, monDernierCoupJouer à null, dernierCoupJouer à null, doitAccuser à 0, joueurActuel à 0, joueurRefutant à 0.
@@ -210,14 +205,6 @@ public class Ordi extends Joueur
 	public String[] getDernierCoupJouer()
 	{
 		return this.dernierCoupJouer;
-	}
-	
-	/**
-	 * Méthode qui permet de set l'indice du joueur dans la liste.
-	 * @param myIndInList
-	 */
-	public void setMyIndInList(int myIndInList) {
-		this.myIndInList = myIndInList;
 	}
 	
 	/**
