@@ -168,7 +168,8 @@ public class PanelJeu extends JPanel{
 		panelConsole.add(scrollPane);
 		panelBoutons.add(btnShow);
 		panelBoutons.add(btnQuit);
-		panelPrincipal.add(panelDerCarte,BorderLayout.WEST);
+		if(typePanel != PANEL_HOTE)
+			panelPrincipal.add(panelDerCarte,BorderLayout.WEST);
 		panelPrincipal.add(panelConsole,BorderLayout.CENTER);
 		panelPrincipal.add(panelIconesJoueurs,BorderLayout.EAST);
 		this.add(panelPrincipal,BorderLayout.NORTH);
