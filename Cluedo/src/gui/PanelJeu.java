@@ -260,6 +260,7 @@ public class PanelJeu extends JPanel{
 	 */
 	public void updateDerCarte(Carte c, int indJoueur)
 	{
+		if(typePanel == PANEL_HOTE) return;
 		if(!listeJoueurs.get(indJoueur).equals(joueur))
 		{
 			this.lblDerCarte.setIcon(c.getImage());

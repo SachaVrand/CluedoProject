@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -7,7 +8,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 /**
  * Classe représentant le panel du menu principal. Comporte différents bouton permettant d'accéder aux menus suivant ou de quitter le jeu.
@@ -42,6 +45,11 @@ public class MenuPrincipal extends JPanel{
 	private JButton btnExit;
 	
 	/**
+	 * Label du titre du menu
+	 */
+	private JLabel lblTitre;
+	
+	/**
 	 * Constructeur de la classe MenuPrincipal. Instancie un nouveau panel MenuPrincipal. Charge les composants et les listeners.
 	 */
 	public MenuPrincipal()
@@ -57,25 +65,31 @@ public class MenuPrincipal extends JPanel{
 	 */
 	private void load()
 	{
+		lblTitre = new JLabel("Cluedo");
+		lblTitre.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 35));
+		lblTitre.setHorizontalAlignment(SwingConstants.CENTER);
 		btnSolo = new JButton("Solo");
 		btnRegister = new JButton("Register");
 		btnReferee = new JButton("Referee");
 		btnExit = new JButton("Exit");
 		
 		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.insets = new Insets(25, 25, 5, 25);
-		gbc.gridx = 0;
+		gbc.insets = new Insets(25, 25, 25, 25);
 		gbc.gridy = 0;
+		gbc.gridx = 0;
 		gbc.ipadx = 30;
 		gbc.ipady = 5;
-		gbc.fill = GridBagConstraints.HORIZONTAL;
-		this.add(btnSolo,gbc);
+		gbc.fill = GridBagConstraints.HORIZONTAL;	
+		this.add(lblTitre, gbc);
 		gbc.gridy = 1;
 		gbc.insets = new Insets(5, 25, 5, 25);
-		this.add(btnRegister, gbc);
+		this.add(btnSolo,gbc);
 		gbc.gridy = 2;
-		this.add(btnReferee, gbc);
+		gbc.insets = new Insets(5, 25, 5, 25);
+		this.add(btnRegister, gbc);
 		gbc.gridy = 3;
+		this.add(btnReferee, gbc);
+		gbc.gridy = 4;
 		gbc.insets = new Insets(5, 25, 25, 25);
 		this.add(btnExit, gbc);
 	}
