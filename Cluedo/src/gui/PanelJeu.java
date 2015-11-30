@@ -42,12 +42,12 @@ public class PanelJeu extends JPanel{
 	/**
 	 * Constante permettant de définir que le type du panel crée sera un panel pour un hote de partie.
 	 */
-	public static final int PANEL_HOTE = 0;
+	public static final int PANEL_HOTE = 1;
 	
 	/**
 	 * Constante permettant de définir que le type du panel crée sera un panel pour un ordi.
 	 */
-	public static final int PANEL_ORDI = 0;
+	public static final int PANEL_ORDI = 2;
 	
 	private int typePanel;
 	
