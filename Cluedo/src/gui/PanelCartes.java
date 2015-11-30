@@ -61,6 +61,7 @@ public class PanelCartes extends JPanel implements ActionListener{
 	
 	/**
 	 * Méthode permettant de charger les différents composants graphique.
+	 * @param listeCartes Liste des cartes à affiché sur le panel.
 	 */
 	private void load(List<Carte> listeCartes)
 	{

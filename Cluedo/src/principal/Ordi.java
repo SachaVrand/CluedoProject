@@ -169,7 +169,7 @@ public class Ordi extends Joueur
 	
 	/**
 	 * Méthode qui permet de changer le nom du joueur actuel avec celui passé en paramètre.
-	 * @param nom Nom du joueur sous la forme de String
+	 * @param indJoueur Indice du joueur dans la liste des joueurs.
 	 */
 	public void setJoueurActuel(int indJoueur)
 	{
@@ -182,7 +182,7 @@ public class Ordi extends Joueur
 	
 	/**
 	 * Méthode qui permet de changer le nom du joueur réfutant avec celui passé en paramètre.
-	 * @param nom Nom du joueur sous la forme de String
+	 * @param indJoueur Indice du joueur dans la liste des joueurs.
 	 */
 	public void setJoueurRefutant(int indJoueur)
 	{
@@ -191,7 +191,7 @@ public class Ordi extends Joueur
 	
 	/**
 	 * Méthode qui permet de changer le dernier coup joué par un autre joueur avec le tableau de String passé en paramètre.
-	 * @param dernierCoup Tableau de String représentant le dernier coup jouer par un autre joueur. [0]->String de Carte [1]->String de Carte [2]->String de Carte
+	 * @param dernierCoup Tableau de String représentant le dernier coup jouer par un autre joueur. [0]String de Carte [1]String de Carte [2]String de Carte
 	 */
 	public void setDernierCoupJouer(String[] dernierCoup)
 	{
@@ -236,7 +236,7 @@ public class Ordi extends Joueur
 	
 	/**
 	 * Méthode qui permet à l'intelligence artificielle de faire une suggestion ou une accusation en fonction de son niveau d'intelligence. 
-	 * @return Un tableau de String représentant le coup joué, [0]->"suggest" ou "accuse", [1-3]->Carte sous la forme de String, 1 de chaque type.
+	 * @return Un tableau de String représentant le coup joué, [0]"suggest" ou "accuse", [1-3]Carte sous la forme de String, 1 de chaque type.
 	 */
 	@Override
 	public String[] jouerCoup() 
@@ -300,7 +300,7 @@ public class Ordi extends Joueur
 	/**
 	 * Méthode qui permet de jouer un coup pour une intelligence de niveau 0.
 	 * Suggère des cartes au hasard parmis celle qu'elle ne connais pas et accuse des lors qu'elle connait toutes les cartes des joueurs.
-	 * @return Un tableau de String représentant le coup joué, [0]->"suggest" ou "accuse", [1-3]->Carte sous la forme de String, 1 de chaque type.
+	 * @return Un tableau de String représentant le coup joué, [0]"suggest" ou "accuse", [1-3]Carte sous la forme de String, 1 de chaque type.
 	 */
 	private String[] getCoupRandom()
 	{
@@ -331,7 +331,7 @@ public class Ordi extends Joueur
 	 * Méthode qui permet de jouer un coup pour une intelligence de niveau 1 ou 2.
 	 * Dans le cas d'un niv 1 : Suggère des cartes au hasard parmis celle qu'elle ne connais pas. Et accuse dès lors qu'elle à soit suggérer des cartes qui ne lui appartenais pas et que personne n'as pu répondre. Ou des lors qu'elle connais toutes les cartes des autres joueurs.
 	 * Dans le cas d'un niveau 2: Suggère des cartes au hasard parmis celle qu'elle ne connais pas. Et accuse dès lors qu'elle à soit suggérer des cartes qui ne lui appartenais pas et que personne n'as pu répondre. Ou des lors qu'elle connais toutes les cartes des autres joueurs.
-	 * @return Un tableau de String représentant le coup joué, [0]->"suggest" ou "accuse", [1-3]->Carte sous la forme de String, 1 de chaque type.
+	 * @return Un tableau de String représentant le coup joué, [0]"suggest" ou "accuse", [1-3]Carte sous la forme de String, 1 de chaque type.
 	 */
 	private String[] getCoupLevelOneOrTwo()
 	{

@@ -389,7 +389,8 @@ public final class GraphicalUserInterface {
 	/**
 	 * Fonction permettant d'afficher le panel de jeu dans la fenêtre principale. Cette opération est toujours effectuée dans l'EDT.
 	 * @param listeJoueurs Liste des joueurs de la partie. Doit contenir le joueur jouant avec toutes ses cartes, et les autres joueurs mais sans leurs cartes.
-	 * @param j Joueur jouant la partie.	
+	 * @param j Joueur jouant la partie.
+	 * @param constantePanel Constante de PanelJeu pour créer un panel adapté à celui voulu.	
 	 */
 	public static void afficherGUIJeu(final List<Joueur> listeJoueurs, final Joueur j, final int constantePanel)
 	{	
@@ -485,6 +486,8 @@ public final class GraphicalUserInterface {
 	
 	/**
 	 * Fonction qui met à jour le panel Jeu. Met à jour les icone de joueurs et leurs tooltips. Met à jour le panel dernière carte.
+	 * @param derCarte Dernière carte qui à été montrer au joueur.
+	 * @param indJoueur indice du joueur dans la liste qui à montrer la carte.
 	 */
 	public static void updatePanelJeu(final Carte derCarte, final int indJoueur)
 	{

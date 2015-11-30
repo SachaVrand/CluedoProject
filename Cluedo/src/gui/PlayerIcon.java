@@ -38,7 +38,7 @@ public class PlayerIcon extends JLabel implements MouseListener{
 
 	/**
 	 * Constructeur de la classe PlayerIcon. Charge les composants du labels et du tooltip. Lance l'écoute de l'icone.
-	 * @param j
+	 * @param j Joueur correspondant au PlayerIcon
 	 */
 	public PlayerIcon(Joueur j)
 	{

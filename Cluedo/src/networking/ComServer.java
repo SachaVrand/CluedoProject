@@ -25,6 +25,7 @@ public class ComServer {
 	 * ComServer constructor.
 	 * 
 	 * @param socket A Socket representing the connection with the client.
+	 * @param nom le pseudo du joueur
 	 * @throws IOException if an I/O error occurs.
 	 */
     public ComServer(Socket socket, String nom) throws IOException {

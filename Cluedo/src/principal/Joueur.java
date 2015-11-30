@@ -136,7 +136,7 @@ public abstract class Joueur {
 	
 	/**
 	 * Méthode qui permet de set l'indice du joueur dans la liste. Obligatoire pour l'IA. Utile pour la GUI.
-	 * @param myIndInList
+	 * @param myIndInList Indice de ce joueur dans la liste des joueurs de la partie.
 	 */
 	public void setMyIndInList(int myIndInList) {
 		this.myIndInList = myIndInList;

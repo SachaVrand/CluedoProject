@@ -152,7 +152,7 @@ public class RegServer {
 
     /**
      * Permet de récupérer la liste des ComServer
-     * @return A List<ComServer>
+     * @return la liste des ComServer
      */
     public List<ComServer> getClients()
     {

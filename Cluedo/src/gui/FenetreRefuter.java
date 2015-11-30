@@ -56,6 +56,7 @@ public class FenetreRefuter extends JFrame{
 	
 	/**
 	 * Méthode permettant de charger les différents composants graphique.
+	 * @param listeCartesCommun Liste des cartes en que le joueur peut montrer pour réfuter une suggestion
 	 */
 	private void load(List<Carte> listeCartesCommun)
 	{
