@@ -31,6 +31,11 @@ public abstract class PartieHote implements IPartie{
 	protected boolean partieFinie;
 	
 	/**
+	 * Nom du joueur ayant gagné.
+	 */
+	protected String nomGagnant;
+	
+	/**
 	 * Instancie une nouvelle partie avec la liste des joueurs passée en paramètre, l'indice du joueur actuel à 0, un nouveau tableau de 3 cartes, partieFinie à false 
 	 * et distribue les cartes à chaque joueur.
 	 * @param joueursPartie Collection de Joueur jouant la partie.
@@ -41,9 +46,27 @@ public abstract class PartieHote implements IPartie{
 		this.joueurActuel = 0;
 		this.cartesADecouvrir = new Carte[3];
 		this.partieFinie = false;
+		this.nomGagnant = "unknown";
 		distribuerPaquet(Carte.creerPaquetDeCartes());
 	}
+	
+	/**
+	 * Retourne le nom du joeuur ayant gagné
+	 * @return le nom du joeuur ayant gagné
+	 */
+	public String getNomGagnant() {
+		return nomGagnant;
+	}
 
+	/**
+	 * Méthode qui retourne si la partie est finie.
+	 * @return retourne vrai si la partie est finie sinon false.
+	 */
+	public boolean getPartieFinie()
+	{
+		return partieFinie;
+	}
+	
 	/**
 	 * Méthode qui permet de distribuer les cartes passées en paramètre à chaque joueur présent dans la partie 
 	 * et de mettre les 3 carte du crime dans cartesADecouvrir.

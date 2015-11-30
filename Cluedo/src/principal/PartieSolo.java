@@ -141,8 +141,12 @@ public class PartieSolo extends PartieHote {
 							System.out.println(j.getNom() + " montre : " + carteMontre);
 							
 							//Pour la gui, on retient les cartes qu'on nous a montré. Ne fait rien si la liste n'a pas été set;
-							joueursPartie.get(joueurActuel).updateKnownedCardForGUI(i, carteMontre);
-							GraphicalUserInterface.updatePanelJeu();
+							//Pas très beau.
+							if(joueurActuel == 0)
+							{
+								joueursPartie.get(joueurActuel).updateKnownedCardForGUI(i, carteMontre);
+								GraphicalUserInterface.updatePanelJeu(Carte.retrouverCarte(carteMontre),i);
+							}	
 							
 							//ajouter le fait que l'ordi a retenu la carte qu'on lui à montré, et qui lui a montré
 							if(joueursPartie.get(joueurActuel) instanceof Ordi)
@@ -165,7 +169,8 @@ public class PartieSolo extends PartieHote {
 					//verifier accusation
 					if(tmp[1].equals(cartesADecouvrir[0].getNom())  && tmp[2].equals(cartesADecouvrir[1].getNom()) && tmp[3].equals(cartesADecouvrir[2].getNom()))
 					{
-						System.out.println("\n" + joueursPartie.get(joueurActuel).getNom() + " a gagné la partie\n");
+						nomGagnant = joueursPartie.get(joueurActuel).getNom(); 
+						System.out.println("\n" + nomGagnant + " a gagné la partie\n");
 						partieFinie = true;
 					}
 					else

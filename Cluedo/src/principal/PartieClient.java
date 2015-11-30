@@ -32,6 +32,11 @@ public class PartieClient implements IPartie
 	private Joueur joueur;
 	
 	/**
+	 * Nom du joueur qui a gagné.
+	 */
+	private String nomGagnant;
+	
+	/**
 	 * Constante représentant le port utilisé pour communiquer avec le serveur.
 	 */
 	private final int numeroPort = 12345;
@@ -57,6 +62,11 @@ public class PartieClient implements IPartie
 	private int myNum;
 	
 	/**
+	 * Boolean représentant si la partie s'est fini correctement ou non.
+	 */
+	private boolean partieFinie;
+	
+	/**
 	 * Instancie un partie en tant que client avec le Joueur et l'hote sous forme de String passés en paramètres, un nouveau Client et la listeJoueurs à null.
 	 * @param joueur Joueur représentant le client qui va jouer.
 	 * @param hote L'adresse du serveur distant qui héberge la partie sous forme de chaine de caractères.
@@ -68,6 +78,25 @@ public class PartieClient implements IPartie
 		client = new Client();
 		listeJoueurs = null;
 		myNum = -1;
+		nomGagnant = "unknown";
+		partieFinie = false;
+	}
+	
+	/**
+	 * Retourne le nom du joueur qui a gagné.
+	 * @return String représentant le nom du joueur gagnant.
+	 */
+	public String getNomGagnant() {
+		return nomGagnant;
+	}
+	
+	/**
+	 * Retourne si la partie s'est fini avec un gagnant ou non.
+	 * @return true s'il y a eu un gagant, sinon false;
+	 */
+	public boolean getPartieFinie()
+	{
+		return this.partieFinie;
 	}
 	
 	/**
@@ -342,7 +371,7 @@ public class PartieClient implements IPartie
 						}
 						//on met à jour les cartes que nous on montrées les autres joueurs.
 						joueur.updateKnownedCardForGUI(Integer.parseInt(message[2]), message[3]);
-						GraphicalUserInterface.updatePanelJeu();
+						GraphicalUserInterface.updatePanelJeu(Carte.retrouverCarte(message[3]),Integer.parseInt(message[2]));
 					}
 					else if(message[1].equalsIgnoreCase("wrong") && message.length == 3)
 					{
@@ -369,6 +398,8 @@ public class PartieClient implements IPartie
 				else if(message[0].equalsIgnoreCase("end") && message.length == 2)
 				{
 					int ind = Integer.parseInt(message[1]);
+					this.nomGagnant = listeJoueurs[ind];
+					partieFinie = true;
 					if(ind == myNum)
 					{
 						System.out.println("Vous avez gagné la partie.");

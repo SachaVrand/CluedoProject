@@ -1,6 +1,9 @@
 package gui;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.PipedInputStream;
 import java.lang.reflect.InvocationTargetException;
@@ -8,7 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import principal.Carte;
@@ -420,6 +428,30 @@ public final class GraphicalUserInterface {
 	}
 	
 	/**
+	 * Fonction qui permet d'afficher une popup avec le joueur qui a gagné.
+	 * @param message Message indiquant le joueur gagnant.
+	 */
+	public static void afficherPopUpVictoire(final String message)
+	{
+		//si on est dans un autre thread que l'EDT
+		if(!SwingUtilities.isEventDispatchThread())
+		{
+			SwingUtilities.invokeLater(new Runnable() {
+				
+				@Override
+				public void run() {
+					JOptionPane.showMessageDialog(fenetrePrincipal, message);
+				}
+			});
+		}
+		//sinon on est déjà dans l'EDT
+		else
+		{
+			JOptionPane.showMessageDialog(fenetrePrincipal, message);
+		}
+	}
+	
+	/**
 	 * Fonction d'envoyer le message exit a travers le pipeStream de la fenetre jouer ou réfuter.
 	 */
 	public static void sendExitInGame()
@@ -459,9 +491,9 @@ public final class GraphicalUserInterface {
 	}
 	
 	/**
-	 * Fonction qui met à jour le panel Jeu. Met à jour les icone de joueurs et leurs tooltips.
+	 * Fonction qui met à jour le panel Jeu. Met à jour les icone de joueurs et leurs tooltips. Met à jour le panel dernière carte.
 	 */
-	public static void updatePanelJeu()
+	public static void updatePanelJeu(final Carte derCarte, final int indJoueur)
 	{
 		//si on est dans un autre thread que l'EDT
 		if(!SwingUtilities.isEventDispatchThread())
@@ -474,6 +506,8 @@ public final class GraphicalUserInterface {
 					{
 						PanelJeu tmp = (PanelJeu)fenetrePrincipal.getContentPane();
 						tmp.updatePlayersIcon();
+						tmp.updateDerCarte(derCarte, indJoueur);
+						fenetrePrincipal.pack();
 					}
 				}
 			});
@@ -485,6 +519,7 @@ public final class GraphicalUserInterface {
 			{
 				PanelJeu tmp = (PanelJeu)fenetrePrincipal.getContentPane();
 				tmp.updatePlayersIcon();
+				tmp.updateDerCarte(derCarte, indJoueur);
 			}
 		}
 	}
@@ -542,7 +577,8 @@ public final class GraphicalUserInterface {
 					final int cst = (j instanceof Humain)?(PanelJeu.PANEL_HUMAIN):(PanelJeu.PANEL_ORDI);
 					afficherGUIJeu(listeJoueurs, j, cst);
 					pc.boucleJeu();
-					
+					if(pc.getPartieFinie())
+						afficherPopUpVictoire(pc.getNomGagnant() + " a gagné la partie!");
 					SwingUtilities.invokeLater(new Runnable() {
 						
 						@Override
@@ -589,7 +625,10 @@ public final class GraphicalUserInterface {
 				afficherGUIJeu(listeAAffJeu,humain,PanelJeu.PANEL_HUMAIN);
 				humain.setPlayersInTheGame(listeAAffJeu);
 				partie.boucleJeu();
-				
+				if(partie.getPartieFinie())
+				{
+					afficherPopUpVictoire(partie.getNomGagnant() + " a gagné la partie!");
+				}
 				SwingUtilities.invokeLater(new Runnable() {
 					
 					@Override

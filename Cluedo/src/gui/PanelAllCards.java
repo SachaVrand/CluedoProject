@@ -101,7 +101,7 @@ public class PanelAllCards extends JPanel implements ActionListener{
 		this.add(lblSuspects,gbc);
 		gbc.gridy++;
 		gbc.gridwidth = GridBagConstraints.REMAINDER;
-		gbc.insets = new Insets(5, 5, 10, 5);
+		gbc.insets = new Insets(5, 5, 5, 5);
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		JSeparator sepSuspect = new JSeparator();
 		sepSuspect.setPreferredSize(new Dimension(100, 1));
@@ -109,19 +109,19 @@ public class PanelAllCards extends JPanel implements ActionListener{
 		gbc.fill = GridBagConstraints.NONE;
 		gbc.gridwidth = 1;
 		gbc.gridy++;
-		gbc.insets = new Insets(10, 5, 10, 5);
+		gbc.insets = new Insets(5, 2, 5, 2);
 		for(JButton btn : lstBtnCartesSuspect)
 		{
 			this.add(btn, gbc);
 			gbc.gridx++;
 		}
 		gbc.gridy++;
-		gbc.insets = new Insets(10, 15, 5, 15);
+		gbc.insets = new Insets(5, 10, 5, 15);
 		gbc.gridx = 0;
 		this.add(lblArmes,gbc);
 		gbc.gridy++;
 		gbc.gridwidth = GridBagConstraints.REMAINDER;
-		gbc.insets = new Insets(5, 5, 10, 5);
+		gbc.insets = new Insets(5, 5, 5, 5);
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		JSeparator sepArmes = new JSeparator();
 		sepArmes.setPreferredSize(new Dimension(100, 1));
@@ -129,19 +129,19 @@ public class PanelAllCards extends JPanel implements ActionListener{
 		gbc.fill = GridBagConstraints.NONE;
 		gbc.gridwidth = 1;
 		gbc.gridy++;
-		gbc.insets = new Insets(10, 5, 10, 5);
+		gbc.insets = new Insets(5, 2, 5, 2);
 		for(JButton btn : lstBtnCartesArme)
 		{
 			this.add(btn, gbc);
 			gbc.gridx++;
 		}
 		gbc.gridy++;
-		gbc.insets = new Insets(10, 15, 5, 15);
+		gbc.insets = new Insets(5, 10, 5, 15);
 		gbc.gridx = 0;
 		this.add(lblLieux,gbc);
 		gbc.gridy++;
 		gbc.gridwidth = GridBagConstraints.REMAINDER;
-		gbc.insets = new Insets(5, 5, 10, 5);
+		gbc.insets = new Insets(5, 5, 5, 5);
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		JSeparator sepLieux = new JSeparator();
 		sepLieux.setPreferredSize(new Dimension(100, 1));
@@ -149,7 +149,7 @@ public class PanelAllCards extends JPanel implements ActionListener{
 		gbc.fill = GridBagConstraints.NONE;
 		gbc.gridwidth = 1;
 		gbc.gridy++;
-		gbc.insets = new Insets(10, 5, 10, 5);
+		gbc.insets = new Insets(5, 2, 5, 2);
 		for(JButton btn : lstBtnCartesLieu)
 		{
 			this.add(btn, gbc);

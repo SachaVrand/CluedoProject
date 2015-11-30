@@ -12,13 +12,17 @@ import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
 import javax.swing.text.DefaultCaret;
 
+import principal.Carte;
 import principal.Joueur;
 import principal.TextAreaOutputStream;
 
@@ -92,6 +96,15 @@ public class PanelJeu extends JPanel{
 	 */
 	private PanelCartes panelCards;
 	
+	/**
+	 * Label de la dernière carte qu'on nous a montrée.
+	 */
+	private JLabel lblDerCarte;
+	
+	/**
+	 * Label du nom du joueur qui nous a montrée la dernière carte.
+	 */
+	private JLabel lblJoueurDerCarte;
 	
 	/**
 	 * Constructeur de la classe PanelJeu. Charge les composants et listeners du panel. Lie la textArea à la sortie standard. En passant un joueur avec les cartes voulu, on peut afficher n'importe quelles cartes dans le panel de cartes.
@@ -121,6 +134,8 @@ public class PanelJeu extends JPanel{
 		JPanel panelPrincipal = new JPanel(new FlowLayout());
 		JPanel panelIconesJoueurs = new JPanel();
 		JPanel panelConsole = new JPanel(new BorderLayout());
+		JPanel panelDerCarte = new JPanel(new BorderLayout());
+		panelDerCarte.setBorder(BorderFactory.createTitledBorder("Last response"));
 		panelIconesJoueurs.setLayout(new BoxLayout(panelIconesJoueurs, BoxLayout.PAGE_AXIS));
 		loadLabelsJoueurs();
 		panelIconesJoueurs.add(Box.createVerticalStrut(10));
@@ -129,6 +144,10 @@ public class PanelJeu extends JPanel{
 			panelIconesJoueurs.add(lbl);
 			panelIconesJoueurs.add(Box.createVerticalStrut(10));
 		}
+		lblDerCarte = new JLabel(new ImageIcon("Images/Unknown.jpg"));
+		lblDerCarte.setBorder(BorderFactory.createLineBorder(Color.black));
+		lblJoueurDerCarte = new JLabel("No one");
+		lblJoueurDerCarte.setHorizontalAlignment(SwingConstants.CENTER);
 		panelCards = new PanelCartes(joueur.getCartesJoueur(), true);
 		panelCards.setVisible(false);
 		txtConsole = new JTextArea(15,50);
@@ -144,10 +163,13 @@ public class PanelJeu extends JPanel{
 		btnQuit = new JButton("Quit");
 		btnQuit.setEnabled(false);
 		
+		panelDerCarte.add(lblDerCarte,BorderLayout.NORTH);
+		panelDerCarte.add(lblJoueurDerCarte,BorderLayout.SOUTH);
 		panelConsole.add(scrollPane);
 		panelBoutons.add(btnShow);
 		panelBoutons.add(btnQuit);
-		panelPrincipal.add(panelConsole,BorderLayout.WEST);
+		panelPrincipal.add(panelDerCarte,BorderLayout.WEST);
+		panelPrincipal.add(panelConsole,BorderLayout.CENTER);
 		panelPrincipal.add(panelIconesJoueurs,BorderLayout.EAST);
 		this.add(panelPrincipal,BorderLayout.NORTH);
 		this.add(panelBoutons,BorderLayout.CENTER);
@@ -229,6 +251,21 @@ public class PanelJeu extends JPanel{
 		{
 			pl.updateCardsForTooltip();
 		}
+	}
+	
+	/**
+	 * Méthode qui met à jour la denière carte montrée avec le nom du joueur qui l'a montré.
+	 * @param c Carte montrée
+	 * @param indJoueur indice du joueur qui a montré la carte.
+	 */
+	public void updateDerCarte(Carte c, int indJoueur)
+	{
+		if(!listeJoueurs.get(indJoueur).equals(joueur))
+		{
+			this.lblDerCarte.setIcon(c.getImage());
+			this.lblJoueurDerCarte.setText(listeJoueurs.get(indJoueur).getNom());
+		}
+		
 	}
 	
 }

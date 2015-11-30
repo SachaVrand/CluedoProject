@@ -141,4 +141,17 @@ public abstract class Joueur {
 	public void setMyIndInList(int myIndInList) {
 		this.myIndInList = myIndInList;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj == this)
+			return true;
+		else
+		{
+			Joueur j = (Joueur)obj;
+			if((j.nom.equals(this.nom)) && (j.getCartesJoueur().containsAll(this.cartesJoueur)))
+				return true;
+			return false;
+		}
+	}
 }
