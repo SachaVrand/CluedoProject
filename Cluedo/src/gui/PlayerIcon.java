@@ -105,7 +105,7 @@ public class PlayerIcon extends JLabel implements MouseListener{
 	@Override
 	public void mouseExited(MouseEvent e) {
 		tooltipPerso.setVisible(false);
-		
+		GraphicalUserInterface.rendreFocusFenPrincipal();
 	}
 
 	@Override

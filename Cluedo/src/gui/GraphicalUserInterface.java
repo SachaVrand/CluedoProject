@@ -58,6 +58,32 @@ public final class GraphicalUserInterface {
 	public static Dimension screenSize = null;
 	
 	/**
+	 * Fonction qui rend le focus à la fenêtre principal
+	 */
+	public static void rendreFocusFenPrincipal()
+	{
+		if(fenetrePrincipal == null) return;
+		//si on est dans un autre thread que l'EDT
+		if(!SwingUtilities.isEventDispatchThread())
+		{
+			SwingUtilities.invokeLater(new Runnable() {
+				
+				@Override
+				public void run() {
+					fenetrePrincipal.toFront();
+					fenetrePrincipal.requestFocus();
+				}
+			});		
+		}
+		//sinon on est déjà dans l'EDT
+		else
+		{
+			fenetrePrincipal.toFront();
+			fenetrePrincipal.requestFocus();
+		}
+	}
+	
+	/**
 	 * Fonction permettant de désafficher la fenêtre pour réfuter. Cette opération est toujours effectuée dans l'EDT. 
 	 * Désactive aussi le bouton quit de la fenêtre principal si elle contient le panel jeu.
 	 */
