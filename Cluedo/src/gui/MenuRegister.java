@@ -164,13 +164,14 @@ public class MenuRegister extends JPanel{
 		gbc.gridy++;
 		gbc.gridx = 0;
 		gbc.anchor = GridBagConstraints.CENTER;
-		gbc.insets = new Insets(10, 25, 10, 5);
+		gbc.insets = new Insets(10, 5, 10, 5);
 		gbc.gridwidth = 2;
 		JPanel panelButtons = new JPanel(new FlowLayout());
 		panelButtons.add(btnRegister);
 		panelButtons.add(btnRetour);
 		this.add(panelButtons,gbc);
 		gbc.gridy++;
+		gbc.insets = new Insets(10, 5, 10, 5);
 		this.add(lblError, gbc);
 		
 	}
@@ -193,6 +194,9 @@ public class MenuRegister extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				lblError.setText("");
+				lblError.setVisible(false);
+				
 				String nom = tfNomJoueur.getText();
 				String typeJoueur = (String)cbxTypeJoueur.getSelectedItem();
 				String addr = tfAddrHote.getText();
@@ -218,6 +222,8 @@ public class MenuRegister extends JPanel{
 				}
 				else
 				{
+					tfNomJoueur.setBorder(new JTextField().getBorder());
+					tfAddrHote.setBorder(new JTextField().getBorder());
 					if(typeJoueur.equals("Ordinateur"))
 					{
 						j = new Ordi(nom, (int) cbxNivIA.getSelectedItem());
