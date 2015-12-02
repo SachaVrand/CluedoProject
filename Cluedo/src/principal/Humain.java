@@ -47,10 +47,14 @@ public class Humain extends Joueur
 			}
 			catch(NoSuchElementException e)
 			{
+				System.err.println("Impossible de récupérer le flux");
+				System.exit(1);
 				e.printStackTrace();
 			}
 			catch(IllegalStateException e)
 			{
+				System.err.println("Impossible de récupérer le flux");
+				System.exit(1);
 				e.printStackTrace();
 			}
 			

@@ -89,8 +89,9 @@ public class FenetreRefuter extends JFrame{
 					try {
 						pipeOut.write(("show " + carte.getName() + "\n").getBytes());
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
+						System.err.println("Imposible d'écrire dans le flux");
 						e1.printStackTrace();
+						System.exit(1);
 					}
 				}
 			}
@@ -113,8 +114,9 @@ public class FenetreRefuter extends JFrame{
 		try {
 			pipeOut.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			System.err.println("Imposible de fermer le flux");
 			e.printStackTrace();
+			System.exit(1);
 		}
 	}
 	
@@ -126,8 +128,9 @@ public class FenetreRefuter extends JFrame{
 		try {
 			pipeOut.write(("exit\n").getBytes());
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
+			System.err.println("Imposible d'écrire dans le flux");
 			e1.printStackTrace();
+			System.exit(1);
 		}
 	}
 }

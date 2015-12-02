@@ -300,10 +300,12 @@ public final class GraphicalUserInterface {
 					}
 				});
 			} catch (InvocationTargetException e1) {
-				// TODO Auto-generated catch block
+				System.err.println("Imposible de créer la fenêtre pour jouer");
+				System.exit(1);
 				e1.printStackTrace();
 			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
+				System.err.println("Imposible de créer la fenêtre pour jouer");
+				System.exit(1);
 				e1.printStackTrace();
 			}
 		}
@@ -356,10 +358,12 @@ public final class GraphicalUserInterface {
 					}
 				});
 			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
+				System.err.println("Imposible de créer la fenêtre pour réfuter");
+				System.exit(1);
 				e.printStackTrace();
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
+				System.err.println("Imposible de créer la fenêtre pour réfuter");
+				System.exit(1);
 				e.printStackTrace();
 			}
 		}
@@ -408,7 +412,8 @@ public final class GraphicalUserInterface {
 					}
 				});
 			} catch (InvocationTargetException | InterruptedException e) {
-				// TODO Auto-generated catch block
+				System.err.println("Imposible de créer le panel de jeu");
+				System.exit(1);
 				e.printStackTrace();
 			}
 		}
