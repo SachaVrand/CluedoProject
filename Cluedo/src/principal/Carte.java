@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 /**
  * Classe représentant une Carte du jeu cluedo.
@@ -10,6 +11,11 @@ import javax.swing.Icon;
  *
  */
 public class Carte {
+	
+	/**
+	 * Image de la carte UNKNOWN
+	 */
+	public final static Icon IMAGE_UNKNOWN = new ImageIcon("Images/Unknown.jpg");
 	
 	/**
 	 * Image correspondant à la carte.

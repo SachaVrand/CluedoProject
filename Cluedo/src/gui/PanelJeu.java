@@ -12,7 +12,6 @@ import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -144,7 +143,7 @@ public class PanelJeu extends JPanel{
 			panelIconesJoueurs.add(lbl);
 			panelIconesJoueurs.add(Box.createVerticalStrut(10));
 		}
-		lblDerCarte = new JLabel(new ImageIcon("Images/Unknown.jpg"));
+		lblDerCarte = new JLabel(Carte.IMAGE_UNKNOWN);
 		lblDerCarte.setBorder(BorderFactory.createLineBorder(Color.black));
 		lblJoueurDerCarte = new JLabel("No one");
 		lblJoueurDerCarte.setHorizontalAlignment(SwingConstants.CENTER);
@@ -256,13 +255,18 @@ public class PanelJeu extends JPanel{
 	
 	/**
 	 * Méthode qui met à jour la denière carte montrée avec le nom du joueur qui l'a montré.
-	 * @param c Carte montrée
+	 * @param c Carte montrée, si c est null affiche l'image unknown avec le text no one.
 	 * @param indJoueur indice du joueur qui a montré la carte.
 	 */
 	public void updateDerCarte(Carte c, int indJoueur)
 	{
 		if(typePanel == PANEL_HOTE) return;
-		if(!listeJoueurs.get(indJoueur).equals(joueur))
+		if(c == null)
+		{
+			this.lblDerCarte.setIcon(Carte.IMAGE_UNKNOWN);
+			this.lblJoueurDerCarte.setText("No one");
+		}
+		else if(!listeJoueurs.get(indJoueur).equals(joueur))
 		{
 			this.lblDerCarte.setIcon(c.getImage());
 			this.lblJoueurDerCarte.setText(listeJoueurs.get(indJoueur).getNom());

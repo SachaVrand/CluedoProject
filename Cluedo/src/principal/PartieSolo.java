@@ -99,7 +99,11 @@ public class PartieSolo extends PartieHote {
 									((Ordi)joueursPartie.get(x)).changerProbDerCartes(Ordi.SUGGEST_NO_REFUTATION);
 								}
 							}
-							
+							//Pour la gui, si personne n'as pu répondre on update la dernière réponse à unknown
+							if(joueurActuel == 0)
+							{
+								GraphicalUserInterface.updatePanelJeu(null,-3);
+							}
 							break;
 						}
 						
@@ -141,7 +145,6 @@ public class PartieSolo extends PartieHote {
 							System.out.println(j.getNom() + " montre : " + carteMontre);
 							
 							//Pour la gui, on retient les cartes qu'on nous a montré. Ne fait rien si la liste n'a pas été set;
-							//Pas très beau.
 							if(joueurActuel == 0)
 							{
 								joueursPartie.get(joueurActuel).updateKnownedCardForGUI(i, carteMontre);

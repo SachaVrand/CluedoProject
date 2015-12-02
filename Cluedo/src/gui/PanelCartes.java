@@ -10,7 +10,6 @@ import java.util.Comparator;
 import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -128,7 +127,7 @@ public class PanelCartes extends JPanel implements ActionListener{
 		}
 		else
 		{
-			JButton tmp = new JButton(new ImageIcon("Images/Unknown.jpg"));
+			JButton tmp = new JButton(Carte.IMAGE_UNKNOWN);
 			tmp.setName("Unknwown");
 			tmp.setContentAreaFilled(false);
 			tmp.setFocusPainted(false);

@@ -25,6 +25,10 @@ public class PartieClient implements IPartie
 	private static final String ERROR_CLIENT = "Erreur à la reception/envoie d'un message ou à la fermeture du client.";
 	public static final String NO_ERROR = "Connexion réussi, la partie peut commencer.";
 	
+	/**
+	 * Booléen représentant si une réponse a pu être faite à la suggestion du joueur.
+	 */
+	private boolean noResponse;
 	
 	/**
 	 * Joueur représentant le client qui va jouer.
@@ -80,6 +84,7 @@ public class PartieClient implements IPartie
 		myNum = -1;
 		nomGagnant = "unknown";
 		partieFinie = false;
+		noResponse = false;
 	}
 	
 	/**
@@ -279,6 +284,16 @@ public class PartieClient implements IPartie
 				//Message d'informtion concernant un coup joué
 				else if(message[0].equalsIgnoreCase("move") && message.length == 6)
 				{
+					if(noResponse)
+					{
+						GraphicalUserInterface.updatePanelJeu(null, -3);
+						noResponse = false;
+					}
+					if(Integer.parseInt(message[1]) == myNum)
+					{
+						noResponse = true;
+					}
+					
 					if(joueur instanceof Ordi)
 					{
 						Ordi tmp = (Ordi)joueur;
@@ -372,6 +387,7 @@ public class PartieClient implements IPartie
 						//on met à jour les cartes que nous on montrées les autres joueurs.
 						joueur.updateKnownedCardForGUI(Integer.parseInt(message[2]), message[3]);
 						GraphicalUserInterface.updatePanelJeu(Carte.retrouverCarte(message[3]),Integer.parseInt(message[2]));
+						noResponse = false;
 					}
 					else if(message[1].equalsIgnoreCase("wrong") && message.length == 3)
 					{
