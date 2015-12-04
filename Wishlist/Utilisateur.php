@@ -1,15 +1,15 @@
 <?php
 class Utilisateur{
 	
-	private $pseudo;
-	private $nom;
-	private $prenom;
-	private $ville;
-	private $mail;
+	public $pseudo;
+	public $nom;
+	public $prenom;
+	public $ville;
+	public $mail;
 	private $permission;
-	private $confidentialite;
-	private $dateNaissance;
-	private $photo;
+	public $confidentialite;
+	public $dateNaissance;
+	public $photo;
 	
 	public function __construct($pseudo,$nom,$prenom,$ville,$mail,$permission,$confidentialite,$dateNaissance,$photo) {
 		$this->confidentialite = $confidentialite;
@@ -23,10 +23,9 @@ class Utilisateur{
 		$this->ville = $ville;
 	}
 	
-	public function getPseudo()
+	public function getPermission()
 	{
-		return $this->pseudo;
+		return $this->permission;
 	}
 }
-
 ?>
