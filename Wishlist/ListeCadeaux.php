@@ -1,5 +1,5 @@
 <?php
-class listeActivite
+class ListeCadeaux
 {
 	private $reservePar;
 	private $createur;

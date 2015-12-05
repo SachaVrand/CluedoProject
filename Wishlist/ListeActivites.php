@@ -1,5 +1,5 @@
 <?php
-class listeActivite
+class ListeActivites
 {
 	private $idActivites;
 	private $nomType;
