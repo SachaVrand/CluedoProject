@@ -526,7 +526,7 @@ public final class GraphicalUserInterface {
 	}
 	
 	/**
-	 * Fonction qui permet de lancer une partie en tant que client. Créer un nouveau thread pour la boucle de la partie. 
+	 * Fonction qui permet de lancer une partie en tant que client. Crée un nouveau thread pour la boucle de la partie. 
 	 * Si la connection n'a pas pu être effectuée, affiche le message d'erreur dans le label d'erreur du menu register.
 	 * @param j Joueur jouant la partie.
 	 * @param hote Adresse de l'hote de la partie, sous forme de string.
@@ -598,7 +598,7 @@ public final class GraphicalUserInterface {
 	}
 	
 	/**
-	 * Fonction qui permet de lancer une partie en solo. Créer un nouveau thread pour la boucle de la partie. 
+	 * Fonction qui permet de lancer une partie en solo. Crée un nouveau thread pour la boucle de la partie. 
 	 * @param nomJoueur le nom du joueur jouant la partie.
 	 * @param nivIA le niveau choisi pour l'IA de la partie.
 	 * @param nbJoueurs le nombre de joueurs choisi pour la partie.
