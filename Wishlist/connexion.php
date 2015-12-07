@@ -12,10 +12,6 @@
 			//faire redirection
 		}
 	}
-	else
-	{
-		$erreur = 'Veuillez remplir tous les champs';
-	}
 			
 ?>
 <!DOCTYPE html>
@@ -29,8 +25,9 @@
 	<body>
 		<form action="connexion.php" method="post">
 			<label>Connexion</label>
-			<input type="text" name="login">
-			<input type="password" name="password">
+			<input type="text" name="login" required="required">
+			<input type="password" name="password" required="required">
+			<input type="submit" name="Connexion" value="Connexion">
 			<?php
 				if(isset($erreur))
 				{
