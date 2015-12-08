@@ -15,8 +15,7 @@
 				$photo = 'urlImageDeBase';
 			}
 			$user = new Utilisateur($_POST['pseudo'], $_POST['nom'], $_POST['prenom'], $_POST['ville'], $_POST['mail'],0, $_POST['confidentialite'], $_POST['dateNaissance'], $photo);
-			//faire un var global pour la connexion
-			Utilisateur::addUserToDataBase($utilisateur, $base, $motDePasse);
+			Utilisateur::addUserToDataBase($user, $_SESSION['Base'], $motDePasse);
 			//faire redirection
 		}
 		else

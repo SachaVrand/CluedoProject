@@ -1,8 +1,11 @@
 <?php
-
+	if(!isset($_SESSION['Base']))
+	{
+		$_SESSION['Base'] = new Base();
+	}
 	if(isset($_POST['login']) && $_POST['password'])
 	{
-		$user = Utilisateur::getUser(new Base(), $_POST['login'], $_POST['password']);
+		$user = Utilisateur::getUser($_SESSION['Base'], $_POST['login'], $_POST['password']);
 		if(!$user)
 		{
 			$erreur = 'Mot de passe ou identifiant incorrect';
