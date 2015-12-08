@@ -28,10 +28,12 @@ class Utilisateur{
 		return $this->permission;
 	}
 	
-	public static function getUser($base,$pseudo,$motDePasse)
+	public static function getUser($connexionBase,$pseudo,$motDePasse)
 	{
-		$requete = "SELECT * from utilisateur WHERE pseudo = :pseudo AND motDePasse = :mdp";
-		$req = $base->requetePrepare($requete,array('pseudo' => $pseudo,'mdp' => $motDePasse));
+		$req = $connexionBase->getPdo()->prepare("SELECT * from utilisateur WHERE pseudo = :pseudo AND motDePasse = :mdp");
+		$req->bindValue(':pseudo',$pseudo,PDO::PARAM_STR);
+		$req->bindValue(':mdp',$motDePasse,PDO::PARAM_STR);
+		$req->execute();
 		$donnees = $req->fetch();
 		if($donnees)
 		{
@@ -43,11 +45,21 @@ class Utilisateur{
 		}
 	}
 	
-	public static function addUserToDataBase($utilisateur,$base,$motDePasse)
+	public static function addUserToDataBase($connexionBase,$utilisateur,$motDePasse)
 	{
-		$requete = "INSERT INTO utilisateur VALUES (:pseudo,:ville,:dateNaissance,:nom,:prenom,:mail,:photo,:motDePasse,:permission,:confidentialite)";
-		$base->requetePrepare($requete,array('pseudo' => $utilisateur->pseudo,'ville' => $utilisateur->ville,'dateNaissance' => $utilisateur->dateNaissance, 'nom' => $utilisateur->nom,'prenom' => $utilisateur->prenom, 'mail' => $utilisateur->mail, 'photo' => $utilisateur->photo,'motDePasse' => $motDePasse,'permission' => $utilisateur->getPermission(),'confidentialite' => $utilisateur->confidentialite));
-		
+		$requete = 'INSERT INTO utilisateur VALUES (:pseudo,:ville,:dateNaissance,:nom,:prenom,:mail,:photo,:motDePasse,:permission,:confidentialite)';
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':pseudo',$utilisateur->pseudo,PDO::PARAM_STR);
+		$res->bindValue(':ville',$utilisateur->ville,PDO::PARAM_STR);
+		$res->bindValue(':dateNaissance',$utilisateur->dateNaissance,PDO::PARAM_STR);
+		$res->bindValue(':nom',$utilisateur->nom,PDO::PARAM_STR);
+		$res->bindValue(':prenom',$utilisateur->prenom,PDO::PARAM_STR);
+		$res->bindValue(':mail',$utilisateur->mail,PDO::PARAM_STR);
+		$res->bindValue(':photo',$utilisateur->photo,PDO::PARAM_STR);
+		$res->bindValue(':motDePasse',$motDePasse,PDO::PARAM_STR);
+		$res->bindValue(':permission',$utilisateur->getPermission(),PDO::PARAM_INT);
+		$res->bindValue(':confidentialite',$utilisateur->confidentialite,PDO::PARAM_INT);
+		$res->execute();
 	} 
 	
 }

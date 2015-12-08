@@ -1,4 +1,11 @@
 <?php
+	function chargerClasse($classe)
+	{
+		require $classe . '.php';
+	}
+	spl_autoload_register('chargerClasse');
+	session_start();
+	
 	if(isset($_POST['pseudo']))
 	{
 		//ajouter user
@@ -14,9 +21,9 @@
 				$photo = 'urlImageDeBase';
 			}
 			$user = new Utilisateur($_POST['pseudo'], $_POST['nom'], $_POST['prenom'], $_POST['ville'], $_POST['mail'],0, $_POST['confidentialite'], $_POST['dateNaissance'], $photo);
-			Utilisateur::addUserToDataBase($user, $_SESSION['Connexion'], $motDePasse);
+			Utilisateur::addUserToDataBase($_SESSION['Connexion'], $user, $motDePasse);
 			//TODO changer la page
-			header("Location: mapage.php");
+			header("Location: connexion.php");
 			exit();
 		}
 		else
@@ -36,10 +43,13 @@
 	</head>
 	<body>
 		<form method="post" action="inscription.php">
+			Pseudo : 
 			<input type="text" name="pseudo" required="required">
 			<br>
+			Mot de passe : 
 			<input type="password" name="password" title="password" required="required">
 			<br>
+			Entrer a nouveau : 
 			<input type="password" name="cpassword" title="confirm password" required="required">
 			<?php
 				if(isset($erreur))
@@ -49,21 +59,28 @@
 				}
 			?>
 			<br>
+			Nom : 
 			<input type="text" name="nom" required="required">
 			<br>
+			Prenom : 
 			<input type="text" name="prenom" required="required">
 			<br>
+			Ville : 
 			<input type="text" name="ville" required="required">
 			<br>
+			Mail : 
 			<input type="text" name="mail" required="required">
 			<br>
 			Souhaitez vous que les autres utilisateurs puissent voir vos listes ?
-			<input type="radio" name="confidentialite" value="oui" id="oui" checked="checked" /> <label for="oui">Oui</label>
-			<input type="radio" name="confidentialite" value="non" id="non" /> <label for="non">Non</label>
+			<input type="radio" name="confidentialite" value="1" id="oui" checked="checked" /> <label for="oui">Oui</label>
+			<input type="radio" name="confidentialite" value="0" id="non" /> <label for="non">Non</label>
 			<br>
-			<input type="date" name="dateNaissance" required="required">
+			Date de naissance : 
+			<input type="datetime" name="dateNaissance" required="required">
 			<br>
+			URL photo :
 			<input type="text" name="photo">
+			<br>
 			<br>
 			<input type="submit" name="Inscription" value="Inscription">
 		</form>

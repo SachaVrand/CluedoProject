@@ -1,20 +1,21 @@
 <?php
-
 	function chargerClasse($classe)
 	{
 		require $classe . '.php';
 	}
 	spl_autoload_register('chargerClasse');
+	session_start();
 	
 	if(!isset($_SESSION['Connexion']))
 	{
-		$_SESSION['Connexion'] = new Base();
+		$db = new ConnexionBase();
+		$_SESSION['Connexion'] = $db;
 	}
 	
 	if(isset($_POST['login']) && $_POST['password'])
 	{
 		$user = Utilisateur::getUser($_SESSION['Connexion'], $_POST['login'], $_POST['password']);
-		if(!$user)
+		if($user == null)
 		{
 			$erreur = 'Mot de passe ou identifiant incorrect';
 		}
@@ -22,8 +23,9 @@
 		{
 			$_SESSION['user'] = $user;
 			//TODO changer la page
-			header("Location: mapage.php");
-			exit();
+			//header("Location: mapage.php");
+			//exit();
+			echo "test ok !!!!!";
 		}
 	}
 			
@@ -39,10 +41,15 @@
 	<body>
 		<form action="connexion.php" method="post">
 			<label>Connexion</label>
+			<br><br>
+			Login : 
+			<br>
 			<input type="text" name="login" required="required">
 			<br>
-			<input type="password" name="password" required="required" title="password">
+			Mot de passe : 
 			<br>
+			<input type="password" name="password" required="required">
+			<br><br>
 			<input type="submit" name="Connexion" value="Connexion">
 			<br>
 			<?php
