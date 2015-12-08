@@ -26,8 +26,11 @@
 		<form action="connexion.php" method="post">
 			<label>Connexion</label>
 			<input type="text" name="login" required="required">
-			<input type="password" name="password" required="required">
+			<br>
+			<input type="password" name="password" required="required" title="password">
+			<br>
 			<input type="submit" name="Connexion" value="Connexion">
+			<br>
 			<?php
 				if(isset($erreur))
 				{
@@ -35,6 +38,7 @@
 				}
 			?>
 		</form>
+		<br>
 		<a href="inscription.php">S'inscrire</a>
 	</body>
 </html>
