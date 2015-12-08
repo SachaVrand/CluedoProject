@@ -13,6 +13,7 @@
 		else
 		{
 			//faire redirection
+			$_SESSION['user'] = $user;
 		}
 	}
 			
