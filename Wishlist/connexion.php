@@ -1,19 +1,29 @@
 <?php
-	if(!isset($_SESSION['Base']))
+
+	function chargerClasse($classe)
 	{
-		$_SESSION['Base'] = new Base();
+		require $classe . '.php';
 	}
+	spl_autoload_register('chargerClasse');
+	
+	if(!isset($_SESSION['Connexion']))
+	{
+		$_SESSION['Connexion'] = new Base();
+	}
+	
 	if(isset($_POST['login']) && $_POST['password'])
 	{
-		$user = Utilisateur::getUser($_SESSION['Base'], $_POST['login'], $_POST['password']);
+		$user = Utilisateur::getUser($_SESSION['Connexion'], $_POST['login'], $_POST['password']);
 		if(!$user)
 		{
 			$erreur = 'Mot de passe ou identifiant incorrect';
 		}
 		else
 		{
-			//faire redirection
 			$_SESSION['user'] = $user;
+			//TODO changer la page
+			header("Location: mapage.php");
+			exit();
 		}
 	}
 			

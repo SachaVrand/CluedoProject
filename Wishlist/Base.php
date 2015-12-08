@@ -1,13 +1,16 @@
 <?php
 class Base
 {
-	private $HoteEtBase = "'mysql:host=localhost;dbname=wishlist;charset=utf8'";
-	private $loginBase = "lambda";
-	private $mdpBase = "lambda-_@";
+	private $HoteEtBase;
+	private $loginBase;
+	private $mdpBase;
 	private $bdd;
 	
 	public function __construct()
 	{
+		$HoteEtBase = "'mysql:host=localhost;dbname=wishlist;charset=utf8'";
+		$loginBase = "lambda";
+		$mdpBase = "lambda-_@";
 		try 
 		{
 			$this->bdd = new PDO($HoteEtBase,$loginBase,$mdpBase,array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));

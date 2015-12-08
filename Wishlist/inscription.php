@@ -1,7 +1,6 @@
 <?php
 	if(isset($_POST['pseudo']))
 	{
-		//GoHomeYouAredunk
 		//ajouter user
 		if($_POST['password'] === $_POST['cpassword'])
 		{
@@ -15,8 +14,10 @@
 				$photo = 'urlImageDeBase';
 			}
 			$user = new Utilisateur($_POST['pseudo'], $_POST['nom'], $_POST['prenom'], $_POST['ville'], $_POST['mail'],0, $_POST['confidentialite'], $_POST['dateNaissance'], $photo);
-			Utilisateur::addUserToDataBase($user, $_SESSION['Base'], $motDePasse);
-			//faire redirection
+			Utilisateur::addUserToDataBase($user, $_SESSION['Connexion'], $motDePasse);
+			//TODO changer la page
+			header("Location: mapage.php");
+			exit();
 		}
 		else
 		{
@@ -56,7 +57,7 @@
 			<br>
 			<input type="text" name="mail" required="required">
 			<br>
-			Souhaitez vous que les autres utilisateur puissent voir vos listes ?
+			Souhaitez vous que les autres utilisateurs puissent voir vos listes ?
 			<input type="radio" name="confidentialite" value="oui" id="oui" checked="checked" /> <label for="oui">Oui</label>
 			<input type="radio" name="confidentialite" value="non" id="non" /> <label for="non">Non</label>
 			<br>
