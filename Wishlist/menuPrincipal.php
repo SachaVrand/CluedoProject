@@ -5,19 +5,22 @@
 	    <meta http-equiv="Content-Language" content="fr" />
 	    <link rel="Stylesheet" type="text/css" href="menuPrincipal.css" />
 	</head>
-	
-	<ul id="menuPrincipal">
-		<li><a href="accueil.php">Logo</a></li>
-		<li><a href="recherche.php">Recherche</a></li>
-		<li><a href="accueil.php">Accueil</a></li>
-		<li><a href="infoPerso.php">Profil</a>
-			<ul>
-				<li><a href="infoPerso.php">Informations personnelles</a></li>
-				<li><a href="listeCadeau.php">Listes de cadeaux</a></li>
-				<li><a href="follow.php">Follow</a></li>
-			</ul>
-		</li>
-		<li><a href="messagerie.php">Messagerie</a></li>
-		<li><a href="notifications.php">Notifications</a></li>
-	</ul>
+	<header id="headerMenu">
+		<br />
+		<ul id="menuPrincipal">
+			<li><a href="accueil.php">Logo</a></li>
+			<li><a href="recherche.php">Recherche</a></li>
+			<li><a href="accueil.php">Accueil</a></li>
+			<li><a href="infoPerso.php">Profil personnel</a>
+				<ul>
+					<li><a href="infoPerso.php">Informations</a></li>
+					<li><a href="listeCadeau.php">Listes</a></li>
+					<li><a href="follow.php">Follow</a></li>
+				</ul>
+			</li>
+			<li><a href="messagerie.php">Messagerie</a></li>
+			<li><a href="notifications.php">Notifications</a></li>
+		</ul>
+		<br />
+	</header>
 </html>
