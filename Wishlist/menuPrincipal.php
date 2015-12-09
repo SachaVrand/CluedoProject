@@ -9,7 +9,7 @@
 		<br />
 		<ul id="menuPrincipal">
 			<li><a href="accueil.php">W.</a></li>
-			<li><a href="recherche.php">Recherche</a></li>
+			<li><input type="text" name="recherche" id="recherche" placeholder="Cherchez des personnes" size="30"/></li>
 			<li><a href="accueil.php">Accueil</a></li>
 			<li><a href="infoPerso.php">Profil personnel</a>
 				<ul>
