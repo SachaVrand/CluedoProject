@@ -1,0 +1,115 @@
+
+
+#menuPrincipal, #menuPrincipal
+ul{
+padding:0;
+margin:0 0;
+list-style:none;
+text-align:center;
+}
+
+#menuPrincipal
+li{
+display:inline-block;
+position:relative;
+border-radius:3px 3px 3px 3px;
+}
+
+#menuPrincipal
+ul li{
+display:inherit;
+border-radius:0;
+}
+
+#menuPrincipal
+ul li:hover{
+border-radius:0;
+}
+
+#menuPrincipal
+ul li{
+border-radius:0 0 0 0;
+}
+
+#menuPrincipal
+ul{
+position:absolute;
+z-index: 1000;
+max-height:0;
+left: 0;
+right: 0;
+overflow:hidden;
+-moz-transition: .0s all .0s;
+-webkit-transition: .0s all .0s;
+transition: .0s all .0s;
+}
+
+#menuPrincipal
+li:hover ul{
+max-height:15em;
+}
+
+
+/* background des liens menus */
+
+#menuPrincipal
+li{
+background-color: #C7454E;
+}
+
+
+/* background des liens sous menus */
+
+#menuPrincipal
+li li{
+background:#C7454E;
+}
+
+
+/* background des liens menus et sous menus au survol */
+
+#menuPrincipal
+li:hover, #menuPrincipal li li:hover{
+background:#B63740;
+}
+
+
+/* les a href */
+
+#menuPrincipal
+a{
+text-decoration:none;
+display:block;
+padding:5px 10px;
+color:#fff;
+font-family:verdana;
+font-size:13px;
+}
+
+#menuPrincipal
+ul a{
+padding:5px 0;
+}
+
+#menuPrincipal
+li:hover li a{
+color:#fff;
+text-transform:inherit;
+}
+
+#menuPrincipal
+li:hover a, #menuPrincipal li li:hover a{
+color:#fff;
+}
+
+#headerMenu
+{
+	background-color:#C7454E;
+	position:fixed;
+	top:0px;
+	left:0px;
+	width:100%;
+	margin:0px auto;
+	font-size:6px;
+}
+
