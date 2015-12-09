@@ -8,7 +8,7 @@
 	<header id="headerMenu">
 		<br />
 		<ul id="menuPrincipal">
-			<li><a href="accueil.php">Logo</a></li>
+			<li><a href="accueil.php">W.</a></li>
 			<li><a href="recherche.php">Recherche</a></li>
 			<li><a href="accueil.php">Accueil</a></li>
 			<li><a href="infoPerso.php">Profil personnel</a>

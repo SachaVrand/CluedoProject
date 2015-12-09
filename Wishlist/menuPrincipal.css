@@ -12,7 +12,16 @@ text-align:center;
 li{
 display:inline-block;
 position:relative;
-border-radius:3px 3px 3px 3px;
+border-radius:2px 2px 2px 2px;
+}
+
+#menuPrincipal
+li:nth-child(4){
+border-radius:2px 2px 0 0;
+}
+#menuPrincipal
+li:nth-child(4) li:last-child{
+border-radius:0 0 2px 2px;
 }
 
 #menuPrincipal
@@ -50,18 +59,26 @@ max-height:15em;
 }
 
 
+
 /* background des liens menus */
 
 #menuPrincipal
-li{
+li {
 background-color: #C7454E;
 }
+
+#menuPrincipal
+li:first-child {
+background-color: #FEFEFE;
+}
+
+
 
 
 /* background des liens sous menus */
 
 #menuPrincipal
-li li{
+li:nth-child(4) li{
 background:#C7454E;
 }
 
@@ -69,9 +86,15 @@ background:#C7454E;
 /* background des liens menus et sous menus au survol */
 
 #menuPrincipal
-li:hover, #menuPrincipal li li:hover{
+li:hover, #menuPrincipal li:nth-child(4) li:hover{
 background:#B63740;
 }
+
+#menuPrincipal
+li:first-child:hover{
+background:#FEFEFE;
+}
+
 
 
 /* les a href */
@@ -84,6 +107,23 @@ padding:5px 10px;
 color:#fff;
 font-family:verdana;
 font-size:13px;
+font-weight: bold;
+}
+
+#menuPrincipal
+li:first-child a{
+font-weight: normal;
+}
+
+#menuPrincipal
+li:nth-child(4) li a{
+font-weight: bold;
+}
+
+#menuPrincipal
+li:first-child a{
+color:#C7454E;
+font-family:impact;
 }
 
 #menuPrincipal
@@ -98,8 +138,15 @@ text-transform:inherit;
 }
 
 #menuPrincipal
-li:hover a, #menuPrincipal li li:hover a{
+li:hover a, #menuPrincipal li:nth-child(4) li:hover a{
 color:#fff;
+font-family:verdana;
+}
+
+#menuPrincipal
+li:first-child:hover a{
+color:#C7454E;
+font-family:impact;
 }
 
 #headerMenu
@@ -110,6 +157,6 @@ color:#fff;
 	left:0px;
 	width:100%;
 	margin:0px auto;
-	font-size:6px;
+	font-size:5px;
 }
 
