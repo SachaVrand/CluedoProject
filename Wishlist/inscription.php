@@ -20,9 +20,8 @@
 			{
 				$photo = 'urlImageDeBase';
 			}
-			$user = new Utilisateur($_POST['pseudo'], $_POST['nom'], $_POST['prenom'], $_POST['ville'], $_POST['mail'],0, $_POST['confidentialite'], $_POST['dateNaissance'], $photo);
+			$user = new Utilisateur($_POST['pseudo'], $_POST['nom'], $_POST['prenom'], $_POST['ville'], $_POST['mail'],0, $_POST['confidentialite'], $_POST['annee'].'-'.$_POST['mois'].'-'.$_POST['jour'], $photo);
 			Utilisateur::addUserToDataBase($_SESSION['Connexion'], $user, $motDePasse);
-			//TODO changer la page
 			header("Location: connexion.php");
 			exit();
 		}
@@ -76,7 +75,34 @@
 			<input type="radio" name="confidentialite" value="0" id="non" /> <label for="non">Non</label>
 			<br>
 			Date de naissance : 
-			<input type="datetime" name="dateNaissance" required="required">
+			<select name="jour">
+				<option value="1" selected="selected">1</option>
+				<?php
+					for($i = 2; $i <= 31; $i++)
+					{
+						echo "<option value=$i> $i </option>";
+					}
+				?>
+			</select>
+			<select name="mois">
+				<option value="1" selected="selected">1</option>
+				<?php 
+					for($i=2;$i<=12;$i++)
+					{
+						echo "<option value=$i> $i </option>";
+					}
+				?>
+			</select>
+			<select name="annee">
+				<?php
+					$y = date('Y');
+					echo "<option value=$y selected=selected> $y </option>";
+					for($i=$y-1 ; $i>$y-100 ; $i--)
+					{
+						echo "<option value=$i> $i </option>";
+					}
+				?>
+			</select>
 			<br>
 			URL photo :
 			<input type="text" name="photo">
