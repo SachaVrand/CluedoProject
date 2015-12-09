@@ -18,12 +18,20 @@
 			}
 			else
 			{
+				//TODO changer l'url
 				$photo = 'urlImageDeBase';
 			}
-			$user = new Utilisateur($_POST['pseudo'], $_POST['nom'], $_POST['prenom'], $_POST['ville'], $_POST['mail'],0, $_POST['confidentialite'], $_POST['annee'].'-'.$_POST['mois'].'-'.$_POST['jour'], $photo);
-			Utilisateur::addUserToDataBase($_SESSION['Connexion'], $user, $motDePasse);
-			header("Location: connexion.php");
-			exit();
+			$user = new Utilisateur(Utilisateur::getNewId($_SESSION['Connexion']),$_POST['pseudo'], $_POST['nom'], $_POST['prenom'], $_POST['ville'], $_POST['mail'],0, $_POST['confidentialite'], $_POST['annee'].'-'.$_POST['mois'].'-'.$_POST['jour'], $photo);
+			$res = Utilisateur::addUserToDataBase($_SESSION['Connexion'], $user, $motDePasse);
+			if($res)
+			{
+				header("Location: connexion.php");
+				exit();
+			}
+			else
+			{
+				$existingLogin = 'Il existe deja un utilisateur avec le meme login';
+			}
 		}
 		else
 		{
@@ -44,6 +52,13 @@
 		<form method="post" action="inscription.php">
 			Pseudo : 
 			<input type="text" name="pseudo" required="required">
+			<?php
+				if(isset($existingLogin))
+				{
+					//TODO afficher en rouge
+					echo "$existingLogin";
+				}
+			?>
 			<br>
 			Mot de passe : 
 			<input type="password" name="password" title="password" required="required">
