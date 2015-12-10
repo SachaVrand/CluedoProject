@@ -35,7 +35,7 @@
 		}
 		else
 		{
-			$erreur = 'Les deux mots de passe ne correspondent pas';
+			$erreurMdp = 'Les deux mots de passe ne correspondent pas';
 		}
 	}
 ?>
@@ -66,9 +66,9 @@
 			Entrer a nouveau : 
 			<input type="password" name="cpassword" title="confirm password" required="required">
 			<?php
-				if(isset($erreur))
+				if(isset($erreurMdp))
 				{
-					echo "$erreur";
+					echo "$erreurMdp";
 					echo '<br>';
 				}
 			?>
