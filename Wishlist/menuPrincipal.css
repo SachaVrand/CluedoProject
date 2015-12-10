@@ -1,4 +1,7 @@
 
+/*====================================== LE MENU =========================================*/
+
+/*== le menu ==*/
 
 #menuPrincipal, #menuPrincipal
 ul{
@@ -7,39 +10,19 @@ margin:0 0;
 list-style:none;
 text-align:center;
 }
-
-#menuPrincipal
-li{
-display:inline-block;
-position:relative;
-border-radius:2px 2px 2px 2px;
-}
-
-#menuPrincipal
-li:nth-child(4){
-border-radius:2px 2px 0 0;
-}
-#menuPrincipal
-li:nth-child(4) li:last-child{
-border-radius:0 0 2px 2px;
-}
-
 #menuPrincipal
 ul li{
 display:inherit;
 border-radius:0;
 }
-
 #menuPrincipal
 ul li:hover{
 border-radius:0;
 }
-
 #menuPrincipal
 ul li{
 border-radius:0 0 0 0;
 }
-
 #menuPrincipal
 ul{
 position:absolute;
@@ -52,111 +35,245 @@ overflow:hidden;
 -webkit-transition: .0s all .0s;
 transition: .0s all .0s;
 }
-
 #menuPrincipal
 li:hover ul{
 max-height:15em;
 }
-
-
-
-/* background des liens menus */
-
 #menuPrincipal
 li {
-background-color: #C7454E;
+display:inline-block;
 }
 
+
+
+
+/*=== le logo ===*/
+
 #menuPrincipal
-li:first-child {
+li:first-child{
+position:relative;
+border-radius:2px 2px 2px 2px;
 background-color: #FEFEFE;
+margin-right:6px;
 }
-
-
-
-
-/* background des liens sous menus */
-
 #menuPrincipal
-li:nth-child(4) li{
-background:#C7454E;
-}
-
-
-/* background des liens menus et sous menus au survol */
-
-#menuPrincipal
-li:hover, #menuPrincipal li:nth-child(4) li:hover{
-background:#B63740;
-}
-
-#menuPrincipal
-li:first-child:hover{
-background:#FEFEFE;
-}
-
-
-
-/* les a href */
-
-#menuPrincipal
-a{
+li:first-child a{
 text-decoration:none;
 display:block;
-padding:5px 10px;
-color:#fff;
+padding:3px 8px;
+color:#D03030;
+font-family:impact;
+font-size:12px;
+}
+
+
+
+
+/*== le bouton OK ==*/
+
+#menuPrincipal
+li:nth-child(3){
+position:relative;
+border-radius:2px 2px 2px 2px;
+background-color: #EDEDED;
+margin-right:35px;
+}
+#menuPrincipal
+li:nth-child(3) a{
+text-decoration:none;
+display:block;
+padding:4px 10px;
+color:#9E9E9E;
 font-family:verdana;
-font-size:13px;
+font-size:12px;
 font-weight: bold;
 }
-
 #menuPrincipal
-li:first-child a{
-font-weight: normal;
+li:nth-child(3):hover a{
+color:#626262;
 }
 
-#menuPrincipal
-li:nth-child(4) li a{
-font-weight: bold;
-}
+
+
+
+/*== le bouton Accueil ==*/
 
 #menuPrincipal
-li:first-child a{
-color:#C7454E;
-font-family:impact;
+li:nth-child(4){
+position:relative;
+border-radius:2px 2px 2px 2px;
 }
-
 #menuPrincipal
-ul a{
-padding:5px 0;
+li:nth-child(4) {
+background-color: #D03030;
 }
-
 #menuPrincipal
-li:hover li a{
-color:#fff;
-text-transform:inherit;
-}
-
-#menuPrincipal
-li:hover a, #menuPrincipal li:nth-child(4) li:hover a{
+li:nth-child(4) a{
+text-decoration:none;
+display:block;
+padding:4px 10px;
 color:#fff;
 font-family:verdana;
+font-size:12px;
+font-weight: bold;
+}
+#menuPrincipal
+li:nth-child(4):hover {
+background-color: #C42020;
 }
 
+
+
+
+/*== le bouton Profil ==*/
+
 #menuPrincipal
-li:first-child:hover a{
-color:#C7454E;
-font-family:impact;
+li:nth-child(5){
+position:relative;
+border-radius:2px 2px 0 0;
+background-color: #D03030;
 }
+#menuPrincipal
+li:nth-child(5) li{
+border-radius:0 0 0 0;
+background:#D03030;
+padding:4xp 0;
+margin-right:0;
+}
+#menuPrincipal
+li:nth-child(5) li:last-child{
+border-radius:0 0 2px 2px;
+}
+#menuPrincipal
+li:nth-child(5) a{
+text-decoration:none;
+display:block;
+padding:4px 10px;
+color:#fff;
+font-family:verdana;
+font-size:12px;
+font-weight: bold;
+}
+#menuPrincipal
+li:nth-child(5):hover {
+background-color: #C42020;
+}
+#menuPrincipal
+li:nth-child(5) li:hover {
+background-color: #C42020;
+}
+
+
+
+
+/*== le bouton Messagerie ==*/
+
+#menuPrincipal
+li:nth-child(6){
+position:relative;
+border-radius:2px 2px 2px 2px;
+}
+#menuPrincipal
+li:nth-child(6) {
+background-color: #D03030;
+}
+#menuPrincipal
+li:nth-child(6) a{
+text-decoration:none;
+display:block;
+padding:4px 10px;
+color:#fff;
+font-family:verdana;
+font-size:12px;
+font-weight: bold;
+}
+#menuPrincipal
+li:nth-child(6):hover {
+background-color: #C42020;
+}
+
+
+
+
+/*== le bouton Notification ==*/
+
+#menuPrincipal
+li:last-child{
+position:relative;
+border-radius:2px 2px 2px 2px;
+}
+#menuPrincipal
+li:last-child {
+background-color: #D03030;
+}
+#menuPrincipal
+li:last-child a{
+text-decoration:none;
+display:block;
+padding:4px 10px;
+color:#fff;
+font-family:verdana;
+font-size:12px;
+font-weight: bold;
+}
+#menuPrincipal
+li:last-child:hover {
+background-color: #C42020;
+}
+
+
+
+
+/* Le header */
 
 #headerMenu
 {
-	background-color:#C7454E;
+	background-color:#D03030;
 	position:fixed;
 	top:0px;
 	left:0px;
 	width:100%;
 	margin:0px auto;
-	font-size:5px;
+	font-size:6px;
 }
+
+
+
+/*====================================== LE CONTENT =========================================*/
+
+
+
+
+#sousMenu
+a{
+	color:#000;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
