@@ -96,6 +96,7 @@
 		</form>
 	</header>
 	<body>
+	<section>
 		<form method="post" action="connexion.php">
 			Pseudo : 
 			<input type="text" name="pseudo" required="required">
@@ -172,5 +173,6 @@
 			<br>
 			<input type="submit" name="Inscription" value="Inscription">
 		</form>
+	</section>
 	</body>
 </html>

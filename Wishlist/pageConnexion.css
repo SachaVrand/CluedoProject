@@ -25,7 +25,17 @@ li{
 {
 	background-color:#C7454E;
 	border-bottom: 2px outset #C7454E;
+	position: absolute;
 	top:0px;
 	left:0px;
 	margin:0px auto;
+	width:100%;
+}
+
+section
+{
+	position:absolute;
+	top:100px;
+	left:50%;
+	width:100%;
 }
