@@ -1,9 +1,10 @@
 @CHARSET "ISO-8859-1";
 
 .headerConnexion
-{
-	background-color:#C7454E;
-	border-bottom: 2px outset #C7454E;
+ul{
+	display:inline-block;
+	position:relative;
+	vertical-align: top;
 }
 
 .headerConnexion
@@ -15,14 +16,16 @@ li{
 	color: white;
 }
 
-.headerConnexion
-ul{
-	display:inline-block;
-	position:relative;
-	vertical-align: top;
-}
-
 .text
 {
 	border: 1px solid black;
+}
+
+.headerConnexion
+{
+	background-color:#C7454E;
+	border-bottom: 2px outset #C7454E;
+	top:0px;
+	left:0px;
+	margin:0px auto;
 }
