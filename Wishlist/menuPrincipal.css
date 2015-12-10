@@ -4,11 +4,12 @@
 /*== le menu ==*/
 
 #menuPrincipal, #menuPrincipal
-ul{
+table, ul{
 padding:0;
 margin:0 0;
 list-style:none;
-text-align:center;
+margin-left:auto;
+margin-right:auto;
 }
 #menuPrincipal
 ul li{
@@ -16,15 +17,15 @@ display:inherit;
 border-radius:0;
 }
 #menuPrincipal
-ul li:hover{
+table tr td:hover{
 border-radius:0;
 }
 #menuPrincipal
-ul li{
+table tr td{
 border-radius:0 0 0 0;
 }
 #menuPrincipal
-ul{
+table, table tr td:nth-child(7) ul{
 position:absolute;
 z-index: 1000;
 max-height:0;
@@ -36,28 +37,21 @@ overflow:hidden;
 transition: .0s all .0s;
 }
 #menuPrincipal
-li:hover ul{
+td:hover ul{
 max-height:15em;
 }
-#menuPrincipal
-li {
-display:inline-block;
-}
-
 
 
 
 /*=== le logo ===*/
-
 #menuPrincipal
-li:first-child{
+td:first-child{
 position:relative;
 border-radius:2px 2px 2px 2px;
 background-color: #FEFEFE;
-margin-right:6px;
 }
 #menuPrincipal
-li:first-child a{
+td:first-child a{
 text-decoration:none;
 display:block;
 padding:3px 8px;
@@ -67,48 +61,39 @@ font-size:12px;
 }
 
 
-
-
-/*== le bouton OK ==*/
-
+/* ESPACE */
 #menuPrincipal
-li:nth-child(3){
+td:nth-child(2){
 position:relative;
-border-radius:2px 2px 2px 2px;
-background-color: #EDEDED;
-margin-right:35px;
-}
-#menuPrincipal
-li:nth-child(3) a{
-text-decoration:none;
-display:block;
-padding:4px 10px;
-color:#9E9E9E;
-font-family:verdana;
-font-size:12px;
-font-weight: bold;
-}
-#menuPrincipal
-li:nth-child(3):hover a{
-color:#626262;
+padding:0 2px;
+background-color: #D03030;
 }
 
 
+
+
+/* ESPACE */
+#menuPrincipal
+td:nth-child(5){
+position:relative;
+padding:0 17px;
+background-color: #D03030;
+}
 
 
 /*== le bouton Accueil ==*/
 
 #menuPrincipal
-li:nth-child(4){
+td:nth-child(6){
 position:relative;
 border-radius:2px 2px 2px 2px;
 }
 #menuPrincipal
-li:nth-child(4) {
+td:nth-child(6) {
 background-color: #D03030;
 }
 #menuPrincipal
-li:nth-child(4) a{
+td:nth-child(6) a{
 text-decoration:none;
 display:block;
 padding:4px 10px;
@@ -118,7 +103,7 @@ font-size:12px;
 font-weight: bold;
 }
 #menuPrincipal
-li:nth-child(4):hover {
+td:nth-child(6):hover {
 background-color: #C42020;
 }
 
@@ -128,24 +113,24 @@ background-color: #C42020;
 /*== le bouton Profil ==*/
 
 #menuPrincipal
-li:nth-child(5){
+td:nth-child(7){
 position:relative;
 border-radius:2px 2px 0 0;
 background-color: #D03030;
 }
 #menuPrincipal
-li:nth-child(5) li{
+td:nth-child(7) li {
 border-radius:0 0 0 0;
 background:#D03030;
 padding:4xp 0;
 margin-right:0;
 }
 #menuPrincipal
-li:nth-child(5) li:last-child{
+td:nth-child(7) li:last-child{
 border-radius:0 0 2px 2px;
 }
 #menuPrincipal
-li:nth-child(5) a{
+td:nth-child(7) a{
 text-decoration:none;
 display:block;
 padding:4px 10px;
@@ -155,11 +140,11 @@ font-size:12px;
 font-weight: bold;
 }
 #menuPrincipal
-li:nth-child(5):hover {
+td:nth-child(7):hover {
 background-color: #C42020;
 }
 #menuPrincipal
-li:nth-child(5) li:hover {
+td:nth-child(7) li:hover {
 background-color: #C42020;
 }
 
@@ -169,16 +154,16 @@ background-color: #C42020;
 /*== le bouton Messagerie ==*/
 
 #menuPrincipal
-li:nth-child(6){
+td:nth-child(8){
 position:relative;
 border-radius:2px 2px 2px 2px;
 }
 #menuPrincipal
-li:nth-child(6) {
+td:nth-child(8) {
 background-color: #D03030;
 }
 #menuPrincipal
-li:nth-child(6) a{
+td:nth-child(8) a{
 text-decoration:none;
 display:block;
 padding:4px 10px;
@@ -188,7 +173,7 @@ font-size:12px;
 font-weight: bold;
 }
 #menuPrincipal
-li:nth-child(6):hover {
+td:nth-child(8):hover {
 background-color: #C42020;
 }
 
@@ -198,16 +183,16 @@ background-color: #C42020;
 /*== le bouton Notification ==*/
 
 #menuPrincipal
-li:last-child{
+td:last-child{
 position:relative;
 border-radius:2px 2px 2px 2px;
 }
 #menuPrincipal
-li:last-child {
+td:last-child {
 background-color: #D03030;
 }
 #menuPrincipal
-li:last-child a{
+td:last-child a{
 text-decoration:none;
 display:block;
 padding:4px 10px;
@@ -217,7 +202,7 @@ font-size:12px;
 font-weight: bold;
 }
 #menuPrincipal
-li:last-child:hover {
+td:last-child:hover {
 background-color: #C42020;
 }
 
@@ -248,7 +233,6 @@ background-color: #C42020;
 a{
 	color:#000;
 }
-
 
 
 
