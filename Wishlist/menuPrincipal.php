@@ -13,7 +13,7 @@
 				<td><a href="accueil.php">W.</a></td>
 				<td></td>
 				<td><input type="text" name="recherche" id="recherche" placeholder="Cherchez des personnes" size="50"/></td>
-				<td><input type="button" name="ok" value="Ok" style="height:26px"></td>
+				<td><input type="button" name="ok" value="Ok"></td>
 				<td></td>
 				<td><a href="accueil.php">Accueil</a></td>
 				<td><a href="infoPerso.php">Profil personnel</a>
