@@ -66,18 +66,16 @@
 	<head>
 		<meta name="author" content="page de connexion">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link rel="Stylesheet" type="text/css" href="pageConnexion.css" />
 		<title>
 		</title>
 	</head>
-	<header>
+	<header class="headerConnexion">
 		<!-- Connexion -->
 		<form action="connexion.php" method="post">
 			<ul>
-				<li>Login : </li>
-				<li><input type="text" name="loginConnexion" required="required"></li>
-				<li>Mot de passe : </li>
-				<li><input type="password" name="passwordConnexion" required="required"></li>
-				<li><input type="submit" name="Connexion" value="Connexion"></li>
+				<li><label class="label">Login : </label></li>
+				<li><input type="text" name="loginConnexion" required="required" class="text"></li>
 				<li>
 				<?php
 					if(isset($erreur))
@@ -86,6 +84,14 @@
 					}
 				?>
 				</li>
+			</ul>
+			<ul>
+				<li><label class="label">Mot de passe : </label></li>
+				<li><input type="password" name="passwordConnexion" required="required" class="text"></li>
+			</ul>
+			<ul>
+				<li> </li>
+				<li><input type="submit" name="Connexion" value="Connexion"></li>
 			</ul>
 		</form>
 	</header>
