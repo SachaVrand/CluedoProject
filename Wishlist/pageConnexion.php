@@ -71,31 +71,33 @@
 	</head>
 	<header class="headerConnexion">
 		<!-- Connexion -->
-		<form action="pageConnexion.php" method="post">
-			<ul>
-				<li><label class="label">Login : </label></li>
-				<li><input type="text" name="loginConnexion" required="required" class="text"></li>
-				<li>
-				<?php
-					if(isset($erreur))
-					{
-						echo "$erreur";
-					}
-				?>
-				</li>
-			</ul>
-			<ul>
-				<li><label class="label">Mot de passe : </label></li>
-				<li><input type="password" name="passwordConnexion" required="required" class="text"></li>
-			</ul>
-			<ul>
-				<li> </li>
-				<li><input type="submit" name="Connexion" value="Connexion"></li>
-			</ul>
-		</form>
+		<div class="divCo">
+			<form action="pageConnexion.php" method="post">
+				<ul>
+					<li><label class="label">Login : </label></li>
+					<li><input type="text" name="loginConnexion" required="required" class="text"></li>
+					<li>
+					<?php
+						if(isset($erreur))
+						{
+							echo "$erreur";
+						}
+					?>
+					</li>
+				</ul>
+				<ul>
+					<li><label class="label">Mot de passe : </label></li>
+					<li><input type="password" name="passwordConnexion" required="required" class="text"></li>
+				</ul>
+				<ul>
+					<li><label class="label" style="visibility: hidden">Hmmmmm</label> </li>
+					<li><input type="submit" name="Connexion" value="Connexion"></li>
+				</ul>
+			</form>
+		</div>
 	</header>
 	<body>
-	<section>
+	<div class="sectionInscription">
 		<form method="post" action="pageConnexion.php">
 			<?php
 				if(isset($notif))
@@ -105,10 +107,10 @@
 			?>
 			<table>
 				<tr>
-					<th colspan="2">Inscription</th>
+					<th colspan="2" align="left">Inscription</th>
 				</tr>
 				<tr>
-					<td colspan="2"><input type="text" name="pseudo" required="required" placeholder="Pseudonyme"></td>
+					<td colspan="2" class="tdInput"><input type="text" name="pseudo" required="required" placeholder="Pseudonyme" class="inputFull"></td>
 				</tr>
 				<?php
 					if(isset($existingLogin))
@@ -118,10 +120,10 @@
 					}
 				?>
 				<tr>
-					<td colspan="2"><input type="password" name="password" title="password" required="required" placeholder="Mot de passe"></td>
+					<td colspan="2" class="tdInput"><input type="password" name="password" title="password" required="required" placeholder="Mot de passe" class="inputFull"></td>
 				</tr>
 				<tr>
-					<td colspan="2"><input type="password" name="cpassword" title="confirm password" required="required" placeholder="Entrez à nouveau"></td>
+					<td colspan="2" class="tdInput"><input type="password" name="cpassword" title="confirm password" required="required" placeholder="Entrez a nouveau" class="inputFull"></td>
 				</tr>
 				<?php
 					if(isset($erreurMdp))
@@ -130,27 +132,27 @@
 					}
 				?>
 				<tr>
-					<td><input type="text" name="prenom" required="required" placeholder="Prenom"></td>
-					<td><input type="text" name="nom" required="required" placeholder="Nom"></td>
+					<td colspan="1" class="tdInput"><input type="text" name="prenom" required="required" placeholder="Prenom" class="inputFull"></td>
+					<td colspan="1" class="tdInput"><input type="text" name="nom" required="required" placeholder="Nom" class="inputFull"></td>
 				</tr>
 				<tr>
-					<td colspan="2"><input type="text" name="ville" required="required" placeholder="Ville"></td>
+					<td colspan="2" class="tdInput"><input type="text" name="ville" required="required" placeholder="Ville" class="inputFull"></td>
 				</tr>
 				<tr>
-					<td colspan="2"><input type="text" name="mail" required="required" placeholder="Adresse mail"></td>
+					<td colspan="2" class="tdInput"><input type="text" name="mail" required="required" placeholder="Adresse mail" class="inputFull"></td>
 				</tr>
 				<tr>
-					<td colspan="2">Souhaitez vous que les autres utilisateurs puissent voir vos listes ?</td>
+					<th align="left" colspan="2">Profil confidentiel ?</th>
 				</tr>
 				<tr>
-					<td><input type="radio" name="confidentialite" value="1" id="oui" checked="checked" /> <label for="oui">Oui</label></td>
-					<td><input type="radio" name="confidentialite" value="0" id="non" /> <label for="non">Non</label></td>
+					<td class="tdInput"><input type="radio" name="confidentialite" value="1" id="oui" checked="checked" /> <label for="oui">Oui</label></td>
+					<td class="tdInput"><input type="radio" name="confidentialite" value="0" id="non" /> <label for="non">Non</label></td>
 				</tr>
 				<tr>
-					<td>Date de naissance : </td>
+					<th align="left" colspan="2">Date de naissance : </th>
 				</tr>
 				<tr>
-					<td>
+					<td colspan="2" class="tdInput">
 						<select name="jour">
 							<option value="1" selected="selected">1</option>
 							<?php
@@ -169,8 +171,6 @@
 								}
 							?>
 						</select>
-					</td>
-					<td>
 						<select name="annee">
 							<?php
 								$y = date('Y');
@@ -184,13 +184,13 @@
 					</td>
 				</tr>
 				<tr>
-					<td colspan="2"><input type="text" name="photo" placeholder="URL de la photo de profil"></td>
+					<td colspan="2" class="tdInput"><input type="text" name="photo" placeholder="URL de la photo de profil" class="inputFull"></td>
 				</tr>
 				<tr>
 					<td colspan="2"><input type="submit" name="Inscription" value="Inscription"></td>
 				<tr>
 			</table>
 		</form>
-	</section>
+	</div>
 	</body>
 </html>
