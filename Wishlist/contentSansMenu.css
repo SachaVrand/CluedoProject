@@ -240,7 +240,7 @@ body
 
 
 
-/*======================================= le titre ===========================================*/
+/*======================================= le div titre ===========================================*/
 
 #titre
 {
@@ -262,62 +262,13 @@ border-left: 1px #D7D8D8 ridge;
 
 
 
-/*========================================= le tableau ===============================================*/
 
-#principal
-{
-margin-top:2%;
-margin-left:28%;
-}
-#principal
-tr td
-{
-vertical-align : top;
-}
-
-/*================================== le sous menu =======================================*/
-
-#sousMenu
-{
-	width:auto;
-	height:auto;
-	padding-top:6px;
-}
-#sousMenu
-ul{
-list-style:none;
-}
-#sousMenu
-ul li{
-display:inherit;
-}
-#sousMenu
-li{
-position:relative;
-background-color: #EDEDED;
-padding:4px 5px;
-}
-#sousMenu
-li:hover{
-position:relative;
-border-radius:3px 3px 3px 3px;
-background-color: #E0E1E0;
-padding:4px 5px;
-}
-#sousMenu
-li a{
-text-decoration:none;
-display:block;
-font-family:verdana;
-font-size:12px;
-color:#575757;
-}
-
-
-/*==================================== le content ===============================================*/
+/*==================================== le div principal ===============================================*/
 
 #content
 {
+	margin-top:2%;
+	margin-left:28%;
 	color:#2E2E2E;
 	background-color:#FEFEFE;
 	width:auto;
