@@ -133,5 +133,13 @@ class Utilisateur{
 		$res->execute();
 		return 1;
 	}
+	
+	public static function updateUserPassword($connexionBase,$user,$newPassword)
+	{
+		$requete = 'UPDATE utilisateur SET motDePasse = :password WHERE id = :id';
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':password',$newPassword);
+		$res->execute();
+	}
 }
 ?>
