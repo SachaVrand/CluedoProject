@@ -10,7 +10,7 @@
 			<td><a href="accueil.php">Accueil</a></td>
 			<td><a href="infoPerso.php">Profil personnel</a>
 				<ul>
-					<li><a href="infoPerso.php">Informations</a></li>
+					<li><a href="infosPerso.php">Informations</a></li>
 					<li><a href="listeCadeau.php">Listes</a></li>
 					<li><a href="follow.php">Follow</a></li>
 				</ul>

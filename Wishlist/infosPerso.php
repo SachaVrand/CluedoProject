@@ -27,7 +27,7 @@
 			Profil personnel
 		</div>
 		
-		<table id="principal" width=44%  height=50%>
+		<table id="principal">
 			<tr>
 				<td width=15%>
 					<div id="sousMenu">
@@ -37,7 +37,7 @@
 							<li><a href="follow.php">Follow</a></li>
 						</ul>
 					</div>
-				</td width=85%>
+				</td>
 				<td>
 					<div id="contentAvecMenu">
 						<?php
