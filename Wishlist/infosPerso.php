@@ -64,7 +64,7 @@
 							$user = $_SESSION['user'];
 							$date = explode('-', $user->dateNaissance);
 							$months = array('Janvier','Fevrier','Mars','Avril','Mai','Juin','Juillet','Aout','Septembre','Octobre','Novembre','Decembre');
-							$month = $date[1];
+							$month = $date[1]-1;
 							//TODO changer l'affichage pour l'image
 							echo 
 							"<table>

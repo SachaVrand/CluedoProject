@@ -23,7 +23,7 @@
 		{
 			$_SESSION['user'] = $user;
 			//TODO changer la page
-			header("Location: mapage.php");
+			header("Location: infosPerso.php");
 			exit();
 		}
 	}
