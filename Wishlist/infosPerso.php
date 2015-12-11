@@ -29,7 +29,7 @@
 		
 		<table id="principal">
 			<tr>
-				<td width=15%>
+				<td>
 					<div id="sousMenu">
 						<ul>
 							<li><a href="infosPerso.php">Informations</a></li>

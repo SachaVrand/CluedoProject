@@ -273,6 +273,10 @@ tr td
 {
 vertical-align : top;
 }
+#principal
+td:first-child{
+width:15%;
+}
 
 /*================================== le div sous menu =======================================*/
 
