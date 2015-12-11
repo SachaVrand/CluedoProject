@@ -57,7 +57,9 @@
 							'Naissance : '.$date[2].' '.$months[$month].' '.$date[0].
 							'<br><br>';
 						?>
-						<button type="button" onclick="self.location.href='modifInfosPerso.php'">Modifier</button>
+						<div id="bouton">
+							<button type="button" onclick="self.location.href='modifInfosPerso.php'">Modifier</button>
+						</div>
 					</div>
 				</td>
 			</tr>

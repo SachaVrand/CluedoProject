@@ -335,23 +335,28 @@ color:#575757;
 table:first-child tr td{
 width:auto;
 height:auto;
-border:1px solid black;
 vertical-align:bottom;
 }
 #contentAvecMenu
 table:first-child{
 width:auto;
 height:auto;
+font-family:verdana;
+color:#2E2E2E;
 }
 #contentAvecMenu
 table:first-child tr:last-child td{
 height:20%;
+font-size:13px;
 }
 #contentAvecMenu
 table:first-child tr:first-child td{
 font-weight: bold;
 }
-
+#contentAvecMenu
+table:first-child tr:first-child td:first-child{
+border: 3px #D7D8D8 solid;
+}
 
 
 
