@@ -62,6 +62,37 @@ class Utilisateur{
 		}
 	}
 	
+	public static function getUserToDisplay($connexionBase, $userPseudoOrMail)
+	{
+		$isEmail = false;
+		for($i = 0; $i < strlen($userPseudoOrMail); $i++)
+		{
+			if($userPseudoOrMail[$i] === '@')
+			{
+				$isEmail = true;
+			}
+		}
+		if($isEmail)
+		{
+			$req = $connexionBase->getPdo()->prepare("SELECT * from utilisateur WHERE mail = :userId");
+		}
+		else
+		{
+			$req = $connexionBase->getPdo()->prepare("SELECT * from utilisateur WHERE pseudo = :userId");
+		}
+		$req->bindValue(':userId',$userPseudoOrMail,PDO::PARAM_STR);
+		$req->execute();
+		$donnees = $req->fetch();
+		if($donnees)
+		{
+			return new Utilisateur($donnees['idUser'],$donnees['pseudo'], $donnees['nom'], $donnees['prenom'], $donnees['ville'], $donnees['mail'], $donnees['permission'], $donnees['dateNaissance'], $donnees['photo'],$donnees['confidentialite']);
+		}
+		else
+		{
+			return null;
+		}
+	}
+	
 	public static function addUserToDataBase($connexionBase,$utilisateur,$motDePasse)
 	{
 		if(Utilisateur::existingLogin($connexionBase, $utilisateur->pseudo) || Utilisateur::existingMail($connexionBase, $utilisateur->mail))
