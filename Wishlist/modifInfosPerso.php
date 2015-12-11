@@ -19,7 +19,7 @@
 			//TODO changer l'url
 			$photo = 'urlImageDeBase';
 		}
-		$user = new Utilisateur($user->id,$_POST['pseudo'], $_POST['nom'], $_POST['prenom'], $_POST['ville'], $_POST['mail'],0, $_POST['confidentialite'], $_POST['annee'].'-'.$_POST['mois'].'-'.$_POST['jour'], $photo);
+		$user = new Utilisateur($user->id,$_POST['pseudo'], $_POST['nom'], $_POST['prenom'], $_POST['ville'], $_POST['mail'],0, $_POST['annee'].'-'.$_POST['mois'].'-'.$_POST['jour'], $photo);
 		$res = Utilisateur::updateUserInfos($_SESSION['Connexion'], $user, $pseudoHasChanged);
 		if($res)
 		{
@@ -70,24 +70,6 @@
 			<br>
 			Mail : 
 			<input type="text" name="mail" required="required" value=<?php $user->mail; ?> >
-			<br>
-			Souhaitez vous que les autres utilisateurs puissent voir vos listes ?
-			<?php 
-				if($user->confidentialite == 1)
-				{
-					echo '
-					<input type="radio" name="confidentialite" value="1" id="oui" checked="checked" /> <label for="oui">Oui</label>
-					<input type="radio" name="confidentialite" value="0" id="non" /> <label for="non">Non</label>
-					';
-				}
-				else
-				{
-					echo '
-					<input type="radio" name="confidentialite" value="1" id="oui" /> <label for="oui">Oui</label>
-					<input type="radio" name="confidentialite" value="0" id="non" checked="checked" /> <label for="non">Non</label>
-					';
-				}
-			?>
 			<br>
 			Date de naissance : 
 			<select name="jour">

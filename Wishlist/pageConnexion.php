@@ -43,7 +43,7 @@
 				//TODO changer l'url
 				$photo = 'urlImageDeBase';
 			}
-			$user = new Utilisateur(Utilisateur::getNewId($_SESSION['Connexion']),$_POST['pseudo'], $_POST['nom'], $_POST['prenom'], $_POST['ville'], $_POST['mail'],0, $_POST['confidentialite'], $_POST['annee'].'-'.$_POST['mois'].'-'.$_POST['jour'], $photo);
+			$user = new Utilisateur(Utilisateur::getNewId($_SESSION['Connexion']),$_POST['pseudo'], $_POST['nom'], $_POST['prenom'], $_POST['ville'], $_POST['mail'],0, $_POST['annee'].'-'.$_POST['mois'].'-'.$_POST['jour'], $photo);
 			$res = Utilisateur::addUserToDataBase($_SESSION['Connexion'], $user, $motDePasse);
 			if(!$res)
 			{
@@ -139,13 +139,6 @@
 				</tr>
 				<tr>
 					<td colspan="2" class="tdInput"><input type="text" name="mail" required="required" placeholder="Adresse mail" class="inputFull"></td>
-				</tr>
-				<tr>
-					<th align="left" colspan="2">Profil confidentiel ?</th>
-				</tr>
-				<tr>
-					<td class="tdInput"><input type="radio" name="confidentialite" value="1" id="oui" checked="checked" /> <label for="oui">Oui</label></td>
-					<td class="tdInput"><input type="radio" name="confidentialite" value="0" id="non" /> <label for="non">Non</label></td>
 				</tr>
 				<tr>
 					<th align="left" colspan="2">Date de naissance : </th>
