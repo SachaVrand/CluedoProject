@@ -69,120 +69,120 @@
 		<title>
 		</title>
 	</head>
-	<header class="headerConnexion">
-		<!-- Connexion -->
-		<div class="divCo">
-			<form action="pageConnexion.php" method="post">
-				<ul>
-					<li><label class="label">Login : </label></li>
-					<li><input type="text" name="loginConnexion" required="required" class="text"></li>
-					<li>
+	<body>
+		<header class="headerConnexion">
+			<!-- Connexion -->
+			<div class="divCo">
+				<form action="pageConnexion.php" method="post">
+					<ul>
+						<li><label class="label">Login : </label></li>
+						<li><input type="text" name="loginConnexion" required="required" class="text"></li>
+						<li>
+						<?php
+							if(isset($erreur))
+							{
+								echo "$erreur";
+							}
+						?>
+						</li>
+					</ul>
+					<ul>
+						<li><label class="label">Mot de passe : </label></li>
+						<li><input type="password" name="passwordConnexion" required="required" class="text"></li>
+					</ul>
+					<ul>
+						<li><label class="label" style="visibility: hidden">Hmmmmm</label> </li>
+						<li><input type="submit" name="Connexion" value="Connexion"></li>
+					</ul>
+				</form>
+			</div>
+		</header>
+		<div class="sectionInscription">
+			<form method="post" action="pageConnexion.php">
+				<?php
+					if(isset($notif))
+					{
+						echo "<h1 style='color:green;'>$notif</h1>";
+					}
+				?>
+				<table>
+					<tr>
+						<th colspan="2" align="left">Inscription</th>
+					</tr>
+					<tr>
+						<td colspan="2" class="tdInput"><input type="text" name="pseudo" required="required" placeholder="Pseudonyme" class="inputFull"></td>
+					</tr>
 					<?php
-						if(isset($erreur))
+						if(isset($existingLogin))
 						{
-							echo "$erreur";
+							echo "<tr><td colspan='2'><h1 style='color:red;'>$existingLogin</h1></td></tr>";
 						}
 					?>
-					</li>
-				</ul>
-				<ul>
-					<li><label class="label">Mot de passe : </label></li>
-					<li><input type="password" name="passwordConnexion" required="required" class="text"></li>
-				</ul>
-				<ul>
-					<li><label class="label" style="visibility: hidden">Hmmmmm</label> </li>
-					<li><input type="submit" name="Connexion" value="Connexion"></li>
-				</ul>
+					<tr>
+						<td colspan="2" class="tdInput"><input type="password" name="password" title="password" required="required" placeholder="Mot de passe" class="inputFull"></td>
+					</tr>
+					<tr>
+						<td colspan="2" class="tdInput"><input type="password" name="cpassword" title="confirm password" required="required" placeholder="Entrez a nouveau" class="inputFull"></td>
+					</tr>
+					<?php
+						if(isset($erreurMdp))
+						{
+							echo "<tr><td colspan='2'>$erreurMdp</td></tr>";
+						}
+					?>
+					<tr>
+						<td colspan="1" class="tdInput"><input type="text" name="prenom" required="required" placeholder="Prenom" class="inputFull"></td>
+						<td colspan="1" class="tdInput"><input type="text" name="nom" required="required" placeholder="Nom" class="inputFull"></td>
+					</tr>
+					<tr>
+						<td colspan="2" class="tdInput"><input type="text" name="ville" required="required" placeholder="Ville" class="inputFull"></td>
+					</tr>
+					<tr>
+						<td colspan="2" class="tdInput"><input type="text" name="mail" required="required" placeholder="Adresse mail" class="inputFull"></td>
+					</tr>
+					<tr>
+						<th align="left" colspan="2">Date de naissance : </th>
+					</tr>
+					<tr>
+						<td colspan="2" class="tdInput">
+							<select name="jour">
+								<option value="1" selected="selected">1</option>
+								<?php
+									for($i = 2; $i <= 31; $i++)
+									{
+										echo "<option value=$i> $i </option>";
+									}
+								?>
+							</select>
+							<select name="mois">
+								<option value="1" selected="selected">1</option>
+								<?php 
+									for($i=2;$i<=12;$i++)
+									{
+										echo "<option value=$i> $i </option>";
+									}
+								?>
+							</select>
+							<select name="annee">
+								<?php
+									$y = date('Y');
+									echo "<option value=$y selected=selected> $y </option>";
+									for($i=$y-1 ; $i>$y-100 ; $i--)
+									{
+										echo "<option value=$i> $i </option>";
+									}
+								?>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" class="tdInput"><input type="text" name="photo" placeholder="URL de la photo de profil" class="inputFull"></td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="submit" name="Inscription" value="Inscription"></td>
+					<tr>
+				</table>
 			</form>
 		</div>
-	</header>
-	<body>
-	<div class="sectionInscription">
-		<form method="post" action="pageConnexion.php">
-			<?php
-				if(isset($notif))
-				{
-					echo "<h1 style='color:green;'>$notif</h1>";
-				}
-			?>
-			<table>
-				<tr>
-					<th colspan="2" align="left">Inscription</th>
-				</tr>
-				<tr>
-					<td colspan="2" class="tdInput"><input type="text" name="pseudo" required="required" placeholder="Pseudonyme" class="inputFull"></td>
-				</tr>
-				<?php
-					if(isset($existingLogin))
-					{
-						echo "<tr><td colspan='2'><h1 style='color:red;'>$existingLogin</h1></td></tr>";
-					}
-				?>
-				<tr>
-					<td colspan="2" class="tdInput"><input type="password" name="password" title="password" required="required" placeholder="Mot de passe" class="inputFull"></td>
-				</tr>
-				<tr>
-					<td colspan="2" class="tdInput"><input type="password" name="cpassword" title="confirm password" required="required" placeholder="Entrez a nouveau" class="inputFull"></td>
-				</tr>
-				<?php
-					if(isset($erreurMdp))
-					{
-						echo "<tr><td colspan='2'>$erreurMdp</td></tr>";
-					}
-				?>
-				<tr>
-					<td colspan="1" class="tdInput"><input type="text" name="prenom" required="required" placeholder="Prenom" class="inputFull"></td>
-					<td colspan="1" class="tdInput"><input type="text" name="nom" required="required" placeholder="Nom" class="inputFull"></td>
-				</tr>
-				<tr>
-					<td colspan="2" class="tdInput"><input type="text" name="ville" required="required" placeholder="Ville" class="inputFull"></td>
-				</tr>
-				<tr>
-					<td colspan="2" class="tdInput"><input type="text" name="mail" required="required" placeholder="Adresse mail" class="inputFull"></td>
-				</tr>
-				<tr>
-					<th align="left" colspan="2">Date de naissance : </th>
-				</tr>
-				<tr>
-					<td colspan="2" class="tdInput">
-						<select name="jour">
-							<option value="1" selected="selected">1</option>
-							<?php
-								for($i = 2; $i <= 31; $i++)
-								{
-									echo "<option value=$i> $i </option>";
-								}
-							?>
-						</select>
-						<select name="mois">
-							<option value="1" selected="selected">1</option>
-							<?php 
-								for($i=2;$i<=12;$i++)
-								{
-									echo "<option value=$i> $i </option>";
-								}
-							?>
-						</select>
-						<select name="annee">
-							<?php
-								$y = date('Y');
-								echo "<option value=$y selected=selected> $y </option>";
-								for($i=$y-1 ; $i>$y-100 ; $i--)
-								{
-									echo "<option value=$i> $i </option>";
-								}
-							?>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2" class="tdInput"><input type="text" name="photo" placeholder="URL de la photo de profil" class="inputFull"></td>
-				</tr>
-				<tr>
-					<td colspan="2"><input type="submit" name="Inscription" value="Inscription"></td>
-				<tr>
-			</table>
-		</form>
-	</div>
 	</body>
 </html>
