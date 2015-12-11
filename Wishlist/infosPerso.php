@@ -48,7 +48,7 @@
 							//TODO changer l'affichage pour l'image
 							echo 
 							'<table>
-								<tr> <td rowspan=2>Image</td> <td colspan=2>'.$user->pseudo.'</td> </tr>
+								<tr> <td rowspan=2><img src="'.$user->photo.'" /></td> <td colspan=2>'.$user->pseudo.'</td> </tr>
 								<tr> <td>'.$user->nom.' '.$user->prenom.', </td> <td>'.$user->mail.'</td> </tr>
 							</table>'.
 							'<br>'.

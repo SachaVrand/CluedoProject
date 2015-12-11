@@ -41,7 +41,7 @@
 			else
 			{
 				//TODO changer l'url
-				$photo = 'urlImageDeBase';
+				$photo = '../images/userIcon.png';
 			}
 			$user = new Utilisateur(Utilisateur::getNewId($_SESSION['Connexion']),$_POST['pseudo'], $_POST['nom'], $_POST['prenom'], $_POST['ville'], $_POST['mail'],0, $_POST['annee'].'-'.$_POST['mois'].'-'.$_POST['jour'], $photo);
 			$res = Utilisateur::addUserToDataBase($_SESSION['Connexion'], $user, $motDePasse);
