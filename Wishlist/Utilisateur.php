@@ -62,7 +62,7 @@ class Utilisateur{
 	
 	public static function addUserToDataBase($connexionBase,$utilisateur,$motDePasse)
 	{
-		if(Utilisateur::existingLogin($connexionBase, $utilisateur->pseudo))
+		if(Utilisateur::existingLogin($connexionBase, $utilisateur->pseudo) || Utilisateur::existingMail($connexionBase, $utilisateur->mail))
 		{
 			return 0;
 		}
@@ -99,21 +99,43 @@ class Utilisateur{
 		}
 	}
 	
-	public static function updateUserInfos($connexionBase,$newUser,$pseudoHasChanged)
+	private static function existingMail($connexionBase,$mail)
 	{
-		$requete = '';
+		$requete = 'SELECT mail FROM utilisateur WHERE mail = :mail';
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':mail',$mail,PDO::PARAM_STR);
+		$res->execute();
+		$donnees = $res->fetch();
+		if($donnees)
+		{
+			return 1;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+	
+	public static function updateUserInfos($connexionBase,$newUser,$pseudoHasChanged,$mailHasChanged)
+	{
+		$requete = 'UPDATE utilisateur SET ville = :ville, dateNaissance = :dateNaissance, nom = :nom, prenom = :prenom, photo = :photo ';
 		if($pseudoHasChanged)
 		{
 			if(Utilisateur::existingLogin($connexionBase, $utilisateur->pseudo))
 			{
 				return 0;
 			}
-			$requete = 'UPDATE utilisateur SET pseudo = :pseudo, ville = :ville, dateNaissance = :dateNaissance, nom = :nom, prenom = :prenom, mail = :mail, photo = :photo WHERE idUser = :id';
+			$requete = $requete.',pseudo = :pseudo ';
 		}
-		else
+		if($mailHasChanged)
 		{
-			$requete = 'UPDATE utilisateur SET ville = :ville, dateNaissance = :dateNaissance, nom = :nom, prenom = :prenom, mail = :mail, photo = :photo WHERE idUser = :id';
+			if(Utilisateur::existingMail($connexionBase, $utilisateur->mail))
+			{
+				return 0;
+			}
+			$requete = $requete.',mail = :mail ';
 		}
+		$requete = $requete.'WHERE idUser = :id';
 		$res = $connexionBase->getPdo()->prepare($requete);
 		$res->bindValue(':id',$utilisateur->id,PDO::PARAM_INT);
 		if($pseudoHasChanged)
@@ -124,7 +146,10 @@ class Utilisateur{
 		$res->bindValue(':dateNaissance',$utilisateur->dateNaissance,PDO::PARAM_STR);
 		$res->bindValue(':nom',$utilisateur->nom,PDO::PARAM_STR);
 		$res->bindValue(':prenom',$utilisateur->prenom,PDO::PARAM_STR);
-		$res->bindValue(':mail',$utilisateur->mail,PDO::PARAM_STR);
+		if($mailHasChanged)
+		{
+			$res->bindValue(':mail',$utilisateur->mail,PDO::PARAM_STR);
+		}
 		$res->bindValue(':photo',$utilisateur->photo,PDO::PARAM_STR);
 		$res->execute();
 		return 1;
@@ -135,6 +160,52 @@ class Utilisateur{
 		$requete = 'UPDATE utilisateur SET motDePasse = :password WHERE id = :id';
 		$res = $connexionBase->getPdo()->prepare($requete);
 		$res->bindValue(':password',$newPassword);
+		$res->execute();
+	}
+	
+	public static function getFollowing($connexionBase,$user)
+	{
+		$requete = 'SELECT utilisateur.idUser,pseudo FROM utilisateur,suivre WHERE utilisateur.idUser = suivre.following AND idUser = :id';
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':id',$user->id);
+		$res->execute();
+		$tab = array();
+		while($donnees = $res->fetch())
+		{
+			$tab[$donnees['idUser']] = $donnees['pseudo'];
+		}
+		return $tab;
+	}
+	
+	public static function getFollowers($connexionBase,$user)
+	{
+		$requete = 'SELECT utilisateur.idUser,pseudo FROM utilisateur,suivre WHERE utilisateur.idUser = suivre.idUser AND following = :id AND restriction = 0';
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':id',$user->id);
+		$res->execute();
+		$tab = array();
+		while($donnees = $res->fetch())
+		{
+			$tab[$donnees['idUser']] = $donnees['pseudo'];
+		}
+		return $tab;
+	}
+	
+	public static function deleteFollowing($connexionBase, $user, $following)
+	{
+		$requete = 'DELETE FROM suivre WHERE idUser = :idUser AND following = :idFollowing';
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':idUser',$user->id);
+		$res->bindValue(':idFollowing',$following);
+		$res->execute();
+	}
+	
+	public static function restrictFollower($connexionBase, $user, $follower)
+	{
+		$requete = 'UPDATE suivre SET restriction = 1 WHERE idUser = :idFollower AND following = :idUser';
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':idUser',$user->id);
+		$res->bindValue(':idFollower',$follower);
 		$res->execute();
 	}
 }

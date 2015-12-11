@@ -47,7 +47,7 @@
 			$res = Utilisateur::addUserToDataBase($_SESSION['Connexion'], $user, $motDePasse);
 			if(!$res)
 			{
-				$existingLogin = 'Il existe deja un utilisateur avec le meme login';
+				$existingLoginMail = 'Il existe deja un utilisateur avec le meme login ou adresse mail';
 			}
 			else 
 			{
@@ -113,9 +113,9 @@
 						<td colspan="2" class="tdInput"><input type="text" name="pseudo" required="required" placeholder="Pseudonyme" class="inputFull"></td>
 					</tr>
 					<?php
-						if(isset($existingLogin))
+						if(isset($existingLoginMail))
 						{
-							echo "<tr><td colspan='2'><h1 style='color:red;'>$existingLogin</h1></td></tr>";
+							echo "<tr><td colspan='2'><h1 style='color:red;'>$existingLoginMail</h1></td></tr>";
 						}
 					?>
 					<tr>
@@ -138,7 +138,7 @@
 						<td colspan="2" class="tdInput"><input type="text" name="ville" required="required" placeholder="Ville" class="inputFull"></td>
 					</tr>
 					<tr>
-						<td colspan="2" class="tdInput"><input type="text" name="mail" required="required" placeholder="Adresse mail" class="inputFull"></td>
+						<td colspan="2" class="tdInput"><input type="email" name="mail" required="required" placeholder="Adresse mail" class="inputFull"></td>
 					</tr>
 					<tr>
 						<th align="left" colspan="2">Date de naissance : </th>
