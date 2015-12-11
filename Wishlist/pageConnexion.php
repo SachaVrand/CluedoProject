@@ -102,7 +102,7 @@
 			<?php
 				if(isset($notif))
 				{
-					echo "$notif";
+					echo "<h1 style='color:green;'>$notif</h1>";
 				}
 			?>
 			<table>
@@ -115,8 +115,7 @@
 				<?php
 					if(isset($existingLogin))
 					{
-						//TODO afficher en rouge
-						echo "<tr><td colspan='2'>$existingLogin</td></tr>";
+						echo "<tr><td colspan='2'><h1 style='color:red;'>$existingLogin</h1></td></tr>";
 					}
 				?>
 				<tr>

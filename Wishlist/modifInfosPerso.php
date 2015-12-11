@@ -45,8 +45,7 @@
 		<?php
 			if(isset($notif))
 			{
-				//TODO afficher en vert et tout ca
-				echo "$notif";
+				echo "<h1 style='color:green;'>$notif</h1>";
 			}
 		?>
 		<button type="button" onclick="self.location.href='modifMotDePasse.php'">Modifier vos informations</button>
@@ -56,8 +55,7 @@
 			<?php
 				if(isset($existingLogin))
 				{
-					//TODO afficher en rouge
-					echo "$existingLogin";
+					echo "<h1 style='color:red;'>$existingLogin</h1>";
 				}
 			?>
 			<br>
