@@ -19,7 +19,7 @@
 		{
 			$photo = 'images/userIcon.png';
 		}
-		$user = new Utilisateur($user->id,$_POST['pseudo'], $_POST['nom'], $_POST['prenom'], $_POST['ville'], $_POST['mail'],0, $_POST['annee'].'-'.$_POST['mois'].'-'.$_POST['jour'], $photo);
+		$user = new Utilisateur($user->id,$_POST['pseudo'], $_POST['nom'], $_POST['prenom'], $_POST['ville'], $_POST['mail'],0, $_POST['annee'].'-'.$_POST['mois'].'-'.$_POST['jour'], $photo,$_POST['confidentialite']);
 		$res = Utilisateur::updateUserInfos($_SESSION['Connexion'], $user, $pseudoHasChanged, $mailHasChanged);
 		if($res)
 		{
@@ -28,7 +28,7 @@
 		}
 		else
 		{
-			$existingLogin = 'Un utilisateur possede deja le meme pseudo ou la même adresse mail.';
+			$existingLogin = 'Un utilisateur possede deja le meme pseudo ou la meme adresse mail.';
 		}
 	}
 ?>
@@ -70,6 +70,25 @@
 			<br>
 			Mail : 
 			<input type="text" name="mail" required="required" value=<?php $user->mail; ?> >
+			<br>
+			Profil confidentiel ?
+			<br>
+			<?php 
+				if($user->confidentialite == 1)
+				{
+					echo '
+					<input type="radio" name="confidentialite" value="1" id="oui" checked="checked" /> <label for="oui">Oui</label>
+					<input type="radio" name="confidentialite" value="0" id="non" /> <label for="non">Non</label>
+					';
+				}
+				else
+				{
+					echo '
+					<input type="radio" name="confidentialite" value="1" id="oui" /> <label for="oui">Oui</label>
+					<input type="radio" name="confidentialite" value="0" id="non" checked="checked" /> <label for="non">Non</label>
+					';
+				}
+			?>
 			<br>
 			Date de naissance : 
 			<select name="jour">

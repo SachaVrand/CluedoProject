@@ -10,8 +10,9 @@ class Utilisateur{
 	private $permission;
 	public $dateNaissance;
 	public $photo;
+	public $confidentialite;
 	
-	public function __construct($id,$pseudo,$nom,$prenom,$ville,$mail,$permission,$dateNaissance,$photo) {
+	public function __construct($id,$pseudo,$nom,$prenom,$ville,$mail,$permission,$dateNaissance,$photo,$confidentialite) {
 		$this->id = $id;
 		$this->dateNaissance = $dateNaissance;
 		$this->mail = $mail;
@@ -21,6 +22,7 @@ class Utilisateur{
 		$this->prenom = $prenom;
 		$this->pseudo = $pseudo;
 		$this->ville = $ville;
+		$this->confidentialite = $confidentialite;
 	}
 	
 	public function getPermission()
@@ -52,7 +54,7 @@ class Utilisateur{
 		$donnees = $req->fetch();
 		if($donnees)
 		{
-			return new Utilisateur($donnees['idUser'],$donnees['pseudo'], $donnees['nom'], $donnees['prenom'], $donnees['ville'], $donnees['mail'], $donnees['permission'], $donnees['dateNaissance'], $donnees['photo']);
+			return new Utilisateur($donnees['idUser'],$donnees['pseudo'], $donnees['nom'], $donnees['prenom'], $donnees['ville'], $donnees['mail'], $donnees['permission'], $donnees['dateNaissance'], $donnees['photo'],$donnees['confidentialite']);
 		}
 		else
 		{
@@ -66,7 +68,7 @@ class Utilisateur{
 		{
 			return 0;
 		}
-		$requete = 'INSERT INTO utilisateur VALUES (:id,:pseudo,:ville,:dateNaissance,:nom,:prenom,:mail,:photo,:motDePasse,:permission)';
+		$requete = 'INSERT INTO utilisateur VALUES (:id,:pseudo,:ville,:dateNaissance,:nom,:prenom,:mail,:photo,:motDePasse,:permission,:confidentialite)';
 		$res = $connexionBase->getPdo()->prepare($requete);
 		$res->bindValue(':id',$utilisateur->id,PDO::PARAM_INT);
 		$res->bindValue(':pseudo',$utilisateur->pseudo,PDO::PARAM_STR);
@@ -78,6 +80,7 @@ class Utilisateur{
 		$res->bindValue(':photo',$utilisateur->photo,PDO::PARAM_STR);
 		$res->bindValue(':motDePasse',$motDePasse,PDO::PARAM_STR);
 		$res->bindValue(':permission',$utilisateur->getPermission(),PDO::PARAM_INT);
+		$res->bindValue(':confidentialite',$utilisateur->confidentialite,PDO::PARAM_INT);
 		$res->execute();
 		return 1;
 	}
@@ -118,7 +121,7 @@ class Utilisateur{
 	
 	public static function updateUserInfos($connexionBase,$newUser,$pseudoHasChanged,$mailHasChanged)
 	{
-		$requete = 'UPDATE utilisateur SET ville = :ville, dateNaissance = :dateNaissance, nom = :nom, prenom = :prenom, photo = :photo ';
+		$requete = 'UPDATE utilisateur SET ville = :ville, dateNaissance = :dateNaissance, nom = :nom, prenom = :prenom, photo = :photo confidentialite = :confidentialite';
 		if($pseudoHasChanged)
 		{
 			if(Utilisateur::existingLogin($connexionBase, $utilisateur->pseudo))
@@ -138,6 +141,7 @@ class Utilisateur{
 		$requete = $requete.'WHERE idUser = :id';
 		$res = $connexionBase->getPdo()->prepare($requete);
 		$res->bindValue(':id',$utilisateur->id,PDO::PARAM_INT);
+		$res->bindValue(':confidentialite',$utilisateur->confidentialite,PDO::PARAM_INT);
 		if($pseudoHasChanged)
 		{
 			$res->bindValue(':pseudo',$utilisateur->pseudo,PDO::PARAM_STR);
