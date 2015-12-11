@@ -1,0 +1,330 @@
+
+
+/*====================================== LE MENU =========================================*/
+
+/*== le menu ==*/
+
+#menuPrincipal, #menuPrincipal
+table, ul{
+padding:0;
+margin:0 0;
+list-style:none;
+margin-left:auto;
+margin-right:auto;
+}
+#menuPrincipal
+ul li{
+display:inherit;
+border-radius:0;
+}
+#menuPrincipal
+table tr td:hover{
+border-radius:0;
+}
+#menuPrincipal
+table tr td{
+border-radius:0 0 0 0;
+}
+#menuPrincipal
+table, table tr td:nth-child(7) ul{
+position:absolute;
+z-index: 1000;
+max-height:0;
+left: 0;
+right: 0;
+overflow:hidden;
+-moz-transition: .0s all .0s;
+-webkit-transition: .0s all .0s;
+transition: .0s all .0s;
+}
+#menuPrincipal
+td:hover ul{
+max-height:15em;
+}
+#menuPrincipal
+{
+border-collapse: separate;
+border-spacing: 0 0;
+}
+
+
+
+/*=== le logo ===*/
+#menuPrincipal
+td:first-child{
+position:relative;
+border-radius:2px 2px 2px 2px;
+background-color: #FEFEFE;
+}
+#menuPrincipal
+td:first-child a{
+text-decoration:none;
+display:block;
+padding:3px 8px;
+color:#D03030;
+font-family:impact;
+font-size:12px;
+}
+
+
+/* ESPACE */
+#menuPrincipal
+td:nth-child(2){
+position:relative;
+padding:0 2px;
+background-color: #D03030;
+}
+
+
+
+
+/* ESPACE */
+#menuPrincipal
+td:nth-child(5){
+position:relative;
+padding:0 17px;
+background-color: #D03030;
+}
+
+
+/*== le bouton Accueil ==*/
+
+#menuPrincipal
+td:nth-child(6){
+position:relative;
+border-radius:2px 2px 2px 2px;
+}
+#menuPrincipal
+td:nth-child(6) {
+background-color: #D03030;
+}
+#menuPrincipal
+td:nth-child(6) a{
+text-decoration:none;
+display:block;
+padding:4px 10px;
+color:#fff;
+font-family:verdana;
+font-size:12px;
+font-weight: bold;
+}
+#menuPrincipal
+td:nth-child(6):hover {
+background-color: #C42020;
+}
+
+
+
+
+/*== le bouton Profil ==*/
+
+#menuPrincipal
+td:nth-child(7){
+position:relative;
+border-radius:2px 2px 0 0;
+background-color: #D03030;
+}
+#menuPrincipal
+td:nth-child(7) li {
+border-radius:0 0 0 0;
+background:#D03030;
+padding:4xp 0;
+margin-right:0;
+}
+#menuPrincipal
+td:nth-child(7) li:last-child{
+border-radius:0 0 2px 2px;
+}
+#menuPrincipal
+td:nth-child(7) a{
+text-decoration:none;
+display:block;
+padding:4px 10px;
+color:#fff;
+font-family:verdana;
+font-size:12px;
+font-weight: bold;
+}
+#menuPrincipal
+td:nth-child(7):hover {
+background-color: #C42020;
+}
+#menuPrincipal
+td:nth-child(7) li:hover {
+background-color: #C42020;
+}
+
+
+
+
+/*== le bouton Messagerie ==*/
+
+#menuPrincipal
+td:nth-child(8){
+position:relative;
+border-radius:2px 2px 2px 2px;
+}
+#menuPrincipal
+td:nth-child(8) {
+background-color: #D03030;
+}
+#menuPrincipal
+td:nth-child(8) a{
+text-decoration:none;
+display:block;
+padding:4px 10px;
+color:#fff;
+font-family:verdana;
+font-size:12px;
+font-weight: bold;
+}
+#menuPrincipal
+td:nth-child(8):hover {
+background-color: #C42020;
+}
+
+
+
+
+/*== le bouton Notification ==*/
+
+#menuPrincipal
+td:last-child{
+position:relative;
+border-radius:2px 2px 2px 2px;
+}
+#menuPrincipal
+td:last-child {
+background-color: #D03030;
+}
+#menuPrincipal
+td:last-child a{
+text-decoration:none;
+display:block;
+padding:4px 10px;
+color:#fff;
+font-family:verdana;
+font-size:12px;
+font-weight: bold;
+}
+#menuPrincipal
+td:last-child:hover {
+background-color: #C42020;
+}
+
+
+
+/* Le header */
+
+#headerMenu
+{
+	background-color:#D03030;
+	position:fixed;
+	top:0px;
+	left:0px;
+	width:100%;
+	margin:0px auto;
+	font-size:6px;
+}
+
+
+
+
+
+/*=======================================le body===========================================*/
+
+body
+{
+	background-color:#EDEDED;
+}
+
+
+
+/*======================================= le titre ===========================================*/
+
+#titre
+{
+font-family:verdana;
+font-size:15px;
+color:#2E2E2E;
+background-color:#FEFEFE;
+margin-top:5%;
+margin-left:28%;
+width:44%;
+text-align:center;
+padding:15px 0;
+font-weight: bold;
+border-bottom: 1px #D7D8D8 groove;
+border-right: 1px #D7D8D8 groove;
+border-top: 1px #D7D8D8 ridge;
+border-left: 1px #D7D8D8 ridge;
+}
+
+
+
+/*========================================= le tableau ===============================================*/
+
+#principal
+{
+margin-top:2%;
+margin-left:28%;
+}
+#principal
+tr td
+{
+vertical-align : top;
+}
+
+/*================================== le sous menu =======================================*/
+
+#sousMenu
+{
+	width:auto;
+	height:auto;
+	padding-top:6px;
+}
+#sousMenu
+ul{
+list-style:none;
+}
+#sousMenu
+ul li{
+display:inherit;
+}
+#sousMenu
+li{
+position:relative;
+background-color: #EDEDED;
+padding:4px 5px;
+}
+#sousMenu
+li:hover{
+position:relative;
+border-radius:3px 3px 3px 3px;
+background-color: #E0E1E0;
+padding:4px 5px;
+}
+#sousMenu
+li a{
+text-decoration:none;
+display:block;
+font-family:verdana;
+font-size:12px;
+color:#575757;
+}
+
+
+/*==================================== le content ===============================================*/
+
+#content
+{
+	color:#2E2E2E;
+	background-color:#FEFEFE;
+	width:auto;
+	height:750px;
+	border-bottom: 1px #D7D8D8 groove;
+	border-right: 1px #D7D8D8 groove;
+	border-top: 1px #D7D8D8 ridge;
+	border-left: 1px #D7D8D8 ridge;
+	padding:6px 10px;
+}

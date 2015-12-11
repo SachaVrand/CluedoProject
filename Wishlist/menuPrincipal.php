@@ -3,7 +3,7 @@
 	<head>
 	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	    <meta http-equiv="Content-Language" content="fr" />
-	    <link rel="Stylesheet" type="text/css" href="menuPrincipal.css" />
+	    <link rel="Stylesheet" type="text/css" href="interfaceWithMenu.css" />
 	</head>
 	<body>
 		<header id="headerMenu">
