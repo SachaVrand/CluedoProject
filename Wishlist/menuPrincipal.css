@@ -213,7 +213,6 @@ background-color: #C42020;
 
 
 
-
 /* Le header */
 
 #headerMenu
@@ -229,6 +228,12 @@ background-color: #C42020;
 
 
 
+
+
+
+
+
+
 /*=======================================le body===========================================*/
 
 body
@@ -237,11 +242,34 @@ body
 }
 
 
+
+/*======================================= le titre ===========================================*/
+
+#titre
+{
+font-family:verdana;
+font-size:15px;
+color:#2E2E2E;
+background-color:#FEFEFE;
+margin-top:5%;
+margin-left:28%;
+width:44%;
+text-align:center;
+padding:15px 0;
+font-weight: bold;
+border-bottom: 1px #D7D8D8 groove;
+border-right: 1px #D7D8D8 groove;
+border-top: 1px #D7D8D8 ridge;
+border-left: 1px #D7D8D8 ridge;
+}
+
+
+
 /*========================================= le tableau ===============================================*/
 
 #principal
 {
-margin-top:5%;
+margin-top:2%;
 margin-left:28%;
 }
 #principal
@@ -272,19 +300,19 @@ background-color: #EDEDED;
 padding:4px 5px;
 }
 #sousMenu
+li:hover{
+position:relative;
+border-radius:3px 3px 3px 3px;
+background-color: #E0E1E0;
+padding:4px 5px;
+}
+#sousMenu
 li a{
 text-decoration:none;
 display:block;
 font-family:verdana;
 font-size:12px;
 color:#575757;
-}
-#sousMenu
-li:hover{
-position:relative;
-border-radius:3px 3px 3px 3px;
-background-color: #E0E1E0;
-padding:4px 5px;
 }
 
 

@@ -30,21 +30,25 @@
 			<br />
 		</header>
 		
+		<div id="titre">
+		Profil personnel
+		</div>
+		
 		<table id="principal" width=44%  height=50%>
 			<tr>
 				<td width=15%>
-					<section id="sousMenu">
+					<div id="sousMenu">
 						<ul>
 							<li><a href="infoPerso.php">Informations</a></li>
 							<li><a href="listeCadeau.php">Listes</a></li>
 							<li><a href="follow.php">Follow</a></li>
 						</ul>
-					</section>
+					</div>
 				</td width=85%>
 				<td>
-					<section id="content">
-					ghghshrhth
-					</section>
+					<div id="content">
+					Profil personnel
+					</div>
 				</td>
 			</tr>
 		</table>
