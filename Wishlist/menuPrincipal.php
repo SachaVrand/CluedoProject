@@ -47,7 +47,7 @@
 				</td width=85%>
 				<td>
 					<div id="content">
-					Profil personnel
+					blablabla
 					</div>
 				</td>
 			</tr>

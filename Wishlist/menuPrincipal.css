@@ -284,6 +284,7 @@ vertical-align : top;
 {
 	width:auto;
 	height:auto;
+	padding-top:6px;
 }
 #sousMenu
 ul{
@@ -328,6 +329,7 @@ color:#575757;
 	border-right: 1px #D7D8D8 groove;
 	border-top: 1px #D7D8D8 ridge;
 	border-left: 1px #D7D8D8 ridge;
+	padding:6px 10px;
 }
 
 
