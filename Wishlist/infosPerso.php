@@ -31,7 +31,7 @@
 					<td><a href="accueil.php">Accueil</a></td>
 					<td><a href="infoPerso.php">Profil personnel</a>
 						<ul>
-							<li><a href="infoPerso.php">Informations</a></li>
+							<li><a href="infosPerso.php">Informations</a></li>
 							<li><a href="listeCadeau.php">Listes</a></li>
 							<li><a href="follow.php">Follow</a></li>
 						</ul>
@@ -52,14 +52,14 @@
 				<td width=15%>
 					<div id="sousMenu">
 						<ul>
-							<li><a href="infoPerso.php">Informations</a></li>
+							<li><a href="infosPerso.php">Informations</a></li>
 							<li><a href="listeCadeau.php">Listes</a></li>
 							<li><a href="follow.php">Follow</a></li>
 						</ul>
 					</div>
 				</td width=85%>
 				<td>
-					<div id="content">
+					<div id="contentAvecMenu">
 						<?php
 							$user = $_SESSION['user'];
 							$date = explode('-', $user->dateNaissance);

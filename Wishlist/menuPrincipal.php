@@ -46,7 +46,7 @@
 					</div>
 				</td width=85%>
 				<td>
-					<div id="content">
+					<div id="contentAvecMenu">
 					blablabla
 					</div>
 				</td>

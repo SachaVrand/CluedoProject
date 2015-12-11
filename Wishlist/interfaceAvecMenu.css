@@ -314,7 +314,7 @@ color:#575757;
 
 /*==================================== le div content ===============================================*/
 
-#content
+#contentAvecMenu
 {
 	color:#2E2E2E;
 	background-color:#FEFEFE;
@@ -328,7 +328,22 @@ color:#575757;
 }
 
 
+/*==================================== le div principal ===============================================*/
 
+#contentSansMenu
+{
+	margin-top:2%;
+	margin-left:28%;
+	color:#2E2E2E;
+	background-color:#FEFEFE;
+	width:auto;
+	height:750px;
+	border-bottom: 1px #D7D8D8 groove;
+	border-right: 1px #D7D8D8 groove;
+	border-top: 1px #D7D8D8 ridge;
+	border-left: 1px #D7D8D8 ridge;
+	padding:6px 10px;
+}
 
 
 
