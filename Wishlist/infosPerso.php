@@ -45,7 +45,6 @@
 							$date = explode('-', $user->dateNaissance);
 							$months = array('janvier','fevrier','mars','avril','mai','juin','juillet','aout','septembre','octobre','novembre','decembre');
 							$month = $date[1]-1;
-							//TODO changer l'affichage pour l'image
 							echo 
 							'<table>
 								<tr> <td rowspan=2><img src="'.$user->photo.'" /></td> <td colspan=2>'.$user->pseudo.'</td> </tr>
