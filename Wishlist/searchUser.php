@@ -16,6 +16,11 @@
 	{
 		$userToDisplay = Utilisateur::getUserToDisplay($_SESSION['Connexion'], $_GET['user']);
 	}
+	
+	if(isset($_POST['submit']))
+	{
+		Utilisateur::followUser($_SESSION['Connexion'], $userToDisplay, $_SESSION['user']);
+	}
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
@@ -84,6 +89,29 @@
 							'Naissance : '.$date[2].' '.$months[$month].' '.$date[0].
 							'<br><br>';			
 						?>
+						
+						<table>
+							<tr><th align="left">Flux d'activitees recentes (2semaines)</th></tr>
+							<?php
+								$res = Utilisateur::getActivities($_SESSION['Connexion'], $userToDisplay);
+								foreach($res as $v)
+								{
+									echo "<tr><td>A $v->activite->nomType $v->activite->nomObjet pour l'evenement $v->activite->nomEvenement </td><tr>";
+								}
+							?>
+						</table>
+						<br>
+						<br>
+						<form method="post" action="searchUser.php?user=<?php echo "$userToDisplay->pseudo"; ?>">
+							<table>
+								<?php 
+									$nbFollowers = Utilisateur::getFollowerNumber($_SESSION['Connexion'], $_SESSION['user']);
+									$nbFollowing = Utilisateur::getFollowingNumber($_SESSION['Connexion'], $_SESSION['user']);
+									$nbListes = Utilisateur::getListNumber($_SESSION['Connexion'], $_SESSION['user']);
+								?>
+								<tr><td>Followers : <?php echo $nbFollowers;?> | Following : <?php echo $nbFollowing;?> | Listes : <?php echo $nbListes;?> </td><td><input type="submit" name="submit" value="suivre"></td></tr>
+							</table>
+						</form>
 					</div>
 				</td>
 			</tr>

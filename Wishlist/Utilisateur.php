@@ -263,5 +263,81 @@ class Utilisateur{
 			return 1;
 		}
 	}
+	
+	public static function getFollowingActivity($connexionBase,$user)
+	{
+		$requete = 'SELECT pseudo, Activite.idActivite, nomType, nomObjet, nomCadeau, nomEvenement, dateActivite FROM activite, activitesUtilisateur, utilisateur WHERE activite.idActivite = activitesUtilisateur.idActivite AND activitesUtilisateur.idUser IN (select following from suivre where idUser = :id) AND dateActivite > DATE_SUB(NOW(),INTERVAL 15 DAY) ORDER BY dateActivite DESC';
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':id',$user->id);
+		$res->execute();
+		$tabActivitesUtilisateur = array();
+		while($donnees = $res->fetch())
+		{
+			$tabActivitesUtilisateur[] = new ActivitesUtilisateur(new Activite($donnees['idActivite'], $donnees['nomType'], $donnees['nomObjet'], $donnees['nomCadeau'], $donnees['nomEvement']), $donnees['pseudo']);
+		}
+		return $tabActivitesUtilisateur;
+	}
+	
+	public static function getActivities($connexionBase,$user)
+	{
+		$requete = 'SELECT Activite.idActivite, nomType, nomObjet, nomCadeau, nomEvenement, dateActivite FROM activite, activitesUtilisateur WHERE activite.idActivite = activitesUtilisateur.idActivite AND idUser = :id AND dateActivite > DATE_SUB(NOW(),INTERVAL 15 DAY) ORDER BY dateActivite DESC';
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':id',$user->id);
+		$res->execute();
+		$tabActivite = array();
+		while($donnees = $res->fetch())
+		{
+			$tabActivite[] = new Activite($donnees['idActivite'], $donnees['nomType'], $donnees['nomObjet'], $donnees['nomCadeau'], $donnees['nomEvement']);
+		}
+		return $tabActivite;
+	}
+	
+	public static function getFollowingNumber($connexionBase,$user)
+	{
+		$requete = 'select count(following) as nb from suivre where idUser = :id;';
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':id',$user->id);
+		$res->execute();
+		$donnees = $res->fetch();
+		if(!$donnees)
+			return 0;
+		else
+			return $donnees['nb'];
+	}
+	
+	public static function getFollowerNumber($connexionBase,$user)
+	{
+		$requete = 'select count(idUser) as nb from suivre where following = :id;';
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':id',$user->id);
+		$res->execute();
+		$donnees = $res->fetch();
+		if(!$donnees)
+			return 0;
+		else
+			return $donnees['nb'];
+	}
+	
+	public static function getListNumber($connexionBase,$user)
+	{
+		$requete = 'select count(distinct idEvenement) as nb from listeCadeaux where idUser = :id;';
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':id',$user->id);
+		$res->execute();
+		$donnees = $res->fetch();
+		if(!$donnees)
+			return 0;
+		else
+			return $donnees['nb'];
+	}
+	
+	public static function followUser($connexionBase,$user,$follower)
+	{
+		$requete = 'INSERT INTO suivre VALUES(:idFollower,:idUser)';
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':idUser',$user->id);
+		$res->bindValue(':idFollower',$follower->id);
+		$res->execute();
+	}
 }
 ?>
