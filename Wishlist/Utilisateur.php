@@ -243,5 +243,23 @@ class Utilisateur{
 		$res->bindValue(':idFollower',$follower);
 		$res->execute();
 	}
+	
+	public static function isRestrict($connexionBase, $user, $searchUser)
+	{
+		$requete = 'SELECT restriction FROM suivre WHERE following = :searchUser AND idUser = :idUser';
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':searchUser', $searchUser->id);
+		$res->bindValue(':idUser', $user->id);
+		$res->execute();
+		$donnees = $res->fetch();
+		if(!donnees || $donnees['restriction'] === 0)
+		{
+			return 0;
+		}
+		else
+		{
+			return 1;
+		}
+	}
 }
 ?>

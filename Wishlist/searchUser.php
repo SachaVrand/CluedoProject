@@ -38,12 +38,15 @@
 		<table id="principal">
 			<tr>
 				<?php 
-					if(!($userToDisplay || $userToDisplay->confidentialite == 1))
+					if(!($userToDisplay || $userToDisplay->confidentialite == 1 || Utilisateur::isRestrict($_SESSION['Connexion'], $user, $userToDisplay)))
 					{
 				?>
 				<td>
 					<div id="sousMenu">
 						<ul>
+							<?php
+								
+							?>
 							<li><a href="infosPerso.php">Informations</a></li>
 							<li><a href="listeCadeau.php">Listes</a></li>
 							<li><a href="follow.php">Follow</a></li>
@@ -55,7 +58,7 @@
 				?>
 				<td>
 					<div id=<?php 
-								if($userToDisplay || $userToDisplay->confidentialite == 1)
+								if($userToDisplay || $userToDisplay->confidentialite == 1 || Utilisateur::isRestrict($_SESSION['Connexion'], $user, $userToDisplay))
 								{
 									echo '"ContentSansMenu"';
 								}
@@ -72,6 +75,10 @@
 							else if($userToDisplay->confidentialite == 1)
 							{
 								echo "L'utilisateur ne souhaite pas que l'on puisse avoir acces a son profil";
+							}
+							else if(Utilisateur::isRestrict($_SESSION['Connexion'], $user, $userToDisplay))
+							{
+								echo "L'utilisateur ne souhaite que vous puissiez acceder a son profil.";
 							}
 							else
 							{
