@@ -40,13 +40,7 @@
 		<table id="principal">
 			<tr>
 				<td>
-					<div id="sousMenu">
-						<ul>
-							<li><a href="infosPerso.php">Informations</a></li>
-							<li><a href="listeCadeau.php">Listes</a></li>
-							<li><a href="follow.php">Follow</a></li>
-						</ul>
-					</div>
+					<?php include_once('sousMenu.php');?>
 				</td>
 				<td>
 					<div id="contentAvecMenu">
