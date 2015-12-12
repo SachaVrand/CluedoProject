@@ -23,7 +23,7 @@
 		}
 		else
 		{
-			$errorOldPassword = 'Votre mot de passe est incorrecte;';
+			$errorOldPassword = 'Votre mot de passe est incorrecte.';
 		}
 	}
 ?>
@@ -56,34 +56,28 @@
 						<?php
 							if(isset($notif))
 							{
-								echo "<h1 style='color:green;'>$notif</h1>";
+								echo "<h4 style='color:green;font-family: helvetica;'>$notif</h4>";
+							}
+							else if(isset($error))
+							{
+								echo "<h4 style='color:red;font-family: helvetica;'>$error</h4>";
+							}
+							else if(isset($errorOldPassword))
+							{
+								echo "<h4 style='color:red;font-family: helvetica;''>$errorOldPassword</h4>";
 							}
 						?>
 						<form method="post" action="modifMotDePasse.php">
 							<table>
-								<tr><th>Modification du mot de passe</th></tr>
 								<tr>
 									<td><input type="password" name="opassword" required="required" placeholder="Ancien mot de passe"></td>
-									<?php
-										if(isset($errorOldPassword))
-										{
-											echo "<td><h1 style='color:red;'>$errorOldPassword</h1></td>";
-										}
-									?>
 								</tr>
 								<tr>
 									<td><input name="password" type="password" placeholder="Nouveau mot de passe" required="required"></td>
-									<?php
-										if(isset($error))
-										{
-											echo "<td><h1 style='color:red;'>$error</h1></td>";
-										}
-									?>
 								</tr>
 								<tr><td><input name="cpassword" type="password" placeholder="Entrer a nouveau" required="required"></td></tr>
 								<tr>
 									<td><input type="submit" name="submit" value="Modifier"></td>
-									<td><input type="button" name="retour" value="retour" onclick="self.location.href='modifInfosPerso.php'"></td>
 								</tr>
 							</table>
 						</form>

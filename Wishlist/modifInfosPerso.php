@@ -19,11 +19,11 @@
 		{
 			$photo = 'images/userIcon.png';
 		}
-		$user = new Utilisateur($user->id,$_POST['pseudo'], $_POST['nom'], $_POST['prenom'], $_POST['ville'], $_POST['mail'],0, $_POST['annee'].'-'.$_POST['mois'].'-'.$_POST['jour'], $photo,$_POST['confidentialite']);
-		$res = Utilisateur::updateUserInfos($_SESSION['Connexion'], $user, $pseudoHasChanged, $mailHasChanged);
+		$newUser = new Utilisateur($user->id,$_POST['pseudo'], $_POST['nom'], $_POST['prenom'], $_POST['ville'], $_POST['mail'],0, $_POST['annee'].'-'.$_POST['mois'].'-'.$_POST['jour'], $photo,$_POST['confidentialite']);
+		$res = Utilisateur::updateUserInfos($_SESSION['Connexion'], $newUser, $pseudoHasChanged, $mailHasChanged);
 		if($res)
 		{
-			$_SESSION['user'] = $user;
+			$_SESSION['user'] = $newUser;
 			$notif = "Vos informations ont bien ete enregitrees";
 		}
 		else
@@ -61,11 +61,11 @@
 						<?php
 							if(isset($notif))
 							{
-								echo "<h1 style='color:green;'>$notif</h1>";
+								echo "<h4 style='color:green;font-family: helvetica;'>$notif</h4>";
 							}
 							else if(isset($existingLogin))
 							{
-								echo "<h1 style='color:red;'>$existingLogin</h1>";
+								echo "<h4 style='color:red;font-family: helvetica;''>$existingLogin</h4>";
 							}
 						?>
 						<form method="post" action="modifInfosPerso.php">

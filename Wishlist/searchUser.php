@@ -14,7 +14,7 @@
 	}
 	else 
 	{
-		$userToDisplay = Utilisateur::getUserToDisplay($connexionBase, $pseudo);
+		$userToDisplay = Utilisateur::getUserToDisplay($_SESSION['Connexion'], $_GET['user']);
 	}
 ?>
 <!DOCTYPE html>
@@ -38,7 +38,7 @@
 		<table id="principal">
 			<tr>
 				<?php 
-					if(!($userToDisplay || $userToDisplay->confidentialite == 1 || Utilisateur::isRestrict($_SESSION['Connexion'], $user, $userToDisplay)))
+					if(!(!$userToDisplay || $userToDisplay->confidentialite == 1 || Utilisateur::isRestrict($_SESSION['Connexion'], $user, $userToDisplay)))
 					{
 				?>
 				<td>
@@ -56,7 +56,7 @@
 				?>
 				<td>
 					<div id=<?php 
-								if($userToDisplay || $userToDisplay->confidentialite == 1 || Utilisateur::isRestrict($_SESSION['Connexion'], $user, $userToDisplay))
+								if(!$userToDisplay || $userToDisplay->confidentialite == 1 || Utilisateur::isRestrict($_SESSION['Connexion'], $user, $userToDisplay))
 								{
 									echo '"ContentSansMenu"';
 								}
@@ -66,17 +66,17 @@
 								}
 							?> >
 						<?php
-							if($userToDisplay)
+							if(!$userToDisplay)
 							{
 								echo "Aucun utilisateur n'a pu etre trouve";
 							}
-							else if($userToDisplay->confidentialite == 1)
+							else if($userToDisplay->confidentialite === 1)
 							{
 								echo "L'utilisateur ne souhaite pas que l'on puisse avoir acces a son profil";
 							}
 							else if(Utilisateur::isRestrict($_SESSION['Connexion'], $user, $userToDisplay))
 							{
-								echo "L'utilisateur ne souhaite que vous puissiez acceder a son profil.";
+								echo "L'utilisateur ne souhaite pas que vous puissiez acceder a son profil.";
 							}
 							else
 							{

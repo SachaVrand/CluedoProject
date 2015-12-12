@@ -10,12 +10,12 @@
 	
 	if(isset($_POST['hiddenUserSuppr']))
 	{
-		Utilisateur::deleteFollowing($_SESSION,['Connexion'], $user, $_POST['hiddenUserSuppr']);
+		Utilisateur::deleteFollowing($_SESSION['Connexion'], $user, $_POST['hiddenUserSuppr']);
 	}
 	
 	if(isset($_POST['hiddenUserRest']))
 	{
-		Utilisateur::restrictFollower($_SESSION,['Connexion'], $user, $_POST['hiddenUserSuppr']);
+		Utilisateur::restrictFollower($_SESSION['Connexion'], $user, $_POST['hiddenUserRest']);
 	}
 ?>
 
@@ -61,7 +61,7 @@
 										</form>
 									</tr>";
 								}
-								echo"<tr><td>$nbFollowing</td></tr>";
+								echo"<tr><td>Total : </td><td>$nbFollowing</td></tr>";
 							?>
 							<tr><th>Followers</th></tr>
 							<?php
@@ -79,7 +79,7 @@
 										</form>
 									</tr>";
 								}
-								echo"<tr><td>$nbFollowers</td></tr>";
+								echo"<tr><td>Total : </td><td>$nbFollowers</td></tr>";
 							?>
 						</table>
 					</div>

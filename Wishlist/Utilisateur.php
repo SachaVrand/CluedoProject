@@ -152,10 +152,10 @@ class Utilisateur{
 	
 	public static function updateUserInfos($connexionBase,$newUser,$pseudoHasChanged,$mailHasChanged)
 	{
-		$requete = 'UPDATE utilisateur SET ville = :ville, dateNaissance = :dateNaissance, nom = :nom, prenom = :prenom, photo = :photo confidentialite = :confidentialite';
+		$requete = 'UPDATE utilisateur SET ville = :ville, dateNaissance = :dateNaissance, nom = :nom, prenom = :prenom, photo = :photo, confidentialite = :confidentialite ';
 		if($pseudoHasChanged)
 		{
-			if(Utilisateur::existingLogin($connexionBase, $utilisateur->pseudo))
+			if(Utilisateur::existingLogin($connexionBase, $newUser->pseudo))
 			{
 				return 0;
 			}
@@ -163,7 +163,7 @@ class Utilisateur{
 		}
 		if($mailHasChanged)
 		{
-			if(Utilisateur::existingMail($connexionBase, $utilisateur->mail))
+			if(Utilisateur::existingMail($connexionBase, $newUser->mail))
 			{
 				return 0;
 			}
@@ -171,21 +171,23 @@ class Utilisateur{
 		}
 		$requete = $requete.'WHERE idUser = :id';
 		$res = $connexionBase->getPdo()->prepare($requete);
-		$res->bindValue(':id',$newUser->id,PDO::PARAM_INT);
-		$res->bindValue(':confidentialite',$newUser->confidentialite,PDO::PARAM_INT);
-		if($pseudoHasChanged)
-		{
-			$res->bindValue(':pseudo',$newUser->pseudo,PDO::PARAM_STR);
-		}
 		$res->bindValue(':ville',$newUser->ville,PDO::PARAM_STR);
 		$res->bindValue(':dateNaissance',$newUser->dateNaissance,PDO::PARAM_STR);
 		$res->bindValue(':nom',$newUser->nom,PDO::PARAM_STR);
 		$res->bindValue(':prenom',$newUser->prenom,PDO::PARAM_STR);
+		$res->bindValue(':photo',$newUser->photo,PDO::PARAM_STR);
+		$res->bindValue(':confidentialite',$newUser->confidentialite,PDO::PARAM_INT);
+		
+		if($pseudoHasChanged)
+		{
+			$res->bindValue(':pseudo',$newUser->pseudo,PDO::PARAM_STR);
+		}
 		if($mailHasChanged)
 		{
 			$res->bindValue(':mail',$newUser->mail,PDO::PARAM_STR);
 		}
-		$res->bindValue(':photo',$newUser->photo,PDO::PARAM_STR);
+		
+		$res->bindValue(':id',$newUser->id,PDO::PARAM_INT);
 		$res->execute();
 		return 1;
 	}
@@ -200,7 +202,7 @@ class Utilisateur{
 	
 	public static function getFollowing($connexionBase,$user)
 	{
-		$requete = 'SELECT utilisateur.idUser,pseudo FROM utilisateur,suivre WHERE utilisateur.idUser = suivre.following AND idUser = :id';
+		$requete = 'SELECT utilisateur.idUser,pseudo FROM utilisateur,suivre WHERE utilisateur.idUser = suivre.following AND suivre.idUser = :id AND restriction = 0';
 		$res = $connexionBase->getPdo()->prepare($requete);
 		$res->bindValue(':id',$user->id);
 		$res->execute();
@@ -252,7 +254,7 @@ class Utilisateur{
 		$res->bindValue(':idUser', $user->id);
 		$res->execute();
 		$donnees = $res->fetch();
-		if(!donnees || $donnees['restriction'] === 0)
+		if(!$donnees || $donnees['restriction'] == 0)
 		{
 			return 0;
 		}
