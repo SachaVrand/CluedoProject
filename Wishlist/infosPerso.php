@@ -6,8 +6,6 @@
 	}
 	spl_autoload_register('chargerClasse');
 	session_start();
-	
-	//$_SESSION['user'] = $user;
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
