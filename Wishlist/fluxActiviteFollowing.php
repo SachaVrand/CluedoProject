@@ -23,7 +23,7 @@
 		?>
 	
 		<div id="titre">
-			Flux d'activite
+			Flux d'activitees
 		</div>
 		
 		<table id="principal">

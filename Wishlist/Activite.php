@@ -17,8 +17,5 @@ class Activite
 		$this->nomEvenement = $nomEvement;
 	}
 	
-	
-	
-	
 }
 ?>

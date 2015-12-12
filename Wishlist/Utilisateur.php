@@ -333,7 +333,7 @@ class Utilisateur{
 	
 	public static function followUser($connexionBase,$user,$follower)
 	{
-		$requete = 'INSERT INTO suivre VALUES(:idFollower,:idUser)';
+		$requete = 'INSERT INTO suivre VALUES(:idFollower,:idUser,0)';
 		$res = $connexionBase->getPdo()->prepare($requete);
 		$res->bindValue(':idUser',$user->id);
 		$res->bindValue(':idFollower',$follower->id);

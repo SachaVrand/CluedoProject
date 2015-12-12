@@ -94,9 +94,16 @@
 							<tr><th align="left">Flux d'activitees recentes (2semaines)</th></tr>
 							<?php
 								$res = Utilisateur::getActivities($_SESSION['Connexion'], $userToDisplay);
-								foreach($res as $v)
+								if(!$res)
 								{
-									echo "<tr><td>A $v->activite->nomType $v->activite->nomObjet pour l'evenement $v->activite->nomEvenement </td><tr>";
+									echo'<tr><td>Aucune activites recentes.</td></tr>';
+								}
+								else
+								{
+									foreach($res as $v)
+									{
+										echo "<tr><td>A $v->activite->nomType $v->activite->nomObjet pour l'evenement $v->activite->nomEvenement </td><tr>";
+									}
 								}
 							?>
 						</table>
@@ -105,9 +112,9 @@
 						<form method="post" action="searchUser.php?user=<?php echo "$userToDisplay->pseudo"; ?>">
 							<table>
 								<?php 
-									$nbFollowers = Utilisateur::getFollowerNumber($_SESSION['Connexion'], $_SESSION['user']);
-									$nbFollowing = Utilisateur::getFollowingNumber($_SESSION['Connexion'], $_SESSION['user']);
-									$nbListes = Utilisateur::getListNumber($_SESSION['Connexion'], $_SESSION['user']);
+									$nbFollowers = Utilisateur::getFollowerNumber($_SESSION['Connexion'], $userToDisplay);
+									$nbFollowing = Utilisateur::getFollowingNumber($_SESSION['Connexion'], $userToDisplay);
+									$nbListes = Utilisateur::getListNumber($_SESSION['Connexion'], $userToDisplay);
 								?>
 								<tr><td>Followers : <?php echo $nbFollowers;?> | Following : <?php echo $nbFollowing;?> | Listes : <?php echo $nbListes;?> </td><td><input type="submit" name="submit" value="suivre"></td></tr>
 							</table>
