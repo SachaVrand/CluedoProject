@@ -4,6 +4,6 @@
 		<li><a href="modifInfosPerso.php">Modifier vos informations</a>
 		<li><a href="modifMotDePasse.php">Modifier votre mot de passe</a>
 		<li><a href="listeCadeau.php">Listes</a></li>
-		<li><a href="follow.php">Follow</a></li>
+		<li><a href="userFollow.php">Follow</a></li>
 	</ul>
 </div>

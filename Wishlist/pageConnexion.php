@@ -47,7 +47,7 @@
 			}
 			else 
 			{
-				$notif = 'Votre inscription à bien été pris en compte.';
+				$notif = 'Votre inscription a bien ete pris en compte.';
 			}
 		}
 		else
@@ -98,7 +98,15 @@
 				<?php
 					if(isset($notif))
 					{
-						echo "<h1 style='color:green;'>$notif</h1>";
+						echo "<h4 style='color:green;font-family: helvetica;'>$notif</h4>";
+					}
+					else if(isset($erreurMdp))
+					{
+						echo "<tr><td colspan='2'><h4 style='color:red;font-family: helvetica;'>$erreurMdp</h4></td></tr>";
+					}
+					else if(isset($existingLoginMail))
+					{
+						echo "<tr><td colspan='2'><h4 style='color:red;font-family: helvetica;'>$existingLoginMail</h4></td></tr>";
 					}
 				?>
 				<table>
@@ -108,24 +116,12 @@
 					<tr>
 						<td colspan="2" class="tdInput"><input type="text" name="pseudo" required="required" placeholder="Pseudonyme" class="inputFull"></td>
 					</tr>
-					<?php
-						if(isset($existingLoginMail))
-						{
-							echo "<tr><td colspan='2'><h1 style='color:red;'>$existingLoginMail</h1></td></tr>";
-						}
-					?>
 					<tr>
 						<td colspan="2" class="tdInput"><input type="password" name="password" title="password" required="required" placeholder="Mot de passe" class="inputFull"></td>
 					</tr>
 					<tr>
 						<td colspan="2" class="tdInput"><input type="password" name="cpassword" title="confirm password" required="required" placeholder="Entrez a nouveau" class="inputFull"></td>
 					</tr>
-					<?php
-						if(isset($erreurMdp))
-						{
-							echo "<tr><td colspan='2'>$erreurMdp</td></tr>";
-						}
-					?>
 					<tr>
 						<td colspan="1" class="tdInput"><input type="text" name="prenom" required="required" placeholder="Prenom" class="inputFull"></td>
 						<td colspan="1" class="tdInput"><input type="text" name="nom" required="required" placeholder="Nom" class="inputFull"></td>
@@ -140,8 +136,8 @@
 					<th align="left" colspan="2">Profil confidentiel ?</th>
 					</tr>
 					<tr>
-						<td class="tdInput"><input type="radio" name="confidentialite" value="1" id="oui" checked="checked" /> <label for="oui">Oui</label></td>
-						<td class="tdInput"><input type="radio" name="confidentialite" value="0" id="non" /> <label for="non">Non</label></td>
+						<td class="tdInput"><input type="radio" name="confidentialite" value="0" id="non" checked="checked" /> <label for="non">Non</label></td>
+						<td class="tdInput"><input type="radio" name="confidentialite" value="1" id="oui" /> <label for="oui">Oui</label></td>
 					</tr>
 					<tr>
 						<th align="left" colspan="2">Date de naissance : </th>
@@ -179,7 +175,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan="2" class="tdInput"><input type="text" name="photo" placeholder="URL de la photo de profil" class="inputFull"></td>
+						<td colspan="2" class="tdInput"><input type="text" name="photo" placeholder="URL de la photo de profil (non obligatoire)" class="inputFull"></td>
 					</tr>
 					<tr>
 						<td colspan="2"><input type="submit" name="Inscription" value="Inscription"></td>
