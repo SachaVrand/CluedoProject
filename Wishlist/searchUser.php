@@ -47,9 +47,7 @@
 							<?php
 								
 							?>
-							<li><a href="infosPerso.php">Informations</a></li>
-							<li><a href="listeCadeau.php">Listes</a></li>
-							<li><a href="follow.php">Follow</a></li>
+							<li><a href="#">Not implemented</a></li>
 						</ul>
 					</div>
 				</td>
@@ -82,7 +80,19 @@
 							}
 							else
 							{
-								//TODO afficher profil
+								$date = explode('-', $userToDisplay->dateNaissance);
+								$months = array('janvier','fevrier','mars','avril','mai','juin','juillet','aout','septembre','octobre','novembre','decembre');
+								$month = $date[1]-1;
+								echo
+								'<table>
+									<tr> <td rowspan=2><img src="'.$userToDisplay->photo.'" /></td> <td colspan=2>'.$userToDisplay->pseudo.'</td> </tr>
+									<tr> <td>'.$userToDisplay->nom.' '.$userToDisplay->prenom.', </td> <td>'.$userToDisplay->mail.'</td> </tr>
+								</table>'.
+								'<br>'.
+								'Ville : '.$userToDisplay->ville.
+								'<br>'.
+								'Naissance : '.$date[2].' '.$months[$month].' '.$date[0].
+								'<br><br>';
 							}				
 						?>
 					</div>
