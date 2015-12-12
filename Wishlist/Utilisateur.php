@@ -171,21 +171,21 @@ class Utilisateur{
 		}
 		$requete = $requete.'WHERE idUser = :id';
 		$res = $connexionBase->getPdo()->prepare($requete);
-		$res->bindValue(':id',$utilisateur->id,PDO::PARAM_INT);
-		$res->bindValue(':confidentialite',$utilisateur->confidentialite,PDO::PARAM_INT);
+		$res->bindValue(':id',$newUser->id,PDO::PARAM_INT);
+		$res->bindValue(':confidentialite',$newUser->confidentialite,PDO::PARAM_INT);
 		if($pseudoHasChanged)
 		{
-			$res->bindValue(':pseudo',$utilisateur->pseudo,PDO::PARAM_STR);
+			$res->bindValue(':pseudo',$newUser->pseudo,PDO::PARAM_STR);
 		}
-		$res->bindValue(':ville',$utilisateur->ville,PDO::PARAM_STR);
-		$res->bindValue(':dateNaissance',$utilisateur->dateNaissance,PDO::PARAM_STR);
-		$res->bindValue(':nom',$utilisateur->nom,PDO::PARAM_STR);
-		$res->bindValue(':prenom',$utilisateur->prenom,PDO::PARAM_STR);
+		$res->bindValue(':ville',$newUser->ville,PDO::PARAM_STR);
+		$res->bindValue(':dateNaissance',$newUser->dateNaissance,PDO::PARAM_STR);
+		$res->bindValue(':nom',$newUser->nom,PDO::PARAM_STR);
+		$res->bindValue(':prenom',$newUser->prenom,PDO::PARAM_STR);
 		if($mailHasChanged)
 		{
-			$res->bindValue(':mail',$utilisateur->mail,PDO::PARAM_STR);
+			$res->bindValue(':mail',$newUser->mail,PDO::PARAM_STR);
 		}
-		$res->bindValue(':photo',$utilisateur->photo,PDO::PARAM_STR);
+		$res->bindValue(':photo',$newUser->photo,PDO::PARAM_STR);
 		$res->execute();
 		return 1;
 	}
