@@ -267,7 +267,7 @@ class Utilisateur{
 	public static function getFollowingActivity($connexionBase,$user)
 	{
 		$requete = 'SELECT activite.idActivite, activite.nomObjet, activite.nomType, activite.dateActivite, utilisateur.pseudo, evenement.nom, listeCadeaux.idListe, listeCadeaux.idReservePar';
-		$requete = $requete.' FROM activiteListe, activite, listeCadeaux, utilisateur';
+		$requete = $requete.' FROM activiteListe, activite, listeCadeaux, utilisateur, evenement';
 		$requete = $requete.' WHERE listeCadeaux.idUser = utilisateur.idUser';
 		$requete = $requete.' AND listeCadeaux.idListe = activiteListe.idListe';
 		$requete = $requete.' AND listeCadeaux.idEvenement = evenement.idEvenement';
@@ -287,9 +287,10 @@ class Utilisateur{
 	
 	public static function getActivities($connexionBase,$user)
 	{
-		$requete = 'SELECT activite.idActivite, activite.nomObjet, activite.nomType, activite.dateActivite, utilisateur.pseudo, listeCadeaux.idCadeau, listeCadeaux.idEvenement, listeCadeaux.idListe, listeCadeaux.idReservePar';
-		$requete = $requete.' FROM activiteListe, activite, listeCadeaux, utilisateur';
+		$requete = 'SELECT activite.idActivite, activite.nomObjet, activite.nomType, activite.dateActivite, utilisateur.pseudo, evenement.nom, listeCadeaux.idListe, listeCadeaux.idReservePar';
+		$requete = $requete.' FROM activiteListe, activite, listeCadeaux, utilisateur, evenement';
 		$requete = $requete.' WHERE listeCadeaux.idUser = utilisateur.idUser';
+		$requete = $requete.' AND listeCadeaux.idEvenement = evenement.idEvenement';
 		$requete = $requete.' AND listeCadeaux.idListe = activiteListe.idListe';
 		$requete = $requete.' AND activiteListe.idActivite = activite.idActivite';
 		$requete = $requete.' AND listeCadeaux.idUser = :id';
@@ -300,7 +301,7 @@ class Utilisateur{
 		$tab = array();
 		while($donnees = $res->fetch())
 		{
-			$tab[] = new ActivitesListe(new Activite($donnees['idActivite'], $donnees['nomType'], $donnees['nomObjet']), $donnees['pseudo'], $donnees['idListe'], $donnees['idEvenement'], $donnees['idCadeau'], $donnees['idReservePar']);
+			$tab[] = new ActivitesListe(new Activite($donnees['idActivite'], $donnees['nomType'], $donnees['nomObjet']), $donnees['pseudo'], $donnees['idListe'], $donnees['nom'], $donnees['idReservePar']);
 		}
 		return $tab;
 	}

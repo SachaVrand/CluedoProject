@@ -100,9 +100,17 @@
 								}
 								else
 								{
-									foreach($res as $v)
+									foreach($res as $activiteListe)
 									{
-										echo "<tr><td>A $v->activite->nomType $v->activite->nomObjet pour l'evenement $v->activite->nomEvenement </td><tr>";
+										if(!$activiteListe->idReservePar)
+										{
+											echo "<tr><td><a href='searchUser.php?user=$activiteListe->pseudoUser'>$activiteListe->pseudoUser</a> $activiteListe->activite->nomType $activiteListe->activite->nomObjet pour l'evenement <a href='#'>$activiteListe->activite->nomEvenement</a> </td><tr>";
+										}
+										else
+										{
+											$userWhoReserved = Utilisateur::getUserById($_SESSION['Connexion'], $activiteListe->idReservePar);
+											echo "<tr><td><a href='searchUser.php?user=$userWhoReserved->pseudo'>$userWhoReserved->pseudo</a> $activiteListe->activite->nomType $activiteListe->activite->nomObjet pour l'evenement <a href='#'>$activiteListe->activite->nomEvenement</a> de <a href='searchUser.php?user=$activiteListe->pseudoUser'>$activiteListe->pseudoUser</a></td></tr>";
+										}
 									}
 								}
 							?>
