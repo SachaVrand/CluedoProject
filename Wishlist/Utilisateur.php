@@ -74,11 +74,11 @@ class Utilisateur{
 		}
 		if($isEmail)
 		{
-			$req = $connexionBase->getPdo()->prepare("SELECT * from utilisateur WHERE mail = :userId");
+			$req = $connexionBase->getPdo()->prepare("SELECT * from utilisateur WHERE mail = :userId AND permission = 0");
 		}
 		else
 		{
-			$req = $connexionBase->getPdo()->prepare("SELECT * from utilisateur WHERE pseudo = :userId");
+			$req = $connexionBase->getPdo()->prepare("SELECT * from utilisateur WHERE pseudo = :userId AND permission = 0");
 		}
 		$req->bindValue(':userId',$userPseudoOrMail,PDO::PARAM_STR);
 		$req->execute();

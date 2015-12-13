@@ -36,29 +36,43 @@
 	
 	if(isset($_POST['pseudo']))
 	{
-		//ajouter user
-		if($_POST['password'] === $_POST['cpassword'])
+		$containsAt = false;
+		for($i = 0; $i < strlen($_POST['pseudo']); $i++)
 		{
-			$photo = 'images/userIcon.png';
-			$motDePasse = $_POST['password'];
-			if(!empty($_POST['photo']))
+			if($userPseudoOrMail[$i] === '@')
 			{
-				$photo = $_POST['photo'];
+				$containsAt = true;
 			}
-			$user = new Utilisateur(Utilisateur::getNewId($_SESSION['Connexion']),$_POST['pseudo'], $_POST['nom'], $_POST['prenom'], $_POST['ville'], $_POST['mail'],0, $_POST['annee'].'-'.$_POST['mois'].'-'.$_POST['jour'], $photo,$_POST['confidentialite']);
-			$res = Utilisateur::addUserToDataBase($_SESSION['Connexion'], $user, $motDePasse);
-			if(!$res)
-			{
-				$existingLoginMail = 'Il existe deja un utilisateur avec le meme login ou adresse mail';
-			}
-			else 
-			{
-				$notif = 'Votre inscription a bien ete pris en compte.';
-			}
+		}
+		if($containsAt)
+		{
+			$erreurMdp = "Le pseudo ne doit pas contenir de '@'";
 		}
 		else
 		{
-			$erreurMdp = 'Les deux mots de passe ne correspondent pas';
+			if($_POST['password'] === $_POST['cpassword'])
+			{
+				$photo = 'images/userIcon.png';
+				$motDePasse = $_POST['password'];
+				if(!empty($_POST['photo']))
+				{
+					$photo = $_POST['photo'];
+				}
+				$user = new Utilisateur(Utilisateur::getNewId($_SESSION['Connexion']),$_POST['pseudo'], $_POST['nom'], $_POST['prenom'], $_POST['ville'], $_POST['mail'],0, $_POST['annee'].'-'.$_POST['mois'].'-'.$_POST['jour'], $photo,$_POST['confidentialite']);
+				$res = Utilisateur::addUserToDataBase($_SESSION['Connexion'], $user, $motDePasse);
+				if(!$res)
+				{
+					$existingLoginMail = 'Il existe deja un utilisateur avec le meme login ou adresse mail';
+				}
+				else 
+				{
+					$notif = 'Votre inscription a bien ete pris en compte.';
+				}
+			}
+			else
+			{
+				$erreurMdp = 'Les deux mots de passe ne correspondent pas';
+			}
 		}
 	}
 ?>
