@@ -266,30 +266,43 @@ class Utilisateur{
 	
 	public static function getFollowingActivity($connexionBase,$user)
 	{
-		$requete = 'SELECT pseudo, Activite.idActivite, nomType, nomObjet, nomCadeau, nomEvenement, dateActivite FROM activite, activitesUtilisateur, utilisateur WHERE activite.idActivite = activitesUtilisateur.idActivite AND activitesUtilisateur.idUser IN (select following from suivre where idUser = :id) AND dateActivite > DATE_SUB(NOW(),INTERVAL 15 DAY) ORDER BY dateActivite DESC';
+		$requete = 'SELECT activite.idActivite, activite.nomObjet, activite.nomType, activite.dateActivite, utilisateur.pseudo, evenement.nom, listeCadeaux.idListe, listeCadeaux.idReservePar';
+		$requete = $requete.' FROM activiteListe, activite, listeCadeaux, utilisateur';
+		$requete = $requete.' WHERE listeCadeaux.idUser = utilisateur.idUser';
+		$requete = $requete.' AND listeCadeaux.idListe = activiteListe.idListe';
+		$requete = $requete.' AND listeCadeaux.idEvenement = evenement.idEvenement';
+		$requete = $requete.' AND activiteListe.idActivite = activite.idActivite';
+		$requete = $requete.' AND listeCadeaux.idUser IN (SELECT idUser FROM suivre WHERE idUser = :id AND restriction = 0)';
+		$requete = $requete.' AND dateActivite > DATE_SUB(NOW(),INTERVAL 15 DAY) ORDER BY dateActivite DESC';
 		$res = $connexionBase->getPdo()->prepare($requete);
 		$res->bindValue(':id',$user->id);
 		$res->execute();
-		$tabActivitesUtilisateur = array();
+		$tab = array();
 		while($donnees = $res->fetch())
 		{
-			$tabActivitesUtilisateur[] = new ActivitesUtilisateur(new Activite($donnees['idActivite'], $donnees['nomType'], $donnees['nomObjet'], $donnees['nomCadeau'], $donnees['nomEvement']), $donnees['pseudo']);
+			$tab[] = new ActivitesListe(new Activite($donnees['idActivite'], $donnees['nomType'], $donnees['nomObjet']), $donnees['pseudo'], $donnees['idListe'], $donnees['nom'], $donnees['idReservePar']);
 		}
-		return $tabActivitesUtilisateur;
+		return $tab;
 	}
 	
 	public static function getActivities($connexionBase,$user)
 	{
-		$requete = 'SELECT Activite.idActivite, nomType, nomObjet, nomCadeau, nomEvenement, dateActivite FROM activite, activitesUtilisateur WHERE activite.idActivite = activitesUtilisateur.idActivite AND idUser = :id AND dateActivite > DATE_SUB(NOW(),INTERVAL 15 DAY) ORDER BY dateActivite DESC';
+		$requete = 'SELECT activite.idActivite, activite.nomObjet, activite.nomType, activite.dateActivite, utilisateur.pseudo, listeCadeaux.idCadeau, listeCadeaux.idEvenement, listeCadeaux.idListe, listeCadeaux.idReservePar';
+		$requete = $requete.' FROM activiteListe, activite, listeCadeaux, utilisateur';
+		$requete = $requete.' WHERE listeCadeaux.idUser = utilisateur.idUser';
+		$requete = $requete.' AND listeCadeaux.idListe = activiteListe.idListe';
+		$requete = $requete.' AND activiteListe.idActivite = activite.idActivite';
+		$requete = $requete.' AND listeCadeaux.idUser = :id';
+		$requete = $requete.' AND dateActivite > DATE_SUB(NOW(),INTERVAL 15 DAY) ORDER BY dateActivite DESC';
 		$res = $connexionBase->getPdo()->prepare($requete);
 		$res->bindValue(':id',$user->id);
 		$res->execute();
-		$tabActivite = array();
+		$tab = array();
 		while($donnees = $res->fetch())
 		{
-			$tabActivite[] = new Activite($donnees['idActivite'], $donnees['nomType'], $donnees['nomObjet'], $donnees['nomCadeau'], $donnees['nomEvement']);
+			$tab[] = new ActivitesListe(new Activite($donnees['idActivite'], $donnees['nomType'], $donnees['nomObjet']), $donnees['pseudo'], $donnees['idListe'], $donnees['idEvenement'], $donnees['idCadeau'], $donnees['idReservePar']);
 		}
-		return $tabActivite;
+		return $tab;
 	}
 	
 	public static function getFollowingNumber($connexionBase,$user)
@@ -338,6 +351,23 @@ class Utilisateur{
 		$res->bindValue(':idUser',$user->id);
 		$res->bindValue(':idFollower',$follower->id);
 		$res->execute();
+	}
+	
+	public static function getUserById($connexionBase,$idUser)
+	{
+		$requete = 'select * from utilisateur where idUser = :id';
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':id',$idUser);
+		$res->execute();
+		$donnees = $res->fetch();
+		if(!$donnes)
+		{
+			return null;
+		}
+		else
+		{
+			return new Utilisateur($donnees['idUser'],$donnees['pseudo'], $donnees['nom'], $donnees['prenom'], $donnees['ville'], $donnees['mail'], $donnees['permission'], $donnees['dateNaissance'], $donnees['photo'],$donnees['confidentialite']);
+		}
 	}
 }
 ?>

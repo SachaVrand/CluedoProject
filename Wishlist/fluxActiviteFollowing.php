@@ -13,7 +13,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="Content-Language" content="fr" />
 	    <link rel="Stylesheet" type="text/css" href="interfaceAvecMenu.css" />
-		<title>Informations personnelles</title>
+		<title>Flux d'actualités</title>
 	</head>
 	
 	<body>
@@ -23,7 +23,7 @@
 		?>
 	
 		<div id="titre">
-			Flux d'activitees
+			Flux d'activitees de vos following
 		</div>
 		
 		<table id="principal">
@@ -32,7 +32,6 @@
 					<div id="sousMenu">
 						<ul>
 							<li><a href="fluxActiviteFollowing.php">Activites Following</a></li>
-							<li><a href="fluxActiviteListeFollowing.php">Activites listes Following</a>
 						</ul>
 					</div>
 				</td>
@@ -47,9 +46,17 @@
 								}
 								else
 								{
-									foreach($res as $v)
+									foreach($res as $activiteListe)
 									{
-										echo "<tr><td><a href='searchUser.php?user=$v->user'>$v->user</a> $v->activite->nomType $v->activite->nomObjet pour l'evenement $v->activite->nomEvenement </td><tr>";
+										if(!$activiteListe->idReservePar)
+										{
+											echo "<tr><td><a href='searchUser.php?user=$activiteListe->pseudoUser'>$activiteListe->pseudoUser</a> $activiteListe->activite->nomType $activiteListe->activite->nomObjet pour l'evenement <a href='#'>$activiteListe->activite->nomEvenement</a> </td><tr>";
+										}
+										else
+										{
+											$userWhoReserved = Utilisateur::getUserById($_SESSION['Connexion'], $activiteListe->idReservePar);
+											echo "<tr><td><a href='searchUser.php?user=$userWhoReserved->pseudo'>$userWhoReserved->pseudo</a> $activiteListe->activite->nomType $activiteListe->activite->nomObjet pour l'evenement <a href='#'>$activiteListe->activite->nomEvenement</a> de <a href='searchUser.php?user=$activiteListe->pseudoUser'>$activiteListe->pseudoUser</a></td></tr>";
+										}
 									}
 								}
 							?>
