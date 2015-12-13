@@ -224,6 +224,7 @@ background-color: #C42020;
 	width:100%;
 	margin:0px auto;
 	font-size:6px;
+	z-index:999;
 }
 
 
@@ -256,6 +257,7 @@ border-bottom: 1px #D7D8D8 groove;
 border-right: 1px #D7D8D8 groove;
 border-top: 1px #D7D8D8 ridge;
 border-left: 1px #D7D8D8 ridge;
+z-index:1;
 }
 
 
@@ -285,6 +287,7 @@ width:15%;
 	width:auto;
 	height:auto;
 	padding-top:6px;
+	position:relative;
 }
 #sousMenu
 ul{
@@ -331,12 +334,28 @@ color:#575757;
 	border-left: 1px #D7D8D8 ridge;
 	padding:10px 10px;
 	font-family:verdana;
-	color:#2E2E2E;
 	font-size:14px;
+}
+#contentAvecMenu
+hr{
+color:#F79D9D;
+background-color:#F79D9D;
 }
 .enGras
 {
 	font-weight: bold;
+}
+.grandTitre
+{
+	font-weight: bold;
+	font-size: 15px;
+	color:#C74F4F;
+}
+.moyenTitre
+{
+	font-weight: bold;
+	font-size: 15px;
+	color:#848484;
 }
 
 
@@ -382,7 +401,7 @@ resize:none;
 	color:#2E2E2E;
 	background-color:#FEFEFE;
 	width:44%;
-	height:750px;
+	height:auto;
 	border-bottom: 1px #D7D8D8 groove;
 	border-right: 1px #D7D8D8 groove;
 	border-top: 1px #D7D8D8 ridge;
@@ -396,16 +415,58 @@ resize:none;
 
 
 #formCreerListe
-{
+table{
 font-family:verdana;
 color:#2E2E2E;
 font-size:14px;
 }
+#listeCadeaux
+{
+	width:100%;
+	border-collapse: collapse;
+}
+#listeCadeaux
+tr td:first-child{
+	width:85%;
+}
+#listeCadeaux
+tr td{
+	border-top: 1px solid #E3E3E3;
+	border-bottom: 1px solid #E3E3E3;
+	text-align:center;
+	vertical-align:middle;
+	color:#2E2E2E;
+	background-color:#FBFBFB;
+}
+.btnSupCadeau
+{
+	width:100%;
+	height: 40px;
+	font-size:25px;
+	font-family:verdana;
+	
+	border:0px;
+	background-color:#FBFBFB;
+    color:#E3E3E3;
+    text-decoration: none;
+}
 
-
-
-
-
+#listeCadeaux
+tr:hover td:last-child button
+{
+	background-color:#D94141;
+	color:#C02A2A;
+}
+#listeCadeaux
+tr:hover td:last-child
+{
+	background-color:#D94141;
+}
+#listeCadeaux
+tr:hover td:first-child
+{
+	background-color:#F2F1F1;
+}
 
 
 
