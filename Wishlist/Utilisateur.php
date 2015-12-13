@@ -411,5 +411,22 @@ class Utilisateur{
 		}
 		return $tab;
 	}
+	
+	public static function isEmailBanned($connexionBase,$email)
+	{
+		$requete = 'SELECT email FROM emailbannis WHERE email = :email';
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':email',$email);
+		$res->execute();
+		$donnees = $res->fetch();
+		if(!$donnees)
+		{
+			return 0;
+		}
+		else
+		{
+			return 1;
+		}
+	}
 }
 ?>

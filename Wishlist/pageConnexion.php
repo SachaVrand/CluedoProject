@@ -15,7 +15,7 @@
 	if(isset($_POST['loginConnexion']) && isset($_POST['passwordConnexion']))
 	{
 		$user = Utilisateur::getUser($_SESSION['Connexion'], $_POST['loginConnexion'], $_POST['passwordConnexion']);
-		if($user == null)
+		if($user == null || Utilisateur::isEmailBanned($_SESSION['Connexion'], $user->mail))
 		{
 			$erreur = 'Mot de passe ou identifiant incorrect';
 		}

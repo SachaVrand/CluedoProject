@@ -21,6 +21,14 @@
 	{
 		Utilisateur::followUser($_SESSION['Connexion'], $userToDisplay, $_SESSION['user']);
 	}
+	
+	if(isset($_POST['submitBan']))
+	{
+		$requete = 'INSERT INTO emailbannis VALUES(:email)';
+		$res = $_SESSION['Connexion']->getPdo()->prepare($requete);
+		$res->bindValue(':email');
+		$res->execute();
+	}
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
@@ -124,9 +132,21 @@
 									$nbFollowing = Utilisateur::getFollowingNumber($_SESSION['Connexion'], $userToDisplay);
 									$nbListes = Utilisateur::getListNumber($_SESSION['Connexion'], $userToDisplay);
 								?>
-								<tr><td>Followers : <?php echo $nbFollowers;?> | Following : <?php echo $nbFollowing;?> | Listes : <?php echo $nbListes;?> </td><td><input type="submit" name="submit" value="suivre"></td></tr>
+								<tr><td>
+									Followers : <?php echo $nbFollowers;?> | Following : <?php echo $nbFollowing;?> | Listes : <?php echo $nbListes;?> </td><td><input type="submit" name="submit" value="suivre">
+								</td></tr>
 							</table>
 						</form>
+						<?php 
+							if($user->getPermission() == 1)
+							{
+								?>
+								<form method="post" action="searchUser.php?user=<?php echo "$userToDisplay->pseudo"; ?>">
+									<input type="submit" name="submitBan" value="Ban user">
+								</form>
+								<?php
+							}
+						?>
 					</div>
 				</td>
 			</tr>
