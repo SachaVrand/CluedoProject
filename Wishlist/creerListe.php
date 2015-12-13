@@ -14,11 +14,6 @@
 	$annee = "";
 	$commentaire = "";
 	
-	if (!isset($_POST['addCadeau']))
-	{
-		$_SESSION['tabCadeaux'] = array();
-	}
-	
 
 	if (isset($_POST['addCadeau']))
 	{
@@ -33,6 +28,16 @@
 	elseif (isset($_POST['addListe']))
 	{
 		// j'ai cliqué sur « ajouter liste »
+	}
+	elseif (isset($_POST['btnSup']))
+	{
+		$nomEvent = $_POST['nom'];
+		$event = $_POST['event'];
+		$jour = $_POST['jour'];
+		$mois = $_POST['mois'];
+		$annee = $_POST['annee'];
+		$commentaire = $_POST['commentaire'];
+		unset($_SESSION['tabCadeaux'][$_POST['btnSup']]);
 	}
 	else
 	{
@@ -64,6 +69,10 @@
 				$mois = "0";
 				$annee = "0";
 			}
+		}
+		else 
+		{
+			$_SESSION['tabCadeaux'] = array();
 		}
 	}
 	
@@ -103,126 +112,172 @@
 								echo "<h1 style='color:black;'>$notif</h1>";
 							}
 						?>
+						<span class="grandTitre">Ma Liste</span>
+						<hr>
 						<form id="formCreerListe" method="post" action="creerListe.php">
-							Nom : 
-								<input type="text" name="nom" required="required" value=<?php echo "$nomEvent"; ?>>
-							<br>
-							Evenement : 
-								<select name="event" onchange="submitEvent();">
-									<option value="" selected="selected"></option>
-									<?php
-											$tabTypeEvents = Evenement::getTypeEvents($_SESSION['Connexion']);
-											foreach($tabTypeEvents as $typeEvent)
+							<table>
+								<tr>
+									<td>
+									Nom : 
+										<input type="text" name="nom" value=<?php echo "$nomEvent"; ?>>
+									</td>
+								</tr>
+								<tr>
+									<td>
+									Evenement : 
+										<select name="event" onchange="submitEvent();">
+											<option value="" selected="selected"></option>
+											<?php
+													$tabTypeEvents = Evenement::getTypeEvents($_SESSION['Connexion']);
+													foreach($tabTypeEvents as $typeEvent)
+													{
+														if($event != $typeEvent)
+														{
+															echo "<option value=$typeEvent> $typeEvent </option>";
+														}
+														else
+														{
+															echo "<option value=$typeEvent selected=selected> $typeEvent </option>";
+														}
+													}
+											?>
+										</select>
+										<script>
+											function submitEvent()
 											{
-												if($event != $typeEvent)
+												document.getElementById('formCreerListe').submit();
+											}
+										</script>
+									</td>
+								</tr>
+								<tr>
+									<td>
+									Date : 
+										<select name="jour">
+											<option value="" selected="selected"></option>
+											<?php
+												for($i = 1; $i <= 31; $i++)
 												{
-													echo "<option value=$typeEvent> $typeEvent </option>";
+													if($jour != $i)
+													{
+														echo "<option value=$i> $i </option>";
+													}
+													else
+													{
+														echo "<option value=$i selected=selected> $i </option>";
+													}
 												}
-												else
+											?>
+										</select>
+										<select name="mois">
+											<option value="" selected="selected"></option>
+											<?php 
+												for($i=1;$i<=12;$i++)
 												{
-													echo "<option value=$typeEvent selected=selected> $typeEvent </option>";
+													if($mois != $i)
+													{
+														echo "<option value=$i> $i </option>";
+													}
+													else
+													{
+														echo "<option value=$i selected=selected> $i </option>";
+													}
 												}
-											}
-									?>
-								</select>
-								<script>
-									function submitEvent()
-									{
-										document.getElementById('formCreerListe').submit();
-									}
-								</script>
-							<br>
-							Date : 
-								<select name="jour">
-									<option value="" selected="selected"></option>
-									<?php
-										for($i = 1; $i <= 31; $i++)
-										{
-											if($jour != $i)
-											{
-												echo "<option value=$i> $i </option>";
-											}
-											else
-											{
-												echo "<option value=$i selected=selected> $i </option>";
-											}
-										}
-									?>
-								</select>
-								<select name="mois">
-									<option value="" selected="selected"></option>
-									<?php 
-										for($i=1;$i<=12;$i++)
-										{
-											if($mois != $i)
-											{
-												echo "<option value=$i> $i </option>";
-											}
-											else
-											{
-												echo "<option value=$i selected=selected> $i </option>";
-											}
-										}
-									?>
-								</select>
-								<select name="annee">
-									<option value="" selected="selected"></option>
-									<?php
-										$y = date('Y');
-										for($i=$y+5 ; $i>$y-100 ; $i--)
-										{
-											if($annee != $i)
-											{
-												echo "<option value=$i> $i </option>";
-											}
-											else
-											{
-												echo "<option value=$i selected=selected> $i </option>";
-											}
-										}
-									?>
-								</select>
-							<br>
-							Commentaire : 
-							<br>
-							<textarea name="commentaire" rows=6 cols=50 maxlength="300" placeholder="Commentaire"><?php if($commentaire != "") echo "$commentaire"; ?></textarea>
+											?>
+										</select>
+										<select name="annee">
+											<option value="" selected="selected"></option>
+											<?php
+												$y = date('Y');
+												for($i=$y+5 ; $i>$y-100 ; $i--)
+												{
+													if($annee != $i)
+													{
+														echo "<option value=$i> $i </option>";
+													}
+													else
+													{
+														echo "<option value=$i selected=selected> $i </option>";
+													}
+												}
+											?>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td>
+									Commentaire : 
+									<br>
+									<textarea name="commentaire" rows=6 cols=50 maxlength="300" placeholder="Commentaire"><?php if($commentaire != "") echo "$commentaire"; ?></textarea>
+									</td>
+								</tr>
+							</table>
 							<br>
 							<br>
+							<span class="grandTitre">Ajouter Cadeau</span>
 							<br>
 							<br>
-							Nom cadeau :
-							<input type="text" name="nomCadeau" required="required">
+							<table>
+								<tr>
+									<td>
+									Nom cadeau :
+									<input type="text" name="nomCadeau">
+									</td>
+								</tr>
+								<tr>
+									<td>
+									Type :
+									<select name="type">
+										<?php
+												$tabTypeCadeaux = Cadeau::getTypeCadeaux($_SESSION['Connexion']);
+												foreach($tabTypeCadeaux as $typeCadeau)
+												{
+													echo "<option value=$typeCadeau selected=selected> $typeCadeau </option>";
+												}
+										?>
+									</select>
+									</td>
+								</tr>
+								<tr>
+									<td>
+									Lien du cadeau :
+									<input type="text" name="lien">
+									</td>
+								</tr>
+								<tr>
+									<td>
+									Description : 
+									<br>
+									<textarea name="description" rows=6 cols=50 maxlength="300" placeholder="Description"></textarea>
+									</td>
+								</tr>
+								<tr>
+									<td>
+									<input type="submit" name="addCadeau" value="Ajouter">
+									</td>
+								</tr>
+							</table>
 							<br>
-							Type :
-							<select name="type">
-								<?php
-										$tabTypeCadeaux = Cadeau::getTypeCadeaux($_SESSION['Connexion']);
-										foreach($tabTypeCadeaux as $typeCadeau)
-										{
-											echo "<option value=$typeCadeau selected=selected> $typeCadeau </option>";
-										}
-								?>
-							</select>
 							<br>
-							Lien du cadeau :
-							<input type="text" name="lien">
+							<span class="moyenTitre">Mes Cadeaux</span>
 							<br>
 							<br>
-							Description : 
-							<textarea name="description" rows=6 cols=50 maxlength="300" placeholder="Description"></textarea>
+							<?php 
+								echo "<table id=listeCadeaux>";
+								foreach($_SESSION['tabCadeaux'] as $cle => $element)
+								{
+									$tmpNom = $element->getNom();
+									echo "<tr><td>$tmpNom</td><td><button class=btnSupCadeau name=btnSup value=$cle onclick=supCadeau()>X</button</td></tr>";
+								}
+								echo "</table>";
+							?>
+							<script>
+								function supCadeau()
+								{
+									document.getElementById('formCreerListe').submit();
+								}
+							</script>
 							<br>
-							<input type="submit" name="addCadeau" value="ajouter">
-							<br>
-							<br>
-							<select name="mesCadeaux">
-								<?php
-									foreach($_SESSION['tabCadeaux'] as $cadeau)
-									{
-										$tmpNom = $cadeau->getNom();
-										echo "<option value=$tmpNom selected=selected> $tmpNom </option>";
-									}
-								?>
-							</select>
 							<br>
 							<br>
 							<input type="submit" name="addListe" value="Creer liste">
