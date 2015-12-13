@@ -61,6 +61,14 @@ class Evenement{
 		}
 		return $tab;
 	}
+	
+	public static function addTypeEvents($connexionBase,$eventName)
+	{
+		$requete = 'INSERT INTO typeEvenement VALUES(:name)';
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':name',$eventName);
+		$res->execute();
+	}
 }
 
 ?>

@@ -22,8 +22,14 @@
 		else
 		{
 			$_SESSION['user'] = $user;
-			//TODO changer la page
-			header("Location: infosPerso.php");
+			if($user->getPermission() == 1)
+			{
+				header("Location : creerEvenement.php");
+			}
+			else
+			{
+				header("Location: fluxActiviteFollowing.php");
+			}
 			exit();
 		}
 	}

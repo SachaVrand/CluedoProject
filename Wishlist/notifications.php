@@ -30,7 +30,7 @@
 		</div>
 		
 
-		<div id="contentAvecMenu">
+		<div id="contentSansMenu">
 			<table>
 				<?php
 					if(!$notificationEvenements)
