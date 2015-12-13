@@ -40,6 +40,18 @@ class Cadeau
 	{
 		return $this->nomType;
 	}
+	
+	public static function getTypeCadeaux($connexionBase)
+	{
+		$req = $connexionBase->getPdo()->prepare("SELECT * from typeCadeau");
+		$req->execute();
+		$tab = array();
+		while($ligne = $req->fetch())
+		{
+			$tab[] = $ligne['nomType'];
+		}
+		return $tab;
+	}
 }
 
 ?>

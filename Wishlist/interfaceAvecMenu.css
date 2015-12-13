@@ -357,6 +357,11 @@ font-weight: bold;
 table:first-child tr:first-child td:first-child{
 border: 3px #D7D8D8 solid;
 }
+#contentAvecMenu
+textarea
+{
+resize:none;
+}
 
 
 
@@ -376,6 +381,31 @@ border: 3px #D7D8D8 solid;
 	border-left: 1px #D7D8D8 ridge;
 	padding:6px 10px;
 }
+
+
+
+/*=================================== le formulaire de création de liste===================================*/
+
+
+#formCreerListe
+{
+font-family:verdana;
+color:#2E2E2E;
+font-size:14px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

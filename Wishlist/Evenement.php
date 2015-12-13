@@ -49,6 +49,18 @@ class Evenement{
 	{
 		return $this->pseudoUtilisateur;
 	}
+	
+	public static function getTypeEvents($connexionBase)
+	{
+		$req = $connexionBase->getPdo()->prepare("SELECT * from typeEvenement");
+		$req->execute();
+		$tab = array();
+		while($ligne = $req->fetch())
+		{
+			$tab[] = $ligne['nomType'];
+		}
+		return $tab;
+	}
 }
 
 ?>
