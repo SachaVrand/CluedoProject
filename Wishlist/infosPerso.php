@@ -38,14 +38,16 @@
 							$months = array('janvier','fevrier','mars','avril','mai','juin','juillet','aout','septembre','octobre','novembre','decembre');
 							$month = $date[1]-1;
 							echo 
-							'<table>
+							'<table id="tableauInfo">
 								<tr> <td rowspan=2><img src="'.$user->photo.'" /></td> <td colspan=2>'.$user->pseudo.'</td> </tr>
-								<tr> <td>'.$user->nom.' '.$user->prenom.', </td> <td>'.$user->mail.'</td> </tr>
+								<tr> <td>'.$user->nom.' '.$user->prenom.'</td> <td></td> </tr>
 							</table>'.
 							'<br>'.
-							'Ville : '.$user->ville.
+							'<span class="enGras">Ville : </span>'.$user->ville.
 							'<br>'.
-							'Naissance : '.$date[2].' '.$months[$month].' '.$date[0].
+							'<span class="enGras">Naissance : </span>'.$date[2].' '.$months[$month].' '.$date[0].
+							'<br>'.
+							'<span class="enGras">Mail : </span>'.$user->mail.
 							'<br><br>';
 						?>
 					</div>

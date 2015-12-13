@@ -330,31 +330,39 @@ color:#575757;
 	border-top: 1px #D7D8D8 ridge;
 	border-left: 1px #D7D8D8 ridge;
 	padding:10px 10px;
+	font-family:verdana;
+	color:#2E2E2E;
+	font-size:14px;
 }
-#contentAvecMenu
-table:first-child tr td{
+.enGras
+{
+	font-weight: bold;
+}
+
+
+/*=============================== page info perso ===============================================*/
+#tableauInfo tr td{
 width:auto;
 height:auto;
 vertical-align:bottom;
 }
-#contentAvecMenu
-table:first-child{
+#tableauInfo{
 width:auto;
 height:auto;
 font-family:verdana;
 color:#2E2E2E;
 }
-#contentAvecMenu
-table:first-child tr:last-child td{
+#tableauInfo tr:last-child td{
+width:auto;
+height:auto;
 height:20%;
-font-size:13px;
+font-size:15px;
 }
-#contentAvecMenu
-table:first-child tr:first-child td{
+#tableauInfo tr:first-child td{
 font-weight: bold;
+font-size:20px;
 }
-#contentAvecMenu
-table:first-child tr:first-child td:first-child{
+#tableauInfo tr:first-child td:first-child{
 border: 3px #D7D8D8 solid;
 }
 #contentAvecMenu

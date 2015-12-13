@@ -54,7 +54,7 @@
 			}
 			elseif ($_POST['event'] === "Anniversaire")
 			{
-				$tabDate = explode('-',$user->getDateNaissance());
+				$tabDate = explode('-',$user->dateNaissance);
 				$mois = $tabDate[1];
 				$jour = $tabDate[2];
 			}
