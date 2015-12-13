@@ -105,6 +105,7 @@
 					<ul>
 						<li><label class="label">Mot de passe : </label></li>
 						<li><input type="password" name="passwordConnexion" required="required" class="text"></li>
+						<li><a href="formLostPassword.php">Mot de passe oublie ?</a></li>
 					</ul>
 					<ul>
 						<li><label class="label" style="visibility: hidden">Hmmmmm</label> </li>
@@ -118,7 +119,7 @@
 				<?php
 					if(isset($notif))
 					{
-						echo "<h4 style='color:green;font-family: helvetica;'>$notif</h4>";
+						echo "<tr><td colspan='2'><h4 style='color:green;font-family: helvetica;'>$notif</h4></td></tr>";
 					}
 					else if(isset($erreurMdp))
 					{

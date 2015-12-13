@@ -29,4 +29,32 @@ class Message
 		}
 		return $messages;
 	}
+	
+	public static function newPasswordRequest($connexionBase,$user)
+	{
+		$entete = 'Demande de mot de passe';
+		$message = "L'utilisateur $user->pseudo a perdu sont mot de passe.";
+		$requete = 'INSERT INTO messages VALUES(:id, :entete, :msg, NOW(), 1, :idUser)';
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':id',Message::getNewId($connexionBase));
+		$res->bindValue(':entete',$entete);
+		$res->bindValue(':msg',$message);
+		$res->bindValue(':idUser',$user->id);
+		$res->execute();
+	}
+	
+	public static function getNewId($connexionBase)
+	{
+		$requete = 'SELECT MAX(idMessage) as max FROM messages';
+		$res = $connexionBase->getPdo()->query($requete);
+		$donnee = $res->fetch();
+		if(!$donnee)
+		{
+			return 1;
+		}
+		else
+		{
+			return ($donnee['max'] + 1);
+		}
+	}
 }
