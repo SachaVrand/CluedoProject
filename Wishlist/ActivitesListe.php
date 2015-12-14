@@ -7,7 +7,7 @@ class ActivitesListe
 	public $nomEvenement;
 	public $idReservePar;
 	
-	public function __construct(Activite $activite, $pseudoUser, $idListe, $nomEvenement, $idReservePar)
+	public function __construct($activite, $pseudoUser, $idListe, $nomEvenement, $idReservePar)
 	{
 		$this->activite = $activite;
 		$this->pseudoUser = $pseudoUser;

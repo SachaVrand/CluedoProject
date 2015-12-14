@@ -14,7 +14,7 @@
 	$annee = "";
 	$commentaire = "";
 	$erreur ="";
-
+	
 	if (isset($_POST['addCadeau']))
 	{
 		$nomEvent = $_POST['nom'];
@@ -31,17 +31,23 @@
 		{
 			$erreur = "La date de l'évènement est incorrecte.";
 		}
-		//creer et ajoute l'event
-		$evenement = new Evenement(Evenement::getNewId($_SESSION['Connexion']),$_POST['nom'], $_POST['annee']."-".$_POST['mois']."-".$_POST['jour'], $_POST['commentaire'],$_POST['event'],$user->$id);
-		Evenement::addEvent($_SESSION['Connexion'], $evenement);
-		//creer et ajoute les cadeaux et les listeCadeaux
-		foreach($_SESSION['tabCadeaux'] as $element)
+		else
 		{
-			$element->setIdCadeau(Cadeau::getNewId($_SESSION['Connexion']));
-			Cadeau::addCadeau($_SESSION['Connexion'],$element);
+			$idListe = ListeCadeaux::getNewId($_SESSION['Connexion']);
+			//creer et ajoute l'event
+			$evenement = new Evenement(Evenement::getNewId($_SESSION['Connexion']),$_POST['nom'], $_POST['annee'].'-'.$_POST['mois'].'-'.$_POST['jour'], $_POST['commentaire'],$_POST['event'],$user->id);
+			Evenement::addEvent($_SESSION['Connexion'], $evenement);
+			//creer et ajoute les cadeaux et les listeCadeaux
+			foreach($_SESSION['tabCadeaux'] as $element)
+			{
+				$element->setIdCadeau(Cadeau::getNewId($_SESSION['Connexion']));
+				Cadeau::addCadeau($_SESSION['Connexion'],$element);
+				$listeCadeau = new ListeCadeaux($idListe,$element->getIdCadeau(),$evenement->getIdEvenement(),$user->id,'NULL');
+				ListeCadeaux::addListeCadeaux($_SESSION['Connexion'],$listeCadeau);
+			}
+			// creer et ajoute l'activité
+			$_SESSION['tabCadeaux'] = array();
 		}
-		
-		//todo ajouter l'activiter
 	}
 	elseif (isset($_POST['btnSup']))
 	{
@@ -283,13 +289,11 @@
 										document.getElementById('mesCadeaux').submit();
 									}
 								</script>
-							</form>
 							<br>
 							<br>
 							<br>
 							<input type="submit" name="addListe" value="Creer liste">
 						</form>
-					
 					</div>
 				</td>
 			</tr>

@@ -92,10 +92,10 @@ class Evenement{
 		$res = $connexionBase->getPdo()->prepare($requete);
 		$res->bindValue(':idEvent',$evenement->idEvenement,PDO::PARAM_INT);
 		$res->bindValue(':nom',$evenement->nom,PDO::PARAM_STR);
-		$res->bindValue(':date',$utilisateur->dateLimite,PDO::PARAM_STR);
-		$res->bindValue(':commentaire',$utilisateur->commentaire,PDO::PARAM_STR);
-		$res->bindValue(':type',$utilisateur->nomType,PDO::PARAM_STR);
-		$res->bindValue(':idUser',$utilisateur->idUtilisateur,PDO::PARAM_INT);
+		$res->bindValue(':date',$evenement->dateLimite,PDO::PARAM_STR);
+		$res->bindValue(':commentaire',$evenement->commentaire,PDO::PARAM_STR);
+		$res->bindValue(':type',$evenement->nomType,PDO::PARAM_STR);
+		$res->bindValue(':idUser',$evenement->idUtilisateur,PDO::PARAM_INT);
 		$res->execute();
 	}
 }

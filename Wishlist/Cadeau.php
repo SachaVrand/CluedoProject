@@ -77,11 +77,11 @@ class Cadeau
 	{
 		$requete = 'INSERT INTO cadeau VALUES(:idCadeau,:nom,:description,:lien,:type)';
 		$res = $connexionBase->getPdo()->prepare($requete);
-		$res->bindValue(':idCadeau',$evenement->idCadeau,PDO::PARAM_INT);
-		$res->bindValue(':nom',$evenement->nom,PDO::PARAM_STR);
-		$res->bindValue(':description',$utilisateur->description,PDO::PARAM_STR);
-		$res->bindValue(':lien',$utilisateur->lien,PDO::PARAM_STR);
-		$res->bindValue(':type',$utilisateur->nomType,PDO::PARAM_STR);
+		$res->bindValue(':idCadeau',$cadeau->idCadeau,PDO::PARAM_INT);
+		$res->bindValue(':nom',$cadeau->nom,PDO::PARAM_STR);
+		$res->bindValue(':description',$cadeau->description,PDO::PARAM_STR);
+		$res->bindValue(':lien',$cadeau->lien,PDO::PARAM_STR);
+		$res->bindValue(':type',$cadeau->nomType,PDO::PARAM_STR);
 		$res->execute();
 	}
 }
