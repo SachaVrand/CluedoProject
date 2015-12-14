@@ -188,6 +188,32 @@ background-color: #C42020;
 /*== le bouton Notification ==*/
 
 #menuPrincipal
+td:nth-child(9){
+position:relative;
+border-radius:2px 2px 2px 2px;
+}
+#menuPrincipal
+td:nth-child(9) {
+background-color: #D03030;
+}
+#menuPrincipal
+td:nth-child(9) a{
+text-decoration:none;
+display:block;
+padding:4px 10px;
+color:#fff;
+font-family:verdana;
+font-size:12px;
+font-weight: bold;
+}
+#menuPrincipal
+td:nth-child(9):hover {
+background-color: #C42020;
+}
+
+/*== le bouton Deconnexion ==*/
+
+#menuPrincipal
 td:last-child{
 position:relative;
 border-radius:2px 2px 2px 2px;
@@ -210,7 +236,6 @@ font-weight: bold;
 td:last-child:hover {
 background-color: #C42020;
 }
-
 
 
 /* Le header */

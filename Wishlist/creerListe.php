@@ -13,7 +13,7 @@
 	$mois = "";
 	$annee = "";
 	$commentaire = "";
-	
+	$erreur ="";
 
 	if (isset($_POST['addCadeau']))
 	{
@@ -27,7 +27,21 @@
 	}
 	elseif (isset($_POST['addListe']))
 	{
-		// j'ai cliqué sur « ajouter liste »
+		if($_POST['jour'] === "" || $_POST['mois'] === "" || $_POST['annee'] === "")
+		{
+			$erreur = "La date de l'évènement est incorrecte.";
+		}
+		//creer et ajoute l'event
+		$evenement = new Evenement(Evenement::getNewId($_SESSION['Connexion']),$_POST['nom'], $_POST['annee']."-".$_POST['mois']."-".$_POST['jour'], $_POST['commentaire'],$_POST['event'],$user->$id);
+		Evenement::addEvent($_SESSION['Connexion'], $evenement);
+		//creer et ajoute les cadeaux et les listeCadeaux
+		foreach($_SESSION['tabCadeaux'] as $element)
+		{
+			$element->setIdCadeau(Cadeau::getNewId($_SESSION['Connexion']));
+			Cadeau::addCadeau($_SESSION['Connexion'],$element);
+		}
+		
+		//todo ajouter l'activiter
 	}
 	elseif (isset($_POST['btnSup']))
 	{
@@ -46,10 +60,6 @@
 			$nomEvent = $_POST['nom'];
 			$event = $_POST['event'];
 			$annee = date('Y');
-			if (date('M') > $mois)
-			{
-				$annee += 1;
-			}
 			$commentaire = $_POST['commentaire'];
 			
 			if ($_POST['event'] === "Noel")
@@ -63,11 +73,13 @@
 				$mois = $tabDate[1];
 				$jour = $tabDate[2];
 			}
-			elseif( $_POST['event'] === "")
+			if ($mois != "" && date('m') > $mois)
 			{
-				$jour = "0";
-				$mois = "0";
-				$annee = "0";
+				$annee += 1;
+			}
+			if ($_POST['event'] != "Noel" && $_POST['event'] != "Anniversaire")
+			{
+				$annee = 0;
 			}
 		}
 		else 

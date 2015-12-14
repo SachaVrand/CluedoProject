@@ -16,6 +16,11 @@ class Cadeau
 		$this->nomType = $nomType;
 	}
 	
+	public function setIdCadeau($id)
+	{
+		$this->idCadeau = $id;
+	}
+	
 	public function getIdCadeau()
 	{
 		return $this->idCadeau;
@@ -51,6 +56,33 @@ class Cadeau
 			$tab[] = $ligne['nomType'];
 		}
 		return $tab;
+	}
+	
+	public static function getNewId($connexionBase)
+	{
+		$requete = 'SELECT MAX(idCadeau) as max FROM cadeau';
+		$res = $connexionBase->getPdo()->query($requete);
+		$donnee = $res->fetch();
+		if(!$donnee)
+		{
+			return 1;
+		}
+		else
+		{
+			return ($donnee['max'] + 1);
+		}
+	}
+	
+	public static function addCadeau($connexionBase,$cadeau)
+	{
+		$requete = 'INSERT INTO cadeau VALUES(:idCadeau,:nom,:description,:lien,:type)';
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':idCadeau',$evenement->idCadeau,PDO::PARAM_INT);
+		$res->bindValue(':nom',$evenement->nom,PDO::PARAM_STR);
+		$res->bindValue(':description',$utilisateur->description,PDO::PARAM_STR);
+		$res->bindValue(':lien',$utilisateur->lien,PDO::PARAM_STR);
+		$res->bindValue(':type',$utilisateur->nomType,PDO::PARAM_STR);
+		$res->execute();
 	}
 }
 
