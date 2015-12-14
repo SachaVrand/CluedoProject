@@ -12,6 +12,7 @@
 			<td><a href="infosPerso.php">Profil personnel</a></td>
 			<td><a href="pageMessagerie.php">Messagerie</a></td>
 			<td><a href="notifications.php">Notifications</a></td>
+			<td><a href="deconnexion.php">Deconnexion</a></td>
 		</tr>
 	</table>
 	</form>

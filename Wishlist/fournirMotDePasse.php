@@ -50,6 +50,7 @@
 					<td></td>
 					<td><a href="creerEvenementAdmin.php">Accueil</a></td>
 					<td><a href="pageMessagerie.php">Messagerie</a></td>
+					<td><a href="deconnexion.php">Deconnexion</a></td>
 				</tr>
 			</table>
 			</form>
@@ -76,7 +77,7 @@
 									}
 									else if(isset($error))
 									{
-										echo "<tr><td><h4 style='color:red;font-family: helvetica;'>$notif</h4></td></tr>";
+										echo "<tr><td><h4 style='color:red;font-family: helvetica;'>$error</h4></td></tr>";
 									}
 								?>
 								<tr><td><input name="login" type="text" placeholder="login de l'utilisateur" required="required"></td><td><input type="password" name="password" placeholder="Nouveau mot de passe" required="required"></td><td><input type="submit" name="submit" value="changer"></td></tr>

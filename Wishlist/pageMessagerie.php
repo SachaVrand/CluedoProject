@@ -44,6 +44,7 @@
 							<td></td>
 							<td><a href="creerEvenementAdmin.php">Accueil</a></td>
 							<td><a href="pageMessagerie.php">Messagerie</a></td>
+							<td><a href="deconnexion.php">Deconnexion</a></td>
 						</tr>
 					</table>
 					</form>

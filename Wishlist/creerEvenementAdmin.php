@@ -43,6 +43,7 @@
 					<td></td>
 					<td><a href="creerEvenementAdmin.php">Accueil</a></td>
 					<td><a href="pageMessagerie.php">Messagerie</a></td>
+					<td><a href="deconnexion.php">Deconnexion</a></td>
 				</tr>
 			</table>
 			</form>
@@ -68,7 +69,7 @@
 										echo "<tr><td><h4 style='color:green;font-family: helvetica;'>$notif</h4></td></tr>";
 									}
 								?>
-								<tr><td>Nouvel evenement : <input type="text" required="required" name="evenement"> <input type="submit" name="submit" value="submit"></td></tr>
+								<tr><td>Nouvel evenement : <input type="text" required="required" name="evenement"> <input type="submit" name="submit" value="creer"></td></tr>
 							</table>
 						</form>
 					</div>
