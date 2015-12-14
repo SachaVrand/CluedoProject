@@ -126,7 +126,6 @@
 									<td>
 									Evenement : 
 										<select name="event" onchange="submitEvent();">
-											<option value="" selected="selected"></option>
 											<?php
 													$tabTypeEvents = Evenement::getTypeEvents($_SESSION['Connexion']);
 													foreach($tabTypeEvents as $typeEvent)
@@ -232,7 +231,7 @@
 												$tabTypeCadeaux = Cadeau::getTypeCadeaux($_SESSION['Connexion']);
 												foreach($tabTypeCadeaux as $typeCadeau)
 												{
-													echo "<option value=$typeCadeau selected=selected> $typeCadeau </option>";
+													echo "<option value=$typeCadeau> $typeCadeau </option>";
 												}
 										?>
 									</select>
@@ -262,21 +261,23 @@
 							<span class="moyenTitre">Mes Cadeaux</span>
 							<br>
 							<br>
-							<?php 
-								echo "<table id=listeCadeaux>";
-								foreach($_SESSION['tabCadeaux'] as $cle => $element)
-								{
-									$tmpNom = $element->getNom();
-									echo "<tr><td>$tmpNom</td><td><button class=btnSupCadeau name=btnSup value=$cle onclick=supCadeau()>X</button</td></tr>";
-								}
-								echo "</table>";
-							?>
-							<script>
-								function supCadeau()
-								{
-									document.getElementById('formCreerListe').submit();
-								}
-							</script>
+							<form id="mesCadeaux" method="post" action="creerListe.php">
+								<?php 
+									echo "<table id=listeCadeaux>";
+									foreach($_SESSION['tabCadeaux'] as $cle => $element)
+									{
+										$tmpNom = $element->getNom();
+										echo "<tr><td>$tmpNom</td><td><button class=btnSupCadeau name=btnSup value=$cle onclick=supCadeau()>X</button</td></tr>";
+									}
+									echo "</table>";
+								?>
+								<script>
+									function supCadeau()
+									{
+										document.getElementById('mesCadeaux').submit();
+									}
+								</script>
+							</form>
 							<br>
 							<br>
 							<br>
