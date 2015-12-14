@@ -15,16 +15,20 @@
 	if(isset($_POST['loginConnexion']) && isset($_POST['passwordConnexion']))
 	{
 		$user = Utilisateur::getUser($_SESSION['Connexion'], $_POST['loginConnexion'], $_POST['passwordConnexion']);
-		if($user == null || Utilisateur::isEmailBanned($_SESSION['Connexion'], $user->mail))
+		if($user == null)
 		{
 			$erreur = 'Mot de passe ou identifiant incorrect';
+		}
+		else if(Utilisateur::isEmailBanned($_SESSION['Connexion'], $user->mail))
+		{
+			$erreur = 'Vous avez ete banni';
 		}
 		else
 		{
 			$_SESSION['user'] = $user;
 			if($user->getPermission() == 1)
 			{
-				header("Location : creerEvenement.php");
+				header("Location: creerEvenementAdmin.php");
 			}
 			else
 			{
@@ -39,7 +43,7 @@
 		$containsAt = false;
 		for($i = 0; $i < strlen($_POST['pseudo']); $i++)
 		{
-			if($userPseudoOrMail[$i] === '@')
+			if($_POST['pseudo'][$i] === '@')
 			{
 				$containsAt = true;
 			}

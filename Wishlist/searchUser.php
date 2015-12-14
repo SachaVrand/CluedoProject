@@ -26,7 +26,7 @@
 	{
 		$requete = 'INSERT INTO emailbannis VALUES(:email)';
 		$res = $_SESSION['Connexion']->getPdo()->prepare($requete);
-		$res->bindValue(':email');
+		$res->bindValue(':email',$userToDisplay->mail);
 		$res->execute();
 	}
 ?>
@@ -41,7 +41,33 @@
 	
 	<body>
 		<?php 
-			include_once('menuPrincipal.php');
+			if($user->getPermission() == 0)
+			{
+				include_once('menuPrincipal.php');
+			}
+			else 
+			{
+		?>
+				<header id="headerMenu">
+					<br />
+					<form method="get" action="searchUser.php">
+					<table id="menuPrincipal">
+						<tr>
+							<td><a href="creerEvenementAdmin.php">W.</a></td>
+							<td></td>
+							<td><input type="text" name="user" id="recherche" placeholder="Cherchez des personnes" size="50"/></td>
+							<td><input type="submit" name="ok" value="Ok"></td>
+							<td></td>
+							<td><a href="creerEvenementAdmin.php">Accueil</a></td>
+							<td><a href="pageMessagerie.php">Messagerie</a></td>
+						</tr>
+					</table>
+					</form>
+					<br />
+				</header>
+		
+		<?php
+			}
 		?>
 	
 		<div id="titre">
@@ -133,14 +159,16 @@
 									$nbListes = Utilisateur::getListNumber($_SESSION['Connexion'], $userToDisplay);
 								?>
 								<tr><td>
-									Followers : <?php echo $nbFollowers;?> | Following : <?php echo $nbFollowing;?> | Listes : <?php echo $nbListes;?> </td><td><input type="submit" name="submit" value="suivre">
+									Followers : <?php echo $nbFollowers;?> | Following : <?php echo $nbFollowing;?> | Listes : <?php echo $nbListes;?>
 								</td></tr>
+								<tr><td><input type="submit" name="submit" value="suivre"></td><td><button onclick="self.location.href='creationMessage.php?pseudoExp=<?php echo $userToDisplay->pseudo;?>'"></button></td></tr>
 							</table>
 						</form>
 						<?php 
 							if($user->getPermission() == 1)
 							{
 								?>
+								<br>
 								<form method="post" action="searchUser.php?user=<?php echo "$userToDisplay->pseudo"; ?>">
 									<input type="submit" name="submitBan" value="Ban user">
 								</form>

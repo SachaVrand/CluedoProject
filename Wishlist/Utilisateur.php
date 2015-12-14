@@ -428,5 +428,49 @@ class Utilisateur{
 			return 1;
 		}
 	}
+	
+	public static function newPassordForUser($connexionBase, $user, $newPassword)
+	{
+		$requete = 'UPDATE utilisateur SET motDePasse = :np WHERE idUser = :id';
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':np', $newPassword);
+		$res->bindValue(':id', $user->id,PDO::PARAM_INT);
+		$res->execute();
+		
+		ini_set('SMTP', 'smtp.orange.fr');
+		ini_set('smtp_port',25);
+		ini_set('sendmail_from', 'vrand.sacha@gmail.com');
+		$mail = $user->mail;
+		if (!preg_match("#^[a-z0-9._-]+@(hotmail|live|msn).[a-z]{2,4}$#", $mail))
+		{
+			$passage_ligne = "\r\n";
+		}
+		else
+		{
+			$passage_ligne = "\n";
+		}
+		$message_txt = "Votre nouveau mot de passe : ".$newPassword;
+		$message_html = "<html><head></head><body><b>Votre nouveau mot de passe : </b>".$newPassword."</body></html>";
+		$boundary = "-----=".md5(rand());
+		$sujet = "Nouveau mot de passe";
+		$header = "From: \"vrand.sacha@gmail.com\"<vrand.sacha@gmail.com>".$passage_ligne;
+		$header.= "Reply-to: \"vrand.sacha@gmail.com\" <vrand.sacha@gmail.com>".$passage_ligne;
+		$header.= "MIME-Version: 1.0".$passage_ligne;
+		$header.= "Content-Type: multipart/alternative;".$passage_ligne." boundary=\"$boundary\"".$passage_ligne;
+		$message = $passage_ligne."--".$boundary.$passage_ligne;
+		$message.= "Content-Type: text/plain; charset=\"ISO-8859-1\"".$passage_ligne;
+		$message.= "Content-Transfer-Encoding: 8bit".$passage_ligne;
+		$message.= $passage_ligne.$message_txt.$passage_ligne;
+		$message.= $passage_ligne."--".$boundary.$passage_ligne;
+		$message.= "Content-Type: text/html; charset=\"ISO-8859-1\"".$passage_ligne;
+		$message.= "Content-Transfer-Encoding: 8bit".$passage_ligne;
+		$message.= $passage_ligne.$message_html.$passage_ligne;
+		$message.= $passage_ligne."--".$boundary."--".$passage_ligne;
+		$message.= $passage_ligne."--".$boundary."--".$passage_ligne;
+		mail($mail,$sujet,$message,$header);
+		ini_restore('SMTP');
+		ini_restore('smtp_port');
+		ini_restore('sendmail_from');
+	}
 }
 ?>

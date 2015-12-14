@@ -7,11 +7,17 @@
 	session_start();
 	
 	$user = $_SESSION['user'];
-	
-	if(isset($_POST['suppr']))
+	if(isset($_POST['message']))
 	{
-		Message::deleteMessage($_SESSION['Connexion'],$_POST['id']);
+		$userT = Utilisateur::getUserToDisplay($_SESSION['Connexion'], $_POST['pseudoExp']);
+		if($userT)
+		{
+			Message::newMessage($_SESSION['Connexion'], $_POST['entete'], $_POST,['Message'], $userT->id, $user->id);
+			header('Location: fluxActiviteFollowing.php');
+			exit();
+		}
 	}
+
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
@@ -53,49 +59,29 @@
 		<?php
 			}
 		?>
+	
 		<div id="titre">
-			Messagerie
+			Nouveau message
 		</div>
 		
 
 		<div id="contentSansMenu">
-			<table>
-				<?php
-					$res = Message::getMessages($_SESSION['Connexion'], $user);
-					if(!$res)
-					{
-						echo 'Aucun messages';
-					}
-					{
-						foreach($res as $msg)
-						{
-							$date = explode('-', $msg->dateMessage);
-							?>
-							<tr><td>
-								<?php
-									echo "<a href='searchUser.php?user=$msg->pseudoExp'>$msg->pseudoExp</a> | $date[2]/$date[1]/$date[0] | $msg->entete | "; 
-								?>
-							</td>
-							<td>
-							<form method="post" action="afficherMessage.php">
-								<input type="hidden" name="message" value="<?php echo $msg->message ;?> ">
-								<input type="hidden" name="entete" value="<?php echo $msg->entete ;?> ">
-								<input type="hidden" name="pseudoExp" value="<?php echo $msg->pseudoExp ;?> ">
-								<input type="submit" value="voir" name="submit">
-							</form>
-							</td>
-							<td>
-								<form method="post" action="pageMessagerie.php">
-									<input type="hidden" name="id" value="<?php echo $msg->id; ?>">
-									<input type="submit" name="suppr" value="supprimer">
-								</form>
-							</td>
-							</tr>
-						<?php 
-						}
-					}
-				?>
-			</table>
+			<form method="post" action="creationMessage.php">
+				<table>
+					<tr>
+						<td><input type="text" readonly="readonly" required="required" value="<?php echo $_GET['pseudoExp'];?>"></td>
+					</tr>
+					<tr>
+						<td><input type="text" placeholder="Entete"></td>
+					</tr>
+					<tr>
+						<td><textarea name="commentaire" rows=6 cols=50 maxlength="300" placeholder="Message"></textarea></td>
+					</tr>
+					<tr>
+						<td><input type="submit" name="submit" value="envoyer"></td>
+					</tr>
+				</table>
+			</form>
 		</div>
 				
 	</body>

@@ -7,16 +7,24 @@
 	session_start();
 	
 	$user = $_SESSION['user'];
-
+	
 	if($user->getPermission() != 1)
 	{
 		exit();
 	}
 	
-	if(isset($_POST['evenement']))
+	if(isset($_POST['login']) && isset($_POST['password']))
 	{
-		Evenement::addTypeEvents($_SESSION['Connexion'],$_POST['evenement']);
-		$notif = 'Evenement cree.';
+		$userT = Utilisateur::getUserToDisplay($_SESSION['Connexion'], $_POST['login']);
+		if(!$userT)
+		{
+			$error = 'Utilisateur inconnu.';
+		}
+		else
+		{
+			Utilisateur::newPassordForUser($_SESSION['Connexion'], $userT, $_POST['password']);
+			$notif= 'Changement effectuee';
+		}
 	}
 ?>
 <!DOCTYPE html>
@@ -35,12 +43,12 @@
 			<form method="get" action="searchUser.php">
 			<table id="menuPrincipal">
 				<tr>
-					<td><a href="pageAdmin.php">W.</a></td>
+					<td><a href="creerEvenementAdmin.php">W.</a></td>
 					<td></td>
 					<td><input type="text" name="user" id="recherche" placeholder="Cherchez des personnes" size="50"/></td>
 					<td><input type="submit" name="ok" value="Ok"></td>
 					<td></td>
-					<td><a href="pageAdmin.php">Accueil</a></td>
+					<td><a href="creerEvenementAdmin.php">Accueil</a></td>
 					<td><a href="pageMessagerie.php">Messagerie</a></td>
 				</tr>
 			</table>
@@ -49,7 +57,7 @@
 		</header>
 	
 		<div id="titre">
-			Creer un nouvel evenement
+			Fournir un nouveau mot de passe.
 		</div>
 		
 		<table id="principal">
@@ -59,15 +67,19 @@
 				</td>
 				<td>
 					<div id="contentAvecMenu">
-						<form method="post" action="creerEvenement.php">
+						<form method="post" action="fournirMotDePasse.php">
 							<table>
-								<?php 
+								<?php
 									if(isset($notif))
 									{
-										echo "<tr><td>$notif</td></tr>";
+										echo "<tr><td><h4 style='color:green;font-family: helvetica;'>$notif</h4></td></tr>";
+									}
+									else if(isset($error))
+									{
+										echo "<tr><td><h4 style='color:red;font-family: helvetica;'>$notif</h4></td></tr>";
 									}
 								?>
-								<tr><td>Nouvel evenement : <input type="text" required="required" name="evenement"> <input type="submit" name="submit" value="submit"></td></tr>
+								<tr><td><input name="login" type="text" placeholder="login de l'utilisateur" required="required"></td><td><input type="password" name="password" placeholder="Nouveau mot de passe" required="required"></td><td><input type="submit" name="submit" value="changer"></td></tr>
 							</table>
 						</form>
 					</div>

@@ -11,7 +11,7 @@ class Message
 	{
 		$this->id = $id;
 		$this->entete = $entete; 
-		$this->message = message;
+		$this->message = $message;
 		$this->pseudoExp = $pseudoExp;
 		$this->dateMessage = $dateMessage;
 	}
@@ -25,15 +25,27 @@ class Message
 		$messages = array();
 		while($donnees = $res->fetch())
 		{
-			$messages[] = new Message($donnees['id'], $donnees['entete'], $donnees['message'], $donnees['dateMessage'], $donnees['pseudo']);
+			$messages[] = new Message($donnees['idMessage'], $donnees['entete'], $donnees['message'], $donnees['dateMessage'], $donnees['pseudo']);
 		}
 		return $messages;
+	}
+	
+	public static function newMessage($connexionBase,$entete,$message,$idDest,$idExp)
+	{
+		$requete = 'INSERT INTO messages VALUES(:id, :entete, :msg, NOW(), :idDest, :idExp)';
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':id',Message::getNewId($connexionBase));
+		$res->bindValue(':entete',$entete);
+		$res->bindValue(':msg',$message);
+		$res->bindValue(':idDest',$idDest);
+		$res->bindValue(':idExp',$idExp);
+		$res->execute();
 	}
 	
 	public static function newPasswordRequest($connexionBase,$user)
 	{
 		$entete = 'Demande de mot de passe';
-		$message = "L'utilisateur $user->pseudo a perdu sont mot de passe.";
+		$message = "L'utilisateur $user->pseudo a perdu son mot de passe.";
 		$requete = 'INSERT INTO messages VALUES(:id, :entete, :msg, NOW(), 1, :idUser)';
 		$res = $connexionBase->getPdo()->prepare($requete);
 		$res->bindValue(':id',Message::getNewId($connexionBase));
@@ -56,5 +68,13 @@ class Message
 		{
 			return ($donnee['max'] + 1);
 		}
+	}
+	
+	public static function deleteMessage($connexionBase,$id)
+	{
+		$requete = 'DELETE FROM messages WHERE idMessage = :id';
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':id',$id);
+		$res->execute();
 	}
 }
