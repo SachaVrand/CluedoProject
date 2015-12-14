@@ -106,12 +106,6 @@
 				</td>
 				<td>
 					<div id="contentAvecMenu">
-						<?php
-							if(isset($notif))
-							{
-								echo "<h1 style='color:black;'>$notif</h1>";
-							}
-						?>
 						<span class="grandTitre">Ma Liste</span>
 						<hr>
 						<form id="formCreerListe" method="post" action="creerListe.php">
