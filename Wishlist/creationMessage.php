@@ -7,12 +7,13 @@
 	session_start();
 	
 	$user = $_SESSION['user'];
+	
 	if(isset($_POST['message']))
 	{
 		$userT = Utilisateur::getUserToDisplay($_SESSION['Connexion'], $_POST['pseudoExp']);
 		if($userT)
 		{
-			Message::newMessage($_SESSION['Connexion'], $_POST['entete'], $_POST,['Message'], $userT->id, $user->id);
+			Message::newMessage($_SESSION['Connexion'], $_POST['entete'], $_POST['message'], $userT->id, $user->id);
 			header('Location: fluxActiviteFollowing.php');
 			exit();
 		}
@@ -66,16 +67,16 @@
 		
 
 		<div id="contentSansMenu">
-			<form method="post" action="creationMessage.php">
+			<form method="post" action="creationMessage.php?pseudoExp=<?php echo $_GET['pseudoExp'];?>">
 				<table>
 					<tr>
-						<td><input type="text" readonly="readonly" required="required" value="<?php echo $_GET['pseudoExp'];?>"></td>
+						<td><input name="pseudoExp" type="text" readonly="readonly" required="required" value="<?php echo $_GET['pseudoExp'];?>"></td>
 					</tr>
 					<tr>
-						<td><input type="text" placeholder="Entete"></td>
+						<td><input name="entete" type="text" placeholder="Entete" required="required"></td>
 					</tr>
 					<tr>
-						<td><textarea name="commentaire" rows=6 cols=50 maxlength="300" placeholder="Message"></textarea></td>
+						<td><textarea name="message" rows=6 cols=50 maxlength="300" placeholder="Message" required="required"></textarea></td>
 					</tr>
 					<tr>
 						<td><input type="submit" name="submit" value="envoyer"></td>
