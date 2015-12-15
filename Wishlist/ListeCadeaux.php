@@ -34,13 +34,12 @@ class ListeCadeaux
 	
 	public static function addListeCadeaux($connexionBase,$listeCadeaux)
 	{
-		$requete = 'INSERT INTO listecadeaux VALUES(:idListe,:idCadeau,:idEvenement,:idUser,:reserverPar)';
+		$requete = 'INSERT INTO listecadeaux(idListe,idCadeau,idEvenement,idUser) VALUES(:idListe,:idCadeau,:idEvenement,:idUser)';
 		$res = $connexionBase->getPdo()->prepare($requete);
 		$res->bindValue(':idListe',$listeCadeaux->idListe,PDO::PARAM_INT);
 		$res->bindValue(':idCadeau',$listeCadeaux->idCadeau,PDO::PARAM_INT);
 		$res->bindValue(':idEvenement',$listeCadeaux->idEvenement,PDO::PARAM_INT);
 		$res->bindValue(':idUser',$listeCadeaux->idUser,PDO::PARAM_INT);
-		$res->bindValue(':reserverPar',$listeCadeaux->reserverPar,PDO::PARAM_INT);
 		$res->execute();
 	}
 	

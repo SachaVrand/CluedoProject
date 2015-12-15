@@ -1,19 +1,27 @@
 <?php
 class ActivitesListe
 {
-	public $activite;
+	public $idActivite;
 	public $idListe;
-	public $pseudoUser;
-	public $nomEvenement;
+	public $idUser;
 	public $idReservePar;
 	
-	public function __construct($activite, $pseudoUser, $idListe, $nomEvenement, $idReservePar)
+	public function __construct($idActivite, $idUser, $idListe, $idReservePar)
 	{
-		$this->activite = $activite;
-		$this->pseudoUser = $pseudoUser;
+		$this->idActivite = $idActivite;
+		$this->idUser = $idUser;
 		$this->idListe = $idListe;
-		$this->nomEvenement = $nomEvenement;
 		$this->idReservePar = $idReservePar;
+	}
+	
+	public static function addActiviteListe($connexion,$activitesListe)
+	{
+		$requete = 'INSERT INTO activitesliste (idActivite,idUser,idListe) VALUES(:idActivite,:idUser,:idListe)';
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':idActivite',$activitesListe->idActivite,PDO::PARAM_INT);
+		$res->bindValue(':idUser',$activitesListe->idUser,PDO::PARAM_INT);
+		$res->bindValue(':idListe',$activitesListe->idListe,PDO::PARAM_INT);
+		$res->execute();
 	}
 }
 ?>

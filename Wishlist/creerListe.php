@@ -14,6 +14,7 @@
 	$annee = "";
 	$commentaire = "";
 	$erreur ="";
+	$msg ="";
 	
 	if (isset($_POST['addCadeau']))
 	{
@@ -29,7 +30,7 @@
 	{
 		if($_POST['jour'] === "" || $_POST['mois'] === "" || $_POST['annee'] === "")
 		{
-			$erreur = "La date de l'évènement est incorrecte.";
+			$erreur = "La date de l'ï¿½vï¿½nement est incorrecte.";
 		}
 		else
 		{
@@ -45,7 +46,12 @@
 				$listeCadeau = new ListeCadeaux($idListe,$element->getIdCadeau(),$evenement->getIdEvenement(),$user->id,'NULL');
 				ListeCadeaux::addListeCadeaux($_SESSION['Connexion'],$listeCadeau);
 			}
-			// creer et ajoute l'activité
+			// creer et ajoute l'activitï¿½
+			$activite = new Activite(Activite::getNewId($_SESSION['Connexion']),"cree","une liste");
+			Activite::addActivite($_SESSION['Connexion'],$activite);
+			$activitesListe = new ActivitesListe($activite->idActivite,$user->id,$idListe,'NULL');
+			ActivitesListe::addActivitesListe($_SESSION['Connexion'],$activitesListe);
+			$msg = "La liste est bien creee.";
 			$_SESSION['tabCadeaux'] = array();
 		}
 	}
