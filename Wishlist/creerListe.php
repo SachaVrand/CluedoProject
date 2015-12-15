@@ -117,7 +117,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	    <link rel="Stylesheet" type="text/css" href="interfaceAvecMenu.css" />
 		<title>
-			Modification des informations personelles
+			Créer une liste
 		</title>
 	</head>
 	<body>
