@@ -30,7 +30,13 @@
 	{
 		if($_POST['jour'] === "" || $_POST['mois'] === "" || $_POST['annee'] === "")
 		{
-			$erreur = "La date de l'�v�nement est incorrecte.";
+			$nomEvent = $_POST['nom'];
+			$event = $_POST['event'];
+			$jour = $_POST['jour'];
+			$mois = $_POST['mois'];
+			$annee = $_POST['annee'];
+			$commentaire = $_POST['commentaire'];
+			$erreur = "La date de l'évènement est incorrecte.";
 		}
 		else
 		{
@@ -51,7 +57,7 @@
 			Activite::addActivite($_SESSION['Connexion'],$activite);
 			$activitesListe = new ActivitesListe($activite->idActivite,$user->id,$idListe,'NULL');
 			ActivitesListe::addActivitesListe($_SESSION['Connexion'],$activitesListe);
-			$msg = "La liste est bien creee.";
+			$msg = "La liste a bien été créée.";
 			$_SESSION['tabCadeaux'] = array();
 		}
 	}
@@ -120,7 +126,7 @@
 		?>
 	
 		<div id="titre">
-			Creer une liste de cadeaux
+			Créer une liste de cadeaux
 		</div>
 		
 		<table id="principal">
@@ -130,6 +136,16 @@
 				</td>
 				<td>
 					<div id="contentAvecMenu">
+						<?php 
+							if($erreur != "")
+							{
+								echo "<span class=erreur>$erreur</span><br><br><br>";
+							}
+							elseif($msg != "")
+							{
+								echo "<span class=erreur>$msg</span><br><br><br>";
+							}
+						?>
 						<span class="grandTitre">Ma Liste</span>
 						<hr>
 						<form id="formCreerListe" method="post" action="creerListe.php">

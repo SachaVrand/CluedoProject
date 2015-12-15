@@ -436,7 +436,7 @@ resize:none;
 
 
 
-/*=================================== le formulaire de création de liste===================================*/
+/*=================================== le formulaire de crÃ©ation de liste===================================*/
 
 
 #formCreerListe
@@ -493,7 +493,12 @@ tr:hover td:first-child
 	background-color:#F2F1F1;
 }
 
-
+.erreur
+{
+	font-weight: bold;
+	font-size: 15px;
+	color:#F00101;
+}
 
 
 

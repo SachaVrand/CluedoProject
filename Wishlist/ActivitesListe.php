@@ -14,7 +14,7 @@ class ActivitesListe
 		$this->idReservePar = $idReservePar;
 	}
 	
-	public static function addActiviteListe($connexion,$activitesListe)
+	public static function addActivitesListe($connexionBase,$activitesListe)
 	{
 		$requete = 'INSERT INTO activitesliste (idActivite,idUser,idListe) VALUES(:idActivite,:idUser,:idListe)';
 		$res = $connexionBase->getPdo()->prepare($requete);
