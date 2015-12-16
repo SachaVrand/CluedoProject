@@ -1,14 +1,14 @@
 <?php
 class ActivitesListe
 {
-	public $idActivite;
+	public $activite;
 	public $idListe;
 	public $idUser;
 	public $idReservePar;
 	
 	public function __construct($idActivite, $idUser, $idListe, $idReservePar)
 	{
-		$this->idActivite = $idActivite;
+		$this->activite = $idActivite;
 		$this->idUser = $idUser;
 		$this->idListe = $idListe;
 		$this->idReservePar = $idReservePar;
