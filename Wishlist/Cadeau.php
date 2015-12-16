@@ -55,6 +55,7 @@ class Cadeau
 		{
 			$tab[] = $ligne['nomType'];
 		}
+		$req->closeCursor();
 		return $tab;
 	}
 	
@@ -63,6 +64,7 @@ class Cadeau
 		$requete = 'SELECT MAX(idCadeau) as max FROM cadeau';
 		$res = $connexionBase->getPdo()->query($requete);
 		$donnee = $res->fetch();
+		$res->closeCursor();
 		if(!$donnee)
 		{
 			return 1;
@@ -83,6 +85,7 @@ class Cadeau
 		$res->bindValue(':lien',$cadeau->lien,PDO::PARAM_STR);
 		$res->bindValue(':type',$cadeau->nomType,PDO::PARAM_STR);
 		$res->execute();
+		$res->closeCursor();
 	}
 }
 

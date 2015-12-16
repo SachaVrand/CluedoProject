@@ -27,6 +27,7 @@ class Message
 		{
 			$messages[] = new Message($donnees['idMessage'], $donnees['entete'], $donnees['message'], $donnees['dateMessage'], $donnees['pseudo']);
 		}
+		$res->closeCursor();
 		return $messages;
 	}
 	
@@ -40,6 +41,7 @@ class Message
 		$res->bindValue(':idDest',$idDest);
 		$res->bindValue(':idExp',$idExp);
 		$res->execute();
+		$res->closeCursor();
 	}
 	
 	public static function newPasswordRequest($connexionBase,$user)
@@ -53,6 +55,7 @@ class Message
 		$res->bindValue(':msg',$message);
 		$res->bindValue(':idUser',$user->id);
 		$res->execute();
+		$res->closeCursor();
 	}
 	
 	public static function getNewId($connexionBase)
@@ -60,6 +63,7 @@ class Message
 		$requete = 'SELECT MAX(idMessage) as max FROM messages';
 		$res = $connexionBase->getPdo()->query($requete);
 		$donnee = $res->fetch();
+		$res->closeCursor();
 		if(!$donnee)
 		{
 			return 1;
@@ -76,5 +80,6 @@ class Message
 		$res = $connexionBase->getPdo()->prepare($requete);
 		$res->bindValue(':id',$id);
 		$res->execute();
+		$res->closeCursor();
 	}
 }

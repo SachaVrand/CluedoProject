@@ -35,6 +35,7 @@ class Utilisateur{
 		$requete = 'SELECT MAX(idUser) as max FROM utilisateur';
 		$res = $connexionBase->getPdo()->query($requete);
 		$donnee = $res->fetch();
+		$res->closeCursor();
 		if(!$donnee)
 		{
 			return 1;
@@ -52,6 +53,7 @@ class Utilisateur{
 		$req->bindValue(':mdp',$motDePasse,PDO::PARAM_STR);
 		$req->execute();
 		$donnees = $req->fetch();
+		$req->closeCursor();
 		if($donnees)
 		{
 			return new Utilisateur($donnees['idUser'],$donnees['pseudo'], $donnees['nom'], $donnees['prenom'], $donnees['ville'], $donnees['mail'], $donnees['permission'], $donnees['dateNaissance'], $donnees['photo'],$donnees['confidentialite']);
@@ -83,6 +85,7 @@ class Utilisateur{
 		$req->bindValue(':userId',$userPseudoOrMail,PDO::PARAM_STR);
 		$req->execute();
 		$donnees = $req->fetch();
+		$req->closeCursor();
 		if($donnees)
 		{
 			return new Utilisateur($donnees['idUser'],$donnees['pseudo'], $donnees['nom'], $donnees['prenom'], $donnees['ville'], $donnees['mail'], $donnees['permission'], $donnees['dateNaissance'], $donnees['photo'],$donnees['confidentialite']);
@@ -113,6 +116,7 @@ class Utilisateur{
 		$res->bindValue(':permission',$utilisateur->getPermission(),PDO::PARAM_INT);
 		$res->bindValue(':confidentialite',$utilisateur->confidentialite,PDO::PARAM_INT);
 		$res->execute();
+		$res->closeCursor();
 		return 1;
 	}
 	
@@ -123,6 +127,7 @@ class Utilisateur{
 		$res->bindValue(':pseudo',$pseudo,PDO::PARAM_STR);
 		$res->execute();
 		$donnees = $res->fetch();
+		$res->closeCursor();
 		if($donnees)
 		{
 			return 1;
@@ -140,6 +145,7 @@ class Utilisateur{
 		$res->bindValue(':mail',$mail,PDO::PARAM_STR);
 		$res->execute();
 		$donnees = $res->fetch();
+		$res->closeCursor();
 		if($donnees)
 		{
 			return 1;
@@ -189,6 +195,7 @@ class Utilisateur{
 		
 		$res->bindValue(':id',$newUser->id,PDO::PARAM_INT);
 		$res->execute();
+		$res->closeCursor();
 		return 1;
 	}
 	
@@ -198,6 +205,7 @@ class Utilisateur{
 		$res = $connexionBase->getPdo()->prepare($requete);
 		$res->bindValue(':password',$newPassword);
 		$res->execute();
+		$res->closeCursor();
 	}
 	
 	public static function getFollowing($connexionBase,$user)
@@ -211,6 +219,7 @@ class Utilisateur{
 		{
 			$tab[$donnees['idUser']] = $donnees['pseudo'];
 		}
+		$res->closeCursor();
 		return $tab;
 	}
 	
@@ -225,6 +234,7 @@ class Utilisateur{
 		{
 			$tab[$donnees['idUser']] = $donnees['pseudo'];
 		}
+		$res->closeCursor();
 		return $tab;
 	}
 	
@@ -235,6 +245,7 @@ class Utilisateur{
 		$res->bindValue(':idUser',$user->id);
 		$res->bindValue(':idFollowing',$following);
 		$res->execute();
+		$res->closeCursor();
 	}
 	
 	public static function restrictFollower($connexionBase, $user, $follower)
@@ -244,6 +255,7 @@ class Utilisateur{
 		$res->bindValue(':idUser',$user->id);
 		$res->bindValue(':idFollower',$follower);
 		$res->execute();
+		$res->closeCursor();
 	}
 	
 	public static function isRestrict($connexionBase, $user, $searchUser)
@@ -254,6 +266,7 @@ class Utilisateur{
 		$res->bindValue(':idUser', $user->id);
 		$res->execute();
 		$donnees = $res->fetch();
+		$res->closeCursor();
 		if(!$donnees || $donnees['restriction'] == 0)
 		{
 			return 0;
@@ -282,6 +295,7 @@ class Utilisateur{
 		{
 			$tab[] = new ActivitesListe(new Activite($donnees['idActivite'], $donnees['nomType'], $donnees['nomObjet']), $donnees['pseudo'], $donnees['idListe'], $donnees['nom'], $donnees['idReservePar']);
 		}
+		$res->closeCursor();
 		return $tab;
 	}
 	
@@ -303,6 +317,7 @@ class Utilisateur{
 		{
 			$tab[] = new ActivitesListe(new Activite($donnees['idActivite'], $donnees['nomType'], $donnees['nomObjet']), $donnees['pseudo'], $donnees['idListe'], $donnees['nom'], $donnees['idReservePar']);
 		}
+		$res->closeCursor();
 		return $tab;
 	}
 	
@@ -313,6 +328,7 @@ class Utilisateur{
 		$res->bindValue(':id',$user->id);
 		$res->execute();
 		$donnees = $res->fetch();
+		$res->closeCursor();
 		if(!$donnees)
 			return 0;
 		else
@@ -326,6 +342,7 @@ class Utilisateur{
 		$res->bindValue(':id',$user->id);
 		$res->execute();
 		$donnees = $res->fetch();
+		$res->closeCursor();
 		if(!$donnees)
 			return 0;
 		else
@@ -339,6 +356,7 @@ class Utilisateur{
 		$res->bindValue(':id',$user->id);
 		$res->execute();
 		$donnees = $res->fetch();
+		$res->closeCursor();
 		if(!$donnees)
 			return 0;
 		else
@@ -352,6 +370,7 @@ class Utilisateur{
 		$res->bindValue(':idUser',$user->id);
 		$res->bindValue(':idFollower',$follower->id);
 		$res->execute();
+		$res->closeCursor();
 	}
 	
 	public static function getUserById($connexionBase,$idUser)
@@ -361,6 +380,7 @@ class Utilisateur{
 		$res->bindValue(':id',$idUser);
 		$res->execute();
 		$donnees = $res->fetch();
+		$res->closeCursor();
 		if(!$donnees)
 		{
 			return null;
@@ -390,6 +410,7 @@ class Utilisateur{
 		{
 			$tab[] = new ActivitesListe(new Activite($donnees['idActivite'], $donnees['nomType'], $donnees['nomObjet']), $donnees['pseudo'], $donnees['idListe'], $donnees['nom'], $donnees['idReservePar']);
 		}
+		$res->closeCursor();
 		return $tab;
 	}
 	
@@ -409,6 +430,7 @@ class Utilisateur{
 		{
 			$tab[] = array($donnes['pseudo'], $donnees['nom']);
 		}
+		$res->closeCursor();
 		return $tab;
 	}
 	
@@ -419,6 +441,7 @@ class Utilisateur{
 		$res->bindValue(':email',$email);
 		$res->execute();
 		$donnees = $res->fetch();
+		$res->closeCursor();
 		if(!$donnees)
 		{
 			return 0;
@@ -436,6 +459,7 @@ class Utilisateur{
 		$res->bindValue(':np', $newPassword);
 		$res->bindValue(':id', $user->id,PDO::PARAM_INT);
 		$res->execute();
+		$res->closeCursor();
 		
 		ini_set('SMTP', 'smtp.orange.fr');
 		ini_set('smtp_port',25);

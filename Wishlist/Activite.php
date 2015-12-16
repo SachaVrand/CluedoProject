@@ -38,6 +38,7 @@ class Activite
 		$date = date("Y-m-d H:i:s");
 		$res->bindValue(':date',$date,PDO::PARAM_STR);
 		$res->execute();
+		$res->closeCursor();
 	}
 }
 ?>

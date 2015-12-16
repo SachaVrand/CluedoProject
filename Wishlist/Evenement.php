@@ -60,6 +60,7 @@ class Evenement{
 		{
 			$tab[] = $ligne['nomType'];
 		}
+		$req->closeCursor();
 		return $tab;
 	}
 	
@@ -69,6 +70,7 @@ class Evenement{
 		$res = $connexionBase->getPdo()->prepare($requete);
 		$res->bindValue(':name',$eventName);
 		$res->execute();
+		$res->closeCursor();
 	}
 	
 	public static function getNewId($connexionBase)
@@ -76,6 +78,7 @@ class Evenement{
 		$requete = 'SELECT MAX(idEvenement) as max FROM evenement';
 		$res = $connexionBase->getPdo()->query($requete);
 		$donnee = $res->fetch();
+		$res->closeCursor();
 		if(!$donnee)
 		{
 			return 1;
@@ -97,6 +100,7 @@ class Evenement{
 		$res->bindValue(':type',$evenement->nomType,PDO::PARAM_STR);
 		$res->bindValue(':idUser',$evenement->idUtilisateur,PDO::PARAM_INT);
 		$res->execute();
+		$res->closeCursor();
 	}
 }
 

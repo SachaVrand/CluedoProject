@@ -22,6 +22,7 @@ class ActivitesListe
 		$res->bindValue(':idUser',$activitesListe->idUser,PDO::PARAM_INT);
 		$res->bindValue(':idListe',$activitesListe->idListe,PDO::PARAM_INT);
 		$res->execute();
+		$res->closeCursor();
 	}
 }
 ?>
