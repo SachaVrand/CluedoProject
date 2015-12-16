@@ -84,7 +84,7 @@
 						{
 							echo "Aucun utilisateur n'a pu etre trouve";
 						}
-						else if($userToDisplay->confidentialite === 1)
+						else if($userToDisplay->confidentialite == 1)
 						{
 							echo "L'utilisateur ne souhaite pas que l'on puisse avoir acces a son profil";
 						}

@@ -3,14 +3,16 @@ class ActivitesListe
 {
 	public $activite;
 	public $idListe;
-	public $idUser;
+	public $pseudoUser;
+	public $nomEvenement;
 	public $idReservePar;
 	
-	public function __construct($idActivite, $idUser, $idListe, $idReservePar)
+	public function __construct($activite, $pseudoUser, $idListe, $nomEvenement, $idReservePar)
 	{
-		$this->activite = $idActivite;
-		$this->idUser = $idUser;
+		$this->activite = $activite;
+		$this->pseudoUser = $pseudoUser;
 		$this->idListe = $idListe;
+		$this->nomEvenement = $nomEvenement;
 		$this->idReservePar = $idReservePar;
 	}
 	
