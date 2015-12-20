@@ -211,7 +211,7 @@ int main(void)
                             }
                             else
                             {
-                                /*tester le type de chaque données par rapport à sa colonne*/
+                                /*tester le type de chaque donnï¿½es par rapport ï¿½ sa colonne*/
                                 TypeElement tmpType = UNKNOWN;
                                 char *tmpErrDonnee = conversionsPossibles(tmp->listeColonne,tableauDeMots + 3, &tmpType);
                                 if(tmpErrDonnee != NULL)
@@ -223,7 +223,7 @@ int main(void)
                                 {
                                     if(tmpType == UNKNOWN)
                                     {
-                                        printf("Ce n'est pas censé arrivé!\n");
+                                        printf("Ce n'est pas censï¿½ arrivï¿½!\n");
                                     }
                                     else
                                     {
@@ -420,7 +420,7 @@ int main(void)
         }
         else
         {
-            /*UNKNOWN KEYWORD*/
+            /*UNKNOWN KEYWORD */
             printf("ERR : %s %s\n",ERRUK,tableauDeMots[0]);
         }
     }while(erreurSaisie || (mystrcasecmp(commandeSansEspacesInutiles,MOTCLEEXIT) != 0 || *nbMots != 1));
@@ -436,12 +436,12 @@ int main(void)
 }
 
 /**
-Méthode qui decoupe une chaine de caracteres en sous chaines en fonction du delimiteur passée en paramètre. Ne découpe pas les chaines entre "".
+Mï¿½thode qui decoupe une chaine de caracteres en sous chaines en fonction du delimiteur passï¿½e en paramï¿½tre. Ne dï¿½coupe pas les chaines entre "".
 Retourne un tableau contenant les sous chaines. Retourne NULL si string=NULL ou nbMots=NULL.
 Param :
-    const char *string : chaine de caractères à découper.
-    char delimiter : delimiteur pour découper les sous chaines.
-    int *nbMots : pointeur d'un entier qui est mis à zéro au début de la fonction et qui est mis au nombre de sous chaines contenu dans le tableau retourné.
+    const char *string : chaine de caractï¿½res ï¿½ dï¿½couper.
+    char delimiter : delimiteur pour dï¿½couper les sous chaines.
+    int *nbMots : pointeur d'un entier qui est mis ï¿½ zï¿½ro au dï¿½but de la fonction et qui est mis au nombre de sous chaines contenu dans le tableau retournï¿½.
 
 ex :
     delimiteur = ' ', *string = add table table1 -> res[0]=add, res[1]=table, res[2]=table1, *nbMots=3
@@ -490,9 +490,9 @@ static char **str_split(const char *string, char delimiter, int *nbMots)
 }
 
 /**
-Fonction qui retourne une nouvelle chaine de caractères correspondant à la chaine passée en paramètre sans les espace inutiles,
-c'est à dire avec aucun espace au début et à la fin de la chaine, et un seul espace entre chaque mots.
-N'enlève pas les espaces inutiles pour les caractères entre "".
+Fonction qui retourne une nouvelle chaine de caractï¿½res correspondant ï¿½ la chaine passï¿½e en paramï¿½tre sans les espace inutiles,
+c'est ï¿½ dire avec aucun espace au dï¿½but et ï¿½ la fin de la chaine, et un seul espace entre chaque mots.
+N'enlï¿½ve pas les espaces inutiles pour les caractï¿½res entre "".
 Retourne NULL si string=NULL.
 Param :
     const char *string : chaine dont vous souhaitez enlever les espaces inutiles.
@@ -574,12 +574,12 @@ static void viderBuffer()
 }
 
 /**
-Méthode qui récupère la saisie d'une ligne sur l'entrée standard.
-Retourne 0 si la saisie s'est passée correctement, 1 si le nombre de caractères saisies dépasent la limite n
+Mï¿½thode qui rï¿½cupï¿½re la saisie d'une ligne sur l'entrï¿½e standard.
+Retourne 0 si la saisie s'est passï¿½e correctement, 1 si le nombre de caractï¿½res saisies dï¿½pasent la limite n
 et 2 si il y a eu une erreur lors de la lecture de la ligne.
 
 Param :
-    *chaineDest : chaine où sera mis ce qu'a saisie l'utlisateur.
+    *chaineDest : chaine oï¿½ sera mis ce qu'a saisie l'utlisateur.
     n : taille maximale de la chaineDest.
 **/
 static int lireLigneES(char *chaineDest, int n)
@@ -608,11 +608,11 @@ static int lireLigneES(char *chaineDest, int n)
 }
 
 /**
-    Fonction qui vérifie si une chaine est un nom valide pour une table ou une colonne.
-    On ne peut faire usage que des 26 lettres de l'alphabet, des dix chiffres et du caractère underscore pour un nom valide.
+    Fonction qui vï¿½rifie si une chaine est un nom valide pour une table ou une colonne.
+    On ne peut faire usage que des 26 lettres de l'alphabet, des dix chiffres et du caractï¿½re underscore pour un nom valide.
 
     param :
-        const char *nom : chaine que l'on souhaite vérifiée, n'est pas modifiée.
+        const char *nom : chaine que l'on souhaite vï¿½rifiï¿½e, n'est pas modifiï¿½e.
 **/
 static int isAValidName(const char *nom)
 {

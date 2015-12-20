@@ -27,113 +27,113 @@ typedef struct{
 typedef int(*SatisfyingFunc)(DataValue);
 
 /**
-    Fonction qui crée une nouvelle liste de type DataType dt passé en paramètre et retourne un pointeur sur la nouvelle liste.
+    Fonction qui crï¿½e une nouvelle liste de type DataType dt passï¿½ en paramï¿½tre et retourne un pointeur sur la nouvelle liste.
 
     param :
-        Datatype dt : type des données devant être contenu dans la liste.
+        Datatype dt : type des donnï¿½es devant ï¿½tre contenu dans la liste.
 **/
 List *newList(DataType dt);
 
 /**
-    Fonction qui détruit la liste ainsi que tous ses éléments à l'aide la fonction de destruction de cette élément passée en paramètre. Si le pointeur sur la liste passée en paramètre est NULL, la fonction ne fait rien.
+    Fonction qui dï¿½truit la liste ainsi que tous ses ï¿½lï¿½ments ï¿½ l'aide la fonction de destruction de cette ï¿½lï¿½ment passï¿½e en paramï¿½tre. Si le pointeur sur la liste passï¿½e en paramï¿½tre est NULL, la fonction ne fait rien.
 
     param :
-        List *l : paramètre de sortie, pointeur sur la liste que l'on souhaite détruire.
-        void(*removeFunc)(DataValue dv) : pointeur sur la fonction permettant de detruire l'element de la liste. Peut être NULL si l'element n'a pas besoin d'être désalloué.
+        List *l : paramï¿½tre de sortie, pointeur sur la liste que l'on souhaite dï¿½truire.
+        void(*removeFunc)(DataValue dv) : pointeur sur la fonction permettant de detruire l'element de la liste. Peut ï¿½tre NULL si l'element n'a pas besoin d'ï¿½tre dï¿½sallouï¿½.
 **/
 void destroyList(List *l,void(*removeFunc)(DataValue dv));
 
 /**
-    Fonction qui permet d'ajouter un élément (DataValue passée en paramètre) à la fin de la liste. Si le pointeur sur la liste passée en paramètre est NULL, alors cette fonction ne fait rien.
+    Fonction qui permet d'ajouter un ï¿½lï¿½ment (DataValue passï¿½e en paramï¿½tre) ï¿½ la fin de la liste. Si le pointeur sur la liste passï¿½e en paramï¿½tre est NULL, alors cette fonction ne fait rien.
 
     param :
-        List *l : paramètre de sortie, pointeur sur la liste où l'on souhaite ajouter l'élément.
-        DataValue dv : élément a ajouter à la fin de la liste.
+        List *l : paramï¿½tre de sortie, pointeur sur la liste oï¿½ l'on souhaite ajouter l'ï¿½lï¿½ment.
+        DataValue dv : ï¿½lï¿½ment a ajouter ï¿½ la fin de la liste.
 **/
 void addAsLast(List *l,const DataValue dv);
 
 /**
-    Fonction qui permet de recupérer l'élément correspondant à la DataValue passée en paramètre. Si le pointeur sur la liste ou le pointeur de fonction est NULL, alors retourne NULL.
-    Si aucun élément correspondant à la Datavalue n'est trouvée ou que la liste est vide, alors retourne aussi NULL.
-    Si plusieurs éléments correspondent à l'élément recherché dans la liste à l'aide de la fonction de comparaison, alors le première élément correspondant dans la liste est retournée.
+    Fonction qui permet de recupï¿½rer l'ï¿½lï¿½ment correspondant ï¿½ la DataValue passï¿½e en paramï¿½tre. Si le pointeur sur la liste ou le pointeur de fonction est NULL, alors retourne NULL.
+    Si aucun ï¿½lï¿½ment correspondant ï¿½ la Datavalue n'est trouvï¿½e ou que la liste est vide, alors retourne aussi NULL.
+    Si plusieurs ï¿½lï¿½ments correspondent ï¿½ l'ï¿½lï¿½ment recherchï¿½ dans la liste ï¿½ l'aide de la fonction de comparaison, alors le premiï¿½re ï¿½lï¿½ment correspondant dans la liste est retournï¿½e.
 
     param :
-        List *l : pointeur sur la liste où l'on souhaite récupérer l'élément.
-        int(*cmpFunc)(DataValue,DataValue) : pointeur sur la fonction permettant de comparer les éléments de la liste à la DataValue passée en paramètre.
-        DataValue dv : DataValue qui sera comparé pour récupérer l'élément dans liste.
+        List *l : pointeur sur la liste oï¿½ l'on souhaite rï¿½cupï¿½rer l'ï¿½lï¿½ment.
+        int(*cmpFunc)(DataValue,DataValue) : pointeur sur la fonction permettant de comparer les ï¿½lï¿½ments de la liste ï¿½ la DataValue passï¿½e en paramï¿½tre.
+        DataValue dv : DataValue qui sera comparï¿½ pour rï¿½cupï¿½rer l'ï¿½lï¿½ment dans liste.
 **/
 ListNode* getElement(const List *l, int(*cmpFunc)(DataValue,DataValue),const DataValue dv);
 
 /**
-    Fonction qui permet de retirer un élément de la liste et de le retourner. Si le pointeur sur la liste ou le pointeur sur la fonction de comparaison est NULL retourne NULL.
-    Si auncun élément correspondant à la DataValue n'est trouvée ou que la liste est vide, alors retourne aussi NULL.
-    Si plusieurs éléments correspondent à l'élément recherché dans la liste à l'aide de la fonction de comparaison, alors le première élément correspondant dans la liste est enlevé puis retournée.
+    Fonction qui permet de retirer un ï¿½lï¿½ment de la liste et de le retourner. Si le pointeur sur la liste ou le pointeur sur la fonction de comparaison est NULL retourne NULL.
+    Si auncun ï¿½lï¿½ment correspondant ï¿½ la DataValue n'est trouvï¿½e ou que la liste est vide, alors retourne aussi NULL.
+    Si plusieurs ï¿½lï¿½ments correspondent ï¿½ l'ï¿½lï¿½ment recherchï¿½ dans la liste ï¿½ l'aide de la fonction de comparaison, alors le premiï¿½re ï¿½lï¿½ment correspondant dans la liste est enlevï¿½ puis retournï¿½e.
 
     param :
-        List *l : paramètre de sortie, pointeur sur la liste où l'on souhaite retirer l'élément.
-        int(*cmpFunc)(DataValue,DataValue) : pointeur sur la fonction permettant de comparer les éléments de la liste à la DataValue passée en paramètre.
-        DataValue dv : DataValue qui sera comparé pour retirer l'élément dans liste.
+        List *l : paramï¿½tre de sortie, pointeur sur la liste oï¿½ l'on souhaite retirer l'ï¿½lï¿½ment.
+        int(*cmpFunc)(DataValue,DataValue) : pointeur sur la fonction permettant de comparer les ï¿½lï¿½ments de la liste ï¿½ la DataValue passï¿½e en paramï¿½tre.
+        DataValue dv : DataValue qui sera comparï¿½ pour retirer l'ï¿½lï¿½ment dans liste.
 **/
 ListNode* removeElement(List *l, int(*cmpFunc)(DataValue,DataValue),const DataValue dv);
 
 /**
-    Fonction qui permet d'afficher tous les éléments de la liste. Si le pointeur sur la liste passé en paramètre est NULL alors n'affiche rien, de même si la liste est vide.
-    Affiche chaque élément de la liste, à l'aide du pointeur de fonction passée en paramètre, suivi du séparateur passée en paramètre.
+    Fonction qui permet d'afficher tous les ï¿½lï¿½ments de la liste. Si le pointeur sur la liste passï¿½ en paramï¿½tre est NULL alors n'affiche rien, de mï¿½me si la liste est vide.
+    Affiche chaque ï¿½lï¿½ment de la liste, ï¿½ l'aide du pointeur de fonction passï¿½e en paramï¿½tre, suivi du sï¿½parateur passï¿½e en paramï¿½tre.
 
     param :
-        List *l : pointeur sur la liste où l'on souhaite afficher chaque élément.
-        void(*DisplayFunc)(DataValue) : pointeur sur la fonciton permettant d'afficher un élément de la liste.
-        char *sep : séparateur affiché après chaque affichage d'un élément de la liste.
+        List *l : pointeur sur la liste oï¿½ l'on souhaite afficher chaque ï¿½lï¿½ment.
+        void(*DisplayFunc)(DataValue) : pointeur sur la fonciton permettant d'afficher un ï¿½lï¿½ment de la liste.
+        char *sep : sï¿½parateur affichï¿½ aprï¿½s chaque affichage d'un ï¿½lï¿½ment de la liste.
 **/
 void displayList(const List *l, void(*DisplayFunc)(DataValue), const char *sep);
 
 /**
-    Fonction qui permet de savoir un élément est dans la liste. Si le pointeur sur la liste ou le pointeur sur la fonction est NULL alors retourne 0.
-    Si la liste est vide retourne 0. Si aucun élément correspondant n'est trouvé alors retourne 0.
-    Si au moins un élément correspondant à la DataValue passée en paramètre, comparé à l'aide de la fonction passée en paramètre, est trouvée, alors retourne 1.
+    Fonction qui permet de savoir un ï¿½lï¿½ment est dans la liste. Si le pointeur sur la liste ou le pointeur sur la fonction est NULL alors retourne 0.
+    Si la liste est vide retourne 0. Si aucun ï¿½lï¿½ment correspondant n'est trouvï¿½ alors retourne 0.
+    Si au moins un ï¿½lï¿½ment correspondant ï¿½ la DataValue passï¿½e en paramï¿½tre, comparï¿½ ï¿½ l'aide de la fonction passï¿½e en paramï¿½tre, est trouvï¿½e, alors retourne 1.
 
     param :
-        List *l : pointeur sur la liste où l'on souhaite chercher l'élément.
-        int(*cmpFunc)(DataValue,DataValue) : pointeur sur la fonction permettant de comparer la DataValue passée en paramètre.
-        DataValue dv : élément servant de comparaison pour retrouvé l'élément dans la liste.
+        List *l : pointeur sur la liste oï¿½ l'on souhaite chercher l'ï¿½lï¿½ment.
+        int(*cmpFunc)(DataValue,DataValue) : pointeur sur la fonction permettant de comparer la DataValue passï¿½e en paramï¿½tre.
+        DataValue dv : ï¿½lï¿½ment servant de comparaison pour retrouvï¿½ l'ï¿½lï¿½ment dans la liste.
 **/
 int isInList(const List *l, int(*cmpFunc)(DataValue,DataValue),const DataValue dv);
 
 /**
-    Fonction qui permet de retirer un élément de la liste passée en paramètre en fonction de l'indice passée en paramètre.
-    Retourne l'élément retiré si il a été trouvé.
+    Fonction qui permet de retirer un ï¿½lï¿½ment de la liste passï¿½e en paramï¿½tre en fonction de l'indice passï¿½e en paramï¿½tre.
+    Retourne l'ï¿½lï¿½ment retirï¿½ si il a ï¿½tï¿½ trouvï¿½.
     Si le pointeur sur la liste est NULL, retourne NULL.
     Si la liste est vide, retourne NULL.
-    Si l'indice pasée en paramètre est inférieur à 0 ou supérieur ou égal au nombre d'élément dans la liste, retourne NULL.
-    ind = 0 : retire le première élément de la liste.
+    Si l'indice pasï¿½e en paramï¿½tre est infï¿½rieur ï¿½ 0 ou supï¿½rieur ou ï¿½gal au nombre d'ï¿½lï¿½ment dans la liste, retourne NULL.
+    ind = 0 : retire le premiï¿½re ï¿½lï¿½ment de la liste.
 
     param :
-        List *l : pointeur sur la liste dans laquelle on souhaite retirer l'élément à l'indice demandé.
-        int ind : indice auquel retirer l'élément. Doit être entre 0 et nb éléments-1.
+        List *l : pointeur sur la liste dans laquelle on souhaite retirer l'ï¿½lï¿½ment ï¿½ l'indice demandï¿½.
+        int ind : indice auquel retirer l'ï¿½lï¿½ment. Doit ï¿½tre entre 0 et nb ï¿½lï¿½ments-1.
 
 **/
 ListNode *removeElementByIndex(List *l, int ind);
 
 /**
-    Fonction qui permet de récupérer l'index d'un élément de la liste.
+    Fonction qui permet de rï¿½cupï¿½rer l'index d'un ï¿½lï¿½ment de la liste.
     Si le pointeur de la liste ou le pointeur de la fonction de comparaison est NULL, alors retourne -1.
-    Si l'élément n'est pas dans la liste, alors retourne -1.
+    Si l'ï¿½lï¿½ment n'est pas dans la liste, alors retourne -1.
 
     param :
-        const List *l : pointeur sur la liste dans laquelle on souhaite savoir l'indice de l'élément.
-        DataValue dv : élément de la liste dont on recherche l'indice.
-        int(*cmpFunc)(DataValue,DataValue) : pointeur sur une fonction permettant de comparer les éléments de la liste.
+        const List *l : pointeur sur la liste dans laquelle on souhaite savoir l'indice de l'ï¿½lï¿½ment.
+        DataValue dv : ï¿½lï¿½ment de la liste dont on recherche l'indice.
+        int(*cmpFunc)(DataValue,DataValue) : pointeur sur une fonction permettant de comparer les ï¿½lï¿½ments de la liste.
 **/
 int getIndex(const List *l, DataValue dv, int(*cmpFunc)(DataValue,DataValue));
 
 /**
-    Fonction qui retire tous les éléments, en les détruisant, de la liste passée en paramètre.
+    Fonction qui retire tous les ï¿½lï¿½ments, en les dï¿½truisant, de la liste passï¿½e en paramï¿½tre.
     Si le pointeur sur la liste est NULL, ne fait rien.
-    Si le pointeur sur la fonction est NULL, ne détruit pas chaque élément mais les retire.
+    Si le pointeur sur la fonction est NULL, ne dï¿½truit pas chaque ï¿½lï¿½ment mais les retire.
 
     param :
-        List *l : paramètre de sortie, pointeur sur la liste où l'on souhaite retirer et détruire chaque élément.
-        void(*removeFunc)(DataValue dv) : pointeur sur la fonction permettant de détruire un élément de la liste.
+        List *l : paramï¿½tre de sortie, pointeur sur la liste oï¿½ l'on souhaite retirer et dï¿½truire chaque ï¿½lï¿½ment.
+        void(*removeFunc)(DataValue dv) : pointeur sur la fonction permettant de dï¿½truire un ï¿½lï¿½ment de la liste.
 **/
 void removeAllElements(List *l,void(*removeFunc)(DataValue dv));
 
