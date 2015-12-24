@@ -107,17 +107,17 @@ int main(int argc, char **argv)
 			{
 				if(alreadyOne)
 				{
-					printf("%s",ERROUTPUT);
+					printf("%s\n",ERROUTPUT);
 				}
 				/* test si le fichier existe */
 				else if((outputFile = fopen(*argv,"r")) != NULL)
 				{
 					fclose(outputFile);
-					printf("%s",ERROUTPUT);
+					printf("%s\n",ERROUTPUT);
 				}
 				else if((outputFile = fopen(*argv,"w+")) == NULL)
 				{
-					printf("%s",ERROUTPUT);
+					printf("%s\n",ERROUTPUT);
 				}
 				else if(outputFile)
 				{
@@ -739,14 +739,20 @@ static void interpretationClavier(List *listeTables, FILE *outputFile)
     do
 	{
 		printf("=> ");
+		if(outputFile)
+			fprintf(outputFile,"=> ");
 		commande = malloc(sizeof(char) * MAXCARACSAISIE);
 		testerPointeur(commande);
 		k = lireLigneES(commande,MAXCARACSAISIE);
+		if(outputFile)
+			fprintf(outputFile,"%s\n",commande);
 		erreurSaisie = 0;
 		if(k == 2)
 		{
 			erreurSaisie = 1;
 			printf("Erreur lors de la saisie.\n");
+			if(outputFile)
+				fprintf(outputFile,"Erreur lors de la saisie.\n");
 			free(commande);
 			continue;
 		}
@@ -754,6 +760,8 @@ static void interpretationClavier(List *listeTables, FILE *outputFile)
 		{
 			erreurSaisie = 1;
 			printf("Erreur : la saisie est limitee a %d caracteres.\n",MAXCARACSAISIE);
+			if(outputFile)
+				fprintf(outputFile,"Erreur : la saisie est limitee a %d caracteres.\n");
 			free(commande);
 			continue;
 		}
