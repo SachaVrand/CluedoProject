@@ -19,7 +19,7 @@ void addCol(Table *table, const char *nomCol, TypeElement type)
 
     dvNewCol = createCol(nomCol,type);
     addAsLast(table->listeColonne,dvNewCol);
-    /* si la table contenait déjà des tuples, on ajoute la donnée NULL à chaque tuple */
+    /* si la table contenait dï¿½jï¿½ des tuples, on ajoute la donnï¿½e NULL ï¿½ chaque tuple */
     if(table->listeTuple->nbElem != 0)
     {
         ListNode *courant = table->listeTuple->first;
@@ -52,18 +52,24 @@ int compareCol(const DataValue dv1,const DataValue dv2)
     return mystrcasecmp(dv1.colonne->nom,dv2.colonne->nom);
 }
 
-void displayCol(const DataValue dv)
+void displayCol(const DataValue dv, FILE *outputFile)
 {
     printf("%s(%s)",dv.colonne->nom,getTypeElementToStr(dv.colonne->type));
+    if(outputFile)
+    	fprintf(outputFile,"%s(%s)",dv.colonne->nom,getTypeElementToStr(dv.colonne->type));
 }
 
-void displayAllCols(const List *listeCol)
+void displayAllCols(const List *listeCol, FILE *outputFile)
 {
     if(!listeCol || listeCol->type != COLONNE) return;
 
-    displayList(listeCol,displayCol,SEPCOL);
+    displayList(listeCol,displayCol,SEPCOL, outputFile);
     if(listeCol->nbElem > 0)
+    {
         printf("\n");
+        if(outputFile)
+        	fprintf(outputFile,"\n");
+    }
 }
 
 int removeCol(Table *table, char *nomCol)

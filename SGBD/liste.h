@@ -85,7 +85,7 @@ ListNode* removeElement(List *l, int(*cmpFunc)(DataValue,DataValue),const DataVa
         void(*DisplayFunc)(DataValue) : pointeur sur la fonciton permettant d'afficher un �l�ment de la liste.
         char *sep : s�parateur affich� apr�s chaque affichage d'un �l�ment de la liste.
 **/
-void displayList(const List *l, void(*DisplayFunc)(DataValue), const char *sep);
+void displayList(const List *l, void(*DisplayFunc)(DataValue,FILE *), const char *sep,FILE *outputFile);
 
 /**
     Fonction qui permet de savoir un �l�ment est dans la liste. Si le pointeur sur la liste ou le pointeur sur la fonction est NULL alors retourne 0.

@@ -46,15 +46,15 @@ void destroyTuple(DataValue dv)
     free(dv.tupl);
 }
 
-void displayTuple(const DataValue dv)
+void displayTuple(const DataValue dv, FILE *outputFile)
 {
-    displayList(dv.tupl->listeDonnee,displayDonnee,SEPDONNEETUPLE);
+    displayList(dv.tupl->listeDonnee,displayDonnee,SEPDONNEETUPLE,outputFile);
 }
 
-void displayAllTuples(const List *listeTuple)
+void displayAllTuples(const List *listeTuple, FILE *outputFile)
 {
     if(!listeTuple || listeTuple->type != TUPLE) return;
-    displayList(listeTuple,displayTuple,SEPTUPLES);
+    displayList(listeTuple,displayTuple,SEPTUPLES,outputFile);
 }
 
 void removeDataInTuple(int ind, List *listeTuples)

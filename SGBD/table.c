@@ -39,15 +39,17 @@ int compareTable(const DataValue dv1, const DataValue dv2)
     return mystrcasecmp(dv1.table->nom,dv2.table->nom);
 }
 
-void displayTable(const DataValue dv)
+void displayTable(const DataValue dv,FILE *outputFile)
 {
     printf("%s",dv.table->nom);
+    if(outputFile)
+    	fprintf(outputFile,"%s",dv.table->nom);
 }
 
-void displayAllTables(const List *listeTables)
+void displayAllTables(const List *listeTables,FILE *outputFile)
 {
     if(!listeTables || listeTables->type != TABLE) return;
-    displayList(listeTables,displayTable,SEPTABLES);
+    displayList(listeTables,displayTable,SEPTABLES,outputFile);
 }
 
 int removeTable(List *listeTable, char *nomTable)

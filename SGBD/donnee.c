@@ -29,19 +29,25 @@ Valeur getValeur(TypeElement type, const char *val)
     return res;
 }
 
-void displayDonnee(const DataValue dv)
+void displayDonnee(const DataValue dv, FILE *outputFile)
 {
     if(dv.donnee->type == INT)
     {
         printf("%d",dv.donnee->val.entier);
+        if(outputFile)
+        	fprintf(outputFile,"%d",dv.donnee->val.entier);
     }
     else if(dv.donnee->type == STR)
     {
         printf("%s",dv.donnee->val.chaine);
+        if(outputFile)
+        	fprintf(outputFile,"%s",dv.donnee->val.chaine);
     }
     else if(dv.donnee->type == NULLTYPE)
     {
         printf("%s",dv.donnee->val.chaine);
+        if(outputFile)
+        	fprintf(outputFile,"%s",dv.donnee->val.chaine);
     }
 }
 

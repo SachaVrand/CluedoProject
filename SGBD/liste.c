@@ -79,7 +79,7 @@ void addAsLast(List *l, const DataValue dv)
 	(l->nbElem)++;
 }
 
-void displayList(const List *l, void(*DisplayFunc)(DataValue), const char *sep)
+void displayList(const List *l, void(*DisplayFunc)(DataValue,FILE *), const char *sep, FILE *outputFile)
 {
     ListNode *courant;
 
@@ -88,7 +88,7 @@ void displayList(const List *l, void(*DisplayFunc)(DataValue), const char *sep)
 	courant = l->first;
 	while(courant != NULL)
 	{
-		(*DisplayFunc)(courant->valeur);
+		(*DisplayFunc)(courant->valeur,outputFile);
 		printf("%s",sep);
 		courant = courant->suivant;
 	}

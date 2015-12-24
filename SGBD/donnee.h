@@ -9,46 +9,46 @@ typedef struct s_Donnee{
 }Donnee;
 
 /**
-    Fonction qui permet de récupérer une Valeur en fonction du type et de la chaine de caractères passés en paramètres.
-    Si le type est STR, retourne une Valeur avec un nouveau pointeur sur la chaine passée en paramètre.
-    Si le type est INT, retourne une Valeur avec comme entier la conversion de la chaine de caractères passée en paramètre.
+    Fonction qui permet de rï¿½cupï¿½rer une Valeur en fonction du type et de la chaine de caractï¿½res passï¿½s en paramï¿½tres.
+    Si le type est STR, retourne une Valeur avec un nouveau pointeur sur la chaine passï¿½e en paramï¿½tre.
+    Si le type est INT, retourne une Valeur avec comme entier la conversion de la chaine de caractï¿½res passï¿½e en paramï¿½tre.
     Si le type NULLTYPE, retourne une Valeur avec comme chaine un nouveau pointeur sur la chaine de caractere TYPENULLTOSTR.
     Si le type est UNKNOWN retourne une Valeur vide.
-    La chaine de caractère passée en paramètre doit être correcte et convertible.
-    Dans le cas où les paramètres ne serait pas correcte :
+    La chaine de caractï¿½re passï¿½e en paramï¿½tre doit ï¿½tre correcte et convertible.
+    Dans le cas oï¿½ les paramï¿½tres ne serait pas correcte :
         Si le type est INT et que la chaine n'est pas convertible, retourne une valeur avec comme entier 0.
-        Si le type est STR et que la chaine n'est pas correcte (n'est pas entourée de ""), retourne une valeur, avec comme chaine la copie de la chaine passée en paramètre.
+        Si le type est STR et que la chaine n'est pas correcte (n'est pas entourï¿½e de ""), retourne une valeur, avec comme chaine la copie de la chaine passï¿½e en paramï¿½tre.
 
     param :
-        TypeElement type : type de la chaine de caractère passée en paramètre.
-        const char *val : représentation de la Valeur sous forme de chaine de caractères.
+        TypeElement type : type de la chaine de caractï¿½re passï¿½e en paramï¿½tre.
+        const char *val : reprï¿½sentation de la Valeur sous forme de chaine de caractï¿½res.
 **/
 Valeur getValeur(TypeElement type, const char *val);
 
 /**
-    Fonction qui permet d'afficher une donnee à partir d'une DataValue de Donnee.
+    Fonction qui permet d'afficher une donnee ï¿½ partir d'une DataValue de Donnee.
     La DataValue doit contenir une Donnee.
 
     param :
-        DataValue dv : Datavalue contenant une donnee qui doit être affichée, n'est pas modifiée.
+        DataValue dv : Datavalue contenant une donnee qui doit ï¿½tre affichï¿½e, n'est pas modifiï¿½e.
 **/
-void displayDonnee(const DataValue dv);
+void displayDonnee(const DataValue dv, FILE *outputFile);
 
 /**
-    Fonction qui permet de détruire une DataValue contenant une Donnee.
+    Fonction qui permet de dï¿½truire une DataValue contenant une Donnee.
 
     param :
-        DataValue dv : Datavalue qui doit contenir une Donnee à détruire.
+        DataValue dv : Datavalue qui doit contenir une Donnee ï¿½ dï¿½truire.
 **/
 void destroyDonnee(DataValue dv);
 
 /**
-    Fonction qui crée une nouvelle DataValue correspondant à une nouvelle Donnée initialisée et la retourne.
-    Le type passée en paramètre ne peut pas être UNKNOWN.
+    Fonction qui crï¿½e une nouvelle DataValue correspondant ï¿½ une nouvelle Donnï¿½e initialisï¿½e et la retourne.
+    Le type passï¿½e en paramï¿½tre ne peut pas ï¿½tre UNKNOWN.
     Si le pointeur sur le nom de la donnee est NULL, retourne une DataValue vide.
 
     param :
-        const char *valFromStr : pointeur sur la chaine représentant le nom de la nouvelle donnée, n'est pas modifié.
-        TypeElement type : type correspondant à la colonne.
+        const char *valFromStr : pointeur sur la chaine reprï¿½sentant le nom de la nouvelle donnï¿½e, n'est pas modifiï¿½.
+        TypeElement type : type correspondant ï¿½ la colonne.
 **/
 DataValue createDonnee(const char *valFromStr, TypeElement type);
