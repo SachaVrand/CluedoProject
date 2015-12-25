@@ -113,6 +113,7 @@ int main(int argc, char **argv)
 				else if((outputFile = fopen(*argv,"r")) != NULL)
 				{
 					fclose(outputFile);
+					outputFile = NULL;
 					printf("%s\n",ERROUTPUT);
 				}
 				else if((outputFile = fopen(*argv,"w+")) == NULL)
@@ -127,7 +128,7 @@ int main(int argc, char **argv)
     	}
     	else
     	{
-    		printf("ERR : %s\n",ERRUOPT);
+    		printf("ERR : %s %s\n",ERRUOPT, *argv);
     	}
     }
 
@@ -135,7 +136,9 @@ int main(int argc, char **argv)
 
     destroyList(listeTables,destroyTable);
     if(outputFile)
+    {
     	fclose(outputFile);
+    }
     return 0;
 }
 

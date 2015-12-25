@@ -90,6 +90,8 @@ void displayList(const List *l, void(*DisplayFunc)(DataValue,FILE *), const char
 	{
 		(*DisplayFunc)(courant->valeur,outputFile);
 		printf("%s",sep);
+		if(outputFile)
+			fprintf(outputFile,"%s",sep);
 		courant = courant->suivant;
 	}
 }
