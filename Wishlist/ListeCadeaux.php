@@ -34,15 +34,22 @@ class ListeCadeaux
 	
 	public static function addListeCadeaux($connexionBase,$listeCadeaux)
 	{
-		$requete = 'INSERT INTO listecadeaux(idListe,idCadeau,idEvenement,idUser) VALUES(:idListe,:idCadeau,:idEvenement,:idUser)';
+		$requete = 'INSERT INTO listecadeaux(idListe,idEvenement,idUser) VALUES(:idListe,:idEvenement,:idUser)';
 		$res = $connexionBase->getPdo()->prepare($requete);
 		$res->bindValue(':idListe',$listeCadeaux->idListe,PDO::PARAM_INT);
-		$res->bindValue(':idCadeau',$listeCadeaux->idCadeau,PDO::PARAM_INT);
 		$res->bindValue(':idEvenement',$listeCadeaux->idEvenement,PDO::PARAM_INT);
 		$res->bindValue(':idUser',$listeCadeaux->idUser,PDO::PARAM_INT);
 		$res->execute();
 	}
 	
+	public static function addContient($connexionBase,$idListe,$idCadeau)
+	{
+		$requete = 'INSERT INTO contient(idListe,idCadeau) VALUES(:idListe,:idCadeau)';
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':idListe',$idListe,PDO::PARAM_INT);
+		$res->bindValue(':idCadeau',$idCadeau,PDO::PARAM_INT);
+		$res->execute();
+	}
 }
 
 
