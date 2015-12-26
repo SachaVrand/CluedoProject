@@ -1,10 +1,13 @@
 #define SEPCOL " "
+#define SEPTABLECOL "."
 
 /*typedef struct s_Table t_Table;*/
 
 typedef struct s_Colonne{
     char *nom;
     TypeElement type;
+    Valeur defaultValue;
+    TypeElement defaultValueType;
 }Colonne;
 
 /**
@@ -17,7 +20,7 @@ typedef struct s_Colonne{
         const char *nomCol : pointeur sur le nom de la nouvelle colonne, n'est pas modifi�.
         TypeElement type : type des donn�es de la colonne.
 **/
-void addCol(t_Table *table, const char *nomCol, TypeElement type);
+void addCol(t_Table *table, const char *nomCol, TypeElement type, char *defaultValue, TypeElement defaultValueType);
 
 /**
     Fonction qui permet de savoir si la liste de colonnes pass�e en param�tre contient la colonne, identifi�e par le nom pass� en param�tre.
@@ -57,7 +60,9 @@ void displayCol(const DataValue dv,FILE *outputFile);
     param :
         const List *listeCol : pointeur sur une liste de colonnes qui doivent �tre affich�es, n'est pas modifi�e.
 **/
-void displayAllCols(const List *listeCol,FILE *outputFile);
+void displayAllColsFromTables(const List *listeTables,FILE *outputFile);
+
+void displayColsFromTable(const DataValue dv,FILE *outputFile);
 
 /**
     Fonction qui permet de supprimer une colonne d'une table ainsi que toutes les donn�es des tuples, associ�es � cette colonne.
@@ -93,3 +98,5 @@ void destroyCol(DataValue dvCol);
         TypeElement type : type correspondant � la colonne.
 **/
 DataValue createCol(const char *nomCol, TypeElement type);
+
+DataValue createCol2(const char *nomCol, TypeElement type,  char *defaultValue, TypeElement defaultType);

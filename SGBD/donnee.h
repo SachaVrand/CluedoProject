@@ -52,3 +52,5 @@ void destroyDonnee(DataValue dv);
         TypeElement type : type correspondant � la colonne.
 **/
 DataValue createDonnee(const char *valFromStr, TypeElement type);
+
+DataValue duplicateDonnee(DataValue dvDonnee);

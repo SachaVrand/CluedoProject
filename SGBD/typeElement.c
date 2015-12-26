@@ -4,8 +4,32 @@
 #include "myString.h"
 #include "liste.h"
 #include "typeElement.h"
+#include "donnee.h"
 #include "colonne.h"
 
+TypeElement getTypeElementOf(const char *value)
+{
+	if(!mystrcasecmp(value,NULLTYPETOSTR))
+	{
+		return NULLTYPE;
+	}
+	else if(strcmp(value,"0") ==  0)
+	{
+		return INT;
+	}
+	else if(atoi(value) != 0)
+	{
+		return INT;
+	}
+	else if(*value == '"' && value[strlen(value) - 1] == '"')
+	{
+		return STR;
+	}
+	else
+	{
+		return UNKNOWN;
+	}
+}
 
 TypeElement getTypeElementFromStr(const char *type)
 {

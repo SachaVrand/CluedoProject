@@ -29,6 +29,8 @@ void addTable(List *listeTables, const char *nomTable);
 **/
 int containsTable(const List *listeTables, char *nomTable);
 
+int containsAllTables(const List *listeTables, char **nomsTables, int nbTables);
+
 /**
     Fonction qui permet de comparer deux Datavalue de tables par rapport aux noms des tables.
     Retourne 0 si les noms sont identiques, -1 si le premier param�tre est inf�rieur dans l'ordre alphab�tique au deuxi�me et 1 si l'inverse.

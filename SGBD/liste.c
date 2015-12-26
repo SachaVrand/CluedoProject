@@ -96,6 +96,26 @@ void displayList(const List *l, void(*DisplayFunc)(DataValue,FILE *), const char
 	}
 }
 
+void displayList2(const List *l, void(*DisplayFunc)(DataValue,FILE *), const char *sep, const char *prefixe, FILE *outputFile)
+{
+	ListNode *courant;
+
+	if(!l || l->first == NULL) return;
+
+	courant = l->first;
+	while(courant != NULL)
+	{
+		printf("%s",prefixe);
+		if(outputFile)
+			fprintf(outputFile,"%s",prefixe);
+		(*DisplayFunc)(courant->valeur,outputFile);
+		printf("%s",sep);
+		if(outputFile)
+			fprintf(outputFile,"%s",sep);
+		courant = courant->suivant;
+	}
+}
+
 int isInList(const List *l, int(*cmpFunc)(DataValue,DataValue),const DataValue dv)
 {
 	int res;
@@ -235,4 +255,30 @@ int getIndex(const List *l, DataValue dv, int(*cmpFunc)(DataValue,DataValue))
         i++;
     }
     return -1;
+}
+
+List *concatenateLists(List **tabLists, int nbLists, DataType typeForNewList, DataValue(*dupFunc)(DataValue))
+{
+	List *new;
+	int i;
+
+	if(!tabLists || nbLists < 1) return NULL;
+
+	new = newList(typeForNewList);
+	for(i = 0; i < nbLists; i++)
+	{
+		List *tmp;
+		ListNode *elt = NULL;
+		tmp = tabLists[i];
+		if(tmp)
+			elt = tmp->first;
+
+		while(elt)
+		{
+			addAsLast(new,(*dupFunc)(elt->valeur));
+			elt = elt->suivant;
+		}
+	}
+
+	return new;
 }

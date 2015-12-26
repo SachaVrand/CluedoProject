@@ -74,3 +74,25 @@ DataValue createDonnee(const char *valFromStr, TypeElement type)
     res.donnee = newDonnee;
     return res;
 }
+
+DataValue duplicateDonnee(DataValue dvDonnee)
+{
+	DataValue res;
+	Valeur newVal;
+	res.donnee = (Donnee *)malloc(sizeof(Donnee));
+	res.donnee->type = dvDonnee.donnee->type;
+
+	if(dvDonnee.donnee->type == INT)
+	{
+		newVal.entier = dvDonnee.donnee->val.entier;
+	}
+	else if(dvDonnee.donnee->type == STR || dvDonnee.donnee->type == NULLTYPE)
+	{
+		newVal.chaine = mystrdup(dvDonnee.donnee->val.chaine);
+	}
+
+	if(dvDonnee.donnee->type != UNKNOWN)
+		res.donnee->val = newVal;
+
+	return res;
+}

@@ -11,15 +11,19 @@
 #include "table.h"
 
 
-void addCol(Table *table, const char *nomCol, TypeElement type)
+void addCol(Table *table, const char *nomCol, TypeElement type, char *defaultValue, TypeElement defaultValueType)
 {
     DataValue dvNewCol;
 
-    if(!table || !nomCol || type == UNKNOWN || type == NULLTYPE)return;
+    if(!table || !nomCol || type == UNKNOWN || type == NULLTYPE || defaultValueType == UNKNOWN)return;
 
-    dvNewCol = createCol(nomCol,type);
+    if(!defaultValue)
+    	dvNewCol = createCol(nomCol,type);
+    else
+    	dvNewCol = createCol2(nomCol,type,defaultValue,defaultValueType);
+
     addAsLast(table->listeColonne,dvNewCol);
-    /* si la table contenait d�j� des tuples, on ajoute la donn�e NULL � chaque tuple */
+    /* si la table contenait d�j� des tuples, on ajoute la donn�e par defaut � chaque tuple */
     if(table->listeTuple->nbElem != 0)
     {
         ListNode *courant = table->listeTuple->first;
@@ -27,7 +31,10 @@ void addCol(Table *table, const char *nomCol, TypeElement type)
         while(courant != NULL)
         {
             DataValue dvDonnee;
-            dvDonnee = createDonnee(NULLTYPETOSTR,NULLTYPE);
+            if(!defaultValue || !mystrcasecmp(NULLTYPETOSTR,defaultValue))
+            	dvDonnee = createDonnee(NULLTYPETOSTR,NULLTYPE);
+            else
+            	dvDonnee = createDonnee(defaultValue,defaultValueType);
             addAsLast(courant->valeur.tupl->listeDonnee,dvDonnee);
             courant = courant->suivant;
         }
@@ -59,12 +66,22 @@ void displayCol(const DataValue dv, FILE *outputFile)
     	fprintf(outputFile,"%s(%s)",dv.colonne->nom,getTypeElementToStr(dv.colonne->type));
 }
 
-void displayAllCols(const List *listeCol, FILE *outputFile)
+void displayColsFromTable(const DataValue dv,FILE *outputFile)
 {
-    if(!listeCol || listeCol->type != COLONNE) return;
+	char *prefixe;
+	prefixe = (char *)malloc((sizeof(char) * strlen(dv.table->nom)) + (strlen(SEPTABLECOL) * sizeof(char)) + 1);
+	prefixe = strcpy(prefixe,dv.table->nom);
+	prefixe = strcat(prefixe,SEPTABLECOL);
+	displayList2(dv.table->listeColonne,displayCol,SEPCOL,prefixe,outputFile);
+	free(prefixe);
+}
 
-    displayList(listeCol,displayCol,SEPCOL, outputFile);
-    if(listeCol->nbElem > 0)
+void displayAllColsFromTables(const List *listeTables, FILE *outputFile)
+{
+    if(!listeTables || listeTables->type != TABLE) return;
+
+    displayList(listeTables,displayColsFromTable,"",outputFile);
+    if(listeTables->nbElem > 0)
     {
         printf("\n");
         if(outputFile)
@@ -101,6 +118,8 @@ int removeCol(Table *table, char *nomCol)
 void destroyCol(DataValue dvCol)
 {
     free(dvCol.colonne->nom);
+    if(dvCol.colonne->defaultValueType == NULLTYPE || dvCol.colonne->defaultValueType == STR)
+    	free(dvCol.colonne->defaultValue.chaine);
     free(dvCol.colonne);
 }
 
@@ -115,6 +134,25 @@ DataValue createCol(const char *nomCol, TypeElement type)
     testerPointeur(newCol);
     newCol->nom = mystrdup(nomCol);
     newCol->type = type;
+    newCol->defaultValue = getValeur(NULLTYPE,"");
+    newCol->defaultValueType = NULLTYPE;
+    res.colonne = newCol;
+    return res;
+}
+
+DataValue createCol2(const char *nomCol, TypeElement type, char *defaultValue, TypeElement defaultType)
+{
+    DataValue res;
+    Colonne *newCol;
+
+    if(type == UNKNOWN || type == NULLTYPE || !nomCol) return res;
+
+    newCol = malloc(sizeof(Colonne));
+    testerPointeur(newCol);
+    newCol->nom = mystrdup(nomCol);
+    newCol->type = type;
+    newCol->defaultValue = getValeur(defaultType,defaultValue);
+    newCol->defaultValueType = defaultType;
     res.colonne = newCol;
     return res;
 }

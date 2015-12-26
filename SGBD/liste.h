@@ -87,6 +87,8 @@ ListNode* removeElement(List *l, int(*cmpFunc)(DataValue,DataValue),const DataVa
 **/
 void displayList(const List *l, void(*DisplayFunc)(DataValue,FILE *), const char *sep,FILE *outputFile);
 
+void displayList2(const List *l, void(*DisplayFunc)(DataValue,FILE *), const char *sep, const char *prefixe, FILE *outputFile);
+
 /**
     Fonction qui permet de savoir un �l�ment est dans la liste. Si le pointeur sur la liste ou le pointeur sur la fonction est NULL alors retourne 0.
     Si la liste est vide retourne 0. Si aucun �l�ment correspondant n'est trouv� alors retourne 0.
@@ -139,3 +141,5 @@ void removeAllElements(List *l,void(*removeFunc)(DataValue dv));
 
 /** Ne pas utiliser pour le moment **/
 List *satisfyingSubList(List *l, SatisfyingFunc sf);
+
+List *concatenateLists(List **tabLists, int nbLists, DataType typeForNewList, DataValue(*dupFunc)(DataValue));

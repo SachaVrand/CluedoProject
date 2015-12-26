@@ -47,6 +47,8 @@ void displayTuple(const DataValue dv, FILE *outputFile);
 **/
 void displayAllTuples(const List *listeTuple, FILE *outputFile);
 
+void displayAllTuplesFromTables(t_Table **tabTables, FILE *outputFile);
+
 /**
     Fonction qui permet d'enlever une donn�e dans chaque tuples en fonction d'un indice apr�s la suppression d'une colonne.
     Si le pointeur sur la liste de tuple est NULL ou la liste n'est pas de type TUPLE, cette fonction ne fait rien.
@@ -61,3 +63,7 @@ void removeDataInTuple(int ind, List *listeTuples);
     Fonction qui cr�e une nouvelle DataValue correspondant � un nouveau tuple initialis� et la retourne.
 **/
 DataValue createTuple();
+
+void concatenateTuples(List *listeTuplesDest, List *listeTuples2);
+
+DataValue duplicateTuple(DataValue dvTuple);

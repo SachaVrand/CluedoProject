@@ -34,6 +34,21 @@ int containsTable(const List *listeTables, char *nomTable)
     return res;
 }
 
+int containsAllTables(const List *listeTables, char **nomsTables, int nbTables)
+{
+	int i;
+	if(!listeTables || (listeTables->type != TABLE) || !nomsTables)return 0;
+
+	for(i=0;i<nbTables;i++)
+	{
+		if(!containsTable(listeTables,nomsTables[i]))
+		{
+			return 0;
+		}
+	}
+	return 1;
+}
+
 int compareTable(const DataValue dv1, const DataValue dv2)
 {
     return mystrcasecmp(dv1.table->nom,dv2.table->nom);

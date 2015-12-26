@@ -39,6 +39,8 @@
 #define ERROUTPUT "ERR_OUTPUT_FILE"
 #define OPTINPUT "-i"
 #define OPTOUTPUT "-o"
+#define DELIMITERMOTS ' '
+#define DELIMITERTABLES '*'
 
 
 static char *str_strip (const char *string);
@@ -342,7 +344,7 @@ static int doCommand(char *commande, List *listeTables, int displayed, FILE *out
 
 	/*Decouper commande*/
 	commandeSansEspacesInutiles = str_strip(commande);
-	tableauDeMots = str_split(commandeSansEspacesInutiles,' ',&nbMots);
+	tableauDeMots = str_split(commandeSansEspacesInutiles,DELIMITERMOTS,&nbMots);
 
 	/*Tester commande*/
 	/*ADD*/
@@ -404,7 +406,7 @@ static int doCommand(char *commande, List *listeTables, int displayed, FILE *out
 					if(displayed)
 						myPrintString(outputFile,2,"ERR : ",ERRNEW);
 				}
-				else if(nbMots > 5)
+				else if(nbMots > 6)
 				{
 					/*TOO MUCH WORDS*/
 					if(displayed)
@@ -426,9 +428,26 @@ static int doCommand(char *commande, List *listeTables, int displayed, FILE *out
 							TypeElement tmpType = getTypeElementFromStr(tableauDeMots[4]);
 							if(tmpType != UNKNOWN && tmpType != NULLTYPE)
 							{
-								addCol(tmpTable,tableauDeMots[3],tmpType);
-								if(displayed)
-									myPrintString(outputFile,1,"OK");
+								char *defaultValue = NULLTYPETOSTR;
+								TypeElement defaultValueType = NULLTYPE;
+
+								if(nbMots == 6 && !isCastableToTypeElement(tableauDeMots[5],tmpType))
+								{
+									/*CANNOT CAST*/
+									if(displayed)
+										myPrintString(outputFile,6,"ERR : ",ERRCC," ",tableauDeMots[5]," to ",tableauDeMots[4]);
+								}
+								else
+								{
+									if(nbMots == 6)
+									{
+										defaultValue = tableauDeMots[5];
+										defaultValueType = getTypeElementOf(tableauDeMots[5]);
+									}
+									addCol(tmpTable,tableauDeMots[3],tmpType,defaultValue,defaultValueType);
+									if(displayed)
+										myPrintString(outputFile,1,"OK");
+								}
 							}
 							else
 							{
@@ -565,14 +584,33 @@ static int doCommand(char *commande, List *listeTables, int displayed, FILE *out
 			}
 			else
 			{
-				if(containsTable(listeTables,tableauDeMots[2]))
+				int nbTables = 0, i;
+				char **tabTables;
+				tabTables = str_split(tableauDeMots[2],DELIMITERTABLES,&nbTables);
+
+				if(containsAllTables(listeTables,tabTables,nbTables))
 				{
-					displayAllCols(getTable(listeTables,tableauDeMots[2])->listeColonne, outputFile);
+					DataValue dv;
+					List *tmpListeTables = newList(TABLE);
+					for(i=0;i<nbTables;i++)
+					{
+						dv.table = getTable(listeTables,tabTables[i]);
+						addAsLast(tmpListeTables,dv);
+					}
+					displayAllColsFromTables(tmpListeTables, outputFile);
+					destroyList(tmpListeTables,NULL);
 				}
 				else
 				{
 					/*UNKNOWN TABLE*/
 					myPrintString(outputFile,4,"ERR : ",ERRUT," ",tableauDeMots[2]);
+				}
+
+				/* desallouer la mémoire */
+				if(tabTables != NULL)
+				{
+					for(i=0;i<nbTables;i++)free(tabTables[i]);
+					free(tabTables);
 				}
 			}
 		}
@@ -591,14 +629,28 @@ static int doCommand(char *commande, List *listeTables, int displayed, FILE *out
 			}
 			else
 			{
-				if(containsTable(listeTables,tableauDeMots[2]))
+				int nbTables = 0, i;
+				char **tabTables;
+				tabTables = str_split(tableauDeMots[2],DELIMITERTABLES,&nbTables);
+
+				if(containsAllTables(listeTables,tabTables,nbTables))
 				{
-					Table *tmp = getTable(listeTables,tableauDeMots[2]);
-					displayAllTuples(tmp->listeTuple, outputFile);
+					Table **tab = malloc(sizeof(Table *) * (nbTables + 1));
+					for(i=0;i<nbTables;tab[i] = getTable(listeTables,tabTables[i]),i++);
+					tab[i] = NULL;
+					displayAllTuplesFromTables(tab,outputFile);
+					free(tab);
 				}
 				else
 				{
 					myPrintString(outputFile,4,"ERR : ",ERRUT," ",tableauDeMots[2]);
+				}
+
+				/* desallouer la mémoire */
+				if(tabTables != NULL)
+				{
+					for(i=0;i<nbTables;i++)free(tabTables[i]);
+					free(tabTables);
 				}
 			}
 		}
@@ -764,7 +816,7 @@ static void interpretationClavier(List *listeTables, FILE *outputFile)
 			erreurSaisie = 1;
 			printf("Erreur : la saisie est limitee a %d caracteres.\n",MAXCARACSAISIE);
 			if(outputFile)
-				fprintf(outputFile,"Erreur : la saisie est limitee a %d caracteres.\n");
+				fprintf(outputFile,"Erreur : la saisie est limitee a %d caracteres.\n",MAXCARACSAISIE);
 			free(commande);
 			continue;
 		}
