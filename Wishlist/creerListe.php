@@ -41,25 +41,23 @@
 		else
 		{
 			//creer et ajoute l'event
-			$evenement = new Evenement(Evenement::getNewId($_SESSION['Connexion']),$_POST['nom'], $_POST['annee'].'-'.$_POST['mois'].'-'.$_POST['jour'], $_POST['commentaire'],$_POST['event'],$user->id);
+			$evenement = new Evenement(Evenement::getNewId($_SESSION['Connexion']),"$_POST[nom]", $_POST['annee'].'-'.$_POST['mois'].'-'.$_POST['jour'], $_POST['commentaire'],$_POST['event'],$user->id);
 			Evenement::addEvent($_SESSION['Connexion'], $evenement);
 			//creer et ajoute la liste de cadeaux
 			$idListe = ListeCadeaux::getNewId($_SESSION['Connexion']);
-			$listeCadeau = new ListeCadeaux($idListe, 'NULL', $evenement->getIdEvenement(), $user->id, 'NULL');
+			$listeCadeau = new ListeCadeaux($idListe, $evenement->getIdEvenement(), $user->id);
 			ListeCadeaux::addListeCadeaux($_SESSION['Connexion'],$listeCadeau);
 			//creer et ajoute les cadeaux et les listeCadeaux
 			foreach($_SESSION['tabCadeaux'] as $element)
 			{
-				$element->setIdCadeau(Cadeau::getNewId($_SESSION['Connexion']));
 				Cadeau::addCadeau($_SESSION['Connexion'],$element);
 				ListeCadeaux::addContient($_SESSION['Connexion'],$idListe,$element->getIdCadeau());
 			}
 			// creer et ajoute l'activit�
 			$activite = new Activite(Activite::getNewId($_SESSION['Connexion']),"cree","une liste");
 			Activite::addActivite($_SESSION['Connexion'],$activite);
-			$activitesListe = new ActivitesListe($activite->idActivite,$user->id,$idListe,'NULL');
-			ActivitesListe::addActivitesListe($_SESSION['Connexion'],$activitesListe);
-			$msg = "La liste a bien été créée.";
+			ActivitesListe::addActivitesListe($_SESSION['Connexion'],$activite->idActivite,$user->id,$idListe);
+			//$msg = "La liste a bien été créée.";
 			$_SESSION['tabCadeaux'] = array();
 		}
 	}

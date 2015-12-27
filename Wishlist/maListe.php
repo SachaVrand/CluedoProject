@@ -7,7 +7,10 @@
 	session_start();
 	$user = $_SESSION['user'];
 	
-	$listesCadeaux = ListeCadeaux::getListesCadeaux($_SESSION['Connexion'], $user)
+	$idListe = $_POST['btnListe'];
+	
+	
+	$tabContients = Contient::getContients($_SESSION['Connexion'],$idListe);
 ?>
 
 
@@ -18,7 +21,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	    <link rel="Stylesheet" type="text/css" href="interfaceAvecMenu.css" />
 		<title>
-			Mes listes
+			Ma liste
 		</title>
 	</head>
 	<body>
@@ -39,19 +42,28 @@
 					<div id="contentAvecMenu">
 						<table id="btnCreerListe">
 							<tr>
-								<td><a href="creerListe.php">Creer une nouvelle liste</a></td>
+								<td><a href="maListe.php">Supprimer la liste</a></td>
 							</tr>
 						</table>
 						<br>
 						<br>
-						<form id="mesListes" method="post" action="maListe.php">
+						<form id="maListe" method="post" action="maListe.php">
 							<?php 
-								echo "<table id=mesListesCadeaux>";
-								foreach($listesCadeaux as $element)
+								echo "<table id=maListeCadeaux>";
+								foreach($tabContients as $element)
 								{
-									$tmpNom = Evenement::getNomBdd($_SESSION['Connexion'],$element->getIdEvent());
-									$tmpId = $element->getId();
-									echo "<tr><td><button class=btnMaListe name=btnListe value=$tmpId onclick=goToList()>$tmpNom</button</td></tr>";
+									$idCadeau = $element->idCadeau;
+									$nomCadeau = Cadeau::getNomBdd($_SESSION['Connexion'], $idCadeau);
+									$nomReserve = Utilisateur::getPseudo($_SESSION['Connexion'], $element->reservePar);
+									if($nomReserve != "")
+									{
+										$nomReserve = "reserve par : $nomReserve";
+										echo "<tr><td>$nomCadeau</td><td><span id=reserve>$nomReserve</span></td><td><button class=btnMaListe name=btnListe value=$idCadeau onclick=goToList()>X</button</td></tr>";
+									}
+									else
+									{
+										echo "<tr><td>$nomCadeau</td><td>$nomReserve</td><td><button class=btnMaListe name=btnListe value=$idCadeau onclick=goToList()>X</button</td></tr>";
+									}
 								}
 								echo "</table>";
 							?>

@@ -25,6 +25,17 @@ class Utilisateur{
 		$this->confidentialite = $confidentialite;
 	}
 	
+	public static function getPseudo($connexionBase,$id)
+	{
+		$requete = 'SELECT pseudo FROM utilisateur WHERE idUser = :id';
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':id',$id,PDO::PARAM_INT);
+		$res->execute();
+		$donnee = $res->fetch();
+		$res->closeCursor();
+		return $donnee['pseudo'];
+	}
+	
 	public function getPermission()
 	{
 		return $this->permission;

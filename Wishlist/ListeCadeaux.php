@@ -2,20 +2,40 @@
 class ListeCadeaux
 {
 	private $idListe;
-	private $idCadeau;
 	private $idEvenement;
 	private $idUser;
-	private $reserverPar;
 	
-	public function __construct($idListe,$idCadeau,$idEvenement,$idUser,$reserverPar)
+	public function __construct($idListe,$idEvenement,$idUser)
 	{
 		$this->idListe = $idListe;
-		$this->idCadeau = $idCadeau;
 		$this->idEvenement = $idEvenement;
 		$this->idUser = $idUser;
-		$this->reserverPar = $reserverPar;
 	}
 	
+	public function getId()
+	{
+		return $this->idListe;
+	}
+	
+	public function getIdEvent()
+	{
+		return $this->idEvenement;
+	}
+	
+	public static function getListesCadeaux($connexionBase, $user)
+	{
+		$requete = "SELECT * FROM listecadeaux WHERE idUser = :id";
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':id',$user->id,PDO::PARAM_INT);
+		$res->execute();
+		$listesCadeaux = array();
+		while($donnees = $res->fetch())
+		{
+			$listesCadeaux[] = new ListeCadeaux($donnees['idListe'], $donnees['idEvenement'], $donnees['idUser']);
+		}
+		$res->closeCursor();
+		return $listesCadeaux;
+	}
 	
 	public static function getNewId($connexionBase)
 	{

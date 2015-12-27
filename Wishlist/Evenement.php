@@ -102,6 +102,16 @@ class Evenement{
 		$res->execute();
 		$res->closeCursor();
 	}
+	
+	public static function getNomBdd($connexionBase, $idEvenement)
+	{
+		$requete = 'SELECT nom FROM evenement WHERE idEvenement = :idEvenement';
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':idEvenement',$idEvenement);
+		$res->execute();
+		$donnee = $res->fetch();
+		return $donnee['nom'];
+	}
 }
 
 ?>

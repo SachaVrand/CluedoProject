@@ -1,11 +1,11 @@
 <?php
 class Cadeau
 {
-	private $idCadeau;
-	private $nom;
-	private $description;
-	private $lien;
-	private $nomType;
+	public $idCadeau;
+	public $nom;
+	public $description;
+	public $lien;
+	public $nomType;
 	
 	public function __construct($idCadeau,$nom,$description,$lien,$nomType)
 	{
@@ -77,15 +77,26 @@ class Cadeau
 	
 	public static function addCadeau($connexionBase,$cadeau)
 	{
-		$requete = 'INSERT INTO cadeau VALUES(:idCadeau,:nom,:description,:lien,:type)';
+		$requete = 'INSERT INTO cadeau VALUES(:idCadeau, :nom, :description, :lien, :type)';
 		$res = $connexionBase->getPdo()->prepare($requete);
-		$res->bindValue(':idCadeau',$cadeau->idCadeau,PDO::PARAM_INT);
-		$res->bindValue(':nom',$cadeau->nom,PDO::PARAM_STR);
-		$res->bindValue(':description',$cadeau->description,PDO::PARAM_STR);
-		$res->bindValue(':lien',$cadeau->lien,PDO::PARAM_STR);
-		$res->bindValue(':type',$cadeau->nomType,PDO::PARAM_STR);
+		$res->bindValue(':idCadeau',Cadeau::getNewId($connexionBase));
+		$res->bindValue(':nom',$cadeau->nom);
+		$res->bindValue(':description',$cadeau->description);
+		$res->bindValue(':lien',$cadeau->lien);
+		$res->bindValue(':type',$cadeau->nomType);
 		$res->execute();
 		$res->closeCursor();
+	}
+	
+	public static function getNomBdd($connexionBase,$id)
+	{
+		$requete = 'SELECT nom FROM cadeau WHERE idCadeau = :id';
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':id',$id,PDO::PARAM_INT);
+		$res->execute();
+		$donnee = $res->fetch();
+		$res->closeCursor();
+		return $donnee['nom'];
 	}
 }
 
