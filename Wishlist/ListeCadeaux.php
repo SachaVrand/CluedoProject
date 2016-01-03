@@ -24,7 +24,7 @@ class ListeCadeaux
 	
 	public static function getListesCadeaux($connexionBase, $user)
 	{
-		$requete = "SELECT * FROM listecadeaux WHERE idUser = :id";
+		$requete = "SELECT * FROM listecadeaux WHERE idUser = :id AND isDelete = 0";
 		$res = $connexionBase->getPdo()->prepare($requete);
 		$res->bindValue(':id',$user->id,PDO::PARAM_INT);
 		$res->execute();
@@ -54,11 +54,12 @@ class ListeCadeaux
 	
 	public static function addListeCadeaux($connexionBase,$listeCadeaux)
 	{
-		$requete = 'INSERT INTO listecadeaux(idListe,idEvenement,idUser) VALUES(:idListe,:idEvenement,:idUser)';
+		$requete = 'INSERT INTO listecadeaux VALUES(:idListe,:idEvenement,:idUser,:isDelete)';
 		$res = $connexionBase->getPdo()->prepare($requete);
 		$res->bindValue(':idListe',$listeCadeaux->idListe,PDO::PARAM_INT);
 		$res->bindValue(':idEvenement',$listeCadeaux->idEvenement,PDO::PARAM_INT);
 		$res->bindValue(':idUser',$listeCadeaux->idUser,PDO::PARAM_INT);
+		$res->bindValue(':isDelete',0,PDO::PARAM_INT);
 		$res->execute();
 	}
 	
@@ -69,6 +70,25 @@ class ListeCadeaux
 		$res->bindValue(':idListe',$idListe,PDO::PARAM_INT);
 		$res->bindValue(':idCadeau',$idCadeau,PDO::PARAM_INT);
 		$res->execute();
+	}
+	
+	public static function delListe($connexionBase,$idListe)
+	{
+		$requete = 'UPDATE listeCadeaux SET isDelete = 1 WHERE idListe = :idListe';
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':idListe',$idListe,PDO::PARAM_INT);
+		$res->execute();
+	}
+	
+	public static function getIdEvenementBdd($connexionBase,$idListe)
+	{
+		$requete = "SELECT idEvenement FROM listeCadeaux WHERE idListe = :idListe";
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':idListe',$idListe,PDO::PARAM_INT);
+		$res->execute();
+		$donnee = $res->fetch();
+		$res->closeCursor();
+		return $donnee['idEvenement'];
 	}
 }
 

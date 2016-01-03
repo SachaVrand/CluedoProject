@@ -103,28 +103,33 @@
 				<td>
 					<div id="sousMenu">
 						<ul>
-							<li><a href="#">Not implemented</a></li>
+							<li>
+								<lu>
+									<li><a href="#">2015</a></li>
+									<li><a href="#">2016</a></li>
+									<li><a href="#">2017</a></li>
+								</lu>
+							</li>
 						</ul>
 					</div>
 				</td>
 				<td>
 					<div id="contentAvecMenu">
 						<?php
-							$user = $_SESSION['user'];
-							$date = explode('-', $user->dateNaissance);
+							$date = explode('-', $userToDisplay->dateNaissance);
 							$months = array('janvier','fevrier','mars','avril','mai','juin','juillet','aout','septembre','octobre','novembre','decembre');
 							$month = $date[1]-1;
 							echo 
 							'<table id="tableauInfo">
-								<tr> <td rowspan=2><img src="'.$user->photo.'" /></td> <td colspan=2>'.$user->pseudo.'</td> </tr>
-								<tr> <td>'.$user->nom.' '.$user->prenom.'</td> <td></td> </tr>
+								<tr> <td rowspan=2><img src="'.$userToDisplay->photo.'" /></td> <td colspan=2>'.$userToDisplay->pseudo.'</td> </tr>
+								<tr> <td>'.$userToDisplay->nom.' '.$userToDisplay->prenom.'</td> <td></td> </tr>
 							</table>'.
 							'<br>'.
-							'<span class="enGras">Ville : </span>'.$user->ville.
+							'<span class="enGras">Ville : </span>'.$userToDisplay->ville.
 							'<br>'.
 							'<span class="enGras">Naissance : </span>'.$date[2].' '.$months[$month].' '.$date[0].
 							'<br>'.
-							'<span class="enGras">Mail : </span>'.$user->mail.
+							'<span class="enGras">Mail : </span>'.$userToDisplay->mail.
 							'<br><br>';		
 						?>
 						

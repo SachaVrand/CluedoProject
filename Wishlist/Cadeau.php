@@ -79,7 +79,7 @@ class Cadeau
 	{
 		$requete = 'INSERT INTO cadeau VALUES(:idCadeau, :nom, :description, :lien, :type)';
 		$res = $connexionBase->getPdo()->prepare($requete);
-		$res->bindValue(':idCadeau',Cadeau::getNewId($connexionBase));
+		$res->bindValue(':idCadeau',$cadeau->idCadeau);
 		$res->bindValue(':nom',$cadeau->nom);
 		$res->bindValue(':description',$cadeau->description);
 		$res->bindValue(':lien',$cadeau->lien);
@@ -97,6 +97,14 @@ class Cadeau
 		$donnee = $res->fetch();
 		$res->closeCursor();
 		return $donnee['nom'];
+	}
+	
+	public static function delCadeau($connexionBase,$idCadeau)
+	{
+		$requete = "DELETE FROM cadeau WHERE idCadeau = :idCadeau";
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':idCadeau',$idCadeau,PDO::PARAM_INT);
+		$res->execute();
 	}
 }
 

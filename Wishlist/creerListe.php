@@ -8,7 +8,7 @@
 	$user = $_SESSION['user'];
 	
 	$nomEvent = "";
-	$event = "";
+	$event = "Autre";
 	$jour = "";
 	$mois = "";
 	$annee = "";
@@ -36,7 +36,7 @@
 			$mois = $_POST['mois'];
 			$annee = $_POST['annee'];
 			$commentaire = $_POST['commentaire'];
-			$erreur = "La date de l'évènement est incorrecte.";
+			$erreur = "La date de l'evenement est incorrecte.";
 		}
 		else
 		{
@@ -50,6 +50,7 @@
 			//creer et ajoute les cadeaux et les listeCadeaux
 			foreach($_SESSION['tabCadeaux'] as $element)
 			{
+				$element->idCadeau = Cadeau::getNewId($_SESSION['Connexion']);
 				Cadeau::addCadeau($_SESSION['Connexion'],$element);
 				ListeCadeaux::addContient($_SESSION['Connexion'],$idListe,$element->getIdCadeau());
 			}
@@ -57,7 +58,7 @@
 			$activite = new Activite(Activite::getNewId($_SESSION['Connexion']),"cree","une liste");
 			Activite::addActivite($_SESSION['Connexion'],$activite);
 			ActivitesListe::addActivitesListe($_SESSION['Connexion'],$activite->idActivite,$user->id,$idListe);
-			//$msg = "La liste a bien été créée.";
+			$msg = "La liste a bien ete creee.";
 			$_SESSION['tabCadeaux'] = array();
 		}
 	}
@@ -153,7 +154,7 @@
 								<tr>
 									<td>
 									Nom : 
-										<input type="text" name="nom" value=<?php echo "$nomEvent"; ?>>
+										<input type="text" name="nom" value=<?php echo "\"$nomEvent\""; ?>>
 									</td>
 								</tr>
 								<tr>
@@ -166,11 +167,11 @@
 													{
 														if($event != $typeEvent)
 														{
-															echo "<option value=$typeEvent> $typeEvent </option>";
+															echo "<option value=\"$typeEvent\"> $typeEvent </option>";
 														}
 														else
 														{
-															echo "<option value=$typeEvent selected=selected> $typeEvent </option>";
+															echo "<option value=\"$typeEvent\" selected=selected> $typeEvent </option>";
 														}
 													}
 											?>
@@ -193,11 +194,11 @@
 												{
 													if($jour != $i)
 													{
-														echo "<option value=$i> $i </option>";
+														echo "<option value=\"$i\"> $i </option>";
 													}
 													else
 													{
-														echo "<option value=$i selected=selected> $i </option>";
+														echo "<option value=\"$i\" selected=selected> $i </option>";
 													}
 												}
 											?>
@@ -209,11 +210,11 @@
 												{
 													if($mois != $i)
 													{
-														echo "<option value=$i> $i </option>";
+														echo "<option value=\"$i\"> $i </option>";
 													}
 													else
 													{
-														echo "<option value=$i selected=selected> $i </option>";
+														echo "<option value=\"$i\" selected=selected> $i </option>";
 													}
 												}
 											?>
@@ -226,11 +227,11 @@
 												{
 													if($annee != $i)
 													{
-														echo "<option value=$i> $i </option>";
+														echo "<option value=\"$i\"> $i </option>";
 													}
 													else
 													{
-														echo "<option value=$i selected=selected> $i </option>";
+														echo "<option value=\"$i\" selected=selected> $i </option>";
 													}
 												}
 											?>
@@ -265,7 +266,7 @@
 												$tabTypeCadeaux = Cadeau::getTypeCadeaux($_SESSION['Connexion']);
 												foreach($tabTypeCadeaux as $typeCadeau)
 												{
-													echo "<option value=$typeCadeau> $typeCadeau </option>";
+													echo "<option value=\"$typeCadeau\">$typeCadeau</option>";
 												}
 										?>
 									</select>
@@ -286,7 +287,7 @@
 								</tr>
 								<tr>
 									<td>
-									<input type="submit" name="addCadeau" value="Ajouter">
+									<input type="submit" class="btnValidation" name="addCadeau" value="Ajouter">
 									</td>
 								</tr>
 							</table>
@@ -301,7 +302,7 @@
 									foreach($_SESSION['tabCadeaux'] as $cle => $element)
 									{
 										$tmpNom = $element->getNom();
-										echo "<tr><td>$tmpNom</td><td><button class=btnSupCadeau name=btnSup value=$cle onclick=supCadeau()>X</button</td></tr>";
+										echo "<tr><td>$tmpNom</td><td><button class=btnSupCadeau name=btnSup value=$cle onclick=supCadeau()>X</button></td></tr>";
 									}
 									echo "</table>";
 								?>
@@ -314,7 +315,7 @@
 							<br>
 							<br>
 							<br>
-							<input type="submit" name="addListe" value="Creer liste">
+							<input type="submit" class="btnValidation" name="addListe" value="Creer liste">
 						</form>
 					</div>
 				</td>

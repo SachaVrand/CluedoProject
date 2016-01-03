@@ -26,5 +26,28 @@ class Contient
 		$res->closeCursor();
 		return $tabContients;
 	}
+	
+	public static function delContient($connexionBase,$idCadeau)
+	{
+		$requete = "DELETE FROM contient WHERE idCadeau = :idCadeau";
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':idCadeau',$idCadeau,PDO::PARAM_INT);
+		$res->execute();
+	}
+	
+	public static function getIdCadeaux($connexionBase,$idListe)
+	{
+		$requete = "SELECT idCadeau FROM contient WHERE idListe = :idListe";
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':idListe',$idListe,PDO::PARAM_INT);
+		$res->execute();
+		$tabIdCadeaux = array();
+		while($donnees = $res->fetch())
+		{
+			$tabIdCadeaux[] = $donnees['idCadeau'];
+		}
+		$res->closeCursor();
+		return $tabIdCadeaux;
+	}
 }
 ?>

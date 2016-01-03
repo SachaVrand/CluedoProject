@@ -112,6 +112,31 @@ class Evenement{
 		$donnee = $res->fetch();
 		return $donnee['nom'];
 	}
+	
+	public static function getEvent($connexionBase, $idEvenement)
+	{
+		$requete = "SELECT * FROM evenement WHERE idEvenement = :idEvenement";
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':idEvenement',$idEvenement,PDO::PARAM_INT);
+		$res->execute();
+		$donnee = $res->fetch();
+		$res->closeCursor();
+		$evenement = new Evenement($donnee['idEvenement'], $donnee['nom'], $donnee['dateLimite'], $donnee['commentaire'], $donnee['nomType'], $donnee['idUser']);
+		return $evenement;
+	}
+	
+	public static function updateEvent($connexionBase, $evenement)
+	{
+		$requete = 'UPDATE evenement SET nom = :nom, dateLimite = :dateLimite, commentaire = :commentaire, nomType = :nomType WHERE idEvenement = :idEvenement';
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':idEvenement',$evenement->idEvenement,PDO::PARAM_INT);
+		$res->bindValue(':nom',$evenement->nom,PDO::PARAM_STR);
+		$res->bindValue(':dateLimite',$evenement->dateLimite,PDO::PARAM_STR);
+		$res->bindValue(':commentaire',$evenement->commentaire,PDO::PARAM_STR);
+		$res->bindValue(':nomType',$evenement->nomType,PDO::PARAM_STR);
+		$res->execute();
+		$res->closeCursor();
+	}
 }
 
 ?>
