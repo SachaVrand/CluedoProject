@@ -1,3 +1,10 @@
+<?php
+	if($_SERVER['REQUEST_URI'] == '/ProjectL3I/Wishlist/menuPrincipal.php')
+	{
+		exit;
+	}
+?>
+
 <header id="headerMenu">
 	<br />
 	<form method="get" action="searchUser.php">

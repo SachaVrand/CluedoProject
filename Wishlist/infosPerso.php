@@ -6,6 +6,10 @@
 	}
 	spl_autoload_register('chargerClasse');
 	session_start();
+	if(!$_SESSION['user'])
+	{
+		header("Location: pageConnexion.php");
+	}
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fr">

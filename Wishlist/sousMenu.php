@@ -1,3 +1,9 @@
+<?php
+	if($_SERVER['REQUEST_URI'] == '/ProjectL3I/Wishlist/sousMenu.php')
+	{
+		exit;
+	}
+?>
 <div id="sousMenu">
 	<ul>
 		<li><a href="infosPerso.php">Informations</a></li>

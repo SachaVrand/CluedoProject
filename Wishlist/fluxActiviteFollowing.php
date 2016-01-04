@@ -5,6 +5,10 @@
 	}
 	spl_autoload_register('chargerClasse');
 	session_start();
+	if(!$_SESSION['user'])
+	{
+		header("Location: pageConnexion.php");
+	}
 ?>
 
 <!DOCTYPE html>
@@ -13,7 +17,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="Content-Language" content="fr" />
 	    <link rel="Stylesheet" type="text/css" href="interfaceAvecMenu.css" />
-		<title>Flux d'actualités</title>
+		<title>Flux d'actualitï¿½s</title>
 	</head>
 	
 	<body>

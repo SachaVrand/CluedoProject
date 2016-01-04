@@ -5,6 +5,10 @@
 	}
 	spl_autoload_register('chargerClasse');
 	session_start();
+	if(!$_SESSION['user'])
+	{
+		header("Location: pageConnexion.php");
+	}
 	$user = $_SESSION['user'];
 	
 	$listesCadeaux = ListeCadeaux::getListesCadeaux($_SESSION['Connexion'], $user)
