@@ -47,7 +47,7 @@
 					echo "<tr><td><hr></td></tr>";
 					if(!$notifcationsReservations)
 					{
-						echo "<tr><td>Aucune notifications de reservation.</td></tr>";
+						echo "<tr><td>Aucune notification de reservation.</td></tr>";
 					}
 					else 
 					{
