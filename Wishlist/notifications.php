@@ -16,7 +16,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="Content-Language" content="fr" />
 	    <link rel="Stylesheet" type="text/css" href="interfaceAvecMenu.css" />
-		<title>Flux d'actualit�s</title>
+		<title>Flux d'actualités</title>
 	</head>
 	
 	<body>
@@ -35,26 +35,26 @@
 				<?php
 					if(!$notificationEvenements)
 					{
-						echo "<tr><td>Aucune notification d'evenement.</td></tr>";
+						echo "<tr><td>Aucune notification d'évènement.</td></tr>";
 					}
 					else
 					{
 						foreach($notificationEvenements as $v)
 						{
-							echo "<tr><td>Ajourd'hui c'est l'evenement ".htmlspecialchars($v[1]).' de <a href="searchUser.php?user='.htmlspecialchars($v[0]).'">'.htmlspecialchars($v[0]).'</a> </td></tr>';
+							echo "<tr><td>Aujourd'hui c'est l'évènement ".htmlspecialchars($v[1]).' de <a href="searchUser.php?user='.htmlspecialchars($v[0]).'">'.htmlspecialchars($v[0]).'</a> </td></tr>';
 						}	
 					}
 					echo "<tr><td><hr></td></tr>";
 					if(!$notifcationsReservations)
 					{
-						echo "<tr><td>Aucune notification de reservation.</td></tr>";
+						echo "<tr><td>Aucune notification de réservation.</td></tr>";
 					}
 					else 
 					{
 						foreach($notifcationsReservations as $activiteListe)
 						{
 							$userWhoReserved = Utilisateur::getUserById($_SESSION['Connexion'], $activiteListe->idReservePar);
-							echo '<tr><td><a href="searchUser.php?user='.htmlspecialchars($userWhoReserved->pseudo).'">'.htmlspecialchars($userWhoReserved->pseudo).'</a> '.htmlspecialchars($activiteListe->activite->nomType).' '.htmlspecialchars($activiteListe->activite->nomObjet)." pour l'evenement <a href=\"listesUser.php?idListe=$activiteListe->idListe\">".htmlspecialchars($activiteListe->activite->nomEvenement).'</a> de <a href="searchUser.php?user='.htmlspecialchars($activiteListe->pseudoUser).'">'.htmlspecialchars($activiteListe->pseudoUser).'</a></td></tr>';
+							echo '<tr><td><a href="searchUser.php?user='.htmlspecialchars($userWhoReserved->pseudo).'">'.htmlspecialchars($userWhoReserved->pseudo).'</a> '.htmlspecialchars($activiteListe->activite->nomType).' '.htmlspecialchars($activiteListe->activite->nomObjet)." pour l'évènement <a href=\"listesUser.php?idListe=$activiteListe->idListe\">".htmlspecialchars($activiteListe->activite->nomEvenement).'</a> de <a href="searchUser.php?user='.htmlspecialchars($activiteListe->pseudoUser).'">'.htmlspecialchars($activiteListe->pseudoUser).'</a></td></tr>';
 						}
 					}
 				?>

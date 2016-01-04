@@ -78,7 +78,7 @@
 						<td><input name="pseudoExp" type="text" readonly="readonly" required="required" value="<?php echo htmlspecialchars($_GET['pseudoExp']);?>"></td>
 					</tr>
 					<tr>
-						<td><input name="entete" type="text" placeholder="Entete" required="required"></td>
+						<td><input name="entete" type="text" placeholder="Entête" required="required"></td>
 					</tr>
 					<tr>
 						<td><textarea name="message" rows=6 cols=50 maxlength="300" placeholder="Message" required="required"></textarea></td>

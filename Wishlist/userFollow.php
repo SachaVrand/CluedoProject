@@ -78,7 +78,7 @@
 										<td><a href="searchUser.php?user='.htmlspecialchars($v).'">'.htmlspecialchars($v).'</a></td>
 										<form method="post" action="userFollow.php">
 											<input type="hidden" name="hiddenUserRest" value="'.$k.'">
-											<td><input type="submit" name="submitRest" value="Restreindre acces"></td>
+											<td><input type="submit" name="submitRest" value="Restreindre accès"></td>
 										</form>
 									</tr>';
 								}

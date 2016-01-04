@@ -79,7 +79,7 @@
 		
 		if($_POST['jour'] === "" || $_POST['mois'] === "" || $_POST['annee'] === "")
 		{
-			$erreur = "La date de l'evenement est incorrecte.";
+			$erreur = "La date de l'évènement est incorrecte.";
 			$modifEvent = 1;
 		}
 		else
@@ -188,7 +188,7 @@
 						<?php
 							if(isset($_POST['delListe']))
 							{
-								echo "La liste ".htmlspecialchars($nomListe)." a ete supprimee";
+								echo "La liste ".htmlspecialchars($nomListe)." a été supprimée";
 							}
 							else
 							{
@@ -292,10 +292,10 @@
 									}
 									echo "</select>";
 									echo "<script>";
-									echo "function submitEvent()";
-									echo "{";
-									echo "document.getElementById('maListe').submit();";
-									echo "}";
+										echo "function submitEvent()";
+										echo "{";
+											echo "document.getElementById('maListe').submit();";
+										echo "}";
 									echo "</script>";
 									echo "</td></tr>";
 									echo "<tr><td>";

@@ -16,7 +16,7 @@
 		else
 		{
 			Message::newPasswordRequest($_SESSION['Connexion'], $user);
-			$notif = "Un requete a ete envoye a l'administrateur, vous recevrez un nouveau mot de passe sur votre adresse mail.";
+			$notif = "Un requête a été envoyée à l'administrateur, vous recevrez un nouveau mot de passe sur votre adresse mail.";
 		}
 	}
 ?>
@@ -50,7 +50,7 @@
 							echo "<tr><td><h4 style='color:green;font-family: helvetica;'>$notif</td></tr>";
 						}
 					?>
-					<tr><th align="left">Requete</th></tr>
+					<tr><th align="left">Requête</th></tr>
 					<tr><td><input type="text" name="login" required="required" placeholder="Login"><input type="submit" name="submit" value="ok"></td></tr>
 					<tr><td><a href="pageConnexion.php">Retour</a></td></tr>
 				</table>

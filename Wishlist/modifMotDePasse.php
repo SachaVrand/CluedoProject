@@ -18,7 +18,7 @@
 			if($_POST['password'] === $_POST['cpassword'])
 			{
 				Utilisateur::updateUserPassword($_SESSION['Connexion'], $user, $_POST['password']);
-				$notif = 'Votre mot de passe a bien ete modifie.';
+				$notif = 'Votre mot de passe a bien été modifié.';
 			}
 			else
 			{

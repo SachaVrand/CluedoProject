@@ -28,11 +28,11 @@
 		if($res)
 		{
 			$_SESSION['user'] = $newUser;
-			$notif = "Vos informations ont bien ete enregitrees";
+			$notif = "Vos informations ont bien été enregitrées";
 		}
 		else
 		{
-			$existingLogin = 'Un utilisateur possede deja le meme pseudo ou la meme adresse mail.';
+			$existingLogin = 'Un utilisateur possède déjà le même pseudo ou la même adresse mail.';
 		}
 	}
 ?>
@@ -83,7 +83,7 @@
 									<td><input type="text" name="nom" required="required" value="<?php echo htmlspecialchars($user->nom); ?>" ></td>
 								</tr>
 								<tr>
-									<td>Prenom : </td>
+									<td>Prénom : </td>
 									<td><input type="text" name="prenom" required="required" value="<?php echo htmlspecialchars($user->prenom); ?>" ></td>
 								</tr>
 								<tr>

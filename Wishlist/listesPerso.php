@@ -43,7 +43,7 @@
 					<div id="contentAvecMenu">
 						<table id="btnCreerListe">
 							<tr>
-								<td><a href="creerListe.php">Creer une nouvelle liste</a></td>
+								<td><a href="creerListe.php">Créer une nouvelle liste</a></td>
 							</tr>
 						</table>
 						<br>

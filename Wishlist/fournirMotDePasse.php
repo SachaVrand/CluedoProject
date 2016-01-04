@@ -27,7 +27,7 @@
 		else
 		{
 			Utilisateur::newPassordForUser($_SESSION['Connexion'], $userT, $_POST['password']);
-			$notif= 'Changement effectuee';
+			$notif= 'Changement effectué';
 		}
 	}
 ?>
@@ -54,7 +54,7 @@
 					<td></td>
 					<td><a href="creerEvenementAdmin.php">Accueil</a></td>
 					<td><a href="pageMessagerie.php">Messagerie</a></td>
-					<td><a href="deconnexion.php">Deconnexion</a></td>
+					<td><a href="deconnexion.php">Déconnexion</a></td>
 				</tr>
 			</table>
 			</form>

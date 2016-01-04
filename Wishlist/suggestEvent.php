@@ -10,7 +10,7 @@
 	
 	if(isset($_POST['valider']))
 	{
-		Message::newMessage($_SESSION['Connexion'],"Demande d'un nouvel evenement","evenement suggerer : $_POST[typeEvent]",1,$user->id);
+		Message::newMessage($_SESSION['Connexion'],"Demande d'un nouvel évènement","évènement suggérer : $_POST[typeEvent]",1,$user->id);
 	}
 ?>
 
@@ -21,7 +21,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	    <link rel="Stylesheet" type="text/css" href="interfaceAvecMenu.css" />
 		<title>
-			Suggerer
+			Suggérer
 		</title>
 	</head>
 	<body>
@@ -30,7 +30,7 @@
 		?>
 	
 		<div id="titre">
-			Suggerer un evenement
+			Suggérer un évènement
 		</div>
 		
 		<table id="principal">
@@ -43,15 +43,15 @@
 						<?php
 							if(isset($_POST['valider']))
 							{
-								echo "La demande d'evenement a bien ete faite.";
+								echo "La demande d'évènement a bien été faite.";
 							}
 							else
 							{
 								?>
 								<form id="suggest" method="post" action="suggestEvent.php">
 								<table>
-									<tr><td><input type="text" name="typeEvent" placeholder="Type Evenement"></td></tr>
-									<tr><td><input type="submit" class="btnValidation" name="valider" value="Suggerer"></td></tr>
+									<tr><td><input type="text" name="typeEvent" placeholder="Type Évènement"></td></tr>
+									<tr><td><input type="submit" class="btnValidation" name="valider" value="Suggérer"></td></tr>
 								</table>
 							</form>
 							<?php 

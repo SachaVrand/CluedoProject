@@ -21,7 +21,7 @@
 		}
 		else if(Utilisateur::isEmailBanned($_SESSION['Connexion'], $user->mail))
 		{
-			$erreur = 'Vous avez ete banni';
+			$erreur = 'Vous avez été banni';
 		}
 		else
 		{
@@ -66,11 +66,11 @@
 				$res = Utilisateur::addUserToDataBase($_SESSION['Connexion'], $user, $motDePasse);
 				if(!$res)
 				{
-					$existingLoginMail = 'Il existe deja un utilisateur avec le meme login ou adresse mail';
+					$existingLoginMail = 'Il existe deja un utilisateur avec le même login ou adresse mail';
 				}
 				else 
 				{
-					$notif = 'Votre inscription a bien ete pris en compte.';
+					$notif = 'Votre inscription a bien été pris en compte.';
 				}
 			}
 			else
@@ -109,7 +109,7 @@
 					<ul>
 						<li><label class="label">Mot de passe : </label></li>
 						<li><input type="password" name="passwordConnexion" required="required" class="text"></li>
-						<li><a href="formLostPassword.php">Mot de passe oublie ?</a></li>
+						<li><a href="formLostPassword.php">Mot de passe oublié ?</a></li>
 					</ul>
 					<ul>
 						<li><label class="label" style="visibility: hidden">Hmmmmm</label> </li>
@@ -148,7 +148,7 @@
 						<td colspan="2" class="tdInput"><input type="password" name="cpassword" title="confirm password" required="required" placeholder="Entrez a nouveau" class="inputFull"></td>
 					</tr>
 					<tr>
-						<td colspan="1" class="tdInput"><input type="text" name="prenom" required="required" placeholder="Prenom" class="inputFull"></td>
+						<td colspan="1" class="tdInput"><input type="text" name="prenom" required="required" placeholder="Prénom" class="inputFull"></td>
 						<td colspan="1" class="tdInput"><input type="text" name="nom" required="required" placeholder="Nom" class="inputFull"></td>
 					</tr>
 					<tr>

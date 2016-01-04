@@ -22,7 +22,7 @@
 	if(isset($_POST['evenement']))
 	{
 		Evenement::addTypeEvents($_SESSION['Connexion'],$_POST['evenement']);
-		$notif = 'Evenement cree.';
+		$notif = 'Évènement créé.';
 	}
 ?>
 <!DOCTYPE html>
@@ -48,7 +48,7 @@
 					<td></td>
 					<td><a href="creerEvenementAdmin.php">Accueil</a></td>
 					<td><a href="pageMessagerie.php">Messagerie</a></td>
-					<td><a href="deconnexion.php">Deconnexion</a></td>
+					<td><a href="deconnexion.php">Déconnexion</a></td>
 				</tr>
 			</table>
 			</form>
@@ -56,7 +56,7 @@
 		</header>
 	
 		<div id="titre">
-			Creer un nouvel evenement
+			Créer un nouvel évènement
 		</div>
 		
 		<table id="principal">
@@ -74,7 +74,7 @@
 										echo "<tr><td><h4 style='color:green;font-family: helvetica;'>$notif</h4></td></tr>";
 									}
 								?>
-								<tr><td>Nouvel evenement : <input type="text" required="required" name="evenement"> <input type="submit" name="submit" value="creer"></td></tr>
+								<tr><td>Nouvel évènement : <input type="text" required="required" name="evenement"> <input type="submit" name="submit" value="créer"></td></tr>
 							</table>
 						</form>
 					</div>

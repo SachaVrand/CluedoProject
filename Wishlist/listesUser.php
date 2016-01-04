@@ -109,7 +109,7 @@
 							<td></td>
 							<td><a href="creerEvenementAdmin.php">Accueil</a></td>
 							<td><a href="pageMessagerie.php">Messagerie</a></td>
-							<td><a href="deconnexion.php">Deconnexion</a></td>
+							<td><a href="deconnexion.php">Déconnexion</a></td>
 						</tr>
 					</table>
 					</form>
@@ -131,15 +131,15 @@
 					<?php
 						if(!$userToDisplay)
 						{
-							echo "Aucun utilisateur n'a pu etre trouve";
+							echo "Aucun utilisateur n'a pu être trouvé";
 						}
 						else if($userToDisplay->confidentialite == 1)
 						{
-							echo "L'utilisateur ne souhaite pas que l'on puisse avoir acces a son profil";
+							echo "L'utilisateur ne souhaite pas que l'on puisse avoir accès à son profil";
 						}
 						else if(Utilisateur::isRestrict($_SESSION['Connexion'], $user, $userToDisplay))
 						{
-							echo "L'utilisateur ne souhaite pas que vous puissiez acceder a son profil.";
+							echo "L'utilisateur ne souhaite pas que vous puissiez accéder à son profil.";
 						}
 					?>
 					</div>
@@ -170,7 +170,7 @@
 										// les annees
 										echo "<tr><td>";
 											echo "<select name=annee onchange=submitPage()>";
-												echo "<option value=Annee selected=selected> Annee </option>";
+												echo "<option value=Annee selected=selected> Année </option>";
 												$tabAnnees = Evenement::getYears($_SESSION['Connexion'],$userToDisplay->id);
 												foreach($tabAnnees as $element)
 												{
@@ -242,12 +242,12 @@
 										}
 										else
 										{
-											echo "Cette liste ne possède aucun cadeaux";
+											echo "Cette liste ne possède aucun cadeau";
 										}
 									}
 									else
 									{
-										echo "Aucune liste selectionnee";
+										echo "Aucune liste selectionnée";
 									}
 									echo "<script>";
 									echo "function submitPage()";

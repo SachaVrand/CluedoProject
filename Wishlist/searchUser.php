@@ -57,7 +57,7 @@
 							<td></td>
 							<td><a href="creerEvenementAdmin.php">Accueil</a></td>
 							<td><a href="pageMessagerie.php">Messagerie</a></td>
-							<td><a href="deconnexion.php">Deconnexion</a></td>
+							<td><a href="deconnexion.php">Déconnexion</a></td>
 						</tr>
 					</table>
 					</form>
@@ -79,15 +79,15 @@
 					<?php
 						if(!$userToDisplay)
 						{
-							echo "Aucun utilisateur n'a pu etre trouve";
+							echo "Aucun utilisateur n'a pu être trouvé";
 						}
 						else if($userToDisplay->confidentialite == 1)
 						{
-							echo "L'utilisateur ne souhaite pas que l'on puisse avoir acces a son profil";
+							echo "L'utilisateur ne souhaite pas que l'on puisse avoir accès à son profil";
 						}
 						else if(Utilisateur::isRestrict($_SESSION['Connexion'], $user, $userToDisplay))
 						{
-							echo "L'utilisateur ne souhaite pas que vous puissiez acceder a son profil.";
+							echo "L'utilisateur ne souhaite pas que vous puissiez accéder à son profil.";
 						}
 					?>
 					</div>
@@ -133,7 +133,7 @@
 								$res = Utilisateur::getActivities($_SESSION['Connexion'], $userToDisplay);
 								if(!$res)
 								{
-									echo'<tr><td>Aucune activites recentes.</td></tr>';
+									echo'<tr><td>Aucune activités récentes.</td></tr>';
 								}
 								else
 								{
@@ -142,12 +142,12 @@
 										$act = $activiteListe->activite;
 										if(!$activiteListe->idReservePar)
 										{
-											echo '<tr><td><a href="searchUser.php?user='.htmlspecialchars($activiteListe->pseudoUser).'">'.htmlspecialchars($activiteListe->pseudoUser).'</a> '.htmlspecialchars($act->nomType).' '.htmlspecialchars($act->nomObjet)." pour l'evenement <a href=\"listesUser.php?idListe=$activiteListe->idListe\">".htmlspecialchars($activiteListe->nomEvenement).'</a> </td><tr>';
+											echo '<tr><td><a href="searchUser.php?user='.htmlspecialchars($activiteListe->pseudoUser).'">'.htmlspecialchars($activiteListe->pseudoUser).'</a> '.htmlspecialchars($act->nomType).' '.htmlspecialchars($act->nomObjet)." pour l'évènement <a href=\"listesUser.php?idListe=$activiteListe->idListe\">".htmlspecialchars($activiteListe->nomEvenement).'</a> </td><tr>';
 										}
 										else
 										{
 											$userWhoReserved = Utilisateur::getUserById($_SESSION['Connexion'], $activiteListe->idReservePar);
-											echo '<tr><td><a href="searchUser.php?user='.htmlspecialchars($userWhoReserved->pseudo).'">'.htmlspecialchars($userWhoReserved->pseudo).'</a> '.htmlspecialchars($act->nomType).' '.htmlspecialchars($act->nomObjet)." pour l'evenement <a href=\"listesUser.php?idListe=$activiteListe->idListe\">".htmlspecialchars($activiteListe->nomEvenement).'</a> de <a href="searchUser.php?user='.htmlspecialchars($activiteListe->pseudoUser).'">'.htmlspecialchars($activiteListe->pseudoUser).'</a></td></tr>';
+											echo '<tr><td><a href="searchUser.php?user='.htmlspecialchars($userWhoReserved->pseudo).'">'.htmlspecialchars($userWhoReserved->pseudo).'</a> '.htmlspecialchars($act->nomType).' '.htmlspecialchars($act->nomObjet)." pour l'évènement <a href=\"listesUser.php?idListe=$activiteListe->idListe\">".htmlspecialchars($activiteListe->nomEvenement).'</a> de <a href="searchUser.php?user='.htmlspecialchars($activiteListe->pseudoUser).'">'.htmlspecialchars($activiteListe->pseudoUser).'</a></td></tr>';
 										}
 									}
 								}

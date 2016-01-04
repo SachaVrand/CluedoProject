@@ -42,7 +42,7 @@
 			$mois = $_POST['mois'];
 			$annee = $_POST['annee'];
 			$commentaire = $_POST['commentaire'];
-			$erreur = "La date de l'evenement est incorrecte.";
+			$erreur = "La date de l'évènement est incorrecte.";
 		}
 		else
 		{
@@ -64,7 +64,7 @@
 			$activite = new Activite(Activite::getNewId($_SESSION['Connexion']),"cree","une liste");
 			Activite::addActivite($_SESSION['Connexion'],$activite);
 			ActivitesListe::addActivitesListe($_SESSION['Connexion'],$activite->idActivite,$user->id,$idListe);
-			$msg = "La liste a bien ete creee.";
+			$msg = "La liste a bien été créée.";
 			$_SESSION['tabCadeaux'] = array();
 		}
 	}
@@ -190,7 +190,7 @@
 								</tr>
 								<tr>
 									<td>
-									Evenement : 
+									Évènement : 
 										<select name="event" onchange="submitEvent();">
 											<?php
 													$tabTypeEvents = Evenement::getTypeEvents($_SESSION['Connexion']);
@@ -346,7 +346,7 @@
 							<br>
 							<br>
 							<br>
-							<input type="submit" class="btnValidation" name="addListe" value="Creer liste">
+							<input type="submit" class="btnValidation" name="addListe" value="Créer liste">
 						</form>
 					</div>
 				</td>
