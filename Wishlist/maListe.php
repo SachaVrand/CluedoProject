@@ -188,7 +188,7 @@
 						<?php
 							if(isset($_POST['delListe']))
 							{
-								echo "La liste $nomListe a ete supprimee";
+								echo "La liste ".htmlspecialchars($nomListe)." a ete supprimee";
 							}
 							else
 							{
@@ -196,7 +196,7 @@
 								if($modifEvent == 0)
 								{
 									echo "<table>";
-										echo "<tr><td><input type=text name=nomEvent value=\"$nomListe\" disabled=disabled></td></tr>";
+										echo "<tr><td><input type=text name=nomEvent value=\"".htmlspecialchars($nomListe)."\" disabled=disabled></td></tr>";
 										echo "<tr><td>";
 											echo "<select name=event onchange=submitEvent() disabled=disabled>";
 												$tabTypeEvents = Evenement::getTypeEvents($_SESSION['Connexion']);
@@ -204,11 +204,11 @@
 												{
 													if($event != $typeEvent)
 													{
-														echo "<option value=\"$typeEvent\"> $typeEvent </option>";
+														echo "<option value=\"".htmlspecialchars($typeEvent)."\">".htmlspecialchars($typeEvent)."</option>";
 													}
 													else
 													{
-														echo "<option value=\"$typeEvent\" selected=selected> $typeEvent </option>";
+														echo "<option value=\"".htmlspecialchars($typeEvent)."\" selected=selected>".htmlspecialchars($typeEvent)."</option>";
 													}
 												}
 											echo "</select>";
@@ -264,7 +264,7 @@
 												}
 											echo "</select>";
 										echo "</td></tr>";
-										echo "<tr><td><textarea name=commentaire rows=6 cols=50 maxlength=300 placeholder=Commentaire disabled=disabled>$commentaire</textarea></td></tr>";
+										echo "<tr><td><textarea name=commentaire rows=6 cols=50 maxlength=300 placeholder=Commentaire disabled=disabled>".htmlspecialchars($commentaire)."</textarea></td></tr>";
 										echo "<tr><td><button class=btnValidation name=ModifListe onclick=goToList()>Mofidier la liste</button></td></tr>";
 									echo "</table>";
 								}
@@ -275,7 +275,7 @@
 										echo "<span class=erreur>$erreur</span><br><br>";
 									}
 									echo "<table>";
-									echo "<tr><td><input type=text name=nomEvent value=\"$nomListe\"></td></tr>";
+									echo "<tr><td><input type=text name=nomEvent value=\"".htmlspecialchars($nomListe)."\"></td></tr>";
 									echo "<tr><td>";
 									echo "<select name=event onchange=submitEvent()>";
 									$tabTypeEvents = Evenement::getTypeEvents($_SESSION['Connexion']);
@@ -283,11 +283,11 @@
 									{
 										if($event != $typeEvent)
 										{
-											echo "<option value=\"$typeEvent\"> $typeEvent </option>";
+											echo "<option value=\"".htmlspecialchars($typeEvent)."\">".htmlspecialchars($typeEvent)."</option>";
 										}
 										else
 										{
-											echo "<option value=\"$typeEvent\" selected=selected> $typeEvent </option>";
+											echo "<option value=\"".htmlspecialchars($typeEvent)."\" selected=selected>".htmlspecialchars($typeEvent)."</option>";
 										}
 									}
 									echo "</select>";
@@ -343,7 +343,7 @@
 									}
 									echo "</select>";
 									echo "</td></tr>";
-									echo "<tr><td><textarea name=commentaire rows=6 cols=50 maxlength=300 placeholder=Commentaire>$commentaire</textarea></td></tr>";
+									echo "<tr><td><textarea name=commentaire rows=6 cols=50 maxlength=300 placeholder=Commentaire>".htmlspecialchars($commentaire)."</textarea></td></tr>";
 									echo "<tr><td><button class=btnValidation name=ValiderModif onclick=goToList()>Valider</button>  <button class=btnValidation name=AnnulerModif onclick=goToList()>Annuler</button></tr>";
 									echo "</table>";
 								}
@@ -361,7 +361,7 @@
 												$tabTypeCadeaux = Cadeau::getTypeCadeaux($_SESSION['Connexion']);
 												foreach($tabTypeCadeaux as $typeCadeau)
 												{
-													echo "<option value=\"$typeCadeau\">$typeCadeau</option>";
+													echo "<option value=\"".htmlspecialchars($typeCadeau)."\">".htmlspecialchars($typeCadeau)."</option>";
 												}
 											echo "</select>";
 										echo "</td></tr>";
@@ -385,12 +385,12 @@
 									$nomReserve = Utilisateur::getPseudo($_SESSION['Connexion'], $element->reservePar);
 									if($nomReserve != "")
 									{
-										$nomReserve = "reserve par<br>$nomReserve";
-										echo "<tr id=ligneReserve><td>$nomCadeau</td><td><span class=reserve>$nomReserve</span></td><td><button class=btnMesCadeauxR name=btnSupCadeau value=$idCadeau onclick=goToList()>X</button</td></tr>";
+										$nomReserve = "reserve par<br>".htmlspecialchars($nomReserve);
+										echo "<tr id=ligneReserve><td>".htmlspecialchars($nomCadeau)."</td><td><span class=reserve>$nomReserve</span></td><td><button class=btnMesCadeauxR name=btnSupCadeau value=$idCadeau onclick=goToList()>X</button</td></tr>";
 									}
 									else
 									{
-										echo "<tr id=ligneNonReserve><td>$nomCadeau</td><td>$nomReserve</td><td><button class=btnMesCadeaux name=btnSupCadeau value=$idCadeau onclick=goToList()>X</button></td></tr>";
+										echo "<tr id=ligneNonReserve><td>".htmlspecialchars($nomCadeau)."</td><td>$nomReserve</td><td><button class=btnMesCadeaux name=btnSupCadeau value=$idCadeau onclick=goToList()>X</button></td></tr>";
 									}
 								}
 								echo "</table>";

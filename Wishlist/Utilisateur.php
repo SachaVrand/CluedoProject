@@ -515,5 +515,16 @@ class Utilisateur{
 		$res->bindValue(':email',$email);
 		$res->execute();
 	}
+	
+	public static function getPseudoIdListe($connexionBase, $idListe)
+	{
+		$requete = 'SELECT pseudo FROM utilisateur, listecadeaux WHERE listecadeaux.idUser = utilisateur.idUser AND listecadeaux.idListe = :idListe';
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':idListe',$idListe,PDO::PARAM_INT);
+		$res->execute();
+		$donnee = $res->fetch();
+		$res->closeCursor();
+		return $donnee['pseudo'];
+	}
 }
 ?>

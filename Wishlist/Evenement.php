@@ -169,6 +169,17 @@ class Evenement{
 		$res->closeCursor();
 		return $tab;
 	}
+	
+	public static function getYearIdListe($connexionBase,$idListe)
+	{
+		$requete = 'SELECT year(dateLimite) as annee FROM evenement, listecadeaux WHERE listecadeaux.idEvenement = evenement.idEvenement AND listecadeaux.idListe = :idListe';
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':idListe',$idListe,PDO::PARAM_INT);
+		$res->execute();
+		$donnee = $res->fetch();
+		$res->closeCursor();
+		return $donnee['annee'];
+	}
 }
 
 ?>

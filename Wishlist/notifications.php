@@ -41,7 +41,7 @@
 					{
 						foreach($notificationEvenements as $v)
 						{
-							echo "<tr><td>Ajourd'hui c'est l'evenement <a href='#'>".htmlspecialchars($v[1]).'</a> de <a href="searchUser.php?user='.htmlspecialchars($v[0]).'">'.htmlspecialchars($v[0]).'</a> </td></tr>';
+							echo "<tr><td>Ajourd'hui c'est l'evenement ".htmlspecialchars($v[1]).' de <a href="searchUser.php?user='.htmlspecialchars($v[0]).'">'.htmlspecialchars($v[0]).'</a> </td></tr>';
 						}	
 					}
 					echo "<tr><td><hr></td></tr>";
@@ -51,8 +51,11 @@
 					}
 					else 
 					{
-						$userWhoReserved = Utilisateur::getUserById($_SESSION['Connexion'], $activiteListe->idReservePar);
-						echo '<tr><td><a href="searchUser.php?user='.htmlspecialchars($userWhoReserved->pseudo).'">'.htmlspecialchars($userWhoReserved->pseudo).'</a> '.htmlspecialchars($activiteListe->activite->nomType).' '.htmlspecialchars($activiteListe->activite->nomObjet)." pour l'evenement <a href='#'>".htmlspecialchars($activiteListe->activite->nomEvenement).'</a> de <a href="searchUser.php?user='.htmlspecialchars($activiteListe->pseudoUser).'">'.htmlspecialchars($activiteListe->pseudoUser).'</a></td></tr>';
+						foreach($notifcationsReservations as $activiteListe)
+						{
+							$userWhoReserved = Utilisateur::getUserById($_SESSION['Connexion'], $activiteListe->idReservePar);
+							echo '<tr><td><a href="searchUser.php?user='.htmlspecialchars($userWhoReserved->pseudo).'">'.htmlspecialchars($userWhoReserved->pseudo).'</a> '.htmlspecialchars($activiteListe->activite->nomType).' '.htmlspecialchars($activiteListe->activite->nomObjet)." pour l'evenement <a href=\"listesUser.php?idListe=$activiteListe->idListe\">".htmlspecialchars($activiteListe->activite->nomEvenement).'</a> de <a href="searchUser.php?user='.htmlspecialchars($activiteListe->pseudoUser).'">'.htmlspecialchars($activiteListe->pseudoUser).'</a></td></tr>';
+						}
 					}
 				?>
 			</table>

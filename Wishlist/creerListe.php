@@ -169,7 +169,7 @@
 										?>
 										<tr>
 											<td>
-												<?php echo htmlspecialchars($voguetype[$i]); ?> : exemple -> <a href="<?php echo "uneListe.php?idListe=$lst[0]"; ?>"> <?php echo htmlspecialchars($lst[1]); ?></a>
+												<?php echo htmlspecialchars($voguetype[$i]); ?> : exemple -> <a href="<?php echo "listeUser.php?idListe=$lst[0]"; ?>"> <?php echo htmlspecialchars($lst[1]); ?></a>
 											</td>
 										</tr>
 										<?php

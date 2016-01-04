@@ -56,12 +56,12 @@
 										if(!$activiteListe->idReservePar)
 										{
 											
-											echo '<tr><td><a href="searchUser.php?user='.htmlspecialchars($activiteListe->pseudoUser).'">'.htmlspecialchars($activiteListe->pseudoUser).'</a> '.htmlspecialchars($activite->nomType).' '.htmlspecialchars($activite->nomObjet)." pour l'evenement <a href='#'>".htmlspecialchars($activiteListe->nomEvenement).'</a> </td><tr>';
+											echo '<tr><td><a href="searchUser.php?user='.htmlspecialchars($activiteListe->pseudoUser).'">'.htmlspecialchars($activiteListe->pseudoUser).'</a> '.htmlspecialchars($activite->nomType).' '.htmlspecialchars($activite->nomObjet)." pour l'evenement <a href=\"listesUser.php?idListe=$activiteListe->idListe\">".htmlspecialchars($activiteListe->nomEvenement).'</a> </td><tr>';
 										}
 										else
 										{
 											$userWhoReserved = Utilisateur::getUserById($_SESSION['Connexion'], $activiteListe->idReservePar);
-											echo '<tr><td><a href="searchUser.php?user='.htmlspecialchars($userWhoReserved->pseudo).'">'.htmlspecialchars($userWhoReserved->pseudo).'</a> '.htmlspecialchars($activite->nomType).' '.htmlspecialchars($activite->nomObjet)." pour l'evenement <a href='#'>".htmlspecialchars($activiteListe->nomEvenement).'</a> de <a href="searchUser.php?user='.htmlspecialchars($activiteListe->pseudoUser).'">'.htmlspecialchars($activiteListe->pseudoUser).'</a></td></tr>';
+											echo '<tr><td><a href="searchUser.php?user='.htmlspecialchars($userWhoReserved->pseudo).'">'.htmlspecialchars($userWhoReserved->pseudo).'</a> '.htmlspecialchars($activite->nomType).' '.htmlspecialchars($activite->nomObjet)." pour l'evenement <a href=\"listesUser.php?idListe=$activiteListe->idListe\">".htmlspecialchars($activiteListe->nomEvenement).'</a> de <a href="searchUser.php?user='.htmlspecialchars($activiteListe->pseudoUser).'">'.htmlspecialchars($activiteListe->pseudoUser).'</a></td></tr>';
 										}
 									}
 								}

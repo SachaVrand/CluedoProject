@@ -11,5 +11,6 @@
 		<li><a href="modifMotDePasse.php">Modifier votre mot de passe</a>
 		<li><a href="listesPerso.php">Listes</a></li>
 		<li><a href="userFollow.php">Follow</a></li>
+		<li><a href="suggestEvent.php">Suggerer un evenement</a></li>
 	</ul>
 </div>

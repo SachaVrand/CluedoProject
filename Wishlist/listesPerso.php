@@ -55,7 +55,7 @@
 								{
 									$tmpNom = Evenement::getNomBdd($_SESSION['Connexion'],$element->getIdEvent());
 									$tmpId = $element->getId();
-									echo "<tr><td><button class=btnMaListe name=btnListe value=$tmpId onclick=goToList()>$tmpNom</button</td></tr>";
+									echo "<tr><td><button class=btnMaListe name=btnListe value=$tmpId onclick=goToList()>".htmlspecialchars($tmpNom)."</button</td></tr>";
 								}
 								echo "</table>";
 							?>
