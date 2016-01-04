@@ -165,7 +165,7 @@
 									<tr><td align="left" style="width:auto;"> Followers : <?php echo $nbFollowers;?></td></tr>
 									<tr><td align="left" style="width:auto;"> Following : <?php echo $nbFollowing;?></td></tr>
 									<tr><td align="left" style="width:auto;"> Listes : <?php echo $nbListes;?></td></tr>
-								<tr><td style="width:auto;"><input type="submit" name="submit" value="suivre"></td><td style="width:auto;"><input type="button" value=" nouveau message " onclick="self.location.href='creationMessage.php?pseudoExp=<?php echo $userToDisplay->pseudo;?>'"></td></tr>
+								<tr><td style="width:auto;"><input type="submit" name="submit" value="suivre"></td><td style="width:auto;"><input type="button" value=" nouveau message " onclick="self.location.href='creationMessage.php?pseudoExp=<?php echo htmlspecialchars($userToDisplay->pseudo);?>'"></td></tr>
 							</table>
 						</form>
 						<?php 
