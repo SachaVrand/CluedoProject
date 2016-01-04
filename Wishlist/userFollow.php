@@ -57,7 +57,7 @@
 									$nbFollowing++;
 									echo 
 									"<tr>
-										<td><a href=searchUser.php?user=$v>$v</a></td>
+										<td><a href=searchUser.php?user=".htmlspecialchars($v).">".htmlspecialchars($v)."</a></td>
 										<form method='post' action='userFollow.php'>
 											<input type='hidden' name='hiddenUserSuppr' value=$k>
 											<td><input type='submit' name='submitSuppr' value='Supprimer'></td>
@@ -75,7 +75,7 @@
 									$nbFollowers++;
 									echo 
 									"<tr>
-										<td><a href=searchUser.php?user=$v>$v</a></td>
+										<td><a href=searchUser.php?user=".htmlspecialchars($v).">".htmlspecialchars($v)."</a></td>
 										<form method='post' action='userFollow.php'>
 											<input type='hidden' name='hiddenUserRest' value=$k>
 											<td><input type='submit' name='submitRest' value='Restreindre acces'></td>

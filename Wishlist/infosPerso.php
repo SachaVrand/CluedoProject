@@ -43,15 +43,15 @@
 							$month = $date[1]-1;
 							echo 
 							'<table id="tableauInfo">
-								<tr> <td rowspan=2><img src="'.$user->photo.'" /></td> <td colspan=2>'.$user->pseudo.'</td> </tr>
-								<tr> <td>'.$user->nom.' '.$user->prenom.'</td> <td></td> </tr>
+								<tr> <td rowspan=2><img src="'.htmlspecialchars($user->photo).'" /></td> <td colspan=2>'.htmlspecialchars($user->pseudo).'</td> </tr>
+								<tr> <td>'.htmlspecialchars($user->nom).' '.htmlspecialchars($user->prenom).'</td> <td></td> </tr>
 							</table>'.
 							'<br>'.
-							'<span class="enGras">Ville : </span>'.$user->ville.
+							'<span class="enGras">Ville : </span>'.htmlspecialchars($user->ville).
 							'<br>'.
 							'<span class="enGras">Naissance : </span>'.$date[2].' '.$months[$month].' '.$date[0].
 							'<br>'.
-							'<span class="enGras">Mail : </span>'.$user->mail.
+							'<span class="enGras">Mail : </span>'.htmlspecialchars($user->mail).
 							'<br><br>';
 						?>
 					</div>

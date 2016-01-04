@@ -76,23 +76,23 @@
 							<table>
 								<tr>
 									<td>Pseudo :</td>
-								 	<td><input type="text" name="pseudo" required="required" value="<?php echo $user->pseudo; ?>" ></td>
+								 	<td><input type="text" name="pseudo" required="required" value="<?php echo htmlspecialchars($user->pseudo); ?>" ></td>
 								</tr>
 								<tr>
 									<td>Nom :</td>
-									<td><input type="text" name="nom" required="required" value="<?php echo $user->nom; ?>" ></td>
+									<td><input type="text" name="nom" required="required" value="<?php echo htmlspecialchars($user->nom); ?>" ></td>
 								</tr>
 								<tr>
 									<td>Prenom : </td>
-									<td><input type="text" name="prenom" required="required" value="<?php echo $user->prenom; ?>" ></td>
+									<td><input type="text" name="prenom" required="required" value="<?php echo htmlspecialchars($user->prenom); ?>" ></td>
 								</tr>
 								<tr>
 									<td>Ville :</td>
-									<td><input type="text" name="ville" required="required" value="<?php echo $user->ville; ?>" ></td>
+									<td><input type="text" name="ville" required="required" value="<?php echo htmlspecialchars($user->ville); ?>" ></td>
 								</tr>
 								<tr>
 									<td>Mail :</td>
-									<td><input type="email" name="mail" required="required" value="<?php echo $user->mail; ?>" ></td>
+									<td><input type="email" name="mail" required="required" value="<?php echo htmlspecialchars($user->mail); ?>" ></td>
 								</tr>
 								<tr>
 									<td>Profil confidentiel ?</td>
@@ -167,7 +167,7 @@
 								</tr>
 								<tr>
 									<td>URL photo :</td>
-									<td><input type="text" name="photo" value="<?php echo $user->photo; ?>" ></td>
+									<td><input type="text" name="photo" value="<?php echo htmlspecialchars($user->photo); ?>" ></td>
 								</tr>
 								<tr>
 									<td><input type="submit" name="Modification" value="Conserver les changements"></td>

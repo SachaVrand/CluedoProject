@@ -22,12 +22,9 @@
 		Utilisateur::followUser($_SESSION['Connexion'], $userToDisplay, $_SESSION['user']);
 	}
 	
-	if(isset($_POST['submitBan']))
+	if(isset($_POST['submitBan']) && $user->getPermission() == 1)
 	{
-		$requete = 'INSERT INTO emailbannis VALUES(:email)';
-		$res = $_SESSION['Connexion']->getPdo()->prepare($requete);
-		$res->bindValue(':email',$userToDisplay->mail);
-		$res->execute();
+		Utilisateur::bannirEmail($_SESSION['Connexion'], $userToDisplay->mail);
 	}
 ?>
 <!DOCTYPE html>
@@ -72,7 +69,7 @@
 		?>
 	
 		<div id="titre">
-			Profil de <?php echo $_GET['user']; ?>
+			Profil de <?php echo htmlspecialchars($_GET['user']); ?>
 		</div>
 		<?php 
 			if(!$userToDisplay || $userToDisplay->confidentialite == 1 || Utilisateur::isRestrict($_SESSION['Connexion'], $user, $userToDisplay))
@@ -104,8 +101,8 @@
 					<div id="sousMenu">
 						<ul>
 							<?php
-								echo "<li><a href=searchUser.php?user="."$_GET[user]".">Profil</a></li>";
-								echo "<li><a href=listesUser.php?user="."$_GET[user]".">Liste</a></li>";
+								echo "<li><a href=searchUser.php?user=".htmlspecialchars($_GET['user']).">Profil</a></li>";
+								echo "<li><a href=listesUser.php?user=".htmlspecialchars($_GET['user']).">Liste</a></li>";
 							?>
 						</ul>
 					</div>
@@ -118,15 +115,15 @@
 							$month = $date[1]-1;
 							echo 
 							'<table id="tableauInfo">
-								<tr> <td rowspan=2><img src="'.$userToDisplay->photo.'" /></td> <td colspan=2>'.$userToDisplay->pseudo.'</td> </tr>
-								<tr> <td>'.$userToDisplay->nom.' '.$userToDisplay->prenom.'</td> <td></td> </tr>
+								<tr> <td rowspan=2><img src="'.htmlspecialchars($userToDisplay->photo).'" /></td> <td colspan=2>'.htmlspecialchars($userToDisplay->pseudo).'</td> </tr>
+								<tr> <td>'.htmlspecialchars($userToDisplay->nom).' '.htmlspecialchars($userToDisplay->prenom).'</td> <td></td> </tr>
 							</table>'.
 							'<br>'.
-							'<span class="enGras">Ville : </span>'.$userToDisplay->ville.
+							'<span class="enGras">Ville : </span>'.htmlspecialchars($userToDisplay->ville).
 							'<br>'.
 							'<span class="enGras">Naissance : </span>'.$date[2].' '.$months[$month].' '.$date[0].
 							'<br>'.
-							'<span class="enGras">Mail : </span>'.$userToDisplay->mail.
+							'<span class="enGras">Mail : </span>'.htmlspecialchars($userToDisplay->mail).
 							'<br><br>';		
 						?>
 						
@@ -145,12 +142,12 @@
 										$act = $activiteListe->activite;
 										if(!$activiteListe->idReservePar)
 										{
-											echo "<tr><td><a href='searchUser.php?user=$activiteListe->pseudoUser'>$activiteListe->pseudoUser</a> $act->nomType $act->nomObjet pour l'evenement <a href='#'>$activiteListe->nomEvenement</a> </td><tr>";
+											echo '<tr><td><a href="searchUser.php?user='.htmlspecialchars($activiteListe->pseudoUser).'">'.htmlspecialchars($activiteListe->pseudoUser).'</a> '.htmlspecialchars($act->nomType).' '.htmlspecialchars($act->nomObjet)." pour l'evenement <a href='#'>".htmlspecialchars($activiteListe->nomEvenement).'</a> </td><tr>';
 										}
 										else
 										{
 											$userWhoReserved = Utilisateur::getUserById($_SESSION['Connexion'], $activiteListe->idReservePar);
-											echo "<tr><td><a href='searchUser.php?user=$userWhoReserved->pseudo'>$userWhoReserved->pseudo</a> $act->nomType $act->nomObjet pour l'evenement <a href='#'>$activiteListe->nomEvenement</a> de <a href='searchUser.php?user=$activiteListe->pseudoUser'>$activiteListe->pseudoUser</a></td></tr>";
+											echo '<tr><td><a href="searchUser.php?user='.htmlspecialchars($userWhoReserved->pseudo).'">'.htmlspecialchars($userWhoReserved->pseudo).'</a> '.htmlspecialchars($act->nomType).' '.htmlspecialchars($act->nomObjet)." pour l'evenement <a href='#'>".htmlspecialchars($activiteListe->nomEvenement).'</a> de <a href="searchUser.php?user='.htmlspecialchars($activiteListe->pseudoUser).'">'.htmlspecialchars($activiteListe->pseudoUser).'</a></td></tr>';
 										}
 									}
 								}
@@ -158,7 +155,7 @@
 						</table>
 						<br>
 						<br>
-						<form method="post" action="searchUser.php?user=<?php echo "$userToDisplay->pseudo"; ?>">
+						<form method="post" action="searchUser.php?user=<?php echo htmlspecialchars($userToDisplay->pseudo); ?>">
 							<table>
 								<?php 
 									$nbFollowers = Utilisateur::getFollowerNumber($_SESSION['Connexion'], $userToDisplay);
@@ -176,7 +173,7 @@
 							{
 								?>
 								<br>
-								<form method="post" action="searchUser.php?user=<?php echo "$userToDisplay->pseudo"; ?>">
+								<form method="post" action="searchUser.php?user=<?php echo htmlspecialchars($userToDisplay->pseudo); ?>">
 									<input type="submit" name="submitBan" value="Ban user">
 								</form>
 								<?php

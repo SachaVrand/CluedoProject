@@ -507,5 +507,13 @@ class Utilisateur{
 		ini_restore('smtp_port');
 		ini_restore('sendmail_from');
 	}
+	
+	public static function bannirEmail($connexionBase, $email)
+	{
+		$requete = 'INSERT INTO emailbannis VALUES(:email)';
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':email',$email);
+		$res->execute();
+	}
 }
 ?>

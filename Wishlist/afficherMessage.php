@@ -16,9 +16,9 @@
 	{
 		exit();
 	}
-	$message = $_POST['message'];
-	$entete = $_POST['entete'];
-	$pseudoExp = $_POST['pseudoExp'];
+	$message = htmlspecialchars($_POST['message']);
+	$entete = htmlspecialchars($_POST['entete']);
+	$pseudoExp = htmlspecialchars($_POST['pseudoExp']);
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fr">

@@ -77,20 +77,20 @@
 							?>
 							<tr><td>
 								<?php
-									echo "<a href='searchUser.php?user=$msg->pseudoExp'>$msg->pseudoExp</a> | $date[2]/$date[1]/$date[0] | $msg->entete | "; 
+									echo '<a href="searchUser.php?user='.htmlspecialchars($msg->pseudoExp).'">'.htmlspecialchars($msg->pseudoExp).'</a> | '.$date[2].'/'.$date[1].'/'.$date[0].' | '.htmlspecialchars($msg->entete).' | '; 
 								?>
 							</td>
 							<td>
 							<form method="post" action="afficherMessage.php">
-								<input type="hidden" name="message" value="<?php echo $msg->message ;?> ">
-								<input type="hidden" name="entete" value="<?php echo $msg->entete ;?> ">
-								<input type="hidden" name="pseudoExp" value="<?php echo $msg->pseudoExp ;?> ">
+								<input type="hidden" name="message" value="<?php echo htmlspecialchars($msg->message) ;?> ">
+								<input type="hidden" name="entete" value="<?php echo htmlspecialchars($msg->entete) ;?> ">
+								<input type="hidden" name="pseudoExp" value="<?php echo htmlspecialchars($msg->pseudoExp) ;?> ">
 								<input type="submit" value="voir" name="submit">
 							</form>
 							</td>
 							<td>
 								<form method="post" action="pageMessagerie.php">
-									<input type="hidden" name="id" value="<?php echo $msg->id; ?>">
+									<input type="hidden" name="id" value="<?php echo htmlspecialchars($msg->id); ?>">
 									<input type="submit" name="suppr" value="supprimer">
 								</form>
 							</td>

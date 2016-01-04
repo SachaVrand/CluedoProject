@@ -72,10 +72,10 @@
 		
 
 		<div id="contentSansMenu">
-			<form method="post" action="creationMessage.php?pseudoExp=<?php echo $_GET['pseudoExp'];?>">
+			<form method="post" action="creationMessage.php?pseudoExp=<?php echo htmlspecialchars($_GET['pseudoExp']);?>">
 				<table>
 					<tr>
-						<td><input name="pseudoExp" type="text" readonly="readonly" required="required" value="<?php echo $_GET['pseudoExp'];?>"></td>
+						<td><input name="pseudoExp" type="text" readonly="readonly" required="required" value="<?php echo htmlspecialchars($_GET['pseudoExp']);?>"></td>
 					</tr>
 					<tr>
 						<td><input name="entete" type="text" placeholder="Entete" required="required"></td>
