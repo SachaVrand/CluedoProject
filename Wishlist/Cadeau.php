@@ -118,6 +118,19 @@ class Cadeau
 		$cadeau = new Cadeau($donnee['idCadeau'], $donnee['nom'], $donnee['description'], $donnee['lien'], $donnee['nomType']);
 		return $cadeau;
 	}
+	
+	public static function getListeVogues($connexionBase)
+	{
+		$req = "SELECT nomType,count(nomType) as somme FROM Cadeau, Contient WHERE Cadeau.idCadeau = Contient.idCadeau GROUP BY nomType ORDER BY somme DESC";
+		$res = $connexionBase->getPdo()->query($req);
+		$tab = array();
+		while($donnees = $res->fetch())
+		{
+			$tab[] = $donnees['nomType'];
+		}
+		$res->closeCusor();
+		return $tab;
+	}
 }
 
 ?>

@@ -153,6 +153,31 @@
 								echo "<span class=erreur>$msg</span><br><br><br>";
 							}
 						?>
+						<span class="grandTitre">En vogue</span>
+						<table>
+							<?php 
+								$voguetype = Cadeau::getListeVogues($_SESSION['Connexion']);
+								if(!$voguetype)
+								{
+									echo "Aucun type de cadeau en vogue";
+								}
+								else
+								{
+									for($i = 0; $i < 2 || $voguetype[$i]; $i++)
+									{
+										$lst = ListeCadeaux::getExampleList($_SESSION['Connexion'], $voguetype[$i]);
+										?>
+										<tr>
+											<td>
+												<?php echo htmlspecialchars($voguetype[$i]); ?> : exemple -> <a href="<?php echo "uneListe.php?idListe=$lst[0]"; ?>"> <?php echo htmlspecialchars($lst[1]); ?></a>
+											</td>
+										</tr>
+										<?php
+									}
+								}
+							?>
+						</table>
+						<hr>
 						<span class="grandTitre">Ma Liste</span>
 						<hr>
 						<form id="formCreerListe" method="post" action="creerListe.php">

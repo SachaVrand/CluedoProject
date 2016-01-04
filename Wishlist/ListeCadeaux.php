@@ -90,6 +90,27 @@ class ListeCadeaux
 		$res->closeCursor();
 		return $donnee['idEvenement'];
 	}
+	
+	public static function getExampleList($connexionBase, $type)
+	{
+		$req = "SELECT Evenement.nom, ListeCadeaux.idListe ";
+		$req = $req."FROM Cadeau,ListeCadeaux,Evenement,Contient ";
+		$req = $req."WHERE Evenement.idEvenement = ListeCadeaux.idEvenement ";
+		$req = $req."AND ListeCadeaux.idListe = Contient.idListe ";
+		$req = $req."AND Cadeau.idCadeau = Contient.idCadeau ";
+		$req = $req."AND Cadeau.nomType = :type ";
+		$res = $connexionBase->getPdo()->prepare($req);
+		$res->bindValue(':type',$type);
+		$res->execute();
+		$donnee = $res->fetch();
+		if(!$donnee)
+			return NULL;
+		$ret = array();
+		$ret[] = $donnee['idListe'];
+		$ret[] = $donnee['nom'];
+		$res->closeCursor();
+		return $ret;
+	}
 }
 
 
