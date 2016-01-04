@@ -56,13 +56,13 @@
 								{
 									$nbFollowing++;
 									echo 
-									"<tr>
-										<td><a href=searchUser.php?user=".htmlspecialchars($v).">".htmlspecialchars($v)."</a></td>
-										<form method='post' action='userFollow.php'>
-											<input type='hidden' name='hiddenUserSuppr' value=$k>
-											<td><input type='submit' name='submitSuppr' value='Supprimer'></td>
+									'<tr>
+										<td><a href="searchUser.php?user='.htmlspecialchars($v).'">'.htmlspecialchars($v).'</a></td>
+										<form method="post" action="userFollow.php">
+											<input type="hidden" name="hiddenUserSuppr" value="'.$k.'">
+											<td><input type="submit" name="submitSuppr" value="Supprimer"></td>
 										</form>
-									</tr>";
+									</tr>';
 								}
 								echo"<tr><td>Total : </td><td>$nbFollowing</td></tr>";
 							?>
@@ -74,13 +74,13 @@
 								{
 									$nbFollowers++;
 									echo 
-									"<tr>
-										<td><a href=searchUser.php?user=".htmlspecialchars($v).">".htmlspecialchars($v)."</a></td>
-										<form method='post' action='userFollow.php'>
-											<input type='hidden' name='hiddenUserRest' value=$k>
-											<td><input type='submit' name='submitRest' value='Restreindre acces'></td>
+									'<tr>
+										<td><a href="searchUser.php?user='.htmlspecialchars($v).'">'.htmlspecialchars($v).'</a></td>
+										<form method="post" action="userFollow.php">
+											<input type="hidden" name="hiddenUserRest" value="'.$k.'">
+											<td><input type="submit" name="submitRest" value="Restreindre acces"></td>
 										</form>
-									</tr>";
+									</tr>';
 								}
 								echo"<tr><td>Total : </td><td>$nbFollowers</td></tr>";
 							?>

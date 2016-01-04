@@ -185,7 +185,7 @@
 								<tr>
 									<td>
 									Nom : 
-										<input type="text" name="nom" value=<?php echo "\"$nomEvent\""; ?>>
+										<input type="text" name="nom" value="<?php echo htmlspecialchars($nomEvent); ?>">
 									</td>
 								</tr>
 								<tr>
@@ -198,11 +198,11 @@
 													{
 														if($event != $typeEvent)
 														{
-															echo "<option value=\"$typeEvent\"> $typeEvent </option>";
+															echo '<option value="'.htmlspecialchars($typeEvent).'"> '.htmlspecialchars($typeEvent).' </option>';
 														}
 														else
 														{
-															echo "<option value=\"$typeEvent\" selected=selected> $typeEvent </option>";
+															echo '<option value="'.htmlspecialchars($typeEvent).'" selected=selected> '.htmlspecialchars($typeEvent).' </option>';
 														}
 													}
 											?>
@@ -297,7 +297,7 @@
 												$tabTypeCadeaux = Cadeau::getTypeCadeaux($_SESSION['Connexion']);
 												foreach($tabTypeCadeaux as $typeCadeau)
 												{
-													echo "<option value=\"$typeCadeau\">$typeCadeau</option>";
+													echo '<option value="'.htmlspecialchars($typeCadeau).'">'.htmlspecialchars($typeCadeau).'</option>';
 												}
 										?>
 									</select>
@@ -333,7 +333,7 @@
 									foreach($_SESSION['tabCadeaux'] as $cle => $element)
 									{
 										$tmpNom = $element->getNom();
-										echo "<tr><td>$tmpNom</td><td><button class=btnSupCadeau name=btnSup value=$cle onclick=supCadeau()>X</button></td></tr>";
+										echo '<tr><td>'.htmlspecialchars($tmpNom).'</td><td><button class=btnSupCadeau name=btnSup value='.$cle.' onclick=supCadeau()>X</button></td></tr>';
 									}
 									echo "</table>";
 								?>

@@ -101,8 +101,8 @@
 					<div id="sousMenu">
 						<ul>
 							<?php
-								echo "<li><a href=searchUser.php?user=".htmlspecialchars($_GET['user']).">Profil</a></li>";
-								echo "<li><a href=listesUser.php?user=".htmlspecialchars($_GET['user']).">Liste</a></li>";
+								echo '<li><a href="searchUser.php?user='.htmlspecialchars($_GET['user']).'">Profil</a></li>';
+								echo '<li><a href="listesUser.php?user='.htmlspecialchars($_GET['user']).'">Liste</a></li>';
 							?>
 						</ul>
 					</div>
