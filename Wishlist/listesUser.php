@@ -50,6 +50,23 @@
 			$formReserve = 1;
 		}
 	}
+	
+	if(isset($_GET['btnValideReserve']))
+	{
+		Contient::reserveCadeau($_SESSION['Connexion'],$_GET['btnValideReserve'],$user->id);
+		
+		$activite = new Activite(Activite::getNewId($_SESSION['Connexion']),"reserve","un cadeau");
+		Activite::addActivite($_SESSION['Connexion'],$activite);
+		ActivitesListe::addActivitesListe($_SESSION['Connexion'],$activite->idActivite,$user->id,$_SESSION['liste']);
+	}
+	else if(isset($_GET['btnReserveR']))
+	{
+		$idUserR = Contient::idUserR($_SESSION['Connexion'],$_GET['btnReserveR']);
+		if($user->id == $idUserR)
+		{
+			Contient::dereserveCadeau($_SESSION['Connexion'],$_GET['btnReserveR']);
+		}
+	}
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
@@ -231,10 +248,30 @@
 							}
 							else if($formReserve == 1)
 							{
-								$cadeau = Cadeau::getCadeau($_SESSION['Connexion'],$_GET['btnReserve']);
-								$nomCadeau = $cadeau->nom;
-								$typeCadeau = $cadeau->nomType;
-								
+								echo "<form id=cadeauSelect method=get action=listesUser.php>";
+								echo "<input type=hidden name=user value=\"$userToDisplay->pseudo\"/>";
+								echo "<input type=hidden name=annee value=\"$_SESSION[annee]\"/>";
+								echo "<input type=hidden name=liste value=\"$_SESSION[liste]\"/>";
+								echo "<table>";
+									$cadeau = Cadeau::getCadeau($_SESSION['Connexion'],$_GET['btnReserve']);
+									$nomCadeau = $cadeau->nom;
+									$typeCadeau = $cadeau->nomType;
+									$lienCadeau = $cadeau->lien;
+									$descriptionCadeau = $cadeau->description;
+									echo "<tr><td><input type=text name=nomCadeau value=\"$nomCadeau\" readonly=readonly></td></tr>";
+									echo "<tr><td><input type=text name=typeCadeau value=\"$typeCadeau\" readonly=readonly></td></tr>";
+									echo "<tr><td><input type=text name=lienCadeau value=\"$lienCadeau\" readonly=readonly></td></tr>";
+									echo "<tr><td><textarea name=descriptionCadeau rows=6 cols=50 maxlength=300 readonly=readonly>$descriptionCadeau</textarea></td></tr>";
+								echo "</table>";
+								echo "<table>";
+									echo "<tr><td><button class=btnValideReserve name=btnValideReserve value=$_GET[btnReserve] onclick=goToList()>Réserver</button>  <button class=btnAnnuleReserve name=btnAnnuleReserve value=$_GET[btnReserve] onclick=goToList()>Annuler</button></td></tr>";
+								echo "</table>";
+								echo "<script>";
+									echo "function submitPage()";
+									echo "{";
+										echo "document.getElementById('cadeauSelect').submit();";
+									echo "}";
+								echo "</script>";
 							}
 						?>
 					</div>

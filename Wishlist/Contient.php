@@ -49,5 +49,36 @@ class Contient
 		$res->closeCursor();
 		return $tabIdCadeaux;
 	}
+	
+	public static function reserveCadeau($connexionBase, $idCadeau, $idUser)
+	{
+		$requete = 'UPDATE contient SET reservePar = :idUser WHERE idCadeau = :idCadeau';
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':idUser',$idUser,PDO::PARAM_INT);
+		$res->bindValue(':idCadeau',$idCadeau,PDO::PARAM_INT);
+		$res->execute();
+		$res->closeCursor();
+	}
+	
+	public static function dereserveCadeau($connexionBase, $idCadeau)
+	{
+		$requete = 'UPDATE contient SET reservePar = NULL WHERE idCadeau = :idCadeau';
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':idCadeau',$idCadeau,PDO::PARAM_INT);
+		$res->execute();
+		$res->closeCursor();
+	}
+	
+	public static function idUserR($connexionBase, $idCadeau)
+	{
+		$requete = "SELECT reservePar FROM contient WHERE idCadeau = :idCadeau";
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':idCadeau',$idCadeau,PDO::PARAM_INT);
+		$res->execute();
+		$donnee = $res->fetch();
+		$idUserR = $donnee['reservePar'];
+		$res->closeCursor();
+		return $idUserR;
+	}
 }
 ?>
