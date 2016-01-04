@@ -137,6 +137,38 @@ class Evenement{
 		$res->execute();
 		$res->closeCursor();
 	}
+	
+	public static function getYears($connexionBase,$idUser)
+	{
+		$requete = 'SELECT DISTINCT year(dateLimite) as annee FROM evenement, listecadeaux WHERE listecadeaux.idEvenement = evenement.idEvenement AND evenement.idUser = :idUser AND listecadeaux.isDelete = 0 ORDER BY year(dateLimite) DESC';
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':idUser', $idUser);
+		$res->execute();
+		$tab = array();
+		while($ligne = $res->fetch())
+		{
+			$tab[] = $ligne['annee'];
+		}
+		$res->closeCursor();
+		return $tab;
+	}
+	
+	public static function getIds($connexionBase,$idUser,$annee)
+	{
+		$requete = 'SELECT listecadeaux.idListe as idListe, evenement.nom as nom FROM evenement, listecadeaux WHERE listecadeaux.idEvenement = evenement.idEvenement AND evenement.idUser = :idUser AND year(dateLimite) = :annee AND listecadeaux.isDelete = 0 ORDER BY evenement.nom';
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':idUser', $idUser);
+		$res->bindValue(':annee', $annee);
+		$res->execute();
+		$tab = array();
+		while($ligne = $res->fetch())
+		{
+			$id = $ligne['idListe'];
+			$tab[$id] = $ligne['nom'];
+		}
+		$res->closeCursor();
+		return $tab;
+	}
 }
 
 ?>

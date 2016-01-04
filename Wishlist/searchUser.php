@@ -103,13 +103,10 @@
 				<td>
 					<div id="sousMenu">
 						<ul>
-							<li>
-								<lu>
-									<li><a href="#">2015</a></li>
-									<li><a href="#">2016</a></li>
-									<li><a href="#">2017</a></li>
-								</lu>
-							</li>
+							<?php
+								echo "<li><a href=searchUser.php?user="."$_GET[user]".">Profil</a></li>";
+								echo "<li><a href=listesUser.php?user="."$_GET[user]".">Liste</a></li>";
+							?>
 						</ul>
 					</div>
 				</td>
