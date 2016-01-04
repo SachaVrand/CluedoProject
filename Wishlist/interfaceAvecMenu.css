@@ -603,7 +603,7 @@ tr td:last-child
 	width: 15%;
 }
 
-#reserve
+.reserve
 {
 	font-size:9px;
 }
@@ -726,6 +726,115 @@ tr:hover td:nth-child(3) button
 {
 	background-color:#DF4C4C;
 }
+
+
+/*=========================================== liste de cadeaux des users ===========================================*/
+
+#sesCadeaux
+{
+	width:100%;
+	border-collapse: collapse;
+}
+
+#sesCadeaux
+tr td
+{
+	border-top: 1px solid #C6C5C5;
+	border-bottom: 1px solid #C6C5C5;
+}
+
+#sesCadeaux
+tr td:first-child
+{
+	width: 70%;
+}
+
+#sesCadeaux
+tr td
+{
+	text-align:center;
+	vertical-align:middle;
+}
+
+#sesCadeaux
+tr td:last-child
+{
+	width: 30%;
+}
+
+#reserve
+{
+	font-size:9px;
+}
+
+#ligneNonReserve
+td
+{
+	background-color:#FBFBFB;
+	color:#7C7C7C;
+}
+
+#ligneReserve
+td
+{
+	background-color:#FBFBFB;
+	color:#C36767;
+}
+
+#sesCadeaux
+tr:hover td button
+{
+	background-color:#F2F1F1;
+}
+
+.btnReserve
+{
+	width:100%;
+	height: 40px;
+	font-size:15px;
+	font-family:verdana;
+	
+	border:0px;
+	background-color:#FBFBFB;
+    color:#7C7C7C;
+    text-decoration: none;
+}
+
+.btnReserveR
+{
+	width:100%;
+	height: 40px;
+	font-size:15px;
+	font-family:verdana;
+	
+	border:0px;
+	background-color:#FBFBFB;
+    color:#C36767;
+    text-decoration: none;
+}
+
+.btnReserveRR
+{
+	width:100%;
+	height: 40px;
+	font-size:9px;
+	font-family:verdana;
+	
+	border:0px;
+	background-color:#FBFBFB;
+    color:#C36767;
+    text-decoration: none;
+}
+
+#ligneNonReserve:hover td
+{
+	background-color:#F2F1F1;
+}
+#ligneReserve:hover td
+{
+	background-color:#F2F1F1;
+}
+
 
 
 

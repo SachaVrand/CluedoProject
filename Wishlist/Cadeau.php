@@ -106,6 +106,18 @@ class Cadeau
 		$res->bindValue(':idCadeau',$idCadeau,PDO::PARAM_INT);
 		$res->execute();
 	}
+	
+	public static function getCadeau($connexionBase, $idCadeau)
+	{
+		$requete = "SELECT * FROM cadeau WHERE idCadeau = :idCadeau";
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':idCadeau',$idCadeau,PDO::PARAM_INT);
+		$res->execute();
+		$donnee = $res->fetch();
+		$res->closeCursor();
+		$cadeau = new Cadeau($donnee['idCadeau'], $donnee['nom'], $donnee['description'], $donnee['lien'], $donnee['nomType']);
+		return $cadeau;
+	}
 }
 
 ?>

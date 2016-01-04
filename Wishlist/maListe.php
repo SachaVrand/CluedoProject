@@ -386,7 +386,7 @@
 									if($nomReserve != "")
 									{
 										$nomReserve = "reserve par<br>$nomReserve";
-										echo "<tr id=ligneReserve><td>$nomCadeau</td><td><span id=reserve>$nomReserve</span></td><td><button class=btnMesCadeauxR name=btnSupCadeau value=$idCadeau onclick=goToList()>X</button</td></tr>";
+										echo "<tr id=ligneReserve><td>$nomCadeau</td><td><span class=reserve>$nomReserve</span></td><td><button class=btnMesCadeauxR name=btnSupCadeau value=$idCadeau onclick=goToList()>X</button</td></tr>";
 									}
 									else
 									{

@@ -7,6 +7,13 @@
 	session_start();
 	
 	$user = $_SESSION['user'];
+	$formReserve = 0;
+	
+	if(!isset($_GET['annee']))
+	{
+		$_SESSION['annee'] = "Annee";
+		$_SESSION['liste'] = "Liste";
+	}
 	
 	if(!isset($_GET['user']))
 	{
@@ -17,23 +24,31 @@
 		$userToDisplay = Utilisateur::getUserToDisplay($_SESSION['Connexion'], $_GET['user']);
 	}
 	
-	if(isset($_GET['annee']))
-	{
-		$annee = $_GET['annee'];
-		
-		if($annee == "Annee")
+	if(isset($_GET['annee']) || isset($_GET['btnReserve']))
+	{	
+		if($_SESSION['annee'] != $_GET['annee'])
 		{
-			$liste = "Liste";
+			$_SESSION['liste'] = "Liste";
 		}
 		else
 		{
-			$liste = $_GET['liste'];
+			$_SESSION['liste'] = $_GET['liste'];
 		}
+
+		$_SESSION['annee'] = $_GET['annee'];
 	}
 	else
 	{
-		$annee = "Annee";
-		$liste = "Liste";
+		$_SESSION['annee'] = "Annee";
+		$_SESSION['liste'] = "Liste";
+	}
+	
+	if(isset($_GET['btnReserve']))
+	{
+		if($user->id != $userToDisplay->id)
+		{
+			$formReserve = 1;
+		}
 	}
 ?>
 <!DOCTYPE html>
@@ -119,91 +134,108 @@
 				<td>
 					<div id="contentAvecMenu">
 						<?php
-							echo "<form id=listesUser method=get action=listesUser.php>";
-								echo "<input type=hidden name=user value=\"$userToDisplay->pseudo\"/>";
-								echo "<table>";
-									// les annees
-									echo "<tr><td>";
-										echo "<select name=annee onchange=submitPage()>";
-											echo "<option value=Annee selected=selected> Annee </option>";
-											$tabAnnees = Evenement::getYears($_SESSION['Connexion'],$userToDisplay->id);
-											foreach($tabAnnees as $element)
-											{
-												if($annee == $element)
-												{
-													echo "<option value=\"$element\" selected=selected> $element </option>";
-												}
-												else
-												{
-													echo "<option value=\"$element\"> $element </option>";
-												}
-											}
-										echo "</select>";
-									echo "</td></tr>";
-									// les listes
-									echo "<tr><td>";
-										echo "<select name=liste onchange=submitPage()>";
-											echo "<option value=Liste selected=selected> Liste </option>";
-											$tabListes = Evenement::getIds($_SESSION['Connexion'],$userToDisplay->id,$annee);
-											foreach($tabListes as $cle => $element)
-											{
-												if($liste == $cle)
-												{
-													echo "<option value=\"$cle\" selected=selected> $element </option>";
-												}
-												else
-												{
-													echo "<option value=\"$cle\"> $element </option>";
-												}
-											}
-										echo "</select>";
-										echo "<script>";
-											echo "function submitPage()";
-											echo "{";
-												echo "document.getElementById('listesUser').submit();";
-											echo "}";
-										echo "</script>";
-									echo "</td></tr>";
-								echo "</table>";
-								if($liste == "Liste")
-								{
+							if($formReserve == 0)
+							{
+								echo "<form id=listesUser method=get action=listesUser.php>";
+									echo "<input type=hidden name=user value=\"$userToDisplay->pseudo\"/>";
 									echo "<table>";
-										$idEvent = ListeCadeaux::getIdEvenementBdd($_SESSION['Connexion'], $liste);
-										$evenement = Evenement::getEvent($_SESSION['Connexion'],$idEvent);
-										$nomEvent = $evenement->getNom();
-										$dateEvent = $evenement->getDateLimite();
-										$typeEvent = $evenement->getNomType();
-										$commentaireEvent = $evenement->getCommentaire();
-										echo "<tr><td><input type=text name=nomEvent value=\"$nomEvent\" disabled=disabled></td></tr>";
-										echo "<tr><td><input type=text name=dateLimite value=\"$dateEvent\" disabled=disabled></td></tr>";
-										echo "<tr><td><input type=text name=eventType value=\"$typeEvent\" disabled=disabled></td></tr>";
-										echo "<tr><td><textarea name=commentaire rows=6 cols=50 maxlength=300 disabled=disabled>$commentaireEvent</textarea></td></tr>";
+										// les annees
+										echo "<tr><td>";
+											echo "<select name=annee onchange=submitPage()>";
+												echo "<option value=Annee selected=selected> Annee </option>";
+												$tabAnnees = Evenement::getYears($_SESSION['Connexion'],$userToDisplay->id);
+												foreach($tabAnnees as $element)
+												{
+													if($_SESSION['annee'] == $element)
+													{
+														echo "<option value=\"$element\" selected=selected> $element </option>";
+													}
+													else
+													{
+														echo "<option value=\"$element\"> $element </option>";
+													}
+												}
+											echo "</select>";
+										echo "</td></tr>";
+										// les listes
+										echo "<tr><td>";
+											echo "<select name=liste onchange=submitPage()>";
+												echo "<option value=Liste selected=selected> Liste </option>";
+												$tabListes = Evenement::getIds($_SESSION['Connexion'],$userToDisplay->id,$_SESSION['annee']);
+												foreach($tabListes as $cle => $element)
+												{
+													if($_SESSION['liste'] == $cle)
+													{
+														echo "<option value=\"$cle\" selected=selected> $element </option>";
+													}
+													else
+													{
+														echo "<option value=\"$cle\"> $element </option>";
+													}
+												}
+											echo "</select>";
+										echo "</td></tr>";
 									echo "</table>";
-									// les cadeaux
-									echo "<table id=sesCadeaux>";
-										$tabContients = Contient::getContients($_SESSION['Connexion'],$liste);
-										foreach($tabContients as $element)
+									echo "<br><br>";
+									if($_SESSION['liste'] != "Liste")
+									{
+										echo "<table>";
+											$idEvent = ListeCadeaux::getIdEvenementBdd($_SESSION['Connexion'], $_SESSION['liste']);
+											$evenement = Evenement::getEvent($_SESSION['Connexion'],$idEvent);
+											$dateEvent = $evenement->getDateLimite();
+											$typeEvent = $evenement->getNomType();
+											$commentaireEvent = $evenement->getCommentaire();
+											echo "<tr><td><input type=text name=dateLimite value=\"$dateEvent\" disabled=disabled></td></tr>";
+											echo "<tr><td><input type=text name=eventType value=\"$typeEvent\" disabled=disabled></td></tr>";
+											echo "<tr><td><textarea name=commentaire rows=6 cols=50 maxlength=300 disabled=disabled>$commentaireEvent</textarea></td></tr>";
+										echo "</table>";
+										echo "<br><br>";
+										// les cadeaux
+										$tabContients = Contient::getContients($_SESSION['Connexion'],$_SESSION['liste']);
+										if(count($tabContients) != 0)
 										{
-											$idCadeau = $element->idCadeau;
-											$nomCadeau = Cadeau::getNomBdd($_SESSION['Connexion'], $idCadeau);
-											$nomReserve = Utilisateur::getPseudo($_SESSION['Connexion'], $element->reservePar);
-											if($nomReserve != "")
-											{
-												$nomReserve = "reserve par<br>$nomReserve";
-												echo "<tr id=ligneReserve><td>$nomCadeau</td><td><span id=reserve>$nomReserve</span></td><td><button class=btnMesCadeauxR name=btnSupCadeau value=$idCadeau onclick=goToList()>X</button</td></tr>";
-											}
-											else
-											{
-												echo "<tr id=ligneNonReserve><td>$nomCadeau</td><td>$nomReserve</td><td><button class=btnMesCadeaux name=btnSupCadeau value=$idCadeau onclick=goToList()>X</button></td></tr>";
-											}
+											echo "<table id=sesCadeaux>";
+												foreach($tabContients as $element)
+												{
+													$idCadeau = $element->idCadeau;
+													$nomCadeau = Cadeau::getNomBdd($_SESSION['Connexion'], $idCadeau);
+													$nomReserve = Utilisateur::getPseudo($_SESSION['Connexion'], $element->reservePar);
+													if($nomReserve != "")
+													{
+														$nomReserve = "reserve par<br>$nomReserve";
+														echo "<tr id=ligneReserve><td><button class=btnReserveR name=btnReserveR value=$idCadeau onclick=goToList()>$nomCadeau</button></td><td><button class=btnReserveRR name=btnReserveR value=$idCadeau onclick=goToList()>$nomReserve</button></td></tr>";
+													}
+													else
+													{
+														echo "<tr id=ligneNonReserve><td><button class=btnReserve name=btnReserve value=$idCadeau onclick=goToList()>$nomCadeau</button></td><td><button class=btnReserve name=btnReserve value=$idCadeau onclick=goToList()>$nomReserve</button></td></tr>";
+													}
+												}
+											echo "</table>";
 										}
-									echo "</table>";
-								}
-								else
-								{
-									echo "Aucune liste selectionnee";
-								}
-							echo "</form>";
+										else
+										{
+											echo "Cette liste ne possède aucun cadeaux";
+										}
+									}
+									else
+									{
+										echo "Aucune liste selectionnee";
+									}
+									echo "<script>";
+									echo "function submitPage()";
+									echo "{";
+									echo "document.getElementById('listesUser').submit();";
+									echo "}";
+									echo "</script>";
+								echo "</form>";
+							}
+							else if($formReserve == 1)
+							{
+								$cadeau = Cadeau::getCadeau($_SESSION['Connexion'],$_GET['btnReserve']);
+								$nomCadeau = $cadeau->nom;
+								$typeCadeau = $cadeau->nomType;
+								
+							}
 						?>
 					</div>
 				</td>
