@@ -186,7 +186,7 @@
 								<tr>
 									<td>
 									Nom : 
-										<input type="text" name="nom" value="<?php echo htmlspecialchars($nomEvent); ?>">
+										<input type="text" name="nom" required="required" value="<?php echo htmlspecialchars($nomEvent); ?>">
 									</td>
 								</tr>
 								<tr>

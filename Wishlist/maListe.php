@@ -104,11 +104,15 @@
 		$formAddCadeau = false;
 		$modifEvent = 1;
 	}
-	else
+	else if(isset($_POST['btnListe']))
 	{
 		$idListe = $_POST['btnListe'];
 		$formAddCadeau = false;
 		$modifEvent = 0;
+	}
+	else
+	{
+		exit();
 	}
 	
 	$idEvenement = ListeCadeaux::getIdEvenementBdd($_SESSION['Connexion'], $idListe);
