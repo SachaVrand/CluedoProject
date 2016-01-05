@@ -15,7 +15,7 @@
 	{
 		$pseudoHasChanged = !($user->pseudo === $_POST['pseudo']);
 		$mailHasChanged = !($user->mail === $_POST['mail']);
-		if(isset($_POST['photo']))
+		if(!empty($_POST['photo']))
 		{
 			$photo = $_POST['photo'];
 		}

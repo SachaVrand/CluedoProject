@@ -212,9 +212,10 @@ class Utilisateur{
 	
 	public static function updateUserPassword($connexionBase,$user,$newPassword)
 	{
-		$requete = 'UPDATE utilisateur SET motDePasse = :password WHERE id = :id';
+		$requete = 'UPDATE utilisateur SET motDePasse = :password WHERE idUser = :id';
 		$res = $connexionBase->getPdo()->prepare($requete);
 		$res->bindValue(':password',$newPassword);
+		$res->bindValue(':id',$user->id);
 		$res->execute();
 		$res->closeCursor();
 	}
