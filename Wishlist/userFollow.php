@@ -37,7 +37,7 @@
 		?>
 	
 		<div id="titre">
-			Profil personnel
+			Informations follows
 		</div>
 		
 		<table id="principal">
