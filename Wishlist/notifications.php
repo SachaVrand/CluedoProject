@@ -6,6 +6,10 @@
 	spl_autoload_register('chargerClasse');
 	session_start();
 	
+	if(!$_SESSION['user'])
+	{
+		header("Location: pageConnexion.php");
+	}
 	
 	$user = $_SESSION['user'];
 	$notifcationsReservations = Utilisateur::getNotificationsReservation($_SESSION['Connexion'],$user);
