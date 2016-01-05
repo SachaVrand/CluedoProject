@@ -45,6 +45,13 @@
 			$_SESSION['annee'] = "Annee";
 			$_SESSION['liste'] = "Liste";
 		}
+		else
+		{
+			if(!isset($_GET['liste']))
+			{
+				$_GET['liste'] = "Liste";
+			}
+		}
 		
 		if(isset($_GET['annee']) || isset($_GET['btnReserve']))
 		{	
