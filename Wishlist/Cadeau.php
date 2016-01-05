@@ -128,7 +128,7 @@ class Cadeau
 		{
 			$tab[] = $donnees['nomType'];
 		}
-		$res->closeCusor();
+		$res->closeCursor();
 		return $tab;
 	}
 }
