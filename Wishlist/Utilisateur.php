@@ -405,15 +405,15 @@ class Utilisateur{
 	
 	public static function getNotificationsReservation($connexionBase,$user)
 	{
-		$requete = 'SELECT activite.idActivite, activite.nomObjet, activite.nomType, activite.dateActivite, utilisateur.pseudo, evenement.nom, listeCadeaux.idListe, activiteListe.idReservePar';
-		$requete = $requete.' FROM activiteListe, activite, listeCadeaux, utilisateur, evenement';
+		$requete = 'SELECT activite.idActivite, activite.nomObjet, activite.nomType, activite.dateActivite, utilisateur.pseudo, evenement.nom, listeCadeaux.idListe, activitesListe.idReservePar';
+		$requete = $requete.' FROM activitesListe, activite, listeCadeaux, utilisateur, evenement';
 		$requete = $requete.' WHERE listeCadeaux.idUser = utilisateur.idUser';
-		$requete = $requete.' AND listeCadeaux.idListe = activiteListe.idListe';
+		$requete = $requete.' AND listeCadeaux.idListe = activitesListe.idListe';
 		$requete = $requete.' AND listeCadeaux.idEvenement = evenement.idEvenement';
-		$requete = $requete.' AND activiteListe.idActivite = activite.idActivite';
-		$requete = $requete.' AND activite.idReserve != NULL';
-		$requete = $requete.' AND listeCadeaux.idUser IN (SELECT idUser FROM suivre WHERE idUser = :id AND restriction = 0)';
-		$requete = $requete.' AND dateActivite > DATE_SUB(NOW(),INTERVAL 15 DAY) ORDER BY dateActivite DESC';
+		$requete = $requete.' AND activitesListe.idActivite = activite.idActivite';
+		$requete = $requete.' AND activitesListe.idReservePar IS NOT NULL';
+		$requete = $requete.' AND listeCadeaux.idUser IN (SELECT following FROM suivre WHERE idUser = :id AND restriction = 0)';
+		$requete = $requete.' AND dateActivite > DATE_SUB(CURDATE(),INTERVAL 15 DAY) ORDER BY dateActivite DESC';
 		$res = $connexionBase->getPdo()->prepare($requete);
 		$res->bindValue(':id',$user->id);
 		$res->execute();
@@ -428,19 +428,19 @@ class Utilisateur{
 	
 	public static function getNotificationsEvenement($connexionBase,$user)
 	{
-		$requete = 'SELECT nom, pseudo';
+		$requete = 'SELECT Evenement.nom, pseudo';
 		$requete = $requete.' FROM Utilisateur, listeCadeaux, Evenement';
 		$requete = $requete.' WHERE listeCadeaux.idUser = utilisateur.idUser';
 		$requete = $requete.' AND listeCadeaux.idEvenement = evenement.idEvenement';
-		$requete = $requete.' AND listeCadeaux.idUser IN (SELECT idUser FROM suivre WHERE idUser = :id AND restriction = 0)';
-		$requete = $requete.' AND dateLimite = NOW()';
+		$requete = $requete.' AND listeCadeaux.idUser IN (SELECT following FROM suivre WHERE idUser = :id AND restriction = 0)';
+		$requete = $requete.' AND dateLimite = CURDATE()';
 		$res = $connexionBase->getPdo()->prepare($requete);
 		$res->bindValue(':id',$user->id);
 		$res->execute();
 		$tab = array();
 		while($donnees = $res->fetch())
 		{
-			$tab[] = array($donnes['pseudo'], $donnees['nom']);
+			$tab[] = array($donnees['pseudo'], $donnees['nom']);
 		}
 		$res->closeCursor();
 		return $tab;
