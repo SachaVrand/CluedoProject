@@ -12,10 +12,17 @@
 	// si je reçoit que idListe
 	if(count($_GET) == 1 && isset($_GET['idListe']))
 	{
-		$_SESSION['liste'] = $_GET['idListe'];
-		$pseudoUser = Utilisateur::getPseudoIdListe($_SESSION['Connexion'],$_SESSION['liste']);
-		$userToDisplay = Utilisateur::getUserToDisplay($_SESSION['Connexion'], $pseudoUser);
-		$_SESSION['annee'] = Evenement::getYearIdListe($_SESSION['Connexion'],$_SESSION['liste']);
+		if(ListeCadeaux::existingListe($_SESSION['Connexion'],$_GET['idListe']))
+		{
+			$_SESSION['liste'] = $_GET['idListe'];
+			$pseudoUser = Utilisateur::getPseudoIdListe($_SESSION['Connexion'],$_SESSION['liste']);
+			$userToDisplay = Utilisateur::getUserToDisplay($_SESSION['Connexion'], $pseudoUser);
+			$_SESSION['annee'] = Evenement::getYearIdListe($_SESSION['Connexion'],$_SESSION['liste']);
+		}
+		else
+		{
+			exit();
+		}
 	}
 	else 
 	{

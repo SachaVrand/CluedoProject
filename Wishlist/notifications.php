@@ -6,6 +6,7 @@
 	spl_autoload_register('chargerClasse');
 	session_start();
 	
+	
 	$user = $_SESSION['user'];
 	$notifcationsReservations = Utilisateur::getNotificationsReservation($_SESSION['Connexion'],$user);
 	$notificationEvenements = Utilisateur::getNotificationsEvenement($_SESSION['Connexion'],$user)

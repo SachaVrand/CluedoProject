@@ -111,6 +111,24 @@ class ListeCadeaux
 		$res->closeCursor();
 		return $ret;
 	}
+	
+	public static function existingListe($connexionBase,$idListe)
+	{
+		$requete = 'SELECT idListe FROM listecadeaux WHERE idListe = :idListe';
+		$res = $connexionBase->getPdo()->prepare($requete);
+		$res->bindValue(':idListe',$idListe,PDO::PARAM_INT);
+		$res->execute();
+		$donnees = $res->fetch();
+		$res->closeCursor();
+		if($donnees)
+		{
+			return 1;
+		}
+		else
+		{
+			return 0;
+		}
+	}
 }
 
 
